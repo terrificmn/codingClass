@@ -14,6 +14,7 @@
 	<a href="projects/kall/index.php">KA SOLUTION</a><br>
 	<a href="projects/restart/index.php">I quited the job cause COVID19 and started to create my blog again.</a><br>
 	<a href="phpLesson/">php tutorials: 주소는 직접 입력하시오</a><br>
+	test
 
 <?php
 phpinfo();
