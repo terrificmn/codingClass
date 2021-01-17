@@ -1,0 +1,49 @@
+div {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 20px;
+  background: red;
+}
+
+.container {
+  background: yellow;
+  left: 20px;
+  top: 20;
+  /* position: static; */
+  /* 원래 기본적으로 static으로 자동으로 셋팅되어 있어서 
+    position을 바꾸지 않으면 이동하지 않음.*/
+  position: relative;
+  /* relative는 원래 포지션에서 이동*/
+}
+
+.box {
+  background: blue;
+  left: 20px;
+  top: 20px;
+  position: absolute;
+  /* absolute는 class box가 속한 아티클에 위치가 기준이 된다*/
+  /* 그래서 약간 엉뚱하게 이동한 것 처럼 보임*/
+  /*
+    position: fixed; */
+  /* 원래 박스를 무시하고 페이지가 기준이 된다(맨위)*/
+  /*
+    position: sticky;
+    원래 박스 위치에 그대로 있어서 스크롤을 해도 바뀌지 않는다.
+    */
+}
+
+/*정리
+position: static;
+기본 상태 (position을 정의안해도 기본으로 설정되어있다)
+relative;
+원래 있어야할 자리에서 변경이 됨 (원래 공간은 유지가 됨-다른 박스들한테는 영향이 없음)
+absolute;
+가까이에 있어야할 상자 위치에서 변경 (부모 박스포지션 기준으로 움직인다.)
+(다른 박스들이 움직이면 공간을 채운다)
+fixed;
+상자에서 벗어나서 페이지에서 위치가 변경
+sticky;
+원래 있는 자리에서 벗어나지 않고 스크롤할 때마저 그 자리에 있는다.
+*/
+
+/* caniuse.com 에서 css 관련 attribute 의 값을 브라우저 호환성 여부를 알 수 있다*/

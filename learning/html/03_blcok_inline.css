@@ -1,0 +1,33 @@
+div,
+span {
+  width: 80px;
+  height: 80px;
+  margin: 20px;
+}
+
+div {
+  background: red;
+  display: inline-block;
+  /* inline 방식으로 보여준다 */
+  /*인라인은 한 줄 형태로 컨텐츠의 크기에 맞춰서 보여지고 */
+  /*lnline-block은 상자형태로 */
+  /*인라인-블럭은 width와 height 크기에 맞춰서 블럭이 잡힌다 */
+}
+
+span {
+  background: blue;
+  display: block;
+  /*한줄 하나씩 표현되는 박스형태 */
+}
+
+/* html 소스 
+  <!--Bloock-level -->
+  <div></div>
+  <div></div>
+  <div></div>
+  
+  <!-- Inline-level -->
+  <span>1</span>
+  <span>2</span>
+  <span>3</span>
+  */

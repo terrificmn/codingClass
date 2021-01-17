@@ -1,0 +1,99 @@
+/* 100% vs 100vh 차이 */
+/*
+class중에서 
+.container {
+    background: beige;
+    height: 100%;
+}
+라고 지정하면 변하지를 않는다. 왜냐하면 container 클래스가 속한 div태그의
+부모 까지 바꿔야 하기 때문에 > 그 위는 body > 그 다음 html 까지 해줘야함
+
+body, html { 
+    height: 100%;
+}  
+이런식으로 해야함
+
+하지만 height: 100vh (view height)는 부모에 상관없이 100% 길이로 쓰겠다는 의미
+*/
+
+.container {
+    background: beige;
+    height: 100vh;
+    display: flex;
+    /* flex */
+    flex-direction: column; 
+    /* 기본이 row*/ row-reverse는 반대로*/
+    /* column은 main axis를 방향을 수직으로 바꿈 column-reverse는 표시가 반대로*/
+    flex-wrap: nowrap;
+    /* flex-wrap의 기본은 nowrap 이며
+    아이템들이 많다면 자동으로 줄바꿈이 되지 않는다. 크기를 바꿔도 계속 한줄에 표시됨*/
+    /* flex-wrap: wrap; 으로 바꾸면 자동으로 줄바꿈으로 표시해준다.*/
+    /*
+    flex-flow: column nowrap; 처럼 쓰면
+    flex-direction 과 flex-wrap 을 동시에 적어줄 수 있다
+    */
+
+    justify-content: space-evenly;
+  /* 중심축 기분으로 (main axis) 컨텐츠 정렬 기본이 flex-start
+  flex-end 는 오른쪽 축으로 정렬
+  center 는 가운데
+  space-around는 박스를 둘러서 스페이스를 줌
+  space-evenly 공간을 똑같이 넣어줌
+  space-between 끝에를 맞춘다음에 중간에 스페이를 넣어줌
+
+    align-items: baseline;
+  /*반대축에서 아이템 정렬*/
+  align-content: center;
+  /*반대축 아이템을 정렬*/
+  /*새로운 속성값은 호환이 안될 수도 있다
+  mdn사이트에서 확인해보기*/
+  }
+
+  .item{
+    width: 40px;
+    height: 40px;
+  }
+  .item1 {
+    background: #e57373;
+  }
+  .item2 {
+    background: #ffa4a2;
+  }
+  .item3 {
+    background: #af4448;
+  }
+  .item4 {
+    background: #8e24aa;
+  }
+  .item5 {
+    background: #c158dc;
+  }
+  .item6 {
+    background: #5c007a;
+  }
+  
+  /*
+  참고 html
+  <div class="container">
+    <div class="item item1">1</div>
+    <div class="item item2">2</div>
+    <div class="item item3">3</div>
+    <div class="item item4">4</div>
+    <div class="item item5">5</div>
+    <div class="item item6">6</div>
+    <div class="item item7">7</div>
+    <div class="item item8">8</div>
+    <div class="item item9">9</div>
+    <div class="item item10">10</div>
+    <div class="item item1">1</div>
+    <div class="item item2">2</div>
+    <div class="item item3">3</div>
+    <div class="item item4">4</div>
+    <div class="item item5">5</div>
+    <div class="item item6">6</div>
+    <div class="item item7">7</div>
+    <div class="item item8">8</div>
+    <div class="item item9">9</div>
+    <div class="item item10">10</div>
+  </div>
+  */

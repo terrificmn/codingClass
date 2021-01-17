@@ -1,0 +1,17 @@
+.level1 {
+  /* 부모가 아닌 브라우저에서 기본 16px 에서 2배 = 32px */
+  font-size: 2rem;
+}
+
+.level2 {
+  /* 부모의 영향을 안 받음 */
+  font-size: 2rem;
+}
+
+.level3 {
+  font-size: 2rem;
+}
+
+.level4 {
+  font-size: 2rem;
+}

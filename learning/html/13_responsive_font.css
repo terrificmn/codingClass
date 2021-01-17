@@ -1,0 +1,59 @@
+.container {
+  display: flex;
+  padding: 2em;
+}
+
+h1 {
+  font-size: 1.75rem;
+  /* font-size: 28px; 이런식으로 되어 있으면 반응형으로 flex로 만들어도 사용자가
+  폰트 크기를 직접 바꾸면 폰트는 안 바뀌므로 rem으로 바꿔준다
+  원래 28px 였는데 이걸 rem으로 바꾸면계산법은 28px / 16px = 1.75rem */
+  margin: auto;
+  text-align: center;
+}
+
+.component {
+  border: 1px solid burlywood;
+  font-size: 1em;
+}
+
+.title {
+  font-size: 1.5rem;
+  /* padding: 0.5em; 전체*/
+  padding: 1em 0.5rem; /*수직(위아래) 수평(양쪽)*/
+  /*양쪽의 padding에는 rem으로 줘서 부모에 영향이 없게 하면
+    수평적으로 동일한 비율로 패딩이 잡히고 
+    title과 contents의 위아래로 동일한 패딩이 되는 결과가 나온다
+    폰트사이즈에 영향을 받으므로 폰트는 rem으로 하고
+    패딩은 em으로 하면 좋다
+    */
+  background-color: burlywood;
+}
+
+.contents {
+  font-size: 1rem;
+  padding: 1em 0.5em; /*현재 폰트이즈 1rem의 절반이 padding으로 들어가게 됨*/
+  /*패딩을 em으로 주면 폰트 사이즈에 따라서 변하는데 
+  이때 브라우저 크기에 따라서 바껴서 패딩이 변화하는데 title 과 contents의 폰트사이즈가 
+  다르기 때문에 padding역시 더 적은 비율의 패딩이 contents에는 들어가게 된다
+  수평적(양옆의 패딩) 0.5rem을 주어서 부모에 영향을 안받게 만들면 
+  반응형으로 만들었을 때 수직적 패딩을 유지가 되는 것을 알 수 있다 */
+  /*양쪽의 padding에는 rem으로 줘서 부모에 영향이 없게 하면
+    수평적으로 동일한 비율로 패딩이 잡히고 
+    title과 contents의 위아래로 동일한 패딩이 되는 결과가 나온다
+    */
+}
+/*
+@media screen and (max-width: 780px) { */
+@media screen and (max-width: 48rem) {
+  /*스크린 사이즈도 rem으로 해주면 좀 더 유용하게 사용할 수 있다 */
+  .container {
+    /*화면 크기가 작아지면 즉, 780px 안쪽이라면 flex를 column으로 배치한다(위,아래 구조로) */
+
+    flex-direction: column;
+  }
+
+  .component {
+    font-size: 1.5rem;
+  }
+}

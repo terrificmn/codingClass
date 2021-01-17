@@ -1,0 +1,13 @@
+h1 {
+  display: inline-block;
+  font-size: 5em;
+  background-color: mediumaquamarine;
+  /*padding: 10px;*/
+  padding: 0.1em;
+}
+/* font-size는 em으로 해서 반응형으로 잘 작동하는데
+-폰트를 사용자가 직접 크기를 키우면 알맞게 변하지만
+padding은 10px로 줬기 때문에 그 크기는 그대로 유지 됨 */
+
+/* 하지만, padding도 em으로 주면
+사용자가 폰트 사이즈를 따로 설정하게 되면 패딩도 알아서 커지거나 작아진다 */

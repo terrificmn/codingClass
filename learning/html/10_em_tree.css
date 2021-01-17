@@ -1,0 +1,19 @@
+.level1 {
+  /* 기본 16px 에서 2배 = 32px */
+  font-size: 2em;
+}
+
+.level2 {
+  /* 부모에서 또 2배; 32 에서 2배 = 64px */
+  font-size: 2em;
+}
+
+.level3 {
+  /* 부모 64 * 2 = 128px */
+  font-size: 2em;
+}
+
+.level4 {
+  /* 128 * 2 = 256px */
+  font-size: 2em;
+}

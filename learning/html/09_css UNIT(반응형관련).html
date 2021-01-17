@@ -1,0 +1,72 @@
+.box { // selector
+width: 는 property 
+width: 200px; 의 200px는 values
+}
+로 구성되어 있다
+
+이 중 values 에서 
+Absolute length units 는 cm(centimeters), mm(millimeters), in(inches), px(pixels) 등
+이 중 현실에서는 다양하게 사용하지만 웹에서는 주로 px를 사용
+이 중 글자크기는 pt(points)로 사용하지만 이것도 px로 변환되거나 직접 사용됨
+px는 웹브라우저의 크기가 변화하더라도 그 크기가 고정적으로 유지된다는 것이고
+이로인한 단점은 사용자가 폰트 사이즈를 바꿔도 반응하지 않는 단점이 있다
+
+반면에 Relative length units 는 vw, vh, % 등이 있다
+%를 사용하면 컨테츠가 유동적으로 만들 수 있다
+주로 사용하는 단위
+em:  font size of the parent, in the case of typographical properties like font-size,
+and font size of the element itself, in the case of other properties like width.
+rem: font size of the root element
+vw:  viewport's width
+vh:  viewport's height
+%: relative to the parent element
+
+<div class="parent">
+    Parent
+    <div class="child">Child</div>
+</div>
+이런 예제가 있다고 하면 부모 div안에 child div가 있는 구조
+
+.parent {
+    font-size: 8em;
+}
+.child {
+    font-size: 0.5em;
+}
+css 는 이런식으로 구성된다고 하면
+기본적으로 폰트사이즈는 16px에 지정되어 있는데 
+parent class의 8em이라는 것은 16px * 8 = 128px 가 되는 것이고 
+child class의 0.5em은 부모의 em이 기준이 된다
+즉, 128px * 0.5 = 64px 가 됨
+
+rem: relative to root element
+em이 parent element에 연관이 되어 있는 것에 비해 
+rem은 root 연관이 되어 있다
+
+<div class="parent">
+    Parent
+    <div class="child">Child</div>
+</div>
+위와 같은 예제라고 하면
+
+.parent {
+    font-size: 8rem;
+}
+.child {
+    font-size: 0.5rem;
+}
+이 되고 parent class는 root인 html의 16px에 연관되어
+16px * 8 = 128px가 되고
+child class는 부모가 아닌 root의 html에 연관되어
+16px * 0.5 = 8px 가 된다
+
+vw는 100vw는 브라우저의 viewport의 100%를 사용,
+50vw는 브라우저 너비의 50%만 사용
+vh도 마찬가지 (height)
+
+
+-parent 에 대해서 반응할려고 하면
+%, em 을 사용
+-browser 대해서 반응할려고 하면
+vw/vh, rem 사용
+
