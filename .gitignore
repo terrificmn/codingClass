@@ -2,4 +2,3 @@ phpClass/uploads/*
 *.txt #상위폴더의 txt파일 제외(설명파일들..)
 python-school/test/*.png #스샷파일 제외 (학교수업폴더)
 
-
