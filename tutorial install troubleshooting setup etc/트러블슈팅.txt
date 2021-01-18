@@ -1,0 +1,266 @@
+_____________________________________________________________________________________________________
+<트러블 슈팅 dependencies 에러 발생: vscode 설치 중에>
+error: Failed dependencies:
+	libXss.so.1()(64bit) is needed by code-1.50.1-1602601064.el7.x86_64
+그러면 libXScrnSaver 설치해줘야 한다. 다행이도 친절하게 뭐가 필요한지 알려준다.
+구글링 해보면 libXScrnSaver필요하다고 함. 이번에는 yum명령어로 설치 
+
+-yum install libXScrnSaver
+--------------------------------------------
+  $sudo yum install libXScrnSaver
+--------------------------------------------
+
+필요한 의존성을 해결했기때문에 (설치로) 다시 rpm 명령어로 vscode를 설치한다
+(다시 처음으로..)
+--------------------------------------------------------
+  $sudo rpm -ivh code-1.50.1-24.rpm
+--------------------------------------------------------
+
+**참고: rpm과는 다르게 yum/dnf명령어는 install을 요청하는 외부(인터넷?) repository에서 자동으로 다운 후 설치 해줌
+이게 rpm 패키지랑은 다른 점 인 듯 (최신버전은 대개 repo에 없기 때문에 소스파일을 받아서 설치하는 방식으로 한다)
+
+_____________________________________________________________________________________________________
+<트러블 슈팅: 권한 바꾸기 - vscode로 파일 편집 시 후 저장할 때 권한 에러>
+/var/www/html/ 권한이 drwxr-xr-x, 2 root root 되어 있어서 내 유저 (내 계정 ex:octa)로 로그인하고 
+vscode 에디터로 편집할 때 퍼미션 에러 나는 경우 (특히 저장하려고 할 때 -권한이 없어서 안된다고)
+
+먼저 디렉토리 권한 보기
+-------------------------------------------
+  $ls -l /var/www/
+-------------------------------------------
+
+해당 디렉토리에 소유권 설정 sudo chown -R 유저네임:유저네임 html
+-------------------------------------------
+  $sudo chown -R octa:octa html
+-------------------------------------------
+
+확인 - 해당 디렉토리에 이동 후 또는 경로 적어준다
+--------------------
+  $ls -l 
+--------------------
+drwxr-xr-x, 2 {유저네임} {유저네임} 으로 바뀐 것을 확인할 수 있다.
+
+_____________________________________________________________________________________________________
+<트러블슈팅: 권한 때문에 sudo로 해결하려고 했더니 그래도 sudoers files에 없다고 할 때>
+SUDO 유저 추가하기
+**에러 메세지 (디렉토리를 지우려고 했을때와 sudo로 권한 얻어 지우려고 시도 했으나 실패)
+-------------------------------------------------------------------------
+[octa@localhost html]$ rm -d learningphp/
+rm: cannot remove 'learningphp/': Permission denied
+[octa@localhost html]$ sudo rm -d learningphp
+[sudo] password for octa: 
+octa is not in the sudoers file.  This incident will be reported.
+-------------------------------------------------------------------------
+
+/etc/sudoers 파일을 root로 로그인해서 편집을 해줘야한다
+
+먼저 su - 권한 얻기 (root)
+----------------------
+  $su -
+----------------------
+
+파일 열기 
+----------------------
+  #vi /etc/sudoers
+----------------------
+**참고 맨앞의 싸인이 $에서 #으로 바뀜 (root 라는 소리)
+
+파일의 사용형식 예
+사용자	호스트		명령어
+파일을 열어 보면 아래처럼 되어 있는데 유저를 추가해 주면 가능하다
+-------------------------------------------------------
+root	ALL=(ALL)	ALL
+octa		ALL=(ALL)	ALL
+-------------------------------------------------------
+
+*참고: 특정명령어만 사용할 수 있게 추가해줄 수 있는데
+-------------------------------------------------------
+octa		ALL=/sbin/shutdown, /usr/sbin/adduser
+-------------------------------------------------------
+이렇게 해주면 유저 sgtocta는 shutdown, adduser 명령어만 사용할 수 있게 된다.
+(명령어 사이에는 ,로 구분)
+
+그리고 root 로그아웃~~!
+-------------------------------------------------------
+  #exit
+-------------------------------------------------------
+
+다시 현재 로그인안 유저 상태에서 (유저명: octa) 에서 sudo 시도
+-------------------------------------------------------------
+[octa@localhost html]$ sudo rm  -d learningphp
+[sudo] password for octa: 
+[octa@localhost html]$ ls
+index.php  phpLesson  projects
+-------------------------------------------------------------
+
+파일/ 디렉토리가 (지워지는 것을 확인 learningphp 디렉토리가 지워짐)
+
+_____________________________________________________________________________________________________
+<트러블 슈팅: phpmyadmin 설치 중에 extensions 에러>
+--------------- phpmyadmin 설치 중.. 에러  (mysqli: extension)
+I receive an error about missing mysqli and mysql extensions.
+php-mysql 을 설치하면 거의 해결됨
+-----------------------------------------
+  $sudo yum install php-mysql
+-----------------------------------------
+
+**참고
+To connect to a MySQL server, PHP needs a set of MySQL functions called “MySQL extension”. 
+This extension may be part of the PHP distribution (compiled-in), otherwise it needs to be loaded dynamically. 
+Its name is probably mysqli.so or php_mysqli.dll. phpMyAdmin tried to load the extension but failed. 
+Usually, the problem is solved by installing a software package called “PHP-MySQL” or something similar.
+There are currently two interfaces PHP provides as MySQL extensions - mysql and mysqli. 
+The mysqli is tried first, because it’s the best one. (mysql은 deprecated될 예정-더이상 작동안함)
+
+_____________________________________________________________________________________________________
+<트러블 슈팅: php로 웹페이지를 볼 때 에러메세지가 아예 안나오고 하얀 화면만 나올 때 >
+
+php.ini 에러 메세지 (브라우저에서) 나오게 하기
+**참고 CentOs8에서는 /etc/php.ini 파일이 위치한다 (phpinfo();함수를 사용하면 위치를 알 수 있기도 하다)
+파일 열기
+-----------------------------
+  $vi /etc/php.ini 
+-----------------------------
+
+error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT 부분을 찾는다 
+각각 &로 구분하고 ~를 붙이면 관련된 에러메세지는 표시하지 않게 됨  
+
+**참고 설명
+PHP 5.3 or later, the default value is E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED. 
+This setting does not show E_NOTICE, E_STRICT and E_DEPRECATED level errors.
+
+그 다음
+display_errors = Off 를 display_errors = On 으로 바꿔주고 
+
+그 후 PHP-FPM 서비스를 재시작 해줘야한다
+-----------------------------------------
+  $systemctl restart php-fpm  
+-----------------------------------------
+또는 
+-----------------------------------------
+  $service php-fpm restart
+-----------------------------------------
+
+**참고: 
+**사이트가 실제 돌아가는 상황이라면 보안상 display_errors를 off로 하는게 좋다고 함
+대신에 php코드에 ini_set을 나오게 할 수는 있다.
+<?php 
+error_reporting(E_ALL);
+ini_set('display_error', '1');
+?>
+
+***참고: http://php.net/error-reporting
+
+_____________________________________________________________________________________________________
+<트러블 슈팅: php로 file을 업로드 하는 것을 코딩할 때 파일을 올려도 저장이 안될 때 해결>
+특히 대부분 리눅스 웹서버 세팅에서는 쓰기 권한이 필요한 경우에도 
+디렉토리 권한을 755로 설정하라는 안내가 많기 때문에 
+move_uploaded_file 함수가 이미지 파일을 옮길 수가 없게 된다.
+이 함수는 임시로 저장된 파일을 이동시키는 것을 하는데 권한 때문에 파일이 안 보이게 됨
+
+757로 설정하고 나면 업로드가 잘 된다.
+** 중요!!
+단, 디렉토리에 익명 쓰기 권한을 주고 나면 반드시 코딩으로 확장자 체크 등을 통해서 
+악성 파일이 업로드되는 것을 막아야 하고 가급적이면 익명 쓰기 권한을 주는 폴더를 최소화해야 한다고 함
+
+예: chmod 0757 디렉토리명 
+-----------------------------------------
+  $chmod 0757 uploads
+-----------------------------------------
+이렇게 하면 
+drwxr-xr-x. 2 sgtocta sgtocta    6 Nov 17 18:22  uploads (사용 전)
+drwxr-xrwx. 2 sgtocta sgtocta    6 Nov 17 18:22  uploads (사용 후)
+변경이 되는것을 알 수 있고, php 에서도 move_uploaded_file()을 사용해도 파일이 잘 저장된다.
+
+other users 권한도 7로 줬기때문에 읽기쓰기실행 다 되므로 보안상 문제일 수 있는데, 
+안 그러면 move_uploaded_file()함수로 저장이 안되서 더 좋은 방법이 있는지는 더 공부가 필요 -20.11.18
+
+_____________________________________________________________________________________________________
+<트러블 슈팅 phpmyadmin 에러: phpmyadmin 로그인 할 때 아래 메세지가 나오면서 로그인 안됨>
+<The secret passphrase in configuration (blowfish_secret) is too short. 경우>
+환경설정 파일 열기
+-----------------------------------------------------------
+  $ sudo vi /usr/share/phpmyadmin/config.inc.php
+-----------------------------------------------------------
+
+열린 파일에서 아래 부분을 찾아서 길게 바꿔줘야한다 
+---------------------------------------------------------------------------------------
+$cfg['blowfish_secret'] = '84657495123845128452'; /* YOU MUST FILL IN THIS FOR COOKIE AUTH! */
+---------------------------------------------------------------------------------------
+길게 32케릭터로 바꿔준다
+(Replace the secret with a random string that is at least 32 characters long:)
+
+예:
+$cfg['blowfish_secret'] = 'randomadmin'; 이렇게 되어 있던 것을
+$cfg['blowfish_secret'] = 'randomadmin0123456789randomadminlong'; 요렇게 길게 바꿈
+
+_____________________________________________________________________________________________________
+<트러블슈팅>
+Gtk-Message: 04:29:58.177: Failed to load module "canberra-gtk-module"
+Gtk-Message: 04:30:01.473: Failed to load module "canberra-gtk-module"
+큰 문제는 없으나, 다음에 검색해보기
+
+<트러블슈팅 refjected 에러 main -> main (non-fast-forward)>
+----------------------------------------------------------------------------------
+[octa@localhost projects]$ git push origin main
+To https://github.com/terrificmn/codingClass.git
+ ! [rejected]        main -> main (non-fast-forward)
+error: failed to push some refs to 'https://github.com/terrificmn/codingClass.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+----------------------------------------------------------------------------------
+
+이런 문제가 생기는 이유는 non-fast-forward 라고 하는데 
+remote와 local의 commit이 일치하지 않아서 그렇다고 함
+무조건 올리는 족족 할 수 있는 줄 알았는데 아닌 듯. 잘못이해하고 있는 듯 ㅠ
+
+먼저 원격의 저장소 pull 받기 (origin은 git config로 등록해두기(원격 repo))
+----------------------------------------
+  $git pull --rebase origin main
+----------------------------------------
+그러면 conflict가 있는 것을 해결 후 --continue 또는 --skip을 하라고 되어 있는데 
+일단 --continue를 해야하나 바꿀게 따로 없어서 그냥 skip을 함
+----------------------------------------
+  $git rebase --skip
+----------------------------------------
+
+그 다음에 다시 모든 staging상태로 만들기 위해서 다시 add 후 commit
+----------------------------------------
+  $git add .
+  $git commit 
+----------------------------------------
+vscode에서 Title만 적어주고 저장 후 나감 (vscode로 core.editor 등록 되어 있음)
+
+다시 git status 보기
+----------------------------------------
+  $git status
+
+On branch main
+nothing to commit, working tree clean
+----------------------------------------
+위 처럼 나오면 성공 ㅠㅠ오오굿 clean!
+
+마지막으로 remote저장소에 push
+----------------------------------------------------------------
+  $git push origin main
+
+Counting objects: 106, done.
+Delta compression using up to 2 threads.
+Compressing objects: 100% (105/105), done.
+Writing objects: 100% (106/106), 68.87 KiB | 0 bytes/s, done.
+Total 106 (delta 4), reused 0 (delta 0)
+remote: Resolving deltas: 100% (4/4), done.
+To https://github.com/terrificmn/codingClass.git
+   7422c36..4cd8973  main -> main
+----------------------------------------------------------------
+**참고: 아직은 배우는 단계라 나중에 다시 수정 요망
+아마도 로컬 저장소와 원격 저장소의 상태가 적어도 서로 어떤파일들이 수정되고 commit되었는지
+알고 있어야 하는 것 같다. 테스트로 파일들을 remote로 몇개 올려보고 
+본격적으로 할려고 remote repository에 있는 파일들을 지웠던게 화근인듯하다
+그러면 로컬에서 pull을 하면 원격에서는 파일이 지워져있고 로컬에서는 지운적이 없으니
+서로 충돌(?)이 나는 듯 하다. 그냥 블로그나 이메일 보내듯이 파일을 올리는 것은 아닌듯하다.
+흠.. 쉬우면서도 복잡하다 ㅠ
+_____________________________________________________________________________________________________
+
