@@ -20,9 +20,9 @@ while True:
 정답에 코드를 작성할 때는 while True:에 맞춰서 들여쓰기를 해주세요.
 '''
 
-#start, stop = map(int,input().split())
-start = 1
-stop = 20
+start, stop = map(int,input().split())
+#start = 1
+#stop = 20
 i = start
 
 while True:
