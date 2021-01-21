@@ -1,4 +1,5 @@
 # time 모듈
+'''
 import time
 # 현재시간 함수 ctime()
 print(time.ctime())
@@ -24,5 +25,24 @@ def time_test():
     l = Life()
     time.sleep(3)
 
+# time_test()
 
-time_test()
+'''
+
+
+class Mark1:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def greeting(self):
+        print("안녕하세요")
+
+
+# 객체 생성
+mark = Mark1('홍길동', '30')
+# 속성 접근
+print(mark.name)
+print(mark.age)
+# 메소드 접근
+mark.greeting()

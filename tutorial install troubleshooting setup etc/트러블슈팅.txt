@@ -264,3 +264,39 @@ To https://github.com/terrificmn/codingClass.git
 흠.. 쉬우면서도 복잡하다 ㅠ
 _____________________________________________________________________________________________________
 
+파이썬 pip install 문제 시 
+
+터미널에서 $pip install 특정모듈이름  (터미널에서 현재디렉토리 또는 아무곳에서 pip install이 안먹힐 때) 입력했을 때
+아래와 같은 오류
+
+pip : The term 'pip' is not recognized as the name of a cmdlet, 
+function, script file, or operable program.
+이런 에러가 나면서 안될 때
+
+pip명령어가 전역 path 설정이 안되어 있어서 명령어 인식이 안되는 문제 
+
+간단하게 윈도우 설정패널에서 (톱니) 클릭 후
+step 1: Apps를 누르면
+step 2: Apps & Features가 나오는데 여기에서 설치한 Python을 찾기 (검색버튼 이용 추천)
+step 3: Python을 클릭 후 (Python 3.9.1(64-bit)
+step 4: Modify 누른 후에 설치프로그램이 나오면 modify를 눌러준다
+step 5: Optional Features에서 pip 설치를 체크한 후 다음버튼
+step 6: Add Python to environment variables 체크 후 인스톨 버튼 누르기 
+끝
+
+명령어로 설정 바꾸는 것도 있는 듯 하나, 이것도 쉬운방법이라 그냥저냥 잘됨!
+_____________________________________________________________________________________________________
+
+VScode에서 외부 모듈 import 충돌
+파이썬에서 외부 모듈을 import 했으나 (예: import requests) 파이썬 코드를 터미널에서 작동을 시켰을 때 
+아래와 같은 에러가 날 때
+from string import Template
+ImportError: cannot import name 'Template' from 'string' 
+
+따로 저장한 파일 중에 string.py 라고 저장한 파이썬 파일이 있었는데 이게 문제라고 함
+파이썬 표준 라이브러리에 등록된 모듈중에 string 모듈이 있다고 함. 그래서 같은 이름을 사용하면 충돌이 일어나는 것임
+string.py 파일명을 바꿔줌 string func.py 이런식으로 바꿔줌
+바로 모듈 import 잘되고 충돌없어짐
+
+There is a file named "string.py" in your current working directory. 
+You should not named the file as same as the modules in Python Standard Library or reserved word.

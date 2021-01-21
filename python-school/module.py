@@ -1,7 +1,7 @@
-#모듈은 py확장자를 가진 파이썬 파일들
-#내장 모듈
+# 모듈은 py확장자를 가진 파이썬 파일들
+# 내장 모듈
 
-#수학관련 모듈
+# 수학관련 모듈
 '''
 import math
 #파이 
@@ -30,17 +30,16 @@ print(s(4))
 print(p)
 '''
 
-''' 안됨 이유 찾아볼 것
-#특정 디렉토리에 들어가 있는 경우에 import사용
-#urllib 는 디렉토리명이 됨 (urllib 디렉토리가 있음 .(점) 이후에는 파일명 request)
+'''
+# 특정 디렉토리에 들어가 있는 경우에 import사용
+# urllib 는 디렉토리명이 됨 (urllib 디렉토리가 있음 .(점) 이후에는 파일명 request)
+rep = urllib.request.urlopen('http://www.google.com')
+from urllib.request import request, urlopen
 import urllib.request as url
-#rep = urllib.request.urlopen('http://www.google.com')
 rep = url.request.urlopen('http://www.google.com')
 print(rep.status)
-'''
 
-'''
-from urllib.request import Request, urlopen
+
 req = Request('http://www.google.com')
 response = urlopen(req)
 response.status
@@ -48,9 +47,10 @@ response.status
 
 # requests는 외부모듈이어서 No module named 'requests'라고 못 찾음
 # 터미널에서 설치를 해줘야지 사용할 수 있음
-# pip install 모듈명 
+# pip install 모듈명 예: pip install requests
 # 위의 방식으로 설치해야함
-#todo: 모듈 설치 공부해보기 vscode 버젼
+
+
 import requests
 r = requests.get('http://www.google.com')
 print(r.status_code)
