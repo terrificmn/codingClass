@@ -106,6 +106,12 @@ with open('python-school/words.txt', 'r') as f:
         if striped == reversed:
             print(striped)
 
+#위의 코드에서 변수에 넣어주지 않고 단순히 비교만 했을 때는 reversed()함수를 사용하면 되는데 reversed()는 비교를 위해서 리스트로 변환해준다음에 비교해야함
+#사실, 리스트로 묶기 보다, 슬라이싱을해서 단순 비교하는 것이 더 편한 듯 하다. line[::-1] 이런식
+#if list(line.rstrip('\n')) == list(reversed(line.rstrip('\n'))):
+#또는
+#if line.rstrip('\n') == line.rstrip('\n')[::-1]:
+
 
 ###########################################################################
 print('---while으로 반복하기---')
@@ -133,18 +139,18 @@ with open('python-school/words.txt', 'r') as f:
 #    if line.strip('\n') == reversed:
 #        print(i.strip('\n'))
 
-
 '''
 # * 틀린문제 2
 # -----
 
 # ranList = list(range(1, 101)) 필요없음
 # ranTest = ranList.random.random()  틀린코드
-# print(random.random()) #실수 타입으로 랜덤으로 만들어 줌
-ranTest = random.randint(1, 100)  # 고친 코드 randint()
+# print(random.random()) #실수 타입으로 랜덤으로 만들어 줌, 이 역시 필요없음
 
+ranTest = random.randint(1, 100)  # 고친 코드 randint()로 사용하면 됨
 count = 0
-print(ranTest)  # 추가 랜덤이 몇인지 알기 위해
+print(ranTest)  # 랜덤이 몇인지 보기 위해서 그냥 출력
+
 while True:
     inputUser = int(input('1 ~ 100사이의 정수를 입력하시오.'))
     if inputUser != ranTest:
@@ -157,7 +163,11 @@ while True:
         count += 1  # 맞을 경우도 일단 카운트 +1 하고 빠져나가기
         break
 
-print("{0}번 시도에 정답 {1}을 맞췄습니다." .format(count, ranTest))
+if quitY == 'y':
+    print("{}번 시도했지만, 포기했습니다.".format(count))
+else:
+    print("{0}번 시도에 정답 {1}을 맞췄습니다." .format(count, ranTest))
+
 
 
 # * 틀린문제 3 - class: @classmethod, @staticmethod (다행히 단순 syntax 에러)
@@ -176,7 +186,7 @@ class Time:
     @staticmethod
     def is_time_valid(time_string):
         hour, minute, second = map(int, (time_string.split(':')))
-        return hour <= 24 and minute <= 59 and second <= 60
+        return hour <= 24 and minute <= 59 and second <= 59
 
 
 time_string = input()

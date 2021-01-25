@@ -85,8 +85,26 @@ print(type(word))
 # 또는 join 메서드 이용
 # join메서드는 요소 사이에 구분자를 넣지만 빈문자열을 활용해서 연결해줌
 #word = 'know'
-word = 'mom'
+word1 = 'mom\n'
+print(word1)
+
+#리스트로 만들어서 변수에 넣어 하면 리스트가 되어버려서 출력할 때 복잡해지므로
+#일단 rstrip 메소드와 reversed()함수를 이용해서 직접 비교한 후 원본 데이터(예:word1)를 출력한다
+if list(word1.rstrip('\n')) == list(reversed(word1.rstrip('\n'))):
+    print('같아요')
+    print(word1.rstrip('\n')) 
+else:
+    print('다름')
+#또는 
+if word1.rstrip('\n') == word1.rstrip('\n')[::-1]:
+    print('같아요')
+    print(word1.rstrip('\n')) 
+else:
+    print('다름')
+
+'''
 if word == ''.join(reversed(word)):
     print('같아요')
 else:
     print('다름')
+'''
