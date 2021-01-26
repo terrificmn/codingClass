@@ -2,4 +2,6 @@ phpClass/uploads/*
 *.txt #상위폴더의 txt파일 제외(설명파일들..)
 python-school/test/*.png #스샷파일 제외 (학교수업폴더)
 *.json #python-school/.vscode (학교..필요없음)
-
+python-school/__pycache__ #자동으로 생성됨 ignore
+*.exe	 #c언어 exe파일 모두 제외
+c-school/yhprojects/*   #비쥬얼 스튜디오 c 템플릿 파일포함 디렉토리 제외
