@@ -1,5 +1,4 @@
 phpClass/uploads/*
-*.txt 
 python-school/test/*.png 
 *.json 
 python-school/__pycache__ 

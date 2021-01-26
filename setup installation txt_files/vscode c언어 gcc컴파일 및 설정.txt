@@ -1,0 +1,164 @@
+참고사이트,블로그
+https://rasino.tistory.com/307
+https://velog.io/@kjh107704/VSCode-%EC%84%A4%EC%A0%95-3-CC-%EB%B9%8C%EB%93%9C-%EB%B0%8F-%EC%8B%A4%ED%96%89-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0
+https://code.visualstudio.com/docs/cpp/config-mingw
+
+
+gcc설치 
+https://sourceforge.net/projects/mingw-w64/postdownload
+다운로드 받은 후 설치 w-64로 바꾼 후 설치
+
+이후 시스템 고급설정에 들어가서 환경변수를 추가해준다
+터미널에서 명령어를 알 수 있게 함
+
+톱니바퀴 -> 시스템 -> 정보 -> 고급정보(오른쪽 탭)
+(제어판 > 시스템 및 보안 > 시스템)에서
+고급 시스템 설정 
+고급 탭에서 환경 변수
+사용자 변수에서 Path를 선택 후 편집을 눌러준 후 
+새로 만들기로 하나 만들어 줌
+MinGW가 설치된 경로 설정해 주면 됨
+예: C:\Program Files\mingw-w64\x86_64-8.1.0-posix-seh-rt_v6-rev0\mingw64\bin (기본)
+C:\Program Files\mingw-w64\mingw64\bin (바꿔서 설치함)
+
+터미널에서 gcc -v 를 입력해서 실행이 되는지 확인 
+메세지가 뜨고 마지막에 버전 정보가 나오면 성공
+
+작업할 디렉토리에 가서 간단한 test.c 파일을 만들어 보고 컴파일빌드 및 실행 시켜보기
+먼저 아무파일명.c 해서 테스트 프로그램을 하나 만들고 저장
+귀찮으면 복사
+#include <stdio.h>
+int main()
+{
+    int a = 100;
+    printf("hello world, x %d", a);
+
+    return 0;
+}
+
+다음 tasks.json 파일 만들기 (컴파일빌드 및 실행 관련 셋팅)
+vscode의 Teminal 메뉴에서(상단) Configure Default Build Task 메뉴 선택
+빌드 작업 내역이 없다면 빌드 작업 구성 클릭
+또는 
+C gcc.exe build active file 
+complier:"C:\Progam Files\mingw-w64\...생략..\gcc.exe" 이런식으로 나오는 것을 선택
+
+새롭게 만들었다면 기본 tasks.json 파일이 만들어 지면서 열림
+그럼 이 셋팅파일에 컴파일 부분과 실행 관련해서 써 넣을 수 있다 
+이미 훌륭하신 분들이 이미 작업한 것 새로 복사 붙여넣기
+
+{
+	"version": "2.0.0",
+	"runner": "terminal",
+	"type": "shell",
+	"echoCommand":true,
+	"pressentation": {"reveal": "always"},
+	"tasks": [
+		{
+			"type": "cppbuild",
+			"label": "C gcc.exe build active file",
+			"command": "gcc",
+			"args": [
+				"-g",
+				"${file}",
+				"-o",
+				"${fileDirname}\\${fileBasenameNoExtension}.exe"
+			],
+			"options": {
+				"cwd": "C:\\Program Files\\mingw-w64\\x86_64-8.1.0-posix-seh-rt_v6-rev0\\mingw64\\bin"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"detail": "compiler: \"C:\\Program Files\\mingw-w64\\x86_64-8.1.0-posix-seh-rt_v6-rev0\\mingw64\\bin\\gcc.exe\""
+		},
+		{
+			"type": "shell",
+			"label": "RunFast",
+			"command": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "test",
+				"isDefault": true
+			}
+		}
+	]
+	
+}
+
+이제 저장하면 컴파일 빌드가 가능해짐
+ctrl+shift+b를 누르면 컴파일이 됨 (기본으로 설정되어 있는 단축키)
+
+터미널 창에서 
+Starting build...
+Build finished successfully.
+
+Terminal will be reused by tasks, press any key to close it.
+
+위에 같이 나오면 성공!
+
+이제 실행은
+터미널에서 X 버튼으로 터미널 창을 닫거나, 목록드롭박스(?)에서 1:powershell 로 클릭해서 
+일반 터미널로 넘어온다
+그 다음 테스트하기위해 만들어 놓은 예: test.c 파일이 있는 작업 디렉토리로 이동
+ls 나 dir로 명령어를 입력하면
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----      2021-01-26  오후 11:30            108 test.c
+-a----      2021-01-26  오후 11:30          54716 test.exe
+
+test.c 파일이 컴파일 빌드가 되어 test.exe 파일이 만들어져있음
+
+이제 ./test.exe를 입력
+PS C:\Users\Me\projects\c>./test.exe
+hello world, x 100
+출력이 잘 되는 것을 확인!
+
+하지만 이렇게 하면 너무 복잡하다;; 단축키를 설정해야함!
+설정 Preferences 에서 단축키설정 Keyboard Shortcuts 를 클릭해 이동
+검색칸에 단축키를 검색해본다
+일단 컴파일빌드는 ctrl+alt+c 를 사용할 것인데 검색해보면 등록된 것이 없을 것이다. 겹치는 게 없는지 확인 하고
+이번에는 실행을 위해 ctrl+alt+x 를 검색, 역시 없을 것임
+
+이제 없는 것을 확인했으니, 
+오른쪽 상단 (최소화, 크게, 닫기)버튼 바로 아래 아이콘들이 있는데 맨 왼쪽에 있는
+Open Keyboard Shortcuts (JSON) 버튼을 눌러준다
+그러면 
+기본화면 구성만 나오는데 키보드 셋팅을 한 적이 없으면 아마 [] 빈 대괄호만 보일 것임
+아래코드를 복사 붙여넣기
+
+// Place your key bindings in this file to override the defaults
+[
+    // c 컴파일 단축키
+    {
+        "key": "ctrl+alt+c",
+        "command": "workbench.action.tasks.build"
+    },
+    // c 실행 단축키
+    {
+        "key": "ctrl+alt+x",
+        "command": "workbench.action.tasks.test"
+    }
+]
+
+그리고 저장, 컴파일은 tasks.json 파일에서 build그룹으로 지정이 되었던 부분
+단축키는 편하게 하고싶은 걸로 조합하면 됨, (그전에 없는 것 검색해봄)
+실행 단축키는 tasks.json 셋팅에서 test 그룹으로 지정되어 있음, 역시 단축키는 맘대로
+x 실행에 의미를 부여, 왼손으로 하기에 가깝고 뭐 좋다 ㅋ
+
+암튼 이제 컴파일 빌드와 실행을 쉽게 할 수 있게 됨. 굿~! 
+
+*추가 주석화면 
+설정 preferences -> settings 클릭
+오른쪽 상단의 Open Settings (JSON)클릭
+
+"editor.tokenColorCustomizations": {
+        "comments": "#9e9e9e"
+    }
+추가해주기 comments의 색을 변경해주면 주석 색 바뀜
