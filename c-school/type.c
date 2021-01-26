@@ -33,6 +33,7 @@ int main(){
     double result2 = (double)5 / 2; //하나를 실수로 바꾸면 5.0 / 2.0 의 결과가 나옴
     printf("%lf\n", result);
     printf("%lf\n", result2);
+    printf("한글");
 
 return 0;
 }
