@@ -2,7 +2,7 @@
 https://rasino.tistory.com/307
 https://velog.io/@kjh107704/VSCode-%EC%84%A4%EC%A0%95-3-CC-%EB%B9%8C%EB%93%9C-%EB%B0%8F-%EC%8B%A4%ED%96%89-%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0
 https://code.visualstudio.com/docs/cpp/config-mingw
-
+======================================================================
 
 gcc설치 
 https://sourceforge.net/projects/mingw-w64/postdownload
@@ -154,7 +154,27 @@ x 실행에 의미를 부여, 왼손으로 하기에 가깝고 뭐 좋다 ㅋ
 
 암튼 이제 컴파일 빌드와 실행을 쉽게 할 수 있게 됨. 굿~! 
 
-*추가 주석화면 
+
+======================================================================
+exe파일 안보이게 하기 (vscode) |||
+======================
+
+vscode에서 컴파일빌드한 .exe 파일들이 보여서 파일 트리 보기가 좀 어수선한데, (파일이 많아질수록 더..)
+옵션으로 제외시킬 수 있음.
+
+File->Preferences->Settings 클릭 후
+Text Editor 항목 선택 후 Files 소분류 클릭
+Exclude에 항목 추가하기 Add pattern 클릭 후 **/*.exe 
+저장하면 exe파일이 안보이게 됨
+
+단, 파일이 지워지는 것은 아니므로 git 사용시에는 .gitignore 에 exe파일이 제외되도록 해주는 것이 좋을 듯 (필요하다면)
+
+
+
+======================================================================
+*추가 주석화면 |||
+===========
+
 설정 preferences -> settings 클릭
 오른쪽 상단의 Open Settings (JSON)클릭
 
