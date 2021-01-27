@@ -1,10 +1,11 @@
 #include <stdio.h>
-int main() {
-    // while문 형식 
+int main()
+{
+    // while문 형식
     // while (조건식) {
     //     실행문
     // }
-/*
+    /*
     // while문 반복
     int i = 0;
     while (i < 2) {
@@ -26,8 +27,8 @@ int main() {
     } while (a < 3);
 
 */
-// 구구단
-/*
+    // 구구단
+    /*
     int i, j;
     for (i=2; i < 10; i++) {
         printf("%d단\n", i);
@@ -37,7 +38,7 @@ int main() {
     }
 */
 
-/*
+    /*
     //i, j을 바꿔서 출력하기, 단 별로 출력
     int i, j;
     for (i=1; i < 10; i++) {
@@ -52,6 +53,7 @@ int main() {
     //무한반복문 while의 조건을 1을 주면 됨
     // while (1) { 실행코드 }
 
+    /*소수(prime number)출력 
     // 소수(prime number)출력 
     int nbr, i, j, c;
     printf("2 이상의 정수를 입력하세요 :");
@@ -75,5 +77,19 @@ int main() {
         
     }
 
+*/
+    char str[100];
+    int i, count = 0;
+
+    printf("입력 (띄어쓰기X): ");
+    scanf("%s", &str);
+
+    //* for을 반복할 때 문자열 배열만큼 반복시킬려면 문자열[i] (예: i < str[i]) 알아서 문자열 배열만큼 반복한다
+    for (i = 0; i < str[i]; i++)
+    {
+        count += 1;
+    }
+    printf("%s", str);
+    printf("%d", count); //for문이 배열크기보다 작을때 반복해줌
     return 0;
 }
