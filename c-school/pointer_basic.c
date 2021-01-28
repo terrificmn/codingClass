@@ -6,6 +6,9 @@ int main() {
     int *pt = &total;
     double *pg = &avg;
 
+    int num1 = 10;
+    printf("%p", &num1); // %p는 주소를 보여줌
+
     pa = &a; //pointer변수 pa와 가리키는 a변수의 타입은 일치해야함
     pb = &b;
 

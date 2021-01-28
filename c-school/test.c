@@ -37,11 +37,18 @@ void print_char(char ch, int count) {
 }
 */
 
-void add_print(int a, int b) {
-    printf(a+b);
-}
-
 int main() {
-    add_print(3, 5);
+/*
+    int ch;
+
+    //getchar()와 putchar()
+    printf("문자 입력: ");
+    ch = getchar(); // getchar()는 integer형태로 아스키코드로 받음
+    putchar(ch);    //putchar(문자열변수) 로 getchar로 받은 입력값을 출력할 수 있음
+    printf("%d", ch); // integer이기때문에 출력하면 숫자가 나오는데 바로 아스키코드이다
+*/
+
+    
+
     return 0;
 }

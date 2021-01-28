@@ -16,6 +16,7 @@ int main(){
     
     */
 
+/*
     //강제 형 변환
     int a = 10;
     //double d = a; //이렇게 하면 에러가 남 type이 일치해야한다
@@ -34,6 +35,11 @@ int main(){
     printf("%lf\n", result);
     printf("%lf\n", result2);
     printf("한글");
+*/  
+    int num1 = 10;
+    printf("%p", &num1);
+
+    
 
 return 0;
 }
