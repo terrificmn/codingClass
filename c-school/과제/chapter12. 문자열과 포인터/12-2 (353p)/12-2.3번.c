@@ -3,9 +3,8 @@
 int main()
 {
     char str[30];
-    char replacedStr[30];
-    char star[20];
-    int i, count = 0;
+    char replacedStr[30]; //최종 바뀔 문자열 
+    char star[20]; //. * 문자열 넣어줄 변수
     int len;
 
     printf("입력하세요: ");
@@ -14,8 +13,7 @@ int main()
 
     len = strlen(str);
     //printf("원래문자열%d\t", len); //test
-    if (len > 5 && len < 15)
-    {
+    if (len > 5 && len < 15) {
         strncpy(replacedStr, str + 0, 5);
         replacedStr[strlen(replacedStr)] = '\0'; //*널문자 넣어주기, 쓰레기값을 읽어오기 때문
             //printf("바뀐문자열 길이 %d\t", strlen(replacedStr)); //test
@@ -26,20 +24,17 @@ int main()
             //printf("%d\t", strlen(star)); // 맞게 나옴 //test
             //printf("%s ", star); //test
         strcat(replacedStr, star); //결합
-    }
-    else if (len >= 15)
-    {
+
+    } else if (len >= 15) {
         strncpy(replacedStr, str + 0, 15); //15자로 제한
         strncpy(star, "********", len - 5);
         star[len - 5] = '\0'; //널 넣어주기
         strcat(replacedStr, star);
-    }
-    else
-    { //단어수가 4자리 이하
+
+    } else { //단어수가 4자리 이하
         strcpy(replacedStr, str);
     }
-
+    
     printf("입력한 단어: %s,  생략한 단어: %s", str, replacedStr);
-
     return 0;
 }
