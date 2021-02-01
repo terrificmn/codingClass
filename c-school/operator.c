@@ -42,6 +42,8 @@ int main() {
     grade = kscore + escore + mscore / 3.0; //실수형태로 구하기 위해 3.0으로 나눔
     
     //* c언어는true,false가 없다고 함, 숫자로만 리턴됨: 참이면 1, 거짓이면 0
+    // include 하면 boolean 으로 연산은 가능
+    // #include <stdbool.h>
     res = grade >= 4.0 && credits >= 10;
     printf("%d", res);
 

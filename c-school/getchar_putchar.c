@@ -14,38 +14,7 @@ int main() {
 }
 */
 
-
 /*
-//? 함수로 getchar()를 반복하여 배열변수에 넣어주기 (파라미터로 포인터로 받음)
-void my_gets(char *str, int size);
-
-int main() {
-    char str[7];
-
-    my_gets(str, sizeof(str)); //문자열배열 크기도 넘겨줌
-    printf("입력한 문자열: %s\n", str);
-
-    return 0;
-}
-
-// 반복문으로 버퍼에서 문자를 받아서 
-void my_gets(char *str, int size) {
-    int ch, i = 0;
-
-    printf("입력하세요: ");
-    ch = getchar(); //getchar도 버퍼를 사용하는 문자 입력 함수 (scanf도 버퍼사용)
-    
-    while ((ch != '\n') && (i < size -1)) {
-        str[i] = ch;
-        i++;
-        ch = getchar();
-    }
-    str[i] = '\0'; //마지막에 끝 문자 넣어주기
-
-}
-
-*/
-
 //?버퍼 삭제하기
 int main() {
     int num, grade;
@@ -58,11 +27,42 @@ int main() {
     //scanf("%d", &grade);
 
     getchar(); //getchar()를 해주면 버퍼에 있는 값을 읽어옴 (버퍼에 남아있는 '\n' 삭제와 같은 효과)
-
+    
     printf("학점 입력: ");
     grade = getchar(); //이후 다시 getchar()를 실행하면 원하는 결과가 나옴
     printf("학번: %d, 학점: %c", num, grade);
 
     return 0;
+}
+*/
+
+
+//? 함수로 getchar()를 반복하여 배열변수에 넣어주기 (파라미터로 포인터로 받음)
+void my_gets(char *str, int size);
+
+int main() {
+    char str[7];
+
+    my_gets(str, sizeof(str)); //문자열배열 크기도 넘겨줌  //사용자 함수
+    printf("입력한 문자열: %s\n", str); 
+    
+
+    return 0;
+}
+
+// 반복문으로 버퍼에서 문자를 받아서 
+void my_gets(char *str, int size) {
+    int ch, i = 0;
+
+    printf("입력하세요: ");
+    ch = getchar(); //getchar도 버퍼를 사용하는 문자 입력 함수 (scanf도 버퍼사용)
+    
+    while ((ch != '\n') && (i < size -1)) { 
+        // \n은 엔터를 의미하므로 엔터친게 아니면 계속 반복 , size를 -1은 마지막에 \0을 넣어야하기 때문
+        str[i] = ch;
+        i++;
+        ch = getchar();
+    }
+    str[i] = '\0'; //마지막에 끝 문자 넣어주기
 
 }

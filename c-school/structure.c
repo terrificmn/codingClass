@@ -19,10 +19,11 @@ struct profile {
 
 int main() {
     //구조체 기본
-    struct student s1; // s1을 변수로 struct student형으로 선언
+    struct student s1; //s1을 변수로 struct student형으로 선언, 
+    //이제 s1이라는 이름으로 사용할 수 있음 (약간 클래스 또는 모듈 같으 느낌)
     s1.num = 2;
     s1.grade = 2.7;
-    printf("학번: %d\n", s1.num);
+    printf("학번: %d\n", s1.num); // (.)으로 접근
     printf("학점: %.1lf\n", s1.grade);
     printf("\n\n");
 
@@ -32,8 +33,8 @@ int main() {
     yun.age = 17;
     yun.height = 164.5;
 
-    yun.intro = (char *)malloc(80); //포인터변수에 (profile 구조체에 정의한 포인터 intro) 문자열을 넣어줄 수 없으므로 
-    // 메모리에 동적 할당을 해줌
+    yun.intro = (char *)malloc(80); //**포인터변수에 (profile 구조체에 정의한 포인터 intro) 문자열을 넣어줄 수 없으므로 
+    //** 메모리에 동적 할당을 먼저 해줘야 함, 또는 초기화시에 동적할당
     printf("자기소개: ");
     gets(yun.intro);
 

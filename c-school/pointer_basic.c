@@ -29,17 +29,19 @@ int main() {
     int *pin = &in;
     double *pdb = &db;
 
-    printf("ch 주소 %d\t", &ch);
-    printf("in 주소 %d\t", &in);
-    printf("db 주소 %d\n", &db);
+    printf("ch,in,db 변수의 주소값\n");
+    printf("ch 주소 %p\t", &ch);  //%p 주소를 보여줌
+    printf("in 주소 %p\t", &in);
+    printf("db 주소 %p\n", &db);
+    printf("ch,in,db를 의 주소를 받은 pch,pin,pdb 포인터의 주소값\n");
+    printf("pch 포인터 %p\t", pch);
+    printf("pin 포인터 %p\t", pin);
+    printf("pdb 포인터 %p\t", pdb);
 
+    printf("\n포인터의 값\n");
     printf("pch 포인터 %c\t", *pch);
     printf("pin 포인터 %d\t", *pin);
     printf("pdb 포인터 %lf\t", *pdb);
 
-
-
     return 0;
-
-
 }

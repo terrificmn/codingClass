@@ -2,7 +2,7 @@
 int main()
 {
 
-    /*
+/*
 // array초기화 방법들..
 int array[5];
 array[0] = 10;  //단순히 인덱스별로 주는 방법

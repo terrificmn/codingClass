@@ -1,3 +1,4 @@
+//구조체 배열 변수: 구조체를 배열처럼 사용할 수 있음
 #include <stdio.h>
 struct address {
     char name[20];

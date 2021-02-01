@@ -22,7 +22,7 @@
     }
 
     void line_up(double *maxp, double *midp, double *minp) {
-        
+        // 3가지 경우의 수를 따져봄 max vs min, max vs mid, mid vs min
         if (*maxp < *midp) {
             swap(maxp, midp);
         } 

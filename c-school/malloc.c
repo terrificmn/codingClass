@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+//** malloc 함수를 사용하려면 <stdlib.h> 을 인쿠르드 해야함
 
 int main () {
-    //malloc 함수를 사용하려면 <stdlib.h> 
     int *numPtr = malloc(sizeof(int) *10); //동적 메모리 할당, int 사이즈의 10개 만큼
     // int numArr[10] 과 같은 효과
     int i, size;
