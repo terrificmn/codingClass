@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 /*
 int get_num(void);
 
@@ -48,7 +49,17 @@ int main() {
     printf("%d", ch); // integer이기때문에 출력하면 숫자가 나오는데 바로 아스키코드이다
 */
 
+    char str[80];
+    char str1[80];
+    // printf("입력 공백 포함: ");
+    // fgets(str, sizeof(str), stdin); // 마지막에 \n 이 추가됨
+    // printf("%s\n", str);
     
-
+    scanf("%s", str);
+    printf("또 입력: ");
+    scanf("%*c");
+    gets(str1);
+    
+    printf("%s\n", str1);
     return 0;
 }
