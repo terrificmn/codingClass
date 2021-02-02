@@ -45,5 +45,7 @@ int main() {
     free(yun.intro); //동적으로 할당한 메모리 영역 반환
 
     return 0;
+
+    //TODO: 499p 정리해보기, 구조체 배열 처리하는 함수
 }
 
