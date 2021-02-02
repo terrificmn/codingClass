@@ -3,7 +3,7 @@
 
 void checkStrAmend(char *my_string);
 void checkStrDirect(char *p_my_string); //보통 5번의 경우
-void checkStrDirectConst(const char *p_my_string); //보통 5번의 경우
+void checkStrDirectConst(const char *P_MY_STRING); //보통 5번의 경우
 
 int main() {
 //1. 배열로 선언, 배열문자열 초기화
@@ -80,8 +80,10 @@ void checkStrDirect(char *p_my_string) { // 5번경우, 문자열 상수를 직�
 } 
 */
 
-void checkStrDirectConst(const char *p_my_string) { // 6번경우, 문자열 상수를 직접 받았다면 const로 선언하기
-    printf("%s\n", p_my_string); //
+//? 참고* 상수를 선언할 때 변수명은 대문자로 해주는 것이 좋다. 
+// const char *P_MY_STRING 
+void checkStrDirectConst(const char *P_MY_STRING) { // 6번경우, 문자열 상수를 직접 받았다면 const로 선언하기
+    printf("%s\n", P_MY_STRING); //
     
     // 이 경우는 문자열 상수를 이용해서 변경될 가능성이 없을 경우 사용한다고 함 const 정의
     // 5번경우의 문자열 상수를 직접 입력하는 경우와 같지만 const로 선언했기 때문에 
@@ -90,7 +92,7 @@ void checkStrDirectConst(const char *p_my_string) { // 6번경우, 문자열 상
     //error: assignment of read-only location 이런식의 에러 발생
     // const는 변경안되는 상수라는 의미이니 이런 경우 잘 사용하면 될 듯
 
-    *(p_my_string + 4) = 0; // 이러면 직접 문자열 상수를 받았기 때문에 에러가 발생
+    *(P_MY_STRING + 4) = 0; // 이러면 직접 문자열 상수를 받았기 때문에 에러가 발생
     
 
 } 

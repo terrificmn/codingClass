@@ -4,12 +4,12 @@ int main()
 {
     char str[30];
     char replacedStr[30]; //최종 바뀔 문자열 
-    char star[20]; //. * 문자열 넣어줄 변수
+    char star[20]; // * 문자열 넣어줄 변수
     int len;
 
     printf("입력하세요: ");
     scanf("%s", &str);
-    getchar();
+    getchar(); //버퍼 삭제
 
     len = strlen(str);
     //printf("원래문자열%d\t", len); //test

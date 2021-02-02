@@ -43,5 +43,22 @@ int main() {
     printf("pin 포인터 %d\t", *pin);
     printf("pdb 포인터 %lf\t", *pdb);
 
+
+//// swap의 예: 주소값 넘기기과 값 참조 방식의 차이점!!!!
+    int a1 = 10, b1 = 50;
+    int *ptr1 = &a1, *ptr2 = &b1;
+    int *temp; //temp를 포인터변수로 선언하면 ptr1의 주소값을 바로 할당해 주는게 가능 //?(즉, 포인터의 주소값만 교환! 값은 안 바뀜)
+    temp = ptr1; 
+    ptr1 = ptr2;
+    ptr2 = temp;
+    printf("%d\t%d\n", *ptr1, *ptr2);
+
+    int tmp; //만약 tmp를 일반변수로 선언하면, 포인트변수가 아니어서 주소를 받을 수 없음, 값의 참조
+    // 대신 포인터값을 참조해서 //? 변수의 값을 직접 바꿔버릴 수 있음 (주소는 못 바꿈, 대신 값을 바꿈)
+    tmp = *ptr1; //tmp를 일반 변수일 경우
+    *ptr1 = *ptr2;
+    *ptr2 = tmp;
+    printf("%d\t%d\n", *ptr1, *ptr2);
+
     return 0;
 }

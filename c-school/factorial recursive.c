@@ -35,7 +35,7 @@ int rec_func (int n){
     //-1감소시켜서 함수 호출 그리고 받은 +n 값을 더해서 리턴함
     // 최종적으로 위의 if문에서 0이 되어 0을 리턴받으면 다시 그 전의 함수를 호출한 부분으로 돌아가서 
     // 리턴값과(-1) + 원래n값이 더해진 것이 리턴
-    //todo: 정리가 좀 필요
+    //todo: 정리가 좀 필요 // 스택구조 해서 다시 한번 복습해볼 것
     return rec_func(n -1) + n;  
 
     /* 위의 코드를 풀으면 이런식인듯..
@@ -52,7 +52,7 @@ int fac(int num) {
         return 1;
     }
     
-    return fac(num - 1) * num;
+    return num * fac(num - 1);
 
 }
 //todo: 복습!

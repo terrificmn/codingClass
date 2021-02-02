@@ -8,6 +8,7 @@ int main() {
     //* 함수명은 함수 정의가 있는 메모리의 시작 위치!!
     // 함수포인터 선언은 type (*포인터변수) (파라미터 타입지정int, int)  예: int (*fp)(int, int);
     int (*pary[3])(int, int) = { add, sub, mul };   // 함수포인터 배열로  선언(파라미터는 int, int) ---배열에 add, sub, mul 넣는다
+    
     int i, res = 0;
 
     for (i=0; i < 3; i++) {
@@ -17,6 +18,7 @@ int main() {
     printf("%d\n", res);
 
     int ary[5] = { 10, 20, 30, 40, 50};
+    
     //void 함수포인터 선언
     void *vp = ary;  //자료형이 다른 경우에 void 함수포인터를 사용 
 

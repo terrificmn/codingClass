@@ -4,7 +4,7 @@
 struct profile {
     int num;
     char name[20];
-    char *skill;
+    char *skill; // 포인터는 사용하려면 동적할당을 해줘야함
 };
 
 struct sports {
