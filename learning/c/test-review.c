@@ -84,12 +84,32 @@ void ShowArr(int (*arr)[4]) {
 }
 
 void RotateArr(int (*arr)[4]) {
-    int i, j;
+    int i, j, k = 3;
     int count = 1; 
     static int func_count = 0;
     func_count += 1;  //함수 호출 될 때마다 카운트 해주기
     //printf("%d", func_count); //test
+    int tmp[4][4];
+    k *= func_count;  // 3, 6, 9, 12
+    //printf("%d", k);
+    
+    for(i=0; i<4; i++) {
+        for(j=3; k >= 0; j--) {
+            arr[i][j] = count;
+            count += 4;
+        }
+        count = i + 1; //초기화 //i==0일때 +1해서 1로 초기화
+        count += 1; // i번째가 넘어가서 1차원 배열 반복이 일어날 때 원하는 숫자가 나오게 설정
+    }
+    // for(i=0; i < 4; i++) {
+    //     for(j=0; j < 4; j++) {
+            
+    //     }
+    // }
+    
 
+/* 
+// switch 으로 3번 반복
     switch (func_count) {
         case 1: 
             for(i=0; i<4; i++) {
@@ -124,6 +144,7 @@ void RotateArr(int (*arr)[4]) {
         default: 
             break;
     }
+*/
 }
 
 /*

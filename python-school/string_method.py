@@ -80,6 +80,16 @@ print('I am %f weight' % 60.5)
 print('I am %.2f weight' % 60.5)
 #여러개 처리 %(value, value) 콤마로 구분
 print('Today is %d %s' %(19, 'Jan.'))
+#여러개 처리 예:
+nbr1, nbr2 = 3.5, 20.5
+nbr1 = float(nbr1)
+nbr2 = float(nbr2)
+multiplication = nbr1 * nbr2
+addition = nbr1+ nbr2
+print("First is %.1f, and second is %.2f. So, Multiplication = %.3f, addition = %.2f" % (nbr1, nbr2, multiplication, addition))
+# format()
+print("First is {}, and second is {}. So, Multiplication = {}, addition = {}".format(nbr1, nbr2, multiplication, addition))
+
 
 #? formatting은 문자열안에 중괄호{}를 format(value값)으로 넣어준다
 #? {}중괄호 안에는 인덱스 번호를 넣어준다
