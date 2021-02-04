@@ -5,3 +5,4 @@ python-school/__pycache__
 *.exe
 c-school/yhprojects/   
 .vscode/
+.ipynb_checkpoints
