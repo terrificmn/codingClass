@@ -39,7 +39,7 @@ int main(){
     int num1 = 10;
     printf("%p", &num1);
 
-    
+    printf("안녕하세요 세계");
 
 return 0;
 }
