@@ -1,0 +1,4 @@
+I am becoming a pro in python!
+Python is a great programming language 
+I am learning how to handle files in python!Today is Sunday.
+Hello내 첫번째 파일 실습
