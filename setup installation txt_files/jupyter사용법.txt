@@ -14,3 +14,31 @@ https://github.com/macro0630/data-vision
 셀 늘리기 a 키, 셀 지우기 dd 
 실행은 Shift+Enter
 코드를 실행하려면 code로 선택해야한다 (위의 메뉴)
+
+-------------------------------------------------------------------------
+VSCode에서 jupyter notebook 사용
+- 확장팩 설치 jupyter notebook
+- 그 다음 별로 할 것은 없음 
+
+
+
+-----------------------------------------------------------------------------
+VScode에서 matplotlib 을 사용할 때 axis의 label이 안보일 때
+이건 vscode에서 테마를 어두운 테마를 사용할 때 나오는 문제인 듯 한데
+matpltlib의 style 속성을 사용해서 바꿀 수 있음
+
+먼저 import
+스타일은 'dark_background'로 적용, 스타일은 굉장이 많음
+
+import matplotlib.pyplot as plt
+plt.style.use('dark_background')
+
+이러면 깔끔하게 타이틀,  x축 y축 라벨등이 잘 보임
+
+스타일 목록 보기
+plt.style.available
+
+
+참고사이트: 
+https://fredriccliver.medium.com/cant-not-see-axis-label-of-jupyter-notebook-in-the-dark-theme-vscode-df31a3ee121
+
