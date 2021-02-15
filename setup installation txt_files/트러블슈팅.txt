@@ -231,9 +231,43 @@ Unable to open '....ipynb': Cannot read property '...' of undefined. 에러메�
 -아직 해결되지는 않았지만, 마소에서 일단 예전 버전으로 사용하라는 코멘트가 있었음
 일단 예전 버전으로 해결 할 수 있음 (불편;)
  
+윈도우용 예전버전 다운로드
 https://vscode-update.azurewebsites.net/1.53.0-insider/win32-x64/insider
 참고로 버전에 1.53.0 에 숫자로 다른 버전 넣어주면 그 버전 다운로드가 열리는 듯 함
+
+다운로드 (예전버전- 리눅스 rpm버전 레드헷계열) 리눅스용
+https://update.code.visualstudio.com/1.53.0-insider/linux-rpm-x64/insider
 
 vscode settings.json에 
 "python.insidersChannel": "weekly",
 "daliy" 에서 "weekly"로 바꿈
+
+--------------------------------------------------------------------------------------------------
+
+듀얼모니터 connected but no signal 일때 
+처음 bios 화면에서는 듀얼모니터 2개다 잘 나오는데 리눅스(현재 centos8)에 들어오면 
+second 모니터가 화면이 안나오는 현상
+셋팅에서도 모니터 2개는 잘 보이는데 신호없음으로 화면이 나오지 않는 현상
+
+결론은 부팅 때 grub 에 옵션을 넣어줘서 부팅하면 잘 됨
+amdgpu.dc=0
+
+
+-----------Fail------그래도 나중에 참고할만할까 해서 기록으로 남겨둠
+xrandr 명령어로 확인해보면 처음에 
+XWAYLAND로 모니터가 인식되어 있는데 이것은 GDE를 GUI를 GNOME으로 사용해서 그런거라고 함
+
+$vi /etc/gdm3/custom.conf 파일을 열고 
+[daemon]
+# Uncoment the line below to force the login screen to use Xorg
+#WaylandEnable=false  이 부분 주석을 해제해주고 
+저장 후 빠져나간 후 로그아웃 하고 다시 로그인을 하면
+로그인 스크린에서 비밀번호 입력하는 곳에 톱니바퀴가 있는데 거기에서 X11인가로 선택해서 
+들어갈 수 있음
+그렇게 되면 이제 xrandr 을 하면 
+모니터가 dvi-0 이런식으로 연결되어 있는 걸로 나옴
+
+--------------------Fail 2 -------------------------
+듀얼 모니터 설정 법 (xrandr 사용)
+sudo xrandr --output XWAYLAND0 --primary --mode 1920x1080 --rate 59.96 --output XWAYLAND1 --mode 1680x1050 --rate 59.85 --left-of XWAYLAND0
+
