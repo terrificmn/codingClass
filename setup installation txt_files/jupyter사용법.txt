@@ -42,3 +42,48 @@ plt.style.available
 참고사이트: 
 https://fredriccliver.medium.com/cant-not-see-axis-label-of-jupyter-notebook-in-the-dark-theme-vscode-df31a3ee121
 
+
+
+
+----------------------------------------------------------------------------------------
+트러블 슈팅 (window10)
+SystemError: java.nio.file.InvalidPathException: Illegal char <*> at index 54: C:\Users\5-20\anaconda3\Lib\site-packages\konlpy\java\*
+위와 같은 에러일 경우
+환경 변수를 새로 만들어 줘야함
+시스템 변수를 만들기
+
+내컴퓨터 -> 고급 시스템 설정 -> 고급 -> 환경변수 클릭
+사용자 변수에서 새로 만들기 클릭
+변수이름은 JAVA_HOME
+변수 값은 C:\Program Files\Java\jdk1.8.0_281
+Java경로는 설치된 경로 다시 확인할 것
+
+그리고 이번에는 시스템 변수
+변수 Path를 찾은 후 선택 후 편집 버튼 누르기
+새로 만들기 버튼 누르고
+환경변수 C:\Program Files\Java\jdk1.8.0_281  붙어넣기
+
+그 다음에 
+파이썬 버전과 맞는 버전의 JPype1-1.2.0-cp38-cp38-win_amd64 가 필요
+아나콘다 프롬포트에서 python --version 
+으로 확인, 버전잉 3.8.5
+JPype1-1.2.0-cp38-cp38-win_amd64 가 필요
+
+다운로드 후 
+설치 경로로 이동 후 
+예 cd Downloads
+설치
+pip install JPype1-1.2.0-cp38-cp38-win_amd64
+사용자 옵션이 필요한 경우는 --user 
+
+다운로드 참고: 
+https://www.lfd.uci.edu/~gohlke/pythonlibs/#jpype
+참고 사이트:
+https://needjarvis.tistory.com/642
+
+jupyter notebook 다시 실행
+from konlpy.tag import Kkma
+km = Kkma()
+으로 에러가 안나면 OK!
+
+------------------------------------------------------------------------------------------------------------

@@ -224,5 +224,16 @@ euc-kr로 열리자마자 또 이상하게 깨지는 경우가 있는데 그 때
 한글 안 깨지고 잘 됨
 
 
+--------------------------------------------------------------------------------------------------
+vscode inside 1.54번에서 jupyter notebook으로 ipynb파일들이 안 열리는 문제
+Unable to open '....ipynb': Cannot read property '...' of undefined. 에러메세지 
 
+-아직 해결되지는 않았지만, 마소에서 일단 예전 버전으로 사용하라는 코멘트가 있었음
+일단 예전 버전으로 해결 할 수 있음 (불편;)
+ 
+https://vscode-update.azurewebsites.net/1.53.0-insider/win32-x64/insider
+참고로 버전에 1.53.0 에 숫자로 다른 버전 넣어주면 그 버전 다운로드가 열리는 듯 함
 
+vscode settings.json에 
+"python.insidersChannel": "weekly",
+"daliy" 에서 "weekly"로 바꿈
