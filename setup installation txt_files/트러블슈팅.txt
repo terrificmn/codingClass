@@ -225,7 +225,7 @@ euc-kr로 열리자마자 또 이상하게 깨지는 경우가 있는데 그 때
 
 
 --------------------------------------------------------------------------------------------------
-vscode inside 1.54번에서 jupyter notebook으로 ipynb파일들이 안 열리는 문제
+vscode inside 1.54번에서 jupyter notebook으로 ipynb파일들이 아예 안 열리는 문제
 Unable to open '....ipynb': Cannot read property '...' of undefined. 에러메세지 
 
 -아직 해결되지는 않았지만, 마소에서 일단 예전 버전으로 사용하라는 코멘트가 있었음
@@ -234,13 +234,27 @@ Unable to open '....ipynb': Cannot read property '...' of undefined. 에러메�
 윈도우용 예전버전 다운로드
 https://vscode-update.azurewebsites.net/1.53.0-insider/win32-x64/insider
 참고로 버전에 1.53.0 에 숫자로 다른 버전 넣어주면 그 버전 다운로드가 열리는 듯 함
+윈도우는 1.53.0 버전이면 실행 잘 되고 
 
 다운로드 (예전버전- 리눅스 rpm버전 레드헷계열) 리눅스용
-https://update.code.visualstudio.com/1.53.0-insider/linux-rpm-x64/insider
+https://update.code.visualstudio.com/1.52.0-insider/linux-rpm-x64/insider
+리눅스는 1.52.0 버전에서 일단 문제 없이 ipynb 파일 열림 
+(최신버전에 비해서 다른 문제가 있을 수 있겠지만, 최소 파일은 열림)
 
 vscode settings.json에 
 "python.insidersChannel": "weekly",
 "daliy" 에서 "weekly"로 바꿈
+
+참고 rpm 으로 지우는 명령어
+먼저 패키지 확인
+rpm -qa | grep code
+라고 치면 설치된 패키지 목록이 뜨는데 그중에서 code.1.54.0...생략 버전을 그대로 복사해서 
+rpm -evh code.1.54.0...생략
+으로 입력하면 지워짐
+
+그리고 다시 예전 버전을 설치
+rpm -ivh code.1.52.0 
+
 
 --------------------------------------------------------------------------------------------------
 
@@ -254,7 +268,41 @@ second 모니터가 화면이 안나오는 현상
 부팅선택 grub화면에서 e 누르고 안쪽 커널이미지 선택하는 곳에 amdgpu.dc=0 이라고 입력해주고 부팅
 amdgpu.dc=0
 
-16feb 21년 추가
+부팅 시 처음 grub화면에서 
+----------------------------------------
+CentOS (4.18.8-277.e18.x86_64) 0
+
+Press 'e' to edit the selected item, or 'c' for a command prompt.
+----------------------------------------
+이런 화면에서 e 키를 눌러서 진입
+그러면 아래와 같은 화면이 나옴
+
+----------------------------------------
+load_video
+set sfx_payload=keep
+linnux ($root)/vnlinux-4.18.8-277.e18.x86_64 ...생략 quiet [바로 여기]
+initrd ($root)/initra.......생략
+
+Press Ctrl-x to start, ....생략
+----------------------------------------
+여기에서 커널 이미지를 선택하는 부분에 위에 '바로 여기'라고 해놓은 곳 quiet 다음에
+amdgpu.dc=0 이라고 입력 후 
+Ctrl-x 를 눌러주면 부팅이 되고 
+2번째 모니터가 잘 나와서 해결됨!! 새벽에 소리지를뻔함 ㅋㅋ
+
+
+다음에는 grub 업데이트 하는 방법 쓰기!!!!!!!!
+
+
+
+
+
+
+한 이틀 동안 고생한 기록 ㅋㅋ 
+-----------Fail ------
+amd radeon 그래픽 드라이버 설치하기
+amd 홈피에서 tar파일을 받은 후 설치 관련 명령어는 amd 홈피에 잘 나와있다
+어쨌든 모니터 안 나오는것은 영향이 없음
 
 -----------Fail------그래도 나중에 참고할만할까 해서 기록으로 남겨둠
 xrandr 명령어로 확인해보면 처음에 
@@ -271,7 +319,7 @@ $vi /etc/gdm3/custom.conf 파일을 열고
 그렇게 되면 이제 xrandr 을 하면 
 모니터가 dvi-0 이런식으로 연결되어 있는 걸로 나옴
 
---------------------Fail 2 -------------------------
+----------Fail -------------------------
 듀얼 모니터 설정 법 (xrandr 사용)
 sudo xrandr --output DVI-0-0 --primary --mode 1920x1080 --rate 59.96 --output DVI-0-1 --mode 1680x1050 --rate 59.85 --left-of DVI-0-0
 이런식인듯함, 이것도 안됨, 일단 amd라데온이면 안되는 듯
