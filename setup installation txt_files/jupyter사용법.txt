@@ -87,3 +87,31 @@ km = Kkma()
 으로 에러가 안나면 OK!
 
 ------------------------------------------------------------------------------------------------------------
+
+vscode jupyter notebook 에러/버그
+Local images cannot be inserted in jupyter notebook.
+markdown으로 로컬 이미지를 불러올 때 못 읽음
+이런식으로.. 
+# Image
+ ![image info](./1.png)
+
+웹 jupyter notebook에서는 잘 되지만 vscode에서는 안됨
+
+개발자 코멘트 (nov5, 2019에 달림)
+Yes there is no workaround for this other than hosting the file on a website instead. 
+ 아직 못 고침, web에서 쥬피터로 봐야함
+현재 on 16feb, 2021.. 못 고치는 듯..;;;
+
+
+
+-----------------------------------------------------------------------------------------------------------
+vscode inside 1.54버전에서 
+노트북파일 안 열리는 문제
+
+해결: 다운그레이드 1.53
+
+아직 해결 안됨. 업데이트에서 고쳐지길 기다리는 중
+on 16feb, 2021
+
+
+

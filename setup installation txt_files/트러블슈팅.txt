@@ -249,12 +249,16 @@ vscode settings.json에
 second 모니터가 화면이 안나오는 현상
 셋팅에서도 모니터 2개는 잘 보이는데 신호없음으로 화면이 나오지 않는 현상
 
-결론은 부팅 때 grub 에 옵션을 넣어줘서 부팅하면 잘 됨
+그래픽카드는 amd R9 380 일 때, 약간 버그 같은거라고 하는데 
+결론은 부팅 때 grub 에 아래 처럼 옵션을 넣어줘서 부팅하면 잘 됨 
+부팅선택 grub화면에서 e 누르고 안쪽 커널이미지 선택하는 곳에 amdgpu.dc=0 이라고 입력해주고 부팅
 amdgpu.dc=0
 
+16feb 21년 추가
 
 -----------Fail------그래도 나중에 참고할만할까 해서 기록으로 남겨둠
 xrandr 명령어로 확인해보면 처음에 
+XWAYLAND0 이런식으로...
 XWAYLAND로 모니터가 인식되어 있는데 이것은 GDE를 GUI를 GNOME으로 사용해서 그런거라고 함
 
 $vi /etc/gdm3/custom.conf 파일을 열고 
@@ -269,5 +273,5 @@ $vi /etc/gdm3/custom.conf 파일을 열고
 
 --------------------Fail 2 -------------------------
 듀얼 모니터 설정 법 (xrandr 사용)
-sudo xrandr --output XWAYLAND0 --primary --mode 1920x1080 --rate 59.96 --output XWAYLAND1 --mode 1680x1050 --rate 59.85 --left-of XWAYLAND0
-
+sudo xrandr --output DVI-0-0 --primary --mode 1920x1080 --rate 59.96 --output DVI-0-1 --mode 1680x1050 --rate 59.85 --left-of DVI-0-0
+이런식인듯함, 이것도 안됨, 일단 amd라데온이면 안되는 듯
