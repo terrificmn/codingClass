@@ -237,9 +237,8 @@ https://vscode-update.azurewebsites.net/1.53.0-insider/win32-x64/insider
 윈도우는 1.53.0 버전이면 실행 잘 되고 
 
 다운로드 (예전버전- 리눅스 rpm버전 레드헷계열) 리눅스용
-https://update.code.visualstudio.com/1.52.0-insider/linux-rpm-x64/insider
-리눅스는 1.52.0 버전에서 일단 문제 없이 ipynb 파일 열림 
-(최신버전에 비해서 다른 문제가 있을 수 있겠지만, 최소 파일은 열림)
+https://update.code.visualstudio.com/1.53.0-insider/linux-rpm-x64/insider
+
 
 vscode settings.json에 
 "python.insidersChannel": "weekly",
@@ -268,7 +267,7 @@ second 모니터가 화면이 안나오는 현상
 부팅선택 grub화면에서 e 누르고 안쪽 커널이미지 선택하는 곳에 amdgpu.dc=0 이라고 입력해주고 부팅
 amdgpu.dc=0
 
-부팅 시 처음 grub화면에서 
+부팅 시 처음 grub화면에서 (임시로)
 ----------------------------------------
 CentOS (4.18.8-277.e18.x86_64) 0
 
@@ -290,12 +289,41 @@ amdgpu.dc=0 이라고 입력 후
 Ctrl-x 를 눌러주면 부팅이 되고 
 2번째 모니터가 잘 나와서 해결됨!! 새벽에 소리지를뻔함 ㅋㅋ
 
+------------------ grub 업데이트 ----
+위에 처럼하면 잘 되기는 하나~ 매번 grub화면에서 계속 amdgpu.dc=0 이라고 입력해야해서 
+아예 커널 커맨드 라인을 업데이트 하기~ 그러면 재부팅시에도 입력이 필요없음
 
-다음에는 grub 업데이트 하는 방법 쓰기!!!!!!!!
+일단 백업 먼저
+MBR(Bios-based) system에 해당한다고 함
 
+$sudo cp /etc/default/grub /etc/default/grub-backup
+$sudo cp /boot/grub2/grub.cfg /boot/grub2/grub.cfg-backup
 
+그 다음 /etc/default/grub 파일을 열어서 GRUB_CMDLINE_LINUX= 여기에 추가해준다
+" " 쌍따옴표로 되어있으므로 그 안에다가 입력 
+대충 아래처럼 
+GRUB_CMDLINE_LINUX="crashkernel=auto ...생략.. rhgb quiet amdgpu.dc=0"
+그리고 저장하고 나가기
+: 누른후 wq
 
+다음은 새로운 grub.cfg 파일을 생성하기
+$sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 
+그러면 뭔가 진행이 되고 
+done이라고 끝남
+
+그 다음에 재부팅하기
+$systemctl reboot
+
+그러면 재부팅 될 때 grub cmdline에 입력을 안해도 됨
+재부팅 후 업데이트가 잘 되었는지 확인
+$cat /proc/cmdline
+
+입력했던 내용이 잘 나오는것 확인
+참고 사이트:
+https://www.thegeekdiary.com/centos-rhel-7-how-to-modify-the-kernel-command-line/
+https://bugzilla.redhat.com/show_bug.cgi?id=1594488
+----------------
 
 
 한 이틀 동안 고생한 기록 ㅋㅋ 
