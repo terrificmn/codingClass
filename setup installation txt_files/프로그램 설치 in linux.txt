@@ -16,14 +16,66 @@ HTTPD (apache) 설치
 https://docs.fedoraproject.org/en-US/quick-docs/getting-started-with-apache-http-server/index.html
 
 
+httpd 최신 버전  source 파일은 2.4.46 인데 
+소스파일로 받아서 컴파일러 하려고 했더니 의존성 해결해야하는것이 꽤 많은 듯
+APR 없다고 하고 아마도 APR-util 암튼 귀찮아서 
+
+참고 컴파일-빌드-인스톨까지 잘 나와 있음
+https://httpd.apache.org/docs/2.4/install.html
+
+하지만..
+그냥 yum으로 설치 
+2.4.37 임
+
+
 _____________________________________________________________________________________________________
 _____________________________________________________________________________________________________
 php 설치 (common extensions 포함)
   $ sudo dnf -y install php php-cli php-php-gettext php-mbstring php-mcrypt php-mysqlnd php-pear php-curl php-gd php-xml php-bcmath php-zip
+아마 이렇게 하면 7.4버전 쯤이 깔림 
+
+libxml2 가 없다고 할 때 
+sudo yum install libxml2-devel
+
+php 8.0 받기
+---------------------
+
+EPEL 받기 
+EPEL, short for Extra Packages for Enterprise Linux, 라고 함
+기본적으로 받을 수 없던 추가 패키지를 받을 수 있게 해줌 
+$sudo yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+
+Remi repository는 third-party 저장소이며, 7.2~버전 부터 8.0까지 제공 하는 듯
+어쨋든 설치
+$sudo yum install http://rpms.remirepo.net/enterprise/remi-release-8.rpm
+
+$sudo yum module list PHP
+맨 아래에 php remi-8.0 이 보일 것임
+
+8.0버전 사용가능하게 만들기 (리셋, enable)
+$sudo yum module reset php
+$sudo yum module enable php:remi-8.0 
+
+이제 설치
+$sudo yum install php
+
+아파치 서버 깔기
+$sudo dnf install php php-cli php-common
+만약 아파치 먼저 깔았다면 설치 되어 있다고 나오는
+
+설치 PHP 8.0 for Nginx하려면 (이것도 web server 인듯 하다)
+$sudo dnf install php php-cli php-common php-fpm
+사용안하니깐 스킵 (설치 안함)
+
+마지막으로 버전 확인
+$php -v
+PHP 8.0.2 ~~~ 나오면 설치 성공
+
+$sudo systemctl restart httpd
+그리고 /var/www/html/에 파일하나 test.php로 만들고 hello world라든가 phpinfo(); 찍어보면 됨
 
 
-php 버전 확인
-  $ php -v
+
 
 _____________________________________________________________________________________________________
 _____________________________________________________________________________________________________
