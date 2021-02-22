@@ -79,7 +79,7 @@ $sudo systemctl restart httpd
 
 _____________________________________________________________________________________________________
 _____________________________________________________________________________________________________
-mariadb 설치
+mariadb 설치 (3.10.3-27 버전 /2021년 2월 13일 확인)
   $ dnf install mariadb-server
 or (권한 필요시)
   $sudo dnf install mariadb-server
@@ -87,6 +87,48 @@ or (권한 필요시)
 참고:
 https://fedoraproject.org/wiki/MariaDB
 
+------------------------------
+centOS repo는 보수적으로 안정적으로 접근하기 때문에 최신버전은 없음
+그래서 
+최신버전으로 받으려면 (안정화 버전 10.5.9)
+먼저 사이트 방문
+https://downloads.mariadb.org/mariadb/repositories/#distro=CentOS&distro_release=centos8-amd64--centos8&mirror=yongbok&version=10.5
+
+
+아래의 목록을 파일로 만들어 준다
+centOS 전용 YUM repository 라고 함
+/etc/yum.repos.d/ 안에 넣어주는데 파일명은 MariaDB.repo 로 하면 됨
+
+# MariaDB 10.5 CentOS repository list - created 2021-02-22 23:03 UTC
+# http://downloads.mariadb.org/mariadb/repositories/
+[mariadb]
+name = MariaDB
+baseurl = http://yum.mariadb.org/10.5/centos8-amd64
+module_hotfixes=1
+gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
+gpgcheck=1
+
+위의 내용을 복사 붙여넣기 한다
+$ sudo vi /etc/yum.repos.d/MariaDB.repo
+파일이 없었으므로 저장하고 빠져나오면 repo파일 생성됨
+
+리포지토리 리스트 보기 (dnf명령어로 해도 됨)
+$ yum repolist
+목록에서 MariaDB가 나오면 ok
+
+그 다음은 설치
+$sudo yum install MariaDB-server
+
+시작 및 enable (자동시작) 만들기
+$ systemctl start mariadb
+$ systemctl enable mariadb
+
+mariadb 잘 작동하는지 확인
+$ systemctl status mariadb 
+
+참고 사이트 https://www.tecmint.com/install-mariadb-on-centos-8/
+
+DB 비밀번호 작동여부 확인하기
 
 _____________________________________________________________________________________________________
 _____________________________________________________________________________________________________
