@@ -80,6 +80,7 @@ $sudo systemctl restart httpd
 _____________________________________________________________________________________________________
 _____________________________________________________________________________________________________
 mariadb 설치 (3.10.3-27 버전 /2021년 2월 13일 확인)
+<쉽게 설치 버전>
   $ dnf install mariadb-server
 or (권한 필요시)
   $sudo dnf install mariadb-server
@@ -126,9 +127,28 @@ $ systemctl enable mariadb
 mariadb 잘 작동하는지 확인
 $ systemctl status mariadb 
 
+firewall 이 작동하고 있으면 firewall 규칙에 추가해 주기, 그리고 다시 시작
+$ sudo firewall-cmd --permanent --add-service=mysql
+$ sudo firewall-cmd --reload
+
+마지막 마리아DB 셋팅
+$ sudo mysql_secure_installation
+
+맨 처음 Yes /No 에서 그냥 엔터누르고 진행
+그 다음부터는 사이트 참고 (거의 yes)
+
 참고 사이트 https://www.tecmint.com/install-mariadb-on-centos-8/
 
-DB 비밀번호 작동여부 확인하기
+마리아DB 테스트
+마리아DB의 root 로 로그인 (시스템 root아님, 위에서 처음 installation에서 설정했던 비번 입력하면 됨)
+$ mysql -uroot -p
+비번입력 후 
+
+MairaDB [(none)]> 여기에 커맨드 입력
+> select version();
+
+그러면 version 정보가 뜸. 그러면 오키
+
 
 _____________________________________________________________________________________________________
 _____________________________________________________________________________________________________
