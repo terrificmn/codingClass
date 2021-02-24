@@ -328,7 +328,8 @@ Command-line installation 설치 법을 참고해서 할 것:
 ---> 이 명령어 붙여넣기 하면 다운받은 인스톨러를 확인
 ---> 그러면 Installer verified 라고 나옴
 
-**3. 주의: php composer의 디렉토리와 파일네임 변경 옵션인데 설명을 보고 한번에 옵션 넣어서 실행할 것
+**3. ***중요***
+  주의: php composer의 디렉토리와 파일네임 변경 옵션인데 설명을 보고 한번에 옵션 넣어서 실행할 것
 일단 이렇게 생김 --install-dir --filename 옵션 보고 실행할 것
 3. php composer-setup.php
 --->Run the installer
@@ -360,6 +361,110 @@ Command-line installation 설치 법을 참고해서 할 것:
 
 4. php -r "unlink('composer-setup.php');"
 Remove the installer 인스톨러를 지워준다
+
+5. 결론
+이번에 다시 설치할 때 (on 25Feb 2021) 
+$php composer-setup.php --install-dir=bin --filename=composer
+로 했으나 The defined install dir (bin) does not exist.이 없다고 나와서 
+아예 경로를 /usr/bin 지정해서 설치함
+$php composer-setup.php --install-dir=/usr/bin --filename=composer
+
+결과
+ll settings correct for using Composer
+Downloading...
+
+Composer (version 2.0.11) successfully installed to: /usr/bin/composer
+Use it: php /usr/bin/composer
+
+
+-------------------------------------------------------------------------------------
+Laravel 설치 
+참고사이트 :
+https://laravel.com/docs/8.x/installation#getting-started-on-linux
+
+composer가 먼저 설치되어 있어야 함
+그 다음 
+
+설치하기
+$composer global require laravel/installer
+
+그러면
+Changed current directory to /home/sgtocta/.config/composer
+6개의 패키지를 설치 sympony, laravel ...etc
+Installing dependencies
+등을 해줌 
+
+버전은 4.1 
+
+$ laravel
+이라고 입력하면 명령어를 못 찾음
+bash: laravel: command not found...
+
+그래서 이제 $PATH 변수에 넣어서 Laravel만 쳐도 실행이 되도록 만들어줘야함
+일단
+
+라라벨이 실행가능하게 파일은 
+리눅스라면 
+$HOME/.config/composer/vendor/bin or $HOME/.composer/vendor/bin
+위 둘 중 한 곳인데 
+
+$HOME 변수에는 유저 디렉토리 경로가 들어가 있음
+그래서 홈 경로로 간 후에 찾아보면 
+$cd ~ 또는 $cd ~/.composer
+어쨋든 composer 까지 쳐보면 아니 쳐보기 전에라도 탭을 누르면 자동완성이 안됨
+디렉토리가 없음
+
+위의 디렉토리 중에 .config 디렉토리 안에 들어가 있음을 나중에 알게 됨
+
+많은 사이트 튜토리얼에서는 .composer/ 안 경로로 설명하는데 그 쪽에 안깔려있으니
+경로를 먼저 확인해야함
+
+
+( 정확하지는 않지만 처음에는 composer를 설치한 후 실행을 안해서 그런가 
+위의 두곳의 경로다 없었던 같은데..
+암튼 컴포저를 일단 한번 실행해보고
+$composer
+그 다음에 확인해 보니 .config/composer/....생략 안에 생성되어 있음 )
+
+암튼 다시 돌아와서 
+이제 $PATH 를 등록? 해줘야함
+$vi ~/.bashrc
+편집기에서 맨 아래줄에 아래와 같은 코드를 입력
+
+# laravel
+export PATH="$HOME/.config/composer/vendor/bin:$PATH"
+
+그리고 :wq
+$source ~/.bashrc 
+
+그러면 업데이트가 되어서 echo명령어로 확인해보면 등록이 되어 있음
+$echo $PATH
+
+/home/내계정/.config/composer/vendor/bin:/home/내계정/.composer/vendor/bin: ...생략
+
+이제 라라벨 실행해보기
+$laravel
+
+그러면 버전정보와 help 옵션이 뜨면 오키
+
+----------------
+프로젝트 디렉토리 만드는 것부터 시작하기
+
+
+
+
+
+
+$echo $PATH
+/home/sgtocta/anaconda3/bin:/home/sgtocta/anaconda3/condabin: ...생략
+를 해보면 laravel 경로가 안보임 
+
+그래서 
+
+
+
+
+
 
 _____________________________________________________________________________________________________
 _____________________________________________________________________________________________________
