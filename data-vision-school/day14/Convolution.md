@@ -129,6 +129,19 @@ model.add( Dense(128, activation='relu') )
 model.add( Dense(10, activation='softmax'))
 
 ```
+## 위의 코드를 한줄로 만들기
+처음에 Sequential 호출 후 ( ) 안에 리스트 형태로 쭉쭉 넣어준다
+```py
+c_d_model = Sequential( [
+  Conv2D(filters= 16, kernel_size=(3,3), activation='relu', input_shape=(150, 105, 1) ),
+  MaxPooling2D(2, 2),
+  Flatten(),
+  Dense(units=512, activation='relu'),
+  Dense(units=1, activation='sigmoid') # 1개 분류할 때 (0/1)
+  ]
+)
+```
+
 
 ## 모델 요약
 ```py
