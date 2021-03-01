@@ -1,3 +1,28 @@
+ Can't connect to local MySQL server through socket '/var/lib/mysql/mysql.sock' (2)
+(base) [sgtocta@localhost ~]$ systemctl status mariadb
+● mariadb.service - MariaDB 10.5.9 database server
+   Loaded: loaded (/usr/lib/systemd/system/mariadb.service; disabled; vendor pr>
+  Drop-In: /etc/systemd/system/mariadb.service.d
+           └─migrated-from-my.cnf-settings.conf
+   Active: inactive (dead)
+     Docs: man:mariadbd(8)
+           https://mariadb.com/kb/en/library/systemd/
+
+사실 작동하고 있는지 여부먼저 확인해야함
+$systemctl start mariadb
+
+Are you connecting to "localhost" or "127.0.0.1" ? I noticed that when you connect to "localhost" the socket connector is used, but when you connect to "127.0.0.1" the TCP/IP connector is used. You could try using "127.0.0.1" if the socket connector is not enabled/working.
+이게 답인데 
+
+그 다음
+로그인 한 다음에 
+$mysql -uroot -p
+
+DB 프롬프트에서 
+MariaDB [(none)]> show databases;
+결과가 잘 나오면 OK!
+
+
 _____________________________________________________________________________________________________
 <트러블 슈팅 dependencies 에러 발생: vscode 설치 중에>
 error: Failed dependencies:
@@ -398,3 +423,71 @@ hide_hid_files <---- 휴지통이나 볼륨 정보를 숨겨줌 ((RECYCLER/ Syst
 $sudo mount.ntfs-3g -o hide_hid_files,windows_names /dev/sdb1 /media/disk
 
 ------------------------------------------------------------------------------------------------------------------
+php 에러
+
+Fatal error: Call to undefined function mysqli_connect()
+Fatal error: Uncaught PDO Exception: could not find driver in /var/www/html/test.php:43 Stack trace: #0 /var/www/html/test.php(43): PDO->__construct() #1 /var/www/html/test.php(57): Dbh->connect() #2 /var/www/html/test.php(87): Test->getUsers() #3 {main} thrown in /var/www/html/test.php on line 43
+
+php 8 버전, 마리아db는 10.5.9 인데, 전에 7.4 설치할 때랑은 다르게 의존성을 많이 안깔아주고 시작한듯 함
+remi-repo 통해서 설치했는데 
+처음에 mysqli로 테스트 했는데 실패
+PDO로 했는데도 실패
+계속 에러가 나서 찾다보니, phpinfo()사용해서 보니 sqlite는 표시되는데 mysql은 없는 것 같음
+
+깔려있는지 확인은 
+$php -m 
+그러면 php 깔려있는 모듈을 보여줌
+그런데 많은 모듈 중에 pdo_sqlite 만 보임 뭔가 이상
+
+검색 결과 mysql드라이버가 없어서 그랬음
+
+**추가정보:
+php-mysqlnd 에 대해서 정보 보기
+$ sudo yum info php-mysqlnd
+
+결과
+Available Packages
+Name         : php-mysqlnd
+Version      : 8.0.2
+Release      : 1.el8.remi
+Architecture : x86_64
+Size         : 259 k
+Source       : php-8.0.2-1.el8.remi.src.rpm
+Repository   : remi-modular
+Summary      : A module for PHP applications that use MySQL databases
+URL          : http://www.php.net/
+License      : PHP
+Description  : The php-mysqlnd package contains a dynamic shared object that will add
+             : MySQL database support to PHP. MySQL is an object-relational database
+             : management system. PHP is an HTML-embeddable scripting language. If
+             : you need MySQL support for PHP applications, you will need to install
+             : this package and the php package.
+             : 
+             : This package use the MySQL Native Driver
+
+그래서 바로 설치
+$sudo yum install php-mysqlnd
+	
+재시작
+$systemctl restart php-fpm
+
+그리고 해보면 DB에서 데이터 잘 가지고 와서 보여줌
+phpinfo() 를 해보면
+mysqlnd 8.0.2 
+mysqlnd
+이 추가됨
+
+PDO항목에도
+PDO drivers 에 sqlite 만 있었는데 mysql 이 추가됨
+PDO Driver for MySQL 도 추가됨 등등..
+
+다시 설치된 모듈 확인 해보면
+$php -m 
+
+mysqli
+mysqlnd
+pdo_mysql
+
+가 설치된것 확인 . 굿!
+
+

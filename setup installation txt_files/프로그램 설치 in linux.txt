@@ -318,7 +318,18 @@ https://getcomposer.org/download/
 Command-line installation 설치 법을 참고해서 할 것: 
 웹 사이트에서 명령어를 입력하라고 나온대로 하면 됨, 위의 사이트 접속해볼 것
 
-지울 때
+원래 사이트에 나와있는 스탠다드로 깔면
+$php composer.phar 로 실행해야 함
+터미널 어디에서든 하고 싶을 때는 
+
+composer.phar 파일을 이동시켜준다
+$mv composer.phar /usr/local/bin/composer
+참고
+https://getcomposer.org/doc/00-intro.md#globally
+
+
+
+지울 때 (우분투의 경우)
 rm /usr/local/bin/composer
 
 **설명 1~4까지 설명 본 후 (다음에 까먹었을 경우 ㅋ) 옵션 잘 넣어서 설치!!

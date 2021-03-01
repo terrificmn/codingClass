@@ -53,3 +53,7 @@ CREATE TABLE workcode (
     Code varchar(128) NOT NULL
   );
 
+sql>show databases;
+sql>show tables;
+sql>use posts;
+sql>select * from posts;
