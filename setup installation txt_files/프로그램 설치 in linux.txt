@@ -748,3 +748,12 @@ bash 라는 명령어는 그냥 써야하고
 그 다음은 엔터 밑 yes 만 눌러주면 설치가 된다
 
 -----------------------------------------------------------------------------------------------
+
+composer create-project phpmyadmin/phpmyadmin
+설치
+
+
+php composer로 설치 시 에러
+php-webdriver/webdriver 1.9.0 requires ext-zip * -> it is missing from your system. Install or enable PHP's zip extension.
+해결
+sudo yum install php-zip
