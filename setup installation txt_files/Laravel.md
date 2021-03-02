@@ -53,6 +53,17 @@ $sudo vi /etc/hosts
 ```
 이렇게 변경하게 되면 브라우저에 아이피를 쳐도 되고, firstproject.test 입력해도 됨
 
+VirtualBox 나 vmware로 가상으로 돌리고 있을 경우
+만약 호스트 컴퓨터(자신의 메인? 로컬 컴)
+먼저 ip확인 `ipconfig` 또는 `ip address show` 명령어로 확인 후 
+
+```
+$ php artisan serve --host 192.168.0.100
+```
+이렇게 하면 로컬 host에서 접속할 수 있음.. 흠.. 
+외부라 해봤자 가상머신이면 로컬에서 접속하거나,,큰 것은 아니지만 테스트할 때 사용할 수 있을 듯
+
+
 
 vscode extensions 
 >Laravel Blade Spacer  
@@ -96,6 +107,10 @@ return을 스트링으로도 할 수 있는데
 또 json 파일 형태도 가능
 
 return 부분을 수정
+** 참고: =>  associative array에서 키에 해당하는 값을 표시할 때 사용  
+$array = array("key" => "value");
+It uses the same symbol for processing arrays in foreach statements. The '=>' links the key and the value.
+
 ```php
 return ['foo' => 'bar'];
 ```

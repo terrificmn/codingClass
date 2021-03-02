@@ -491,3 +491,18 @@ pdo_mysql
 가 설치된것 확인 . 굿!
 
 
+
+우분투에서 laravel new myproject 로 생성하려고 하면
+
+laravel/framework requires ext-mbstring * -> it is missing from your system. Install or enable PHP's mbstring extension
+
+phpunit/phpunit require ext-dom * -> it is missing from your system. Install or enable PHP's dom extension
+
+2가지의 에러, 친절하게도 extension없으니 깔아달라고 한다
+
+$sudo apt install php-mbstring
+$sudo apt install php-xml
+위 2개를 를 설치해주면 간단히 해결된다
+
+
+

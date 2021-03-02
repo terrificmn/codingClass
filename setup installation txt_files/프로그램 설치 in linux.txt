@@ -241,6 +241,13 @@ rpm 명령어 옵션 설명
 -v: verbose for a nicer display
 -h: print hash marks as the package archive is unpacked
 
+** 참고 : 우분투에서 deb 파일 설치하기
+먼저 deb 파일을 vscode홈페이지에서 다운로드
+
+똑같이 apt 명령어로 설치하면 됨
+$sudo apt install ./code_15.3..생략.deb
+
+
 <트러블 슈팅 dependencies 에러 발생>
 error: Failed dependencies:
 	libXss.so.1()(64bit) is needed by code-1.50.1-1602601064.el7.x86_64

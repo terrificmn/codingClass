@@ -14,12 +14,14 @@ myCallback = MyCallback()
 ## 임포트
 ```py
 from keras.models import Sequential
-from keras.layers import Dense, Flatten
+from keras.layers import Dense, Flatten, Dropout
 from keras.layers import Conv2D, MaxPooling2D
 ```
 
 ## 모델링
-
+이 모델링은 1개를 구분짓는 모델  
+마지막 output layer의 units은 1로   
+개 or 고양이, 사람 or 말 등으로 학습할 떄 사용
 ```py
 model = Sequential()
 model.add (Conv2D (64, (3, 3), activation='relu', input_shape= (150, 150, 3) ))
@@ -29,9 +31,12 @@ model.add (MaxPooling2D(2, 2) )
 model.add (Conv2D (32, (3, 3), activation='relu')) 
 model.add (MaxPooling2D(2, 2) )
 model.add (Flatten() )
+model.add (Dropout (0.4) ) #Dropout도 정해진 위치는 없음
 model.add (Dense(512, activation='relu'))
 model.add(Dense(1, activation='sigmoid'))
 ```
+그래서 마지막 Dense의 액티베이션 함수는 sigmoid  
+컴파일시에는 loss= binary_crossentropy 를 사용
 
 ## 옵티마이져 RMSprop 사용
 먼저 불러오기  
