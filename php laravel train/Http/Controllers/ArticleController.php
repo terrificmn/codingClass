@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Article;
+use App\Models\Tag;
 class ArticleController extends Controller
 {
     // 컨트롤러에는 최소 7개의 기능을 할 수 있게 만들어 줘야함
@@ -12,7 +13,16 @@ class ArticleController extends Controller
 
     // Reder a list of a resouce.
     public function index() {
-        $articles = Article::latest()->get();
+        if (request('tag')) {
+            // 마지막은 article 메소드 호출 ()를 사용하지 않고 property 쓰듯 사용
+            $articles = Tag::where('name', request('tag'))->firstOrFail()->article;
+            // 리턴 json 형태로 보여줌
+            //return $articles;
+        } else {
+            // latest()메소드에서 'id'로 정렬, 원래는 파라미터 안넘겨도 되던데 모르겠음;;;
+            $articles = Article::latest('id')->get();
+        }
+        
         return view('article.index', ['articles' => $articles]);
     }
 /*
@@ -42,7 +52,9 @@ class ArticleController extends Controller
     // Create a view to create a new resource
     // submit 버튼으로 입력하는 것
     public function create(){
-        return view('article.create');
+        return view('article.create', [
+            'tags' => Tag::all()
+        ]);
 
     }
 
@@ -65,14 +77,17 @@ class ArticleController extends Controller
         // 아래 코드에서 변수에 저장해주면 create() 메소드를 호출할 때 중복을 제거해줄 수 있음
         // 기능은 똑같음
 
-        $validatedAttributes = request()->validate( [ 
-            // 더 추가할 때는 [ ] 배열에 넣어주고 자세한것은 메뉴얼 확인해 보기
-            //'title' => ['required', 'min:3', 'max:255'],
-            'title' => 'required',
-            'excerpt' => 'required',
-            'body' => 'required'
-        ]);
-        
+        // 이걸로 메소드로 추가함
+        // $validatedAttributes = request()->validate( [ 
+        //     // 더 추가할 때는 [ ] 배열에 넣어주고 자세한것은 메뉴얼 확인해 보기
+        //     //'title' => ['required', 'min:3', 'max:255'],
+        //     'title' => 'required',
+        //     'excerpt' => 'required',
+        //     'body' => 'required'
+        // ]);
+        //바로 위의 $validatedAttributes 코드로 작성했을 경우 아래코드와 짝임
+        //Article::create($validatedAttributes);
+
         // DB저장 가장 기본적인 방법 (단, 이런식으로 하면 안됨!!!, 아래서 설명)
         // 왜냐하면 유저가 입력하는 방법을 다 믿으면 안된다 뭐 이런식?
         // 암튼 검증해야한다. 위의 코드가 validate()하는 방법
@@ -106,10 +121,15 @@ class ArticleController extends Controller
         // 그래서 이렇게 됨
         // return $validatedAttributes; // json형태로 입력한 것을 그대로 받은것을 알 수 있음
         // 이 변수를 create()메소드에 넘겨서 리턴해주면 위의 참고1번 코드와 같은 기능을 한다
-        Article::create($validatedAttributes);
+        //dd(request()->all());
+        $this->validateArticle();
+        // 키값 순서대로 지정해주기 , 그러면 태그를 순서대로 선택안해도 에러 안나게 됨
+        $article = new Article(request(['title', 'excerpt', 'body']));
+        $article -> user_id = 1; // 원래는 auth()->id(); 이런식으로 한다고 함, 지금은 하드코딩
+        // auth()->user()->article()->create($article); 이런식도 가능하다고 함
+        $article->save();
 
-
-
+        $article->tags()->attach(request('tags')); // [1, 2, 3] 으로 넘어오고 이것은 article_tag 테이블로 연결
         return redirect('/article');
     }
 
@@ -155,6 +175,19 @@ class ArticleController extends Controller
         // web.php에서 route()에서 ->name()메소드를 'article.show'로 지정했을 경우
         return redirect(route('article.show', $article));
     }
+
+    public function validateArticle() {
+        return request()->validate( [ 
+            // 더 추가할 때는 [ ] 배열에 넣어주고 자세한것은 메뉴얼 확인해 보기
+            //'title' => ['required', 'min:3', 'max:255'],
+            'title' => 'required',
+            'excerpt' => 'required',
+            'body' => 'required',
+            'tags' => 'exists:tags,id'
+
+        ]);
+    }
+
 
     // Delete the resource
     public function destroy(){

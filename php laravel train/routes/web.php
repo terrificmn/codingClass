@@ -18,13 +18,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/template', function () {
+    return view('template');
+});
 
 Route::get('/test', function () {
     return view('test');
 });
 
 // 여기에서 라우트만 해주면 컨트롤러에서 보여주기, 인덱스, 삭제, 삽입 등등을 다 해야함--이게 중요
-Route::get('/article', 'App\Http\Controllers\ArticleController@index');
+Route::get('/article', 'App\Http\Controllers\ArticleController@index')->name('article.index');
 
 // 예전 버전은 이렇게 사용했으나, 안됨 
 // Route::get('/article/{article}', 'ArticleController@show');
