@@ -506,3 +506,23 @@ $sudo apt install php-xml
 
 
 
+--------------
+phpmyadmin 설치 에러  (우분투)
+
+문제
+The requested PHP extension ext-mysqli * is missing on php
+
+설치
+sudo apt-get install php-mysql
+
+
+에러 php-webdriver requires ext-curl 
+
+설치 
+sudo apt-get install php-curl 
+
+
+php-webdriver requires ext-zip 에러 
+
+설치
+sudo apt-get install php-zip
