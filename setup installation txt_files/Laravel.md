@@ -1125,5 +1125,17 @@ ___
 
 
 
+factory 사용
+PostFactory를 만든다음에 
+PostFactory에 만들어 준다음에
 
+tinker에 들어가서 
+```
+\App\Models\Post::factory()->create();
+더미 데이터를 만들어서 DB에 넣어준다
+```
 
+```
+\App\Models\Post::factory()->count(2)->create();
+카운트만큼 더미데이터 넣어줌
+```
