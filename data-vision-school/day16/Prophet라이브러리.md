@@ -3,6 +3,11 @@
 - Seasonal time series data를 분석
 - 딥러닝 라이브러리
 
+- Seasonal time series data를 분석할 수 있는 딥러닝 라이브러리다. 
+- 프로펫 공식 페이지 :  
+ https://research.fb.com/prophet-forecasting-at-scale/
+ https://facebook.github.io/prophet/docs/quick_start.html#python-api
+
 ## 설치
 ```
 pip install fbprophet

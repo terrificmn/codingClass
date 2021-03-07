@@ -13,3 +13,6 @@ Eloquent Model
 Pizza.blade.php 라는 html, css, javascript 만들어서
 사용자에게 보여줌
 
+
+참고 Controller의 기본 7가지 Actions
+https://laravel.com/docs/8.x/controllers#actions-handled-by-resource-controller
