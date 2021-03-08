@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+//use App\Mail\WelcomeMail; //WelcomeMail을 CustomerController에서 사용
+//use Illuminate\Support\Facades\Mail;  //WelcomeMail을 CustomerController에서 사용
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +18,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// 컨트롤러에 입력함 -- 어쨋든 기본 사용방법: 이메일 보내기
+// Route::get('/email', function() {
+//     Mail::to('email@email.com')->send(new WelcomeMail()); //use로 정해줘야함 use Illuminate\Support\Facades\Mail
+//     return new WelcomeMail(); //만든 WelcomeMail() 리턴/ url로 /email 만치면됨 // 이것도 위에  사용한다고 적어줄 것 use App\Mail\WelcomeMail;
+// });
+
 
 // Route::get('/hello', function() {
 //     $coolString = 'Hello from Routes. Again';
