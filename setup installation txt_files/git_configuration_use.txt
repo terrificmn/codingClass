@@ -1,5 +1,21 @@
 Git 환경 설정 및 명령어 사용
 
+깃허브 처음 리포지터리 만들고 첫 add, commit, push 까지 하기
+echo "# myBlogProject" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add myblog https://github.com/terrificmn/myBlogProject.git
+git push -u myblog main
+헛깔리까봐 remote를 orgin 대신에 myblog로 해서 등록함 
+기존에 공부하는 깃허브는 origin이어서 괜히 착각할 것 같아서 
+
+
+*새로운 리포지터리 만듬 (08Mar, 2021)
+-u 옵션이랑
+
+
 vscode 열기 (자동으로 열림)
   $code .
 
@@ -191,7 +207,7 @@ usage: git rm [<options>] [--] <file>...
 
 <트러블슈팅>
 디렉토리가 포함되었을 때는 
-  $gir rm -r --cached phpClass/*
+  $git rm -r --cached phpClass/*
 으로 해주면 됨
 
 
@@ -359,3 +375,5 @@ Switched to a new branch 'develop'
 
 브랜치 바꾸기
   $git checkout master
+
+

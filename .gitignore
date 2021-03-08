@@ -8,3 +8,6 @@ c-school/yhprojects/
 .ipynb_checkpoints
 data-vision-school/big_csv_files
 streamlit/day01/data
+streamlit/day02/data
+streamlit/day02/temp
+*.pyc 
