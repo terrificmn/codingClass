@@ -18,6 +18,7 @@ class CreateCustomersTable extends Migration
             $table->string('name');
             $table->string('email');
             // $table->text('notes')->nullable();  // null 허용하게 하기
+            $table->unsignedInteger('active')->default(1); // 1 is active
             $table->timestamps();
         });
     }

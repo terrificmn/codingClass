@@ -4,11 +4,29 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Customer;
+use App\Mail\WelcomeMail; 
+use Illuminate\Support\Facades\Mail;
+        
 
 class CustomerController extends Controller
 {
-    public function index() {
-        $customers = Customer::all();
+    public function index(Request $request) {  //use Illuminate\Http\Request; already imported, so just use Request
+        //dd(request()); //reuqest() help function's result is the same as $request
+        // dd(request()->query('active')); // and you can type ?active=1 in the url 
+        
+        
+        //$customers = Customer::where('active', 1)->get(); // only get() which column of 'active' is 1
+        $customers = Customer::where('active', request()->query('active', 1) )->get(); // only get() which column of 'active' is 1
+        // query('active') 라고만 해도 동작은하나 1이라고 파라미터를 넘겨주면 기본이 1을 query해줌
+        // instead of using 1 above code, simply add request() help function
+        // just input ?active=0, or 1 in the url
+
+        //$customers = Customer::all();
+
+        //$customer = new Customer(); // Null 값이 객체를 생성해주고 넘겨준다 
+        //이유는 create과 edit 페이지의 공통되는 form을 만들어서 각각 @nclude하게 되는데 이려면
+        // create에서는 넘어간 것이 없어서 에러가 남// 그래서 빈 값을 넘겨줘서 에러가 안 나가게 한다
+
         return  view('customer.index', compact('customers'));
     }
 
@@ -17,6 +35,7 @@ class CustomerController extends Controller
         $customer = new Customer(); // Null 값이 객체를 생성해주고 넘겨준다 
         //이유는 create과 edit 페이지의 공통되는 form을 만들어서 각각 @nclude하게 되는데 이려면
         // create에서는 넘어간 것이 없어서 에러가 남// 그래서 빈 값을 넘겨줘서 에러가 안 나가게 한다
+
         return view('customer.create', compact('customer'));
         
     }
@@ -27,6 +46,13 @@ class CustomerController extends Controller
         // validatedData()에서는 validate한 후 리턴
 
         $customer = Customer::create($this->validatedData()); //DB 에 insert
+
+        // 메일보내기
+        Mail::to($customer->email)->send(new WelcomeMail()); // customer의 email을 가지고 온 다음에 WelcomeMail() 클래스 이용해서 바로 보내줌
+        // 현재 mailtrap으로 설정되어 있어서 거기서 메일 확인할 수 있고
+        // 위에 use로 import를 해줘야한다. Mail과 WelcomeMail 둘다
+        //use App\Mail\WelcomeMail; 
+        //use Illuminate\Support\Facades\Mail;
         
         return redirect('/customers/' . $customer->id );   /// 입력이 끝난 후 show()메소드 show페이지가 연결될 수 있게 해준다 id를 넘겨줌
         

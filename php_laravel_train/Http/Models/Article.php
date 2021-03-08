@@ -25,8 +25,8 @@ class Article extends Model
     }
 
     public function tags() {
-        return $this->belongsToMany('App\Models\Tag', 'article_tag');
-        
+        //return $this->belongsToMany('App\Models\Tag', 'article_tag'); //이렇게만 하면 타임스탬프가 추가가 안됨
+        return $this->belongsToMany('App\Models\Tag', 'article_tag')->withTimestamps();
     }
 
     
