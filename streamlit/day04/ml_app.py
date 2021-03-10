@@ -1,16 +1,5 @@
-import streamlit as st
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sb
-import h5py
-from tensorflow.keras.models import load_model
-import tensorflow.keras
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Dropout
-from sklearn.preprocessing import MinMaxScaler
-import pickle
-import joblib
+from modules import import_modules
+
 # joblib 을 이용해서 저장하기 (스케일러 저장하기)
 #joblib.dump(mmX, 'mmX.pkl')
 
@@ -20,11 +9,14 @@ import joblib
 # 예측 본론
 
 # 학습 => 오차를 줄이는 것
-
 # validataion은 에포크 끝난 (학습 1회 끝남) 문제를 주고, 계산만 함
 # 정답을 알려주지 않음, 
 
+# 예제 데이터
+#새로운 고객 데이터가 있습니다. 이 사람은 차량을 얼마정도 구매 가능한지 예측하시오.
+#여자이고, 나이는 38, 연봉은 90000, 카드빚은 2000, 순자산은 500000 일때, 어느정도의 차량을 구매할 수 있을지 예측하시오.
 def run_ml_app():
+
     st.subheader('Machine Learning')
 
     # 파일명.h5 저장한 것을 불러오기
@@ -58,5 +50,15 @@ def run_ml_app():
     #화면 표시
     st.write( new_y_pred_original )
 
+
+    st.subheader('예측을 하겠습니다.')
+    st.radio('성별', ['여자', '남자'])
+    st.slider('나이', 10, 100)
+    st.text_input('연봉을 입력하세요')
+    st.text_input('카드빚을 입력하세요')
+    st.text_input('순 자산을 입력하세요')
+
+    if st.button('예측하기'):
+        st.warning('아직 만드는 중입니다. ')
 
 

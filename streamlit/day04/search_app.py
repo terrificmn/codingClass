@@ -1,0 +1,17 @@
+from modules import import_modules
+
+def run_search():
+    #호출하기
+    #2파일명()
+    st.dataframe(df)
+    st.subheader('가장 연봉이 높은 사람 검색하기')
+    radio_list = ['연봉 가장 많이 받는 사람', '연봉 가장 적게 받는 사람']
+    
+    choiceOfUser = st.radio('선택 하세요', radio_list)
+    
+    if choiceOfUser == radio_list[0]:
+        max_salary = df.loc[ df['Annual Salary'] == df['Annual Salary'].max() , ['Customer Name', 'Country', 'Age', 'Annual Salary']]
+        st.text(max_salary)
+    elif choiceOfUser == radio_list[1]:
+        min_salary = df.loc[ df['Annual Salary'] == df['Annual Salary'].min() , ['Customer Name', 'Country', 'Age', 'Annual Salary']]    
+        st.text(min_salary)
