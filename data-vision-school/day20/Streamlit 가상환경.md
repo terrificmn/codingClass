@@ -117,11 +117,50 @@ conda env remove -n colab
 C:\Users\5-20\anaconda3\envs\colab:
 디렉토리를 지워버리기
 
+<br/><br/>
 
+## 가상환경 패키지 리스트 보는 또 다른 방법
 
+conda list 하면 설치되어 있는 패키지 목록이 나옴
+```
+conda list
+```
+
+먼저 가상환경을 activate 시켜줘야 한다   
+conda activate 가상환경이름
+```
+conda activate streamlit
+```
+
+conda env export > requirements.yaml
+
+패키지 목록 requirements.txt 파일로 만들기
+```
+conda list e > requirements.txt
+```
+pip freeze와 다른 점은 파일에 친절하게도   
+다음에 설치할 수 있는 명령어가 주석으로 달린다  
+주석 내용은 아래와 같음
+
+```
+# This file may be used to create an environment using:
+# $ conda create --name <env> --file <this file>
+```
+
+## 가상 환경 설치
+
+다시 설치하려면 위에 명령어를 사용하면 될 듯
+conda create -n <streamlit가상환경이름> --file <파일>
+```
+conda create -n streamlit --f requirements.txt
+```
 
 ___
 <br/><br/>
+
+## CICD 방식 추후 배움 (docker)
+위와 같이 가상환경을 서버에 구축해서 같은 환경을 만드는 전통적인 방법이 있지만  
+CICD 방식을 Docker를 이용해서 구현할 수 있음
 
 
 ## 최소 필요한 라이브러리만 가지고 가상환경 만들기
@@ -130,6 +169,8 @@ ___
 ```
 conda create -n streamlit python=3.7.10 tensorflow numpy scipy matplotlib ipython scikit-learn pandas pillow jupyter seaborn
 ```
+
+<br/><br/>
 
 
 ## 스트림릿 선택하기

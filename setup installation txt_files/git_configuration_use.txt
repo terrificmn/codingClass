@@ -11,6 +11,8 @@ git push -u myblog main
 헛깔리까봐 remote를 orgin 대신에 myblog로 해서 등록함 
 기존에 공부하는 깃허브는 origin이어서 괜히 착각할 것 같아서 
 
+**설명: 
+  git branch -M main 는 oldbranch명을 바꾸는 것 아마도 master에서 main으로
 
 *새로운 리포지터리 만듬 (08Mar, 2021)
 -u 옵션이랑
@@ -18,6 +20,11 @@ git push -u myblog main
 
 vscode 열기 (자동으로 열림)
   $code .
+
+help옵션 사용하기
+$git 명령어 --help
+그러면 매뉴얼 페이지가 브라우저로 열린다
+
 
 에디터 등록하기, 여기서 --global 옵션을 주어서 editor 선택
   $git config --global core.editor "code --wait"
@@ -369,6 +376,17 @@ master
 
 새로운 branch 만들기 (-b 옵션 뒤에는 만들고 싶은 브랜치명)
   $git checkout -b develop
+
+
+이것은 oldbranch명을 바꾸는 것  (branch 만드는 것과는 다름)
+$git branch -M main 
+
+With a -m or -M option, <oldbranch> will be renamed to <newbranch>. 
+If <oldbranch> had a corresponding reflog, 
+it is renamed to match <newbranch>, 
+and a reflog entry is created to remember the branch renaming. 
+If <newbranch> exists, -M must be used to force the rename to happen.
+
 
 Switched to a new branch 'develop'
 이렇게 나옴
