@@ -154,6 +154,45 @@ conda create -n <streamlit가상환경이름> --file <파일>
 ```
 conda create -n streamlit --f requirements.txt
 ```
+## Cross Platform 
+(Windows--->Linux, 또는 Linux--->Windows 일 때 문제가 발생)
+
+**참고
+원래 파이썬 3.9 버전 (base) 그래서 
+가상환경 스트림릿 환경이 파이썬 3.7로 base가 되어 있어서 
+파이썬 3.7을 먼저 설치한 후 다시 가상환경 만들기 전에 3.9버전 환경변수에서 지워주기
+고급시스템 설정 -> 고급탭 -> 환경변수 -> 사용자변수에서 Path변수 편집
+Python39로 되어있는 것 삭제
+환경 변수 편집 (백업)
+C:\Users\5-20\AppData\Local\Programs\Python\Python39\Scripts\
+C:\Users\5-20\AppData\Local\Programs\Python\Python39\
+그리고 아나콘다 프롬프트 말고
+cmd에서 실행
+
+
+## Virtualenv로 가상 환경 만들기 (Conda 방식이 아님)
+virtualenv 설치하기
+```
+pip install virtualenv
+```
+가상환경 만들기
+
+virtualenv myenv
+이렇게 하면 가상 환경이 만들어 짐
+
+myenv 라는 디렉토리가 생기고 myenv/Scripts 에 activate 파일이 있는데 실행하면 
+가상환경이 실행이 된다 
+```
+cd myenv/Scripts
+activate
+
+그러면 (myenv) 로 프롬프트가 바뀜
+
+그 다음에 가상환경인것 확인한 후 pip으로 라이브러리 설치
+```
+
+```
+
 
 ___
 <br/><br/>
