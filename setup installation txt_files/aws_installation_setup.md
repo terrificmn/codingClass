@@ -84,22 +84,40 @@ python3 -m pip install -r requirements.txt
 만약 콘다 설치 후 
 conda 명령어가 들지 않으면 
 vi .bashrc 파일의 PATH를 등록해줘야함
-
+```
+sudo vi .bashrc
+```
+파일이 열리면 아래에 코드 추가
+```
 export PATH="/home/ubuntu/anaconda3/bin:$PATH"
-그리고 저장
+```
+그리고 저장 :wq
 
+그리고 bashrc 파일 실행해서 PATH경로 인식되게 하기
+```
 sudo source .bashrc
+```
 
-그리고 conda 라고 치면 명령어 안내가 나오면 ok
+그리고 `conda` 라고 치면 명령어 안내가 나오면 ok
 만약 위에서 init을 안했다면 
-conda init   
+`conda init`
 
 그리고 가상환경 만들어주면서 라이브러리 설치
+```
 conda create -n streamlit python=3.7.10 tensorflow numpy scipy matplotlib ipython scikit-learn==0.23.2 pandas pillow jupyter seaborn joblib
+```
 
 그러면 (streamlit) 라고 바껴야 함. (정확하지 않음) 아니면 activate 시키기
-conda activate streamlit 
+```
+$ conda activate streamlit
+```
+
+비활성화 빠져나올 떄는 
+```
+$ conda deactivate
+```
 
 만약 streamlit을 못찼는다고 하면 streamlit 설치
 pip3 install streamlit    
+
 

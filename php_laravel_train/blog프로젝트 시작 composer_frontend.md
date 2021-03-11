@@ -42,3 +42,15 @@ php artisan make:controller PostController --resource
 
 
 
+cviebrock/eloquent-sluggable 컴포저 설치
+composer require cviebrock/eloquent-sluggable
+
+그리고 PostController에 
+```php
+use Cviebrock\EloquentSluggable\Services\SlugService;
+```
+그리고 컨트롤러의 store()메소드에
+```php
+// SlugService로 slug를 만듬 (1@param: Post모델, 2param: 컬럼명, 3param: 입력받은 title)
+$slug = SlugService::createSlug(Post::class, 'slug', $request->title);
+```
