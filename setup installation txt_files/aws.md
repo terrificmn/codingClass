@@ -31,6 +31,9 @@ ssh은 기본으로 열려있고
 ```
 $ssh ip주소 -i .\ai.pem -l username
 ```
+AWS를 우분투로 했을 경우는 유저이름을 ubuntu로 aws에서 정해줌
+그래서 -l 이후는 ubuntu로 하면 됨
+
 -i 옵션(인증파일 입력) `ai.pem` (경로/파일명을 적어주면 됨)
 -l 옵션(로그인유저) 
 
@@ -64,7 +67,7 @@ wget 링크주소붙여넣기
 *설치는 `프로그램 설치 in linux.txt` 파일 참고*
 
 4. 로컬host컴에서 깃허브에 requirement.txt 파일을 add 한 후 commit 및 push를 해준다
-*자세한 설명은 `Streamlit 가상환경.md` 파일 참고*
+*자세한 설명은 `Streamlit 가상환경.md` 또는 `aws_installation_setup.md` 파일 참고*
 
 5. 그리고 다시 터미널 ssh로 돌아와서 git을 먼저 설치해준다.   
 그리고 git을 clone 시켜준다

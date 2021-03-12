@@ -54,3 +54,12 @@ use Cviebrock\EloquentSluggable\Services\SlugService;
 // SlugService로 slug를 만듬 (1@param: Post모델, 2param: 컬럼명, 3param: 입력받은 title)
 $slug = SlugService::createSlug(Post::class, 'slug', $request->title);
 ```
+
+
+Home 관련된 페이지를 사용안하기 때문에 
+관련해서 Home 디렉토리 바꾸기
+app/Http/Auth/LoginController.php >> 에서 
+RouteServiceProvide::HOME을 리다이렉트하고 있는데 
+
+app/Providers/RouteServiceProvider.php 에서 
+public const HOME = '/home'; 이라고 정해져있어서 home 지우고 '/' 만 남기면 됨
