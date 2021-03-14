@@ -1,0 +1,58 @@
+version: '3.9'
+
+networks:
+  laravel:
+
+services:
+  httpd:
+    image: httpd:2.4
+    container_name: httpd
+    ports: 
+      - "8080:80"
+    volumes:
+      - ./src:/var/www/html
+
+  db:
+    image: mariadb
+    container_name: mysql
+    restart: unless-stopped
+    tty: true
+    ports: 
+      - "4306:3306" 
+    volumes:
+      - ./mysql:/var/lib/mysql  #현재 프로젝트 디렉토리에 mysql 디렉토리를 만들어 준다
+    environment: 
+      MYSQL_DATABASE: homestead
+      MYSQL_USER: homestead
+      MYSQL_PASSWORD: secret
+      MYSQL-ROOT_PASSWORD: secret
+    networks: 
+      - laravel
+
+  php:
+    build:  # 여기에서는 image로 불러오지 않고 build를 하는데 
+      context: 
+      dockerfile: Dockerfile   # 여기 Dockerfile 에 의해서 함
+    container_name: php
+    volumes: 
+      - ./src:/var/www/html
+    ports:
+      - "9000:9000"
+    networks: 
+      - laravel
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1
+    networks: 
+      - laravel
+
+    
+
+
+

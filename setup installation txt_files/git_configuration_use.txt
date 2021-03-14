@@ -210,7 +210,18 @@ usage: git rm [<options>] [--] <file>...
     --ignore-unmatch      exit with a zero status even if nothing matched
 이때에는 -r 옵션을 해줘야하고 --cached 를 꼭 써야함 (index에서 제거하는것은 staging area에서 제거하는 것)
 --cached를 안사용하면 파일이 지워질 수도 있다. 
-테스트 해봐야할 듯
+
+예:
+git rm --cached .env
+use --cached to keep the file, or -f to force removal
+이래야 --cached 옵션을 줘야지 파일이 안 지워진다, -f 옵션이면 파일 지워짐
+
+위처럼 하면 add 한 후 취소를 한 것이 되서 git status를 하면
+deleted: .env 
+라고 나오지만 실제 파일은 지워지지는 않는다.
+
+
+
 
 <트러블슈팅>
 디렉토리가 포함되었을 때는 
