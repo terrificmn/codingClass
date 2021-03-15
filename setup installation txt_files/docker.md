@@ -39,17 +39,79 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.28.5/docker-
 그 다음 퍼미션 실행가능하게 만들기
 sudo chmod +x /usr/local/bin/docker-compose
 
+이제 docker-compose 실행은 되나 docker-compose --version 하면
+버전 정보 잘 나옴 
+그러나 
+sudo docker-compose build 하면
+sudo: docker-compose: command not found  이렇게 나옴
+그래서 링크를 걸어준다
+
+Note: If the command docker-compose fails after installation, check your path. You can also create a symbolic link to /usr/bin or any other directory in your path.
+
+```
+sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+```
+
+
+
 버전확인
 docker-compose --version
 
 버전 1.28.5 이런식으로 나오면 OK!
 
+참고 매뉴얼 
+https://docs.docker.com/engine/install/centos/
+
 
 
 준비
 
-먼저 테스트겸 프로젝트 디렉토리 하나 만든 후 그 안에 yml파일 만들기
-touch docker-compose.yml
+docker 파일들을 넣어둘 디렉토리를 하나 만든다
+이름은 아무거나
+```
+$ mkdir dockertest
+$ cd dockertest
+```
+
+## Dockerfile Docker 실행하기
+
+Dockerfile 을 만든다 (확장자 없이)
+Dockerfile 안에 build할 내용을 적는다 
+
+```Dockerfile
+FROM php:8.0-fpm
+COPY . /usr/src/myapp
+WORKDIR /usr/src/myapp
+CMD ["php", "./index.php"]
+```
+
+그리고 src 서브 디렉토리를 하나 만들고 
+```
+$ mkdir src
+```
+src 디렉토리 안에 테스트 페이지로 index.php 하나 만든다 
+index.php 내용안에는 간단하게 아무런 내용 상관 없음
+
+```php
+<?php
+echo 'Hello from Docker!';
+?>
+```
+
+빌드하기
+$sudo docker build -t my-php-app 
+
+만들어진 이미지로 실행
+$sudo docker run -it --rm --name my-running-app my-php-app
+
+잘 실행이 된다면 
+**Hello from Docker!** 라는 메세지가 나오면 성공!
+
+___
+
+## docker-compose 사용하기
+docker-compose.yml 파일을 만들어서 사용
+상위 디렉토리에 파일을 하나 만든다 (그냥 vscode로 만드는게 편함)
 
 ```yml
 version: '3.1'
@@ -81,30 +143,41 @@ version: '3.1'
     volumes:
     mysql-data:
 ```
-위의 image 부분 **youtube 다시 한번 확인해 볼 것**
-
-그리고 Dockerfile 을 만든다 (확장자 없이)
-Dockerfile 안에 build할 내용을 적는다 
-
-위의 image 부분 youtube 다시 한번 확인해 볼 것 
-여기도 **업데이트 필요**
 
 
 docker-compose build && docker-compose up -d
 -d 는 detached 의미로 백그라운드에서 계속 돌아가게 하는 것
 
+테스트!
+브라우저를 열고 http://localhost/index.php 입력한다
+
+index.php에 입력한 내용이 잘 나오면 성공!
+
+참고 Adminer도 dbtool
+Adminer 로그인
+아이디 root
+비번: example
+db 는 비워둘 것
+
+DB를 만들고, 테이블을 만들어 보면 잘 작동하는 것 확인!
 
 
+### 트러블 슈팅
 
-docker 리스트 보기
-$ sudo docker ps -aq
+트러블 슈팅
+docker.errors.DockerException: Error while fetching server API version: ('Connection aborted.', PermissionError(13, 'Permission denied'))
+sudo로 했는데도 이런 에러가 난다면
+
+그 docker 그룹을 추가하고 현재 내 계정을 docker 그룹에 추가해 준다
+sudo gpasswd -a $USER docker
+newgrp docker
+
+그러면 해결!
 
 
-$ sudo docker-compose up -d 
+### 트러블 슈팅
 
-다운시키기
-$ sudo docker-compose down
-
+또 문제 발생 시
 
 host 컴에서 httpd (apache2)가 서비스 중일 때는 
 docker-compose up -d 를 실행했을 때 에러가 발생 
@@ -131,110 +204,193 @@ $systemctl stop apache2  #ubuntu
 $ sudo docker-compose up -d
 ```
 
-Starting dockertest_php_1 ... done 
-이런 메세지와 함께 끝나면 성공
-
-이제 브라우저로 
-localhost:8080 으로 접속하면 Adminer 로 접속을 할 수 있음
-phpmyadmin 같은 프로그램인 듯 한데 좀 더 수월한가봉
-
-그리고 
-브라우저에 localhost/index.php 를 입력하면
-docker 파일을 만들기 위해서 src 디렉토리에 만들어 놓았던 index.php 가 실행되는 것을 알 수 있음
-신기 (httpd 는 작동이 중지되있기 때문)
-도커 컨테이너안에서 따로 실행
-
-실행이 잘 되는 것을 확인했으니 이제 다시 down으로 중지 시킴
+자~ 다시
 ```
-$ sudo docker-compose down
+$ sudo docker-compose build && docker-compose up -d
 ```
-
-___
-
-이번에는 Dockerfile을 수정해서 build를 할 수 있게 한다 
-이렇게 하면 .yml 파일에 image로 가져올 수 없고 build로 바꿔줘야 함
+Creating php ... done 이렇게 나오면 굿!
 
 
-일단 아무 디렉토리나 만들고  (docker를 실행할 root dir이 된다)
-$ mkdir dockertest
-$ cd dockertest
+docker를 내린다
+$docker-compose down
 
-이제 파일 2개를 만든다 , `docker-compose.yml`, `Dockerfile` (확장자 없음)
-편하게 vscode에서 만들어도 되고 touch나 echo 명령어로 만들어도 된다 in the terminal (맘대로)
+이제 docker를 다시 내린 후에 
+어떤식으로 돌아가는지 감이 좀 잡혔으니
+mysql 대신에 maria db와 adminer 대신에 phpmyadmin으로 진행
+문제는 거기에 필요한 extesion들을 어떤식으로 추가할지가 관건인듯
 
-그리고 서버가 잘 작동하는지 테스트 하기 위해서 src 디렉토리를 하나 만들고 
-그 안에 index.php 파일을 만듬 
-$ touch index.php
-
-(또는 vscode로 만들기)
-
-이제 docker_compose.yml 파일을 열어서 내용을 수정한다
-일단 version은 3.1 이고 php 버전도 7.4 임
-버전 8.0은 테스트를 해봐야하는데 일단, 7.4는 성공
-
-위에서 만들어진 내용 중에 image 있는 부분을 build로 수정
-왜냐하면 Dockerfile에서 이미지를 빌드하는 방법으로 바꿨기 때문
-
-
-```yml
-version: '3.1'
-
-    services:
-    php:
-        build:
-        context: . #current dir
-        dockerfile: Dockerfile
-        ports:
-            - 80:80
-        volumes:
-            - ./src:/var/www/html/
-
-    db:
-        image: mysql
-        command: --default-authentication-plugin=mysql_native_password
-        restart: always
-        environment:
-        MYSQL_ROOT_PASSWORD: example
-        volumes:
-            - mysql-data:/var/lib/mysql
-
-    adminer:
-        image: adminer
-        restart: always
-        ports:
-        - 8080:8080
-
-    volumes:
-    mysql-data:
-```
-
-
-
-그리고 나서 
-위에서 이미지 파일을 잘 받아서 실행되는 것을 확인했기 때문에 
-Dockerfile에서 build 하고 확장 프로그램들을 설치해주는 명령어를 셋팅한다
+Dockerfile을 열어서 이제 기존의 Dockerfile 을 이용해서 이미지를 빌드
+아예 만들어져 있는 것을 받는게 아니라 extension등을 더 받아서
+하게 하는 것
+내용 수정 (전체 수정) 일단 이게 기본이 될 듯한데 필요한것을 더 깔아야 할 듯 하다
 
 ```Dockerfile
-FROM php:7.4-apache
-RUN docker-php-ext-install mysqli
+FROM php:8.0-apache
+RUN docker-php-ext-install mysqli 
 ```
 
-저장
+다시 
+docker-compose.yml 파일을 열고 내용 추가
 
-
-
-
-docker-compose 를 실행한다
+조금씩 수정하고 보완하면서 다시 실행을 반복
 ```
-$ sudo docker-compose up -d
+$docker-compose down
+
+$ sudo docker-compose build && docker-compose up -d
+```
+
+그러면 mariadb와 phpmyadmin 같은 경우는 이미지를 새로 다운 받는다
+Creating dockertest_db_1         ... done
+Creating dockertest_phpmyadmin_1 ... done
+Creating php                     ... done
+요렇게 나오면 성공!
+
+
+
+phpmyadmin 테스트 해보기
+
+브라우저에 
+http://localhost:8080/ 
+이렇게 입력하면 접속됨
+
+
+
+docker 리스트 보기
+$ sudo docker ps -aq
+
+활성화
+$ sudo docker-compose up -d 
+
+다운시키기
+$ sudo docker-compose down
+
+
+## 완성본은 아니지만 그대로 일단 완성본?
+
+이제 대충 완료된 docker-compose.yml 파일
+설명은 주석으로 
+```yml
+version: '3.8'
+
+networks: # entworks 라는 것으로 묶어줌 이름 laravel
+  laravel:
+
+services:
+  php:
+    #image: php:8.0-apache #직접 이미지를 받을 때 사용
+    build:
+      context: .   # .은 현재 디렉토리를 의미하므로 dockerfile을 사용해서 build 하겠다
+      dockerfile: Dockerfile
+    container_name: php  #컨테이너 네임 정해주기
+    ports:
+      - 80:80   #lccalhost에서 80포트로 docker container 80포트로 통신 
+      # 여기도 php를 로컬로 사용하고 있다면 9000:9000 포트를 바꿔줘도 됨
+    volumes:
+      - ./src:/var/www/html/   # ./src 는 현재디렉토리부터 src 서브디렉토리를 web service 디렉토리인 /var/www/html/ 연결
+    networks: 
+      - laravel
+
+  # Use root/example as user/password credentials
+  db:
+    image: mariadb # 도커hub에서 이미지를 받아온다
+    container_name: mariadb
+    restart: unless-stopped  #재시작하지 않음 unless-stopped 어떤 이유로 든지 멈추지 않으면 재시작 하지않음, 멈추면 재시작 
+    tty: true # db와 통신 가능하게함
+    ports: 
+      - 4306:3306  # 포트를 로컬은 4306으로 설정한 이유는 이미 로컬에서 db가 돌아가고 있어서 4306으로 설정 없다면 3306:3306으로 하면 됨
+    environment:
+      MYSQL_ROOT_PASSWORD: my-secret-pw  #root 패스워드가 됨 안써도 디폴트라고 하는 듯
+      MYSQL_DATABASE: app_db
+      MYSQL_USER: db_user
+      MYSQL_PASSWORD: db_user_pass
+      SERVICE_TAGS: dev # 옵션 (없어도 무관)
+    volumes:
+      - ./mysql:/var/lib/mysql  # 데이터를 저장하려면 연결해줘야함 #mysql 디렉토리는 만들어야 함
+    networks: 
+      - laravel
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: pma
+    links:
+      - db   # 여기에서 db로 연결했으니 phpmyadmin으로 들어갈때 server를 db라고 하면 됨 ,, 외부에서 연결할때는 고민을 좀 해봐야할 듯
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST= db
+      - PMA_PORT= 3306
+    networks: 
+      - laravel
 ```
 
 
-Adminer 로그인
-아이디 root
-비번: example
-db 는 비워둘 것
+yml 파일 개념 정리
 
-DB를 만들고, 테이블을 만들어 보면 잘 작동하는 것 확인!
+일단 위의 yml 파일이 정의되는 방식은 다음과 같다
+네트워크로 묶고 laravel 로 묶음
+
+그리고 그 안에 service가 들어가 지는데 
+네트워크 이름을 적어준다
+
+version: '3.8'
+
+networks:
+    laravel:
+
+services:
+    php
+        networks:
+            laravel:
+    
+    db
+        networks:
+            laravel:    
+    
+    phpmyadmin
+        networks:
+            laravel:
+
+그래서 위와 같은 그림이 되고
+각각 컨테이너는 3개  생성 그 다음에 안에 내용을 채워 넣게 된다
+
+services:
+    apache:
+        depends_on:
+            - php
+            - mariadb
+
+이렇게 의존성을 추가할 수 있고 php mariadb가 실행되고 실행이 될 수 있게 하는거라고 함
+
+image : 이름:버전-버전명
+이런식으로 써 주는데.. 
+docker 사이트에서 검색을 하면 대표적이 이미지가 나오는데 
+거기에서 버전과 맞는 것을 고르면 된다
+
+현재는 php-apache 버전을 이미지로 선택해서 
+apache를 설치를 따로 안했는데 이것도 차차 알아봐야겠음
+
+docker사이트
+[httpd](https://hub.docker.com/_/httpd)
+[php](https://hub.docker.com/_/php)
+[마리아db이미지](https://hub.docker.com/_/mariadb)
+[phpmyadmin](https://hub.docker.com/_/phpmyadmin)
 
 
+[docker compose 사용법](https://docs.docker.com/compose/profiles/)
+
+
+
+위의 걸로 compose build를 해서 실행이 되면
+index.php에 phpinfo(); 를 해보면 
+단 여기에서는 pdo 드라이버가 설치가 안되어 있다
+이미지를 build 해야함
+
+그래서 php는 image에서 build 로 (docker-compose.yml)
+Dockerfile을 추가한다
+
+FROM php:8.0-apache
+RUN docker-php-ext-install mysqli pdo pdo_mysql
+
+RUN 은 php install 하겠다는 의미 이후 mysqli pdo pdo_mysql를 설치

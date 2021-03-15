@@ -48,4 +48,3 @@ services:
       - PMA_PORT= 3306
     networks: 
       - laravel
-
