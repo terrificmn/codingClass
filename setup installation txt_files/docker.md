@@ -165,7 +165,13 @@ DB를 만들고, 테이블을 만들어 보면 잘 작동하는 것 확인!
 ### 트러블 슈팅
 
 트러블 슈팅
+(centOS 8에서 에러)
 docker.errors.DockerException: Error while fetching server API version: ('Connection aborted.', PermissionError(13, 'Permission denied'))
+
+또는 (우분투에서 에러)
+ERROR: Couldn't connect to Docker daemon at http+docker://localhost - is it running?
+If it's at a non-standard location, specify the URL with the DOCKER_HOST environment variable.
+
 sudo로 했는데도 이런 에러가 난다면
 
 그 docker 그룹을 추가하고 현재 내 계정을 docker 그룹에 추가해 준다
@@ -405,3 +411,107 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql
 
 RUN 은 php install 하겠다는 의미 이후 mysqli pdo pdo_mysql를 설치
 
+
+
+이제 도커 컨테이너가 잘 실행되는 것을 확인했다면 
+http:localhost/public/index.php 
+(public 디렉토리에 넣었다면)
+잘 되는 것을 확인했으면
+
+phpmyadmin 을 확인해본다, 빌드할 때 썼던 비번과 root 아이디 server는 db
+http:localhost:8080
+로 테스트로 테이블 하나 만들어 보면 잘 만들어지면 ok!
+
+
+최종적으로 라라벨을 환경을 만들려면은 
+docker-compose를 down해야할 것 처럼 보이지만 그렇지 않다
+바로 여기서 라라벨 설치하면 됨
+
+먼저
+테스트로 썼던 src/public 은 필요없으므로 삭제
+
+다시 scr로 이동해서 여기에서 
+먼저 composer로 라라벨을 설치
+
+$composer global require laravel/installer
+
+라라벨 new 프로젝트를 만들어 준다
+$laravel new myfirstapp
+
+다시 페이지로 들어가서 확인
+
+
+https://dev.to/veevidify/docker-compose-up-your-entire-laravel-apache-mysql-development-environment-45ea
+참고 사이트
+
+좀 더 완성된 버전에서는 
+.env 파일에 UID변수로 설정한 것을 넣어줘야한다
+마지막 줄에 
+UID=1000
+넣은 후 저장
+
+그리고 경로가 다르므로 .env파일을 상위디렉토리로 복사시킨다
+
+
+안 그러면 build 할 때 
+WARNING: The UID variable is not set. Defaulting to a blank string.
+WARNING: The UDI variable is not set. Defaulting to a blank string.
+이렇게 나옴
+
+
+그리고 아래의 에러는 
+configure: error: Package requirements (oniguruma) were not met:
+
+No package 'oniguruma' found
+
+Consider adjusting the PKG_CONFIG_PATH environment variable if you
+installed software in a non-standard prefix.
+
+Alternatively, you may set the environment variables ONIG_CFLAGS
+and ONIG_LIBS to avoid the need to call pkg-config.
+See the pkg-config man page for more details.
+
+
+해결책:
+Just remove mbstring from the docker-php-ext-install instruction.
+
+The error is caused by a dependency problem - the mbstring extension requires the oniguruma library to make multibyte regular expression functions work. From the installation guide:
+
+음.. mbstring을 빼란다
+
+
+
+이게 문제가 될 수도 있을 듯
+make: Circular jit/zend_jit.lo <- jit/zend_jit.lo dependency dropped.
+계속 빨간
+
+configure: error: Package requirements (libzip >= 0.11 libzip != 1.3.1 libzip != 1.7.0) were not met:
+
+No package 'libzip' found
+No package 'libzip' found
+No package 'libzip' found
+
+Consider adjusting the PKG_CONFIG_PATH environment variable if you
+installed software in a non-standard prefix.
+
+Alternatively, you may set the environment variables LIBZIP_CFLAGS
+and LIBZIP_LIBS to avoid the need to call pkg-config.
+See the pkg-config man page for more details.
+
+
+해결책은  libzip-dev 설치
+For PHP >= 7.3
+#install some base extensions
+RUN apt-get install -y \
+        libzip-dev \
+        zip \
+  && docker-php-ext-install zip
+
+
+또 다른 문제 일지도 모름
+debconf: delaying package configuration, since apt-utils is not installed
+
+다행히 문제는 안됨 ;;;
+하지만 php artisan serve 로 작동을 해야해서 
+localhost:8000 번으로 접속이 fobidden임 
+좀 더 알아볼것

@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.5'
 
 networks: 
   laravel:
@@ -7,10 +7,15 @@ services:
   php:
     build:
       context: .  
+      args:
+        uid: ${UID}
       dockerfile: Dockerfile
     container_name: php 
     ports:
-      - 80:80
+      - 8000:80
+    environment:
+      - APACHE_RUN_USER=#${UID}
+      - APACHE_RUN_GROUP=#${UID}
     volumes:
       - ./src:/var/www/html/  
     networks: 

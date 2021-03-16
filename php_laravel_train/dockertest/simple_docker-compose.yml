@@ -1,28 +1,28 @@
-version: '3.8'
+version: '3.5'
 
-networks: 
+networks:
   laravel:
 
 services:
   php:
-    build:
-      context: .  
+    build: 
+      context: .  #current dir
       dockerfile: Dockerfile
     container_name: php 
     ports:
-      - 80:80
-    volumes:
-      - ./src:/var/www/html/  
-    networks: 
+      - 8000:80
+    volumes: 
+      - ./src:/var/www/html/
+    networks:
       - laravel
 
   db:
-    image: mariadb 
-    container_name: mariadb
-    restart: unless-stopped  
-    tty: true 
-    ports: 
-      - 4306:3306 
+    image: mariadb
+    container_name: mariadb 
+    restart: unless-stopped
+    tty: true
+    ports:
+      - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: my-secret-pw 
       MYSQL_DATABASE: app_db
@@ -30,8 +30,8 @@ services:
       MYSQL_PASSWORD: db_user_pass
       SERVICE_TAGS: dev 
     volumes:
-      - ./mysql:/var/lib/mysql 
-    networks: 
+      - ./mysql:/var/lib/mysql
+    networks:
       - laravel
 
   phpmyadmin:
@@ -48,4 +48,3 @@ services:
       - PMA_PORT= 3306
     networks: 
       - laravel
-
