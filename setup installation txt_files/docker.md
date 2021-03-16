@@ -265,6 +265,70 @@ $ sudo docker-compose up -d
 $ sudo docker-compose down
 
 
+
+## yml 파일 개념
+
+yml 파일 개념 정리
+
+일단 위의 yml 파일이 정의되는 방식은 다음과 같다
+네트워크로 묶고 laravel 로 묶음
+
+그리고 그 안에 service가 들어가 있는데
+네트워크 이름을 적어준다
+
+version: '3.8'
+
+networks:
+    laravel:
+
+services:
+    php
+        networks:
+            laravel:
+    
+    db
+        networks:
+            laravel:    
+    
+    phpmyadmin
+        networks:
+            laravel:
+
+그래서 위와 같은 그림이 되고
+각각 컨테이너는 3개를 생성, 그 다음에 
+각 컨테이너들의 각 설정을 하게 된다
+
+services:
+    apache:
+        depends_on:
+            - php
+            - mariadb
+
+이렇게 의존성을 추가할 수 있고 php mariadb가 실행되고 실행이 될 수 있게 하는거라고 함
+현재는 php-apache 버전을 이미지로 선택해서 
+apache를 설치를 따로 안했는데 이것도 차차 알아봐야겠음. (centos에서는 httpd인데)
+
+
+image : 이름:버전-버전명
+이런식으로 써 주는데.. 
+docker 사이트에서 검색을 하면 대표적이 이미지가 나오는데 
+거기에서 버전과 맞는 것을 고르면 된다
+
+
+
+docker사이트
+[httpd](https://hub.docker.com/_/httpd)
+[php](https://hub.docker.com/_/php)
+[마리아db이미지](https://hub.docker.com/_/mariadb)
+[phpmyadmin](https://hub.docker.com/_/phpmyadmin)
+
+
+[docker compose 사용법](https://docs.docker.com/compose/profiles/)
+
+
+
+
+
 ## 완성본은 아니지만 그대로 일단 완성본?
 
 이제 대충 완료된 docker-compose.yml 파일
@@ -326,60 +390,6 @@ services:
 ```
 
 
-yml 파일 개념 정리
-
-일단 위의 yml 파일이 정의되는 방식은 다음과 같다
-네트워크로 묶고 laravel 로 묶음
-
-그리고 그 안에 service가 들어가 지는데 
-네트워크 이름을 적어준다
-
-version: '3.8'
-
-networks:
-    laravel:
-
-services:
-    php
-        networks:
-            laravel:
-    
-    db
-        networks:
-            laravel:    
-    
-    phpmyadmin
-        networks:
-            laravel:
-
-그래서 위와 같은 그림이 되고
-각각 컨테이너는 3개  생성 그 다음에 안에 내용을 채워 넣게 된다
-
-services:
-    apache:
-        depends_on:
-            - php
-            - mariadb
-
-이렇게 의존성을 추가할 수 있고 php mariadb가 실행되고 실행이 될 수 있게 하는거라고 함
-
-image : 이름:버전-버전명
-이런식으로 써 주는데.. 
-docker 사이트에서 검색을 하면 대표적이 이미지가 나오는데 
-거기에서 버전과 맞는 것을 고르면 된다
-
-현재는 php-apache 버전을 이미지로 선택해서 
-apache를 설치를 따로 안했는데 이것도 차차 알아봐야겠음
-
-docker사이트
-[httpd](https://hub.docker.com/_/httpd)
-[php](https://hub.docker.com/_/php)
-[마리아db이미지](https://hub.docker.com/_/mariadb)
-[phpmyadmin](https://hub.docker.com/_/phpmyadmin)
-
-
-[docker compose 사용법](https://docs.docker.com/compose/profiles/)
-
 
 
 위의 걸로 compose build를 해서 실행이 되면
@@ -394,3 +404,4 @@ FROM php:8.0-apache
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
 RUN 은 php install 하겠다는 의미 이후 mysqli pdo pdo_mysql를 설치
+
