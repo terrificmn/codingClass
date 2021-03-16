@@ -42,8 +42,8 @@ RUN docker-php-ext-install \
 
 #mbstring \
 
-# 5. composer
-#COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# 5. composer #컴포저는 그냥 일단 로컬에 깔아도 되는 듯 함
+# COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # 6. we need a user with the same UID/GID with host user
 # so when we execute CLI commands, all the host file's ownership remains intact

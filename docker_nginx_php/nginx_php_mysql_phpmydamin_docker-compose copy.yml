@@ -1,0 +1,124 @@
+version: '3.5'
+
+services: 
+  web:
+    image: nginx:latest
+    ports: 
+      - 80:80
+    
+    # 여기까지 한 후 docker-compose build && docker-compse up 를 실행해서 
+    # 컨테이너 잘 받아지는 지 확인 docker 컨테이너가 만들어지고 done 이라고 뜨면
+    # 브라우저에 localhost로 들어가보기 (127.0.0.1)
+    volumes: 
+        - ./nginx.conf:/etc/nginx/conf.d/default.conf    # 아마 os때문일지는 모르겠으나 default.conf 라고 해야 됨 #우분투에서는 nginx.conf로 해야할지도
+        - ./app:/app  # 위의 nginx.conf 파일은 같은 경로에 생성, app 디렉토리도 생성한다
+    # 여기까지 한 후 다시 docker-compose up 하기
+    # app/public 에 만든 파일이 열리는 것 확인 (브라우저에 localhost 만 쳐도 됨)
+
+  php:
+    # image: php:fpm #이렇게만 적으면 가장 최신버전을 받는다. 명시할 수도 있음 php:8.0-fpm , php:7.4-fpm 
+    # 테스트할때 위의 주석 먼저 풀것
+    volumes:
+      - ./app:/app  #이제 php를 app 디렉토리로 연결
+      # 그리고 이제 nginx.conf를 php관련해서 수정해준다
+      # 그리고 app/public 에 index.php 를 만들고 phpinfo()함수하나 써주고 
+      # localhost에서 들어가면 php 8.0.3 인것을 알 수 있음
+      # 기본으로는 mysql pdo가 없기때문에 그것도 설정해준다
+      # ^C로 빠져나옴
+    
+    build:  # 위의 image는 제거
+      context: .  # 현재 디렉토리
+      dockerfile: PHP.Dockerfile  #PHP.Dockerfile 에서 필요한 것을 읽어와 build 한다 . 그냥 Dockerfile 로 만들고 이름도 Dockerfile해도 됨
+    # 이제는 php에 필요한 extension을 받기 위해서 PHP.Dockerfile 을 만들어 준다 
+    # 거기에 PHP.Dockerfile 에 내용은 필요한 것들을 다운 받는 것
+    # PHP.Dockerfile파일 참고한다
+
+    mysql:
+      image: mariadb:latest
+      restart: unless-stopped
+      ports:
+        - 3306:3306
+      environment:
+        MYSQL_ROOT_PASSWORD: my-secret-pw 
+        MYSQL_DATABASE: tutorial
+        MYSQL_USER: tutorial
+        MYSQL_PASSWORD: secret
+        SERVICE_TAGS: dev 
+      volumes:
+        - ./mysqldata:/var/lib/mysql
+    
+    phpmyadmin:
+      image: phpmyadmin
+      links:
+        - mysql  
+      restart: always
+      ports:
+        - 8080:80
+      environment:
+        - PMA_ARBITRARY=1
+        - PMA_HOST= db
+        - PMA_PORT= 3306
+
+volumes:
+  mysqldata: {}
+
+# 참고한 사이트
+# https://www.sitepoint.com/docker-php-development-environment/
+# 참고 youtuber
+# https://www.youtube.com/watch?v=5N6gTVCG_rw
+
+
+#################### PHP.Dockerfile 만들것
+# FROM php:fpm
+
+# RUN docker-php-ext-install pdo pdo_mysql mysqli
+
+# RUN pecl install xdebug && docker-php-ext-enable xdebug
+
+######################################################################3
+
+
+
+################ nginx.conf 파일: 같은 경로에 만들것 #################################3
+
+# server {
+#     listen 80 default_server;
+#     root /app/public;
+
+#     index index.php index.html index.htm;
+
+#     location ~ \.php$ {
+#         fastcgi_pass php:9000;
+#         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+#         include fastcgi_params;
+#     }
+# }
+
+###############################################333
+
+
+
+#####  라라벨 용 nginx.conf 파일
+# server {
+#     listen 80 default_server;
+#     # root /app/public; # 라라벨 없이 php만으로 서비스 할려면 .. 하는 것 같고 #/var/www/html/public 까지 올려주면 라라벨이 작동할 수 있는 듯
+#     index index.php index.html index.htm;
+#     server_name localhost;
+#     error_log /var/log/nginx/error.log;
+#     access_log /var/log/nginx/access.log;
+#     root /var/www/html/public;
+
+#     location / {
+#         try_files $uri $uri/ /index.php?$query_string;
+#     }
+
+#     location ~ \.php$ {
+#         try_files $uri =404;
+#         fastcgi_split_path_info ^(.+\.php)(/.+)$;
+#         fastcgi_pass php:9000;
+#         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+#         fastcgi-param PATH_INFO $fastcgi_split_path_info;
+#         include fastcgi_params;
+#     }
+# }
+###############################################3
