@@ -1,0 +1,22 @@
+docker-compose.yml
+
+
+version: '3'
+
+services: 
+  py:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+
+----------- Dockerfile
+FROM python:3.7
+
+WORKDIR /usr/src/app
+
+#COPY requirements.txt ./
+RUN pip install --no-cache-dir streamlit \
+    tensorflow numpy scipy matplotlib \ 
+    ipython scikit-learn==0.23.2 \ 
+    pandas pillow jupyter seaborn joblib
