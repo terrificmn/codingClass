@@ -17,7 +17,9 @@ Dockerfile에서 설치하는 것이 너무 많아서 내가 웹 서비스에
 아파치 설정을 어떻게 라라벨로 연결시키는지 모르겠음
  
 (경로를 여기로 맞춰주면 되는 것 같은데;;;
-root /var/www/html/public;)
+root /var/www/html/public;) <-- 맞음 아파치나(httpd) Ngnix 모두 conf파일을 통해서 설정해줘야함 
+
+해당 정리한 md파일 참고할 것
 참고::
 https://blog.quickadminpanel.com/laravel-public-folder-how-to-configure-domains-for-in-apachenginx/
 

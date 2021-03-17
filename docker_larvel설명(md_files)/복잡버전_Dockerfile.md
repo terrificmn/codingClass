@@ -1,3 +1,5 @@
+## 일단 성공은 한 버전~ 패키지를 깔다가 실패할 수는 있으나 
+## docker build를 하면서 확인해봐야함
 FROM php:8.0-apache
 
 RUN apt-get update

@@ -618,3 +618,26 @@ webpack compiled Successfully
 [참고사이트 깃허브](https://github.com/laravel/laravel/blob/master/package.json#L14)
 
 
+
+--------------------------------------------------------------
+
+error: insufficient permission for adding an object to repository database .git/objects
+fatal: failed to write object
+fatal: unpack-objects failed
+깃 pull 할 때 퍼미션 에러나는 경우
+디렉토리를 다 찾아봐도 퍼미션 문제 있어 보이는 경우는 없었는데
+
+전에 학교에 서둘르다가 PUSH 를 하면서 뭔가 꼬였던거 같은데
+그게 집에서 PULL받는거랑 관계가 있지는 않은거 같은데 어쨌든 파일도 별로 문제가 있어보이지는 않는데
+drwxrwxr-x.  8 내계정 내계정  201 Mar 17 22:29  .git
+
+
+어쨋든 해결책은 
+sudo chown -R sgtocta:sgtocta .git
+.git 파일의 그룹 권한을 다시 주고 다시 pull 하니 깔끔하게 됨
+
+drwxrwxr-x.  8 내계정 내계정  201 Mar 17 22:32  .git
+그 이후 다시 조회한 결과 
+흠 달라진거는 없는데 어쨌든 됨
+
+

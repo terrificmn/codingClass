@@ -27,3 +27,4 @@ docker_deploy
 
 ## 먼저 서버에 docker, docker-compose 설치
 
+docker설치하기.md 파일 참고
