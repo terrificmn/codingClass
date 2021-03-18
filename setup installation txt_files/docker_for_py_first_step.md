@@ -42,23 +42,24 @@ WORKDIR /app
 
 #COPY requirements.txt ./
 # 최소 필요한 라이브러리 
-RUN pip3 install --no-cache-dir streamlit \
+
+RUN pip3 install --default-timeout=3000 --no-cache-dir \
+    streamlit mysql-connector-python \
     tensorflow numpy scipy matplotlib \ 
     ipython scikit-learn==0.23.2 \ 
     pandas pillow jupyter seaborn joblib
+
+
+# 인터넷이 느려서 (학교;;) 그래서 --default-timeout=3000 을 넉넉히 줌
+# tensorflow를 설치하는데 300mb가 거기에서 에러가 나는 듯
+# COPY requirements.txt ./requirements.txt
+# RUN pip3 install -r requirements.txt
 COPY . .
 EXPOSE 8501
 CMD streamlit run app.py
-
------------------------------------------------
-requirements는 안해봄 이렇게 할거면 
-pip3 install 다양하게 텐서플로우부터 설치했던 것들을 주석처리하고
-아래 코드로 대신하면 됨
-COPY requirements.txt ./requirements.txt
-RUN pip3 install -r requirements.txt
 -----------------------------------------------
 
-
+위의 mysql-connector-python 추가
 
 
 그리고 app 디렉토리를 하나 만들고 

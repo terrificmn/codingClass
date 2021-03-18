@@ -68,6 +68,8 @@ FROM students s
 left join papers p
 	on s.id = p.student_id
 GROUP by s.first_name
+-- having 은 group by를 한 후에 가능하다
+having average >= 85
 ORDER by AVERAGE DESC;
 
 
