@@ -36,6 +36,13 @@ def main():
             cursor.execute(query, record)
             connection.commit()
 
+            # 시간 넣어주는 예 - 이 경우는 param을 만들어서 넣어주면된다
+            # param = (released_year, pages, order)
+            # #record = (name, birth_date, birth_time, datetime.now())
+            # record = (name, birth_date, birth_time, datetime.combine(birth_date, birth_time) )
+            # #record = ('Mike', datetime.now(), datetime.now(), datetime.now())
+            # print(datetime.now())
+
             #cursor.execute('select database();')
 
             # 4. 실행 후 커서에서 결과를 빼낸다
