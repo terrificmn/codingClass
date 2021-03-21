@@ -6,10 +6,10 @@ class DbModel :
     def dbConnection(self):
         
         connection = mysql.connector.connect(
-                    host = 'database-1.c03ybmdf5nxq.ap-northeast-2.rds.amazonaws.com',
-                    database = 'my_edu_db',
-                    user = 'streamlit',
-                    password = 'yh123456789'
+                    host = '',
+                    database = '',
+                    user = '',
+                    password = ''
         )
         
         try:
