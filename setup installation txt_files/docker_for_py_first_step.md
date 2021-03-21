@@ -17,6 +17,10 @@ services:
       - 8501:8501
     volumes:
       - ./app:/app
+    environment: 
+      - PYTHONUNBUFFERED=1
+  
+  # 터미널에 print() 화면에 볼 수 있게 해주기 PYTHONUNBUFFERED=1
   
   # 아직 미 적용
   # mysql:
@@ -40,9 +44,7 @@ FROM python:3.7
 # 없으면 컨테이너안에 만든다
 WORKDIR /app
 
-#COPY requirements.txt ./
 # 최소 필요한 라이브러리 
-
 RUN pip3 install --default-timeout=3000 --no-cache-dir \
     streamlit mysql-connector-python \
     tensorflow numpy scipy matplotlib \ 
@@ -120,8 +122,35 @@ sudo docker rm 371b
 * 참고: 겹치는 게 없으면 앞자리만 적어도 됨 (우분투에서는 안될 수도 있음)
 
 
-해봐야 할것은 
-yml의 파일의 volumes 을 지정해줬는데
+Dockerfile에서 WORKDIR 은 지정안해도 되는지 테스트 해보자
+-결과 yml 파일에서 volumn으로 app 과 app으로 지정했는데 그거랑은 상관없이
+Dockerfile에서 workdir 지정을 안했더니 app.py 실행은 못함;; 경로를 찾지 못하는 것 같음
+결론은 workdir은 계속 넣어주자
 
-Dockerfile에서 WORKDIR 은 지정안해도 되는지 테스트 해보자 (학교에서)
+------------
+
+다음은 모듈 추가될때 매번 build를 하는데 있는 패키지를 계속 다시 다운받아야 하는지 검색해보자
+Dokerfile에서 파일 설치할 때 RUN 으로 명령어 옵션을 --no-cache 옵션을 넣으면 
+처음부터 build할때 캐시를 안 사용한다는 옵션이어서 한번 뭐가 업데이트 할 떄 --no-cache를 빼고 해봐야겠음
+
+---------------
+화면에 터미널에서 print를 하면 출력이 안나옴
+그래서 streamlit을 할 때 브라우저에 출력해야하는데 디버그할때는 print()함수가 편해서 
+이거를 가능하게 하려면 
+docker-compose.yml 파일에 
+environment: 
+  - PYTHONUNBUFFERED=1
+를 추가해주면 된다
+** 참고: 화면에서 \n (new line) 입력이 있을 때까지 버퍼에서 저장을 하고 있다는 데 
+그거 관련된 옵션인 거 같다. 그래서 내보내기? flush를 하게 해주는 거 같은데 정확하지는 않다..;;
+
+
+vscode등에서 터미널을 열고 거기에서 docker-compose up 을 했다면 vscode의 터미널에 볼 수도 있겠지만
+그냥 터미널에서 실행하면 그 터미널에서만 볼 수 있고 detache?  -d 옵션을 넣어주면 볼 수가 없다
+(백그라운드 실행)
+
+-------------------
+
+
+
 
