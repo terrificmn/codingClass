@@ -10,15 +10,13 @@ def select_menu() :
     booksColumn_list = ['title', 'released_year', 'author_fname', 'stock_quantity', 'pages']
     chosenColumns = st.multiselect('보고 싶은 컬럼 선택하세요', booksColumn_list)
     
-    limit = st.slider('몇개의 데이터를 보기 원하세요?')
+    limit = st.slider('몇개의 데이터를 보기 원하세요?', max_value=20)
 
-    st.title('추가할것: 어떤 컬럼으로 정렬할지까지만 추가 (select 메뉴에서는)')
     if st.button('SELECT 하기') :
         Selector = SqlController()
-        print('inside title cliced')
+        
         table='books'
         result = Selector.sql_select(chosenColumns, table, limit)
-        
 
         if result != False:
             json_results = json.dumps(result)

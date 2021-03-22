@@ -32,7 +32,7 @@ sudo systemctl start docker
 
 
 
-docker-compose를 설치하기 
+docker-compose를 설치하기   (여기는 centos/ubuntu 같은 듯)
 먼저 binaries 다운받기
 sudo curl -L "https://github.com/docker/compose/releases/download/1.28.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
@@ -408,4 +408,14 @@ FROM php:8.0-apache
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
 RUN 은 php install 하겠다는 의미 이후 mysqli pdo pdo_mysql를 설치
+
+
+
+
+----------------------------------------------------------
+윈도우 버전은 docker desktop 을 받은 후 설치
+그리고 여기 공식 사이트 참고
+https://docs.microsoft.com/en-us/windows/wsl/install-win10#step-4---download-the-linux-kernel-update-package
+
+Step 5까지 하고 6번은 리눅스 설치는 안했음
 

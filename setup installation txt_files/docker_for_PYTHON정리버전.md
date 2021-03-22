@@ -45,21 +45,70 @@ FROM python:3.7
 WORKDIR /app
 
 # 최소 필요한 라이브러리 
-RUN pip3 install --default-timeout=3000 --no-cache-dir \
+RUN pip3 install requests yfinance fbprophet \
     streamlit mysql-connector-python \
     tensorflow numpy scipy matplotlib \ 
     ipython scikit-learn==0.23.2 \ 
     pandas pillow jupyter seaborn joblib
 
 
-# 인터넷이 느려서 (학교;;) 그래서 --default-timeout=3000 을 넉넉히 줌
-# tensorflow를 설치하는데 300mb가 거기에서 에러가 나는 듯
+# 참고: --no-cache-dir 아예 새로 빌드할 때 사용하는 옵션
+# 이미지가 있어도 새로 만듬, 그래서 필요없어서 뺌 (처음엔 몰랐음;;)
+
 # COPY requirements.txt ./requirements.txt
 # RUN pip3 install -r requirements.txt
 COPY . .
 EXPOSE 8501
 CMD streamlit run app.py
 -----------------------------------------------
+
+<br/>
+
+## 학교버전 윈도우 도커 데스크탑 버전
+___
+
+FROM python:3.7
+
+# 없으면 컨테이너안에 만든다
+WORKDIR /app
+
+# 최소 필요한 라이브러리 
+RUN pip install requests yfinance fbprophet 
+RUN pip install streamlit mysql-connector-python
+RUN pip install tensorflow 
+RUN pip install numpy scipy matplotlib 
+RUN pip install ipython scikit-learn==0.23.2
+RUN pip install pandas pillow 
+RUN pip install jupyter seaborn joblib
+
+
+# 인터넷이 느려서 (학교;;) 
+# 라이브러리 설치하는 것도 (학교에서는 매우느림)
+# 하나씩 라이브러리를 RUN으로 install 했는데 다음으로 넘어가는 것은 확인, 결론 엄청느림;;
+# 일부로 RUN 한줄씩 적은 이유는 그나마 넘어가는게 보여서;;
+# 이유를 모르겠다;; 윈도우 데스크톱은 더 느린거 같음;;;
+# 암튼 몇백초가 걸려도 깔리고는 있음에 주의 
+# COPY requirements.txt ./requirements.txt
+# RUN pip3 install -r requirements.txt
+
+COPY . .
+EXPOSE 8501
+CMD streamlit run app.py
+___
+
+<br/>
+
+
+참고 
+ => [ 3/10] RUN pip install requests yfinance fbprophet                  425.4s                                          => [ 4/10] RUN pip install streamlit mysql-connector-python             674.4s                                          => [ 5/10] RUN pip install tensorflow                                  3525.2s                                          => [ 6/10] RUN pip install numpy scipy matplotlib                       106.9s                                          => [ 7/10] RUN pip install ipython scikit-learn==0.23.2                  53.1s                                          => [ 8/10] RUN pip install pandas pillow                                  1.5s                                          => [ 9/10] RUN pip install jupyter seaborn joblib                         5.9s 
+
+걸린시간;;; 학교에서는 너무 느림;;
+
+
+
+___
+
+
 
 위의 mysql-connector-python 추가
 
