@@ -10,6 +10,11 @@ ngix의 ports  8000 이나 80으로 설정
 Dockerfile은 이름은 PHP.Dockerfile 로 해놈 
 당황하지말고 최상단 경로에 복사해 만들어 놓으면 됨
 
+nginx설정파일도 만들어 줘야함 ngnix.conf로 최상위디렉토리에 만들어 주고
+설정 파일내용은 그냥 php와 라라벨용이 있으니 먼저
+라라벨이 설치가 안되어 있으면 라라벨용으로 docker-compose up 하면 웹서버 작동안함
+
+
 mysql은 mysqldata와 연결시킴
 mysqldata 디렉토리 만들어주기
 
@@ -18,9 +23,21 @@ localhost 를 브라우저에 쳐본다 (포트번호 설정한 것에 주의)
 
 phpmyadmin은 localhost:8080 를 브라우저에 쳐본다
 비번은 yml파일에 mysql 부분의 environment에 정의된 것을 참고
+(유저id와 비번을 사용하면 됨)
 
+그냥 php일때는 app/public/index.php 로 테스트
+라라벨로 할때는 app 이 라라벨프로젝트 자체이면 됨
 
-그리고 잘 되는 거 확인했으면 이제 app 디렉토리를 지우고 
-그 자리에 즉 최상단에 app으로 라라벨 new 프로젝트를 생성
+즉, 잘 되는 거 확인했으면 이제 app 디렉토리를 지우고 프로젝트의 루트 디렉토리에서
+app으로 라라벨 new 프로젝트를 생성
+```
+$ laravel new app
+```
+
 그리고 다시 localhost로 가면
 처음 라라벨 home이 나오면 완성!
+
+php artisan 명령어를 사용하려면 docker-comopser exec 로 명령을 내려야함
+풂패스를 적어준다
+docker-compose exec php php /var/www/html/artisan migrate
+

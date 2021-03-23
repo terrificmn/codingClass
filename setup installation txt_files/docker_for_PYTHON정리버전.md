@@ -5,7 +5,7 @@ docker-compose.yml, Dockerfile 을 만들어서 내용 복사하면 준비 끝 (
 
 
 docker-compose.yml
-
+```yml
 version: '3'
 
 services: 
@@ -15,6 +15,7 @@ services:
       dockerfile: Dockerfile
     ports:
       - 8501:8501
+      - 8502:8502
     volumes:
       - ./app:/app
     environment: 
@@ -22,27 +23,45 @@ services:
   
   # 터미널에 print() 화면에 볼 수 있게 해주기 PYTHONUNBUFFERED=1
   
-  # 아직 미 적용
-  # mysql:
-  # image: mariadb:latest
-  # restart: unless-stopped
-  # ports:
-  #   - 3306:3306
-  # environment:
-  #   MYSQL_ROOT_PASSWORD: my-secret-pw 
-  #   MYSQL_DATABASE: tutorial
-  #   MYSQL_USER: tutorial
-  #   MYSQL_PASSWORD: secret
-  #   SERVICE_TAGS: dev 
-  # volumes:
-  #   - ./mysqldata:/var/lib/mysql
-
+```
 
 ----------- Dockerfile
+```Dockerfile
 FROM python:3.7
 
 # 없으면 컨테이너안에 만든다
 WORKDIR /app
+
+# 최소 필요한 라이브러리 
+RUN pip install streamlit \
+    requests yfinance pystan \
+     mysql-connector-python \
+    tensorflow fbprophet \
+    numpy scipy matplotlib \
+    ipython scikit-learn==0.23.2 \
+    pandas pillow jupyter seaborn joblib
+
+# COPY requirements.txt ./requirements.txt
+# RUN pip3 install -r requirements.txt
+COPY . .
+EXPOSE 8501
+EXPOSE 8502
+#CMD [ "python", "./app.py" ]
+CMD streamlit run app.py
+```
+
+----------------------
+
+
+처음에는 최소 라이브러리만 설치했는데 apt-get으로 필요한 update 해보기;;
+# 이것도 해보았지만 fbprophet 달라지는 것은 없다 (legacy방법으로 설치완료됨 deprecation 워닝)
+RUN apt-get -y update  && apt-get install -y \
+  python3-dev \
+  libpng-dev \
+  apt-utils \
+  python-psycopg2 \
+  python-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 # 최소 필요한 라이브러리 
 RUN pip3 install requests yfinance fbprophet \
@@ -51,15 +70,9 @@ RUN pip3 install requests yfinance fbprophet \
     ipython scikit-learn==0.23.2 \ 
     pandas pillow jupyter seaborn joblib
 
-
 # 참고: --no-cache-dir 아예 새로 빌드할 때 사용하는 옵션
 # 이미지가 있어도 새로 만듬, 그래서 필요없어서 뺌 (처음엔 몰랐음;;)
 
-# COPY requirements.txt ./requirements.txt
-# RUN pip3 install -r requirements.txt
-COPY . .
-EXPOSE 8501
-CMD streamlit run app.py
 -----------------------------------------------
 
 <br/>

@@ -10,7 +10,8 @@ services:
     # 컨테이너 잘 받아지는 지 확인 docker 컨테이너가 만들어지고 done 이라고 뜨면
     # 브라우저에 localhost로 들어가보기 (127.0.0.1)
     volumes: 
-        - ./nginx.conf:/etc/nginx/conf.d/default.conf    # 아마 os때문일지는 모르겠으나 default.conf 라고 해야 됨 #우분투에서는 nginx.conf로 해야할지도
+        - ./nginx.conf:/etc/nginx/conf.d/default.conf    
+        # 아마 os때문일지는 모르겠으나 default.conf 라고 해야 됨(로컬파일을 nginx.conf) #우분투에서는 nginx.conf로 해야할지도
         - ./app:/app  # 위의 nginx.conf 파일은 같은 경로에 생성, app 디렉토리도 생성한다
     # 여기까지 한 후 다시 docker-compose up 하기
     # app/public 에 만든 파일이 열리는 것 확인 (브라우저에 localhost 만 쳐도 됨)
@@ -99,26 +100,28 @@ volumes:
 
 
 #####  라라벨 용 nginx.conf 파일
-# server {
-#     listen 80 default_server;
-#     # root /app/public; # 라라벨 없이 php만으로 서비스 할려면 .. 하는 것 같고 #/var/www/html/public 까지 올려주면 라라벨이 작동할 수 있는 듯
-#     index index.php index.html index.htm;
-#     server_name localhost;
-#     error_log /var/log/nginx/error.log;
-#     access_log /var/log/nginx/access.log;
-#     root /var/www/html/public;
+server {
+    listen 80 default_server;
+    index index.php index.html index.htm;
+    server_name localhost;
+    error_log /var/log/nginx/error.log;
+    access_log /var/log/nginx/access.log;
+    root /var/www/html/public;
+    # root /app/public; # 라라벨 없이 php만으로 서비스 할 때 - 실제로 로컬 프로젝트디렉토리에 /app/public/index.php 로 테스트
+    #/var/www/html/public 까지 올려주면 라라벨이 작동 - laravel로 새로운 프로젝트를 app 로 최상위 디렉토리에 만듬
 
-#     location / {
-#         try_files $uri $uri/ /index.php?$query_string;
-#     }
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
 
-#     location ~ \.php$ {
-#         try_files $uri =404;
-#         fastcgi_split_path_info ^(.+\.php)(/.+)$;
-#         fastcgi_pass php:9000;
-#         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-#         fastcgi-param PATH_INFO $fastcgi_split_path_info;
-#         include fastcgi_params;
-#     }
-# }
+    location ~ \.php$ {
+        try_files $uri =404;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_pass php:9000;
+        fastcgi_index index.php;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi-param PATH_INFO $fastcgi_path_info;
+    }
+}
 ###############################################3

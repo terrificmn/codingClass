@@ -184,6 +184,8 @@ ________________________________________________________________________________
 Gtk-Message: 04:29:58.177: Failed to load module "canberra-gtk-module"
 Gtk-Message: 04:30:01.473: Failed to load module "canberra-gtk-module"
 큰 문제이 없이 넘어가지나, 다음에 검색해보기
+libcanberra-gtk3 가 필요하다는데, 이미 설치가 되어 있다;;
+그냥 넘어가자;;ㅜ git push하는데 따로 문제가 발생하지는 않음
 
 <트러블슈팅 refjected 에러 main -> main (non-fast-forward)>
 [sgtocta@localhost projects]$ git push origin main
