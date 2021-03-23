@@ -181,6 +181,8 @@ Dockerfile에서 workdir 지정을 안했더니 app.py 실행은 못함;; 경로
 다음은 모듈 추가될때 매번 build를 하는데 있는 패키지를 계속 다시 다운받아야 하는지 검색해보자
 Dokerfile에서 파일 설치할 때 RUN 으로 명령어 옵션을 --no-cache 옵션을 넣으면 
 처음부터 build할때 캐시를 안 사용한다는 옵션이어서 한번 뭐가 업데이트 할 떄 --no-cache를 빼고 해봐야겠음
+--->결과 --no-cache-dir 은 캐시 사용안하고 다운을 다시 받아버림, 옵션을 빼고 docker-compose down만 안한 상태에서 뭔가 변경사항이 있을 때 다시 build하면 설치되있는것은 빼고 새로운것만 추가해 준다
+
 
 ---------------
 화면에 터미널에서 print를 하면 출력이 안나옴
@@ -202,4 +204,32 @@ vscode등에서 터미널을 열고 거기에서 docker-compose up 을 했다면
 
 
 
+추가 fbprophet 설치 시 설치가 안되는 에러
+일단 gcc+ 가 설치 되있어야 한다. centos는 gcc gcc-c++
+development Tools를 설치하면 된다
+$ sudo yum group install "Development Tools"
+
+우분투는 
+$ sudo apt-get install build-essential
+
+그리고 python38-devel 이 필요 (현재 파이썬3.8 사용 중)
+python3 이라고 하면 3.6버전이 깔림
+그래서
+$ sudo yum install python38-devel
+
+
+매번 설치할 때 에러가 나는데, 해결을 못함
+ERROR: Command errored out with exit status 1:
+   command: /usr/local/bin/python -u -c 'import sys, setuptools, tokenize; 
+   ... 생략...
+ERROR: Failed building wheel for fbprophet
+
+근데 다행이도 DEPRECATION 워닝과 함께 설치는 됨
+ DEPRECATION: fbprophet was installed using the legacy 'setup.py install' method, because a wheel could not be built for it. A possible replacement is to fix the wheel build issue reported above. You can find discussion regarding this at https://github.com/pypa/pip/issues/8368.
+
+어쨋든 설치는 되고, fbprophet import해서 사용해보니 
+사용이 된다;;
+잡담:
+이게 안되서 centos 날려먹음;;; gcc를 지우고 gcc-c++를 설치해야한다는 어느 구글의 답변에 gcc를 지우는데 뭔가 의존성 패키지를 amd 어쩌구어쩌구를 같이 지운다는게 많이 나오는데 이상하다 싶었는데 일단 진행을 했는데, 그 다음부터 화면이 안나옴 ㅠㅠ
+결국 os 다시 설치;;
 
