@@ -333,7 +333,15 @@ composer.phar 파일을 이동시켜준다
 $mv composer.phar /usr/local/bin/composer
 참고
 https://getcomposer.org/doc/00-intro.md#globally
-
+우분투에서는 잘 됨
+그냥 매뉴얼 사이트에서 나온 그대로 설치하되
+3번째 설치할 때 --filename 만 준다음에 설치 
+php composer-setup.php --filename=composer 
+그러면 현재 위치에 composer파일이 다운되는데
+그 파일을 /usr/local/bin/composer로 이동시키면 composer만 입력해도 전역에서 사용할 수 있게 된다
+* 아니면 --install-dir=/usr/local/bin
+으로 하면 되겠음
+암튼 centOS 8과 경로가 다름에 주의!
 
 
 지울 때 (우분투의 경우)
