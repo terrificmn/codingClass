@@ -673,6 +673,8 @@ source파일 다운받기
 그 다음에 디렉토리로 이동해서 make를 해준다 (시간 좀 걸림)
   $make prefix=/usr/local all
   $sudo make prefix=/usr/local install
+참고: 우분투에서는 $sudo make all install 까지만 해주면 됨 (버전 2.3.1버전쯤 됨)
+
 중간에 에러가 나면 대게는 dependency가 문제 (구글링 해볼 것)
 
 make가 완료되면 버전확인해보면 설치가 잘 되었는지 알 수 있음
