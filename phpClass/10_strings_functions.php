@@ -23,4 +23,4 @@
 //  echo 'This is a Quote "Talk is Cheap, show me the code"' . "\n";
      // it's okay to use double qoute(") inside single quote (')
 
-
+    trim($temp) - 공백제거
