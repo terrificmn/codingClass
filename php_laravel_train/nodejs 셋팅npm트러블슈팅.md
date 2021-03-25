@@ -58,14 +58,14 @@ Hi, {{ Auth::user()->name }} //로그인 user()메소드로 로그인정보 가�
 npm cache clean --force
 npm install
 
-
+중요!!!
 ------- 트러블슈팅
 만약 npm 설치 중에 버전에 안 맞아서 에러나면 npm 버전 확인해 볼것
 
 먼저 npm이 없다고 하면 npm을 설치하는데 yum으로 npm을 설치해버리면 nodejs가 딸려오는데 (의존성떄문) 근데 nodejs가 버전이 10.23인가로 너무 낮다, 대신npm은 7.6으로 괜찮지만...
 그래서 처음부터 nodejs를 14, 15버전으로 리포지터리 추가해서 설치할 것
 
-gcc 확인 아마 설치되어 있을 것, 없으면 설치
+gcc 확인 아마 설치되어 있을 것, 없으면 설치 // 대개 centOS경우에는 (Development Tools인가로 설치하면 다 설치 됨)
 dnf install gcc-c++ make
 
 리포지터리에 추가 

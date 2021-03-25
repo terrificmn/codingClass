@@ -7,8 +7,7 @@ ngix의 ports  8000 이나 80으로 설정
 만약 로컬에서 httpd가 돌아가거나 다른 서비스가 하고 있으면 안될 수 있으니 적절히 열어주자
 
 디렉토리는 app 으로 연결함, 즉 app 디렉토리도 만들어 주기
-Dockerfile은 이름은 PHP.Dockerfile 로 해놈 
-당황하지말고 최상단 경로에 복사해 만들어 놓으면 됨
+Dockerfile은 최상단 경로에 복사해 만들어 놓으면 됨
 
 nginx설정파일도 만들어 줘야함 default.conf로 최상위디렉토리에 만들어 주고
 설정 파일내용은 그냥 php와 라라벨용이 있으니 먼저
@@ -43,22 +42,151 @@ docker-compose exec php php /var/www/html/artisan migrate
 
 
 
-
 현재 23mar2021 기준으로 다시 안되고 있음  
 2주 스트림릿 하느라고 안했더니 작동을 안함;; 아래 내용이랑 유투브랑 다시 해서 해결할 것!!
+트러블슈팅!!
+처음에 잘되는거 확인하고나서 나중에 다시할려고 이런 퍼미션 에러가
+The stream or file "/var/www/html/storage/logs/laravel.log" could not be opened in append mode: Failed to open stream: Permission denied 
+퍼미션 에러 일때
 
-___ 
-일단 default.conf (nginx설정파일)
+도커 설정을 잘못한줄 알고, 퍼미션 에러인지도 모르고 반나절을 넘게 고생 ㅠ
+
+소유자가  www-data 소유그룹 www-data가 되서 
+sudo chown -R www-data:www-data blog 이런식으로 된다고 하는데 
+그래서 chown을 하면 그룹이 없다고 함. 그래서 유저를 새로 만들려다가 찾아보니
+
+ngnix는 uidd와 gid을 찾을 수 있는데..
+먼저 docker-compose up을 먼저 시킨 상태에서 아래 명령어로 실행을 해보면
+$sudo docker-compose exec web id www-data
+결과:
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+이렇게 나오는데 
+
+도커 라라벨 프로젝트에 권한을 주게되면 된다. 그러면 컨테이너도 그 권한으로 사용하게 된다고 함.  chown 을 하는데 라라벨 프로젝트 디렉토리를 경로로 써주면 된다
+
+$ sudo chown -R 33:33 myblogapp
+
+그랬더니 드디어 라라벨 페이지 열림
+
+
+
+___
+
+일단 완성본 (라라벨 처음세팅에서 완벽하게 작동 25Mar 2021 : 
+nginx 서버로 라라벨 홈 화면 뜨는것 확인  localhost:8000 ,
+phpmyadmin 로 접속해서 server: mysql, username, password: docker-compose.yml 파일에 정의된 걸로 로그인 성공, 디비는 toturial로 만들어서 maraiadb와 연동되어 
+테이블까지 만들어 보는 걸로 테스트 성공! 
+)
+
+___
+**Dockerfile**
+파일명은 PHP.Dockerfile 로 함
+
+```Dockerfile
+FROM php:fpm
+
+RUN docker-php-ext-install pdo pdo_mysql mysqli
+
+RUN pecl install xdebug && docker-php-ext-enable xdebug
+
+#COPY --chown=33:33 . .  
+# 일단 로컬 호스트에서  chown -R 33:33 myblog(라라벨) 만 해도 됬었음
+```
+
+___
+**docker-compose.yml
+```yml
+version: '3.5'
+
+services: 
+  web:
+    image: nginx:latest
+    container_name: nginx
+    ports: 
+      - 8000:80
+    volumes: 
+        - ./default.conf:/etc/nginx/conf.d/default.conf  #최상위 디렉토리에 default.conf만들기
+        - ./app:/var/www/html  # app 디렉토리도 생성한다해서 도커 nginx 서버와 매칭
+    depends_on:
+      - php
+      - mysql
+  php:
+    # image: php:fpm #이렇게만 적으면 가장 최신버전을 받는다. 명시할 수도 있음 php:8.0-fpm , php:7.4-fpm 
+    container_name: php
+    volumes:
+      - ./app:/var/www/html  #이제 php를 app 디렉토리로 연결
+    build:  # 위의 image는 제거
+      context: .  # 현재 디렉토리
+      dockerfile: PHP.Dockerfile  #PHP.Dockerfile 에서 필요한 것을 읽어와 build 한다 . 그냥 Dockerfile 로 만들고 이름도 Dockerfile해도 됨
+    ports: 
+      - 9000:9000
+
+  mysql:
+    image: mariadb:latest
+    container_name: mysql
+    restart: unless-stopped
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: my-secret-pw 
+      MYSQL_DATABASE: tutorial
+      MYSQL_USER: tutorial
+      MYSQL_PASSWORD: secret
+      SERVICE_TAGS: dev 
+    volumes:
+      - ./mysqldata:/var/lib/mysql
+  
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: phpmyadmin
+    links:
+      - mysql  
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST= db
+      - PMA_PORT= 3306
+
+volumes:
+  mysqldata: {}
+
+```
+
+___
+default.conf (nginx설정파일)  
+먼저 순수 php 테스트용, app/pulic/index.php로 테스트
+```
+# server {
+#     listen 80 default_server;
+#     root /app/public;
+
+#     index index.php index.html index.htm;
+
+#     location ~ \.php$ {
+#         fastcgi_pass php:9000;
+#         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+#         include fastcgi_params;
+#     }
+# }
+```
+
+
+2번째 본격 라라벨용, app을 지우고. 즉, app디렉토리를 라라벨 프로젝트로 대체  
+아예 laravel new app 으로 프로젝트를 만든다 
+(이게 좀 헛깔릴 수도 있는데, 중요한 것은 가장 상위 경로에서 뉴 프로젝트를 만들어주면 된다)
+
 ```
 server {
-    listen 80;
+    listen 80 default_server;
     index index.php index.html index.htm;
     server_name localhost;
     error_log /var/log/nginx/error.log;
     access_log /var/log/nginx/access.log;
     root /var/www/html/public;
     # root /app/public; # 라라벨 없이 php만으로 서비스 할 때 - 실제로 로컬 프로젝트디렉토리에 /app/public/index.php 로 테스트
-    #/var/www/html/public 까지 올려주면 라라벨이 작동 - laravel로 새로운 프로젝트를 app 디렉토리 안에서 new프로젝트를 만든다(이름은 상관없음: 프로젝트명으로 하면 됨)
+    #/var/www/html/public 까지 올려주면 라라벨이 작동 - laravel로 새로운 프로젝트를 app 로 최상위 디렉토리에 만듬
 
     location / {
         try_files $uri $uri/ /index.php?$query_string;
@@ -75,87 +203,3 @@ server {
     }
 }
 ```
-___
-
-
-업데이트된 docker-compose.yml
-```yml
-version: '3.5'
-
-networks:
-  laravel:
-
-services: 
-  nginx:
-    depends_on:
-      - php
-      - mysql
-    networks:
-      - laravel
-    image: nginx:latest
-    ports: 
-      - 8000:80
-    volumes: 
-        - ./default.conf:/etc/nginx/conf.d/default.conf    
-        # 아마 os때문일지는 모르겠으나 default.conf 라고 해야 됨(로컬파일을 nginx.conf) #우분투에서는 nginx.conf로 해야할지도
-        - ./app:/var/www/html  # 위의 nginx.conf 파일은 같은 경로에 생성, app 디렉토리도 생성한다
-  php:
-    networks:
-      - laravel
-    build:  
-      context: .  # 현재 디렉토리
-      dockerfile: Dockerfile  # Dockerfile 에서 필요한 것을 읽어와 build 한다 . 그냥 Dockerfile 로 만들고 이름도 Dockerfile해도 됨
-    volumes:
-      - ./app:/var/www/html #이제 php를 app 디렉토리로 연결
-    ports:
-      - 9000:9000
-
-  mysql:
-    networks:
-      - laravel
-    image: mariadb:latest
-    restart: unless-stopped
-    ports:
-      - 3306:3306
-    environment:
-      MYSQL_ROOT_PASSWORD: my-secret-pw 
-      MYSQL_DATABASE: tutorial
-      MYSQL_USER: tutorial
-      MYSQL_PASSWORD: secret
-      SERVICE_TAGS: dev 
-    volumes:
-      - ./mysqldata:/var/lib/mysql
-    
-  phpmyadmin:
-    networks:
-      - laravel
-    image: phpmyadmin
-    links:
-      - mysql  
-    restart: always
-    ports:
-      - 8080:80
-    environment:
-      - PMA_ARBITRARY=1
-      - PMA_HOST= db
-      - PMA_PORT= 3306
-
-volumes:
-  mysqldata: {}
-```
-
-
-___
-마지막으로 Dockerfile  현재 유일하게 문제가 없는 파일 ㅠㅠ
-```Dockerfile
-FROM php:fpm
-
-RUN docker-php-ext-install pdo pdo_mysql mysqli
-
-RUN pecl install xdebug && docker-php-ext-enable xdebug
-```
-
-
-
-
-

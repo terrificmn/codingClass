@@ -1,22 +1,28 @@
+설명으로 참고할 것
+
 version: '3.5'
 
 services: 
   web:
     image: nginx:latest
+    container_name: nginx
     ports: 
-      - 80:80
-    
+      - 80:80 # 또는 8000:80 으로 매칭
     # 여기까지 한 후 docker-compose build && docker-compse up 를 실행해서 
     # 컨테이너 잘 받아지는 지 확인 docker 컨테이너가 만들어지고 done 이라고 뜨면
     # 브라우저에 localhost로 들어가보기 (127.0.0.1)
     volumes: 
-        - ./nginx.conf:/etc/nginx/conf.d/default.conf    
-        # 아마 os때문일지는 모르겠으나 default.conf 라고 해야 됨(로컬파일을 nginx.conf) #우분투에서는 nginx.conf로 해야할지도
+        - ./default.conf:/etc/nginx/conf.d/default.conf    
+        # 처음 웹서버 작동하는지 볼때에는 아래 경로로 매칭
         - ./app:/app  # 위의 nginx.conf 파일은 같은 경로에 생성, app 디렉토리도 생성한다
-    # 여기까지 한 후 다시 docker-compose up 하기
-    # app/public 에 만든 파일이 열리는 것 확인 (브라우저에 localhost 만 쳐도 됨)
+        # 여기까지 한 후 다시 docker-compose up 하기
+        # app/public 에 만든 파일이 열리는 것 확인 (브라우저에 localhost 만 쳐도 됨)
+        
 
+        # 라라벨로 할 때에는 아래 경로로 다시 세팅할 것 !! 중요 !!
+        # - ./app:/var/www/html  # app 디렉토리도 생성한다해서 도커 nginx 서버와 매칭
   php:
+    container_name: php
     # image: php:fpm #이렇게만 적으면 가장 최신버전을 받는다. 명시할 수도 있음 php:8.0-fpm , php:7.4-fpm 
     # 테스트할때 위의 주석 먼저 풀것
     volumes:
@@ -33,9 +39,16 @@ services:
     # 이제는 php에 필요한 extension을 받기 위해서 PHP.Dockerfile 을 만들어 준다 
     # 거기에 PHP.Dockerfile 에 내용은 필요한 것들을 다운 받는 것
     # PHP.Dockerfile파일 참고한다
+    volumes:
+      - ./app:/app #이제 php를 app 디렉토리로 연결
+
+      # 처음 웹서버 작동하는 거 확인 후, 다시 경로 셋팅
+      #    volumes:
+      #- ./app:/var/www/html  #이제 php를 app 디렉토리로 연결
 
     mysql:
       image: mariadb:latest
+      container_name: mysql
       restart: unless-stopped
       ports:
         - 3306:3306
@@ -50,6 +63,7 @@ services:
     
     phpmyadmin:
       image: phpmyadmin
+      container_name: phpmyadmin
       links:
         - mysql  
       restart: always
@@ -75,6 +89,9 @@ volumes:
 # RUN docker-php-ext-install pdo pdo_mysql mysqli
 
 # RUN pecl install xdebug && docker-php-ext-enable xdebug
+
+# COPY --chown=33:33 . .  #권한 문제 관련인데 안해도 
+# 일단 로컬 호스트에서  chown -R 33:33 myblog(라라벨) 만 해도 됬었음
 
 ######################################################################3
 
