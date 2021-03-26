@@ -493,9 +493,22 @@ pdo_mysql
 가 설치된것 확인 . 굿!
 
 
+요런 에러는 (처음에 라라벨 하면서 여기저기 설치하다보니 pdo설치 깜빡함;;)
+could not find driver (SQL: select * from information_schema.tables where table_schema = laravelblog and table_name = migrations and table_type = 'BASE TABLE')
+
+$ php -m | grep -i pdo
+-m은 설치된 모듈을 보여줌
+해보면 PDO는 있는데 드라이버가 안보임 (pdo_mysql가 없음)
+
+우분투에서는 
+$sudo apt-get install php-mysql
+
+설치하고 다시 $ php -m | grep -i pdo 하면 pdo_mysql이 보이고
+서버 가동해서 phpinfo(); 함수로 호출해봐도 PDO support 부분에
+PDO drivers 가 no value에서 mysql로 생김
+(단, 라라벨이라면 서버를 재가동시킨다. ^c 이후 php laravel serve)
 
 우분투에서 laravel new myproject 로 생성하려고 하면
-
 laravel/framework requires ext-mbstring * -> it is missing from your system. Install or enable PHP's mbstring extension
 
 phpunit/phpunit require ext-dom * -> it is missing from your system. Install or enable PHP's dom extension
@@ -643,3 +656,49 @@ drwxrwxr-x.  8 내계정 내계정  201 Mar 17 22:32  .git
 흠 달라진거는 없는데 어쨌든 됨
 
 
+_____________________________________________________________________________________________________
+
+우분투에서 한글 입력이 깨질때 (정확히는 vscode에서 깨질 때)
+이상하게도 실제 코딩하는 곳? 즉 파일 코드를 바꿀때는 한글이 이상하게 입력이 되는데,
+다른 메뉴나 검색할 때는 잘 입력되는 현상;;
+
+결론은 무척;; 당황스럽게도 간단하지만.. 많이도 헤맸다;; 한~두시간;;
+결론은 폰트 패밀리 지정에서 'Droid Sans Fallback'를 제거!
+
+한글 입력 관련해서는 블로그등에서 다양하게 많은데...
+
+가장간단한것은 우분투 셋팅에서 Region & Language 부분에서 
+Language를 한국 으로 바꾸면 메뉴등이 한글로 바뀐다. 입력도 잘 됨. 그러면 해결!
+
+하지만!! 
+영어메뉴는 살려놔야해서;; 그러다 보니, language 언어 부분은 그대로 영어로 해놓야해서;;
+vscode 에서 입력이 (특정 단어) 계속 잘 안되는 현상;;
+예를 들어 
+각을 입력하면 ㄱㅏㄱ 이렇게 된다던가..
+
+그러다가 이것저것 깔아보고;; 소용없다
+참고로; sudo apt-get install fcitx-hangul  <<<< 이거 소용없음 우분투 18.04 기준
+
+결론은..;;
+vscode preference에서 font를 지정해주면 되는 것임;;;
+preference를 열면 거의 바로 보이는데 font famliy가 보이는데 
+'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'
+요렇게 되어 있는데 
+'Droid Sans Fallback' 요놈만 지워주면 바로 적용된다.
+이참에 아예 폰트를 바꿔야겠구먼;;
+
+
+
+*참고.. 한글 언어팩 설치
+setting 에서 언어 지역 설정의 input Sources 부분에서 
+manage installed Languages를 눌러서 한국어를 설치하면 언어팩을 깔아주는데 
+Language Support 화면 한국어 설치를 한다음에 빠져나오면 
+다시 input source 부분에서 Korean만 있는데...
+기억이 맞다면 아마 로그아웃을 한번 해야했던거 같다. 다시 들어오면
+Korean (Hangul)을 선택할 수 있는데 괄호로(Hangul) 되어 있는 것이 생기고 
+이놈을 선택해주면 된다.
+
+단, 가상머신이라면은 쉬프트+스페이스바로 전환을 하게 될 것이고, 가상이 아니면
+한글키로도 전환 될 것이다.
+
+끝!

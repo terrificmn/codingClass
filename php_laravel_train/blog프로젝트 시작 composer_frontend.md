@@ -10,6 +10,23 @@ node -v
 중요 npm 버전도 확인해야함 (왜냐하면 npm 버전이 낮게 설치되어 있으면 호환문제가 발생)
 npm만 따로 설치할 수 있어서 따로따로 하기보다는 nodejs 리포지터리 추가해서 설치하는게 좋다. (nodejs 셋팅npm트러블슈팅 참고할 것)
 
+처음에 라라벨 뉴 프로젝트를 만들고 
+만약 학교에서 작업을 하는경우에 git reset을 한 경우는  (install linux 참고)
+다행히 원격과 싱크는 맞출 수 있었지만 깔린게 없으므로 설치해줘야한다
+예로 바로 php artisan serve를 하면
+ In order to use the Auth::routes() method, please install the laravel/ui package.
+라고 나온다
+그럼 아래 처럼 필요한 것 깔아주기
+
+참고: 우분투에서 npm없다고 할 시에 apt-get nodejs 만 설치하면 
+버전도 낮고 심지어 npm도 안깔린다..;; 
+centos는 npm은 깔리지만 nodejs 버전이 낮아서 문제가 된다
+어쨌든 우분투도 리포지터리 추가 확인해야할 듯
+
+`nodejs 셋팅npm트러블슈팅.md`파일 확인 
+
+
+처음 laravel new project명  한 이후 설치할 것들...
 
 install
 composer require laravel-frontend-presets/tailwindcss --dev

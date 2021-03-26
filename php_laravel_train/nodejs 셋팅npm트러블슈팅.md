@@ -95,4 +95,27 @@ $ npm -v
 
 
 
+우분투 버전
+편하게 cd ~ 으로 이동
+
+curl -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh
+14버전으로 셋업 파일 받기
+
+여기에서 일단 gcc+ 가 설치 되있어야 한다. 
+centos는 gcc gcc-c++
+development Tools를 설치하면 된다
+$ sudo yum group install "Development Tools"
+
+우분투는 
+$ sudo apt-get install build-essential
+
+그리고 나서 
+$ sudo bash nodesource_setup.sh
+실행
+
+이제 nodejs를 설치할 수 있다
+$sudo apt-get install nodejs
+
+node -v 하면 v14.16.0 
+npm -v 하면 6.14.11 가 설치된것을 알 수 있음 !
 

@@ -95,6 +95,10 @@ centOS repo는 보수적으로 안정적으로 접근하기 때문에 최신버�
 먼저 사이트 방문
 https://downloads.mariadb.org/mariadb/repositories/#distro=CentOS&distro_release=centos8-amd64--centos8&mirror=yongbok&version=10.5
 
+* 우분투 일 경우에는 위의 사이트에서 우분투로 바꿔주면 됨
+그리고 하나씩 실행 시키면 됨 . 먼저 레포지터리 추가, 마리아디비 설치
+오히려 레포지터리 추가 및 바로 sudo apt-get install mariadb 여서 편함;;;
+이하 mysql_secure_installation은 센트오에스와 같음 (아래 참고)
 
 아래의 목록을 파일로 만들어 준다
 centOS 전용 YUM repository 라고 함

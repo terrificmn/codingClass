@@ -423,3 +423,61 @@ Switched to a new branch 'develop'
   $git checkout master
 
 
+_____________________________________________________________________________________________________
+git 로컬파일 overwrite 하기
+
+!! 매우 주의!!
+
+git pull origin main 할 때 로컬 파일들이 있는 상태에서 git init을 하면
+remote repo에서 pull 하게 되면 겹치는 파일들을 제거 한후 다시  pull을 하라고 나온다
+현업에서는 이런일이 없겠지만;; 아마도? 
+
+아직 라라벨을 완벽하게 모르겠는데 깃 허브에 올려서 집, 학교에서 작업하다 보니
+학교에서 pull을 해서 작업을 하고 싶은데..;
+라라벨을 일단 뉴 프로젝트를 해서 다운을 받아야하는데 
+(프로젝트를 애초에 push할 때 gitignore에 의해서 모듈 및 파일 등이 다 안올라간 상태에서
+작업한 것이라서, 아무것도 없는상태에서 git init을 하고 pull 하게 되면은 충돌은 없겠지만
+실행이 안됨 ㅋㅋㅋ)
+
+그래서 일단 라라벨 프로젝트를 만들고 pull을 받는데 
+git pull myblog main   << remote을 myblog로 설정해놓은 것, main은 master라고 안하고 main으로 함
+역시나 충돌
+error: The following untracked working tree files would be overwritten by merge:
+... 파일들..
+Please move or remove them before you merge.
+Aborting
+
+이제부터는 주의!!
+로컬에서 바뀐게 있다면 다 반영안된다. (커밋기준) 근데 untracked이면 그런 파일은 상관없음
+그리고 나면
+$ git fetch --all  <<<< 최신으로 업데이트됨 (리모트 리포로부터 최신을 다운로드하지만 merge / rebase를 안함)
+그러면 Fetching myblog 라고 뜸, 이상태에서는 변한것은 없음
+$ git checkout -b backup-main  <<< 백업용 만들기 브랜치 만들기 (사실은 git을 막 init한 상태라 브랜치가 없다? 그래서 하나만 생김
+backup-main으로 생김, 그래서 백업의 의미로 쓸려면 브랜치를 하나 더 만들어야하는 듯)
+$ git reset --hard myblog/main  << 리모트 리포 등록한 이름과 리모트 브랜치를 적어준다. 정석은 myblog가 origin
+이제 reset은 리모트로부터 fetch한 것으로(다운로드받은것을) 바꾼다.
+그리고 --hard옵션은 현재 로컬의 워킹트리에 있는 파일들을 리모트 리포지터리의 myblog/main의 파일로 바꿔주게 됨
+
+HEAD is now at 05b4eef first updated blog 이라고 나오면서 
+파일들이 생긴다 (드디어 원격과 같아짐)
+
+git branch -m main ....> 다시 main으로 바꾸기
+
+
+
+아래 설명
+Explanation:
+
+git fetch downloads the latest from remote without trying to merge or rebase anything.
+
+Then the git reset resets the master branch to what you just fetched. The --hard option changes all the files in your working tree to match the files in origin/master
+Maintain current local commits
+
+[*]: It's worth noting that it is possible to maintain current local commits by creating a branch from master before resetting:
+
+git checkout master
+git branch new-branch-to-save-current-commits
+git fetch --all
+git reset --hard origin/master
+
+After this, all of the old commits will be kept in new-branch-to-save-current-commits.
