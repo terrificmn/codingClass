@@ -156,9 +156,186 @@ MairaDB [(none)]> 여기에 커맨드 입력
 
 _____________________________________________________________________________________________________
 _____________________________________________________________________________________________________
-ftp (vsftp) 설치 :요새는 보안 때문에 비추천!! 
+ftp (vsftp) 설치 :요새는 보안 때문에 ~~비추천!!~~
+예전에는 비추천이라고 잘못 알았지만 sftp기능을 이용해서 사용하면 더 안전하게 사용할 수 있다고 함
+
+업데이트된 기록 (29MAR 2021)
+
+먼저 vsftpd 설치 (yum 도 상관없음)
+$ dnf install vsftpd
+
+설치는 
+/etc/vsftd/ 에 설치되는데 
+설정파일을 백업을 해두자
+먼저 이동
+```
+$cd /etc/vsftd
+$cp vsftpd.conf vsftpd.conf.backup
+```
+
+이제 vsftpd.conf 파일을 열어서 환경설정 파일을 수정하는데, 사실 바꿀 부분은 딱히 없다.
+아래는 환경설정 설명
+anonymous_enable=NO   # disable anonymous users
+local_enable=YES   # allow local users
+write_enable=YES   # allow ftp write commands
+local_umask=022    # set default umask
+dirmessage_enable=YES   # enable messages on change directory
+xferlog_enable=YES   # enable logging of uploads and downloads
+connect_from_port_20=YES  # ensure PORT transfer connections from port 20 (ftp-data)
+xferlog_std_format=YES   # keep standard log format
+listen=NO    # prevent vsftpd run in stand alone mode
+listen_ipv6=YES    # allow vsftpd to listen on IPv6 socket
+pam_service_name=vsftpd   # set PAM Service name to vsftpd
+
+
+이제 특정유저만  ftp를 사용할 수 있게 특정 유저를 등록해준다
+마찬가지로 같은 경로에 위치하는 user_list 파일에 유저를 등록해주면 된다
+
+디폴트는 user_list에 들어가있는 유저들을 ftp접근이 거부가 되게 되어 있는데
+일단 특정 유저만 접근할 수 있게 허용해줘야한다
+
+다시 vsftpd.conf 를 열어서 내용을 추가해준다
+```
+userlist_enable=YES   # enable vsftpd to load usernames
+userlist_deny=NO   # allow access to users in userlist
+```
+일단 userlist_enable=YES 는 되어 있을텐데 userlist_deny=NO를 추가
+
+```
+$ chroot_local_user=YES   # Create chrooted environment for users
+$ allow_writeable_chroot=YES  # Allow write permission to user on chroot jail directory
+```
+chroot_local_user=YES 도 기본으로 되어 있고
+allow_writeable_chroot=YES 가 없어서 넣어줘야한다
+
+
+# tls 인증하기
+기존 ftp 는 암호화를 하지 않기 때문에 보안에 취약했다고 하는데 이는 기본 텍스트를 사용했다고 함
+sftp는 secuire FTP는 ftp 서버와 클라이언트 간의 통신을 암호화 해준다고 함
+그래서 TLS (Transport Layer Security)를 생성한다
+
+```
+$sudo openssl req -x509 -nodes -keyout /etc/vsftpd/vsftpd.key -out /etc/vsftpd/vsftpd.pem -days 365 -newkey rsa:2048
+```
+
+그러면 생성하기위한 정보를 입력하는데
+writing new private key to '/etc/vsftpd/vsftpd.key'
+-----
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [XX]:KR
+State or Province Name (full name) []:Incheon
+Locality Name (eg, city) [Default City]:Incheon
+Organization Name (eg, company) [Default Company Ltd]:test
+Organizational Unit Name (eg, section) []:test lab
+Common Name (eg, your name or your server's hostname) []:ftp-server.testlab.com
+Email Address []:root@ftp-server.testlab.com
+
+이렇게 하면 /etc/vsftpd/ 디렉토리안에 vsftpd.key vsftpd.pem 파일이 생긴다
+그리고 나서 다시 vsftpd.conf 파일을 다시 설정하는데 맨 아래에 아래 코드를 복사하기
+```
+ssl_enable=YES       # Enable vsftpd Secure connections
+ssl_sslv2=NO      # Disallow SSL v2 protocol connections
+ssl_sslv3=NO      # Disallow SSL v3 protocol connections
+ssl_tlsv1_2=YES      # Allow TLS v1.2 protocol connections
+rsa_cert_file=/etc/vsftpd/vsftpd.pem   # Location of TLS certificate
+rsa_private_key_file=/etc/vsftpd/vsftpd.key  # Location of Private Key
+allow_anon_ssl=NO     # Disallow Anonymous Access
+force_local_data_ssl=YES    # Force users to use SSL connection for data transfer
+force_local_logins_ssl=YES    # Force users to use SSL connection for credentials
+require_ssl_reuse=NO     # Disable SSL session reuse
+ssl_ciphers=HIGH       
+pasv_min_port=30000     # Min port number to define a range for PASV connections
+pasv_max_port=31000     # Max port number to define a range for PASV connections
+debug_ssl=YES      # Dump OpenSSL diagnostics in vsftpd log file
+```
+
+방화벽 포트 열어주기
+```
+$ sudo firewall-cmd --permanent --add-port=30000-31000/tcp
+$ firewall-cmd --permanent --add-port=990/tcp 
+$ firewall-cmd --permanent --reload
+```
+vsftpd 시작
+$systemctl start vsftpd
+
+만약 이때 
+> 500 oops bad bool value in config file for anonymous_enable
+이런 에러가 발생하면 설정파일에 빈칸이 있어서 그러는 것이라고 함
+예를 들어서 local_enable=YES 이런식으로 써 있고 
+각각 마지막 줄에 띄어쓰기 되어 있는지 확인 후 빈칸을 다 지워준다
+그래도 안되면 아래 명령어 실행
+
+```
+$ cd /etc/vsftpd
+$ sed -i 's,\r,,;s, *$,,' ./vsftpd.conf
+```
+빈칸이랑 CR 캐릭터를 지워주는 명령어임, 
+
+이제는 ftp를 사용할 유저를 추가해주고 비번도 설정한다
+
+```
+$ sudo useradd ftpuser
+$ sudo passwd ftpuser
+
+vi 편집기로 넣어도 되고 리다이렉트 기능을 써도 됨
+```
+$sudo echo ftpuser >> ./user_list
+```
+근데 퍼미션때문에 안된다면 그냥 편집기 열어서 추가해주자
+
+
+클라이언트에서 사용할 lftp 설치하기
+근데 vsftp를 이용해서 자체TLS를 만든것이기 때문에 실행을 하면 Not trusted라고 에러가 발생
+그래서 lftp 설정파일을 수정해준다
+```
+$ echo "set ssl:verify-certificate no" >> /etc/lftp.conf
+```
+이것역시 안되면 vi편집기로 입력해준다
+
+그리고 나서 접속 테스트
+$lftp ftpuser@127.0.0.1
+비번을 입력하면 로그인이 되는데 
+처음에 ls 명령어를 치면 아무것도 안나옴 
+exit를 한 후 새로 gui상태에서 새로 로그인을 해주면 환경설정이 되면서 
+디렉토리등이 만들어 지는데 다시 로그아웃을 하고 원래 계정으로 로그인을 해준다
+
+$lftp ftpuser@127.0.0.1
+비번 입력 후 다시 ls를 해보면 이제 디렉토리들이 보이는 것을 확인
+
+(이제 접속을 했으므로 remote가 됨)
+파입 업로드는 put 명령어  
+다운로드는 get , 여러개 다운로드 mget
+이동은 cd, 뒤로 가기 cd - 
+
+
+다른계정으로 로그인하고 ls명령어를 치면 permission denied로 나오는것을 봐서는 
+특정유저 로그인이 잘작동하는 것 같음
+
+이제 테스트는 끝났으니.. nologin으로 바꾸기. 이렇게 되면 셀에 접속할 수 없게 된다
+```
+$sudo usermod /sbin/nologin ftpuser
+```
+그 다음에 cat /etc/passwd 를 확인해보면
+ftpuser:x:1001:1001::/home/ftpuser:/sbin/nologin 요렇게 바뀌어 있음
+다시 로그인 가능하게 하려면 
+위의 usermod로 shell을 지정해준다 /bin/bash
+
+아무튼 이렇게 되면 유저는 그대로 남아있지만 로그인은 할 수 없는 상태가 된다
+(로그인화면도 안나옴)
+유저를 삭제하려면 userdel을 사용하면 된다 -r 옵션 (man 보기)
+
+https://www.centlinux.com/2020/01/how-to-install-secure-ftp-server-centos-8.html
+-----------
+
+예전 기록들.... 
 설치
-  $yum install vsftpd -y
+  $yum install vsftpd
 
 시작
   $systemctl start vsftpd
@@ -811,10 +988,8 @@ $ cd /usr/share/phpmyadmin
 config.sample.inc.php 파일이 있는데 
 파일명을 바꾸거나 복사한다음에 config.inc.php 로 만든다
 
-둘 중 하나 선택
+샘플은 남겨두고 복사하기
 $sudo cp /usr/share/phpmyadmin/config.sample.inc.php  /usr/share/phpmyadmin/config.inc.php
-또는 
-$sudo mv /usr/share/phpmyadmin/config.sample.inc.php  /usr/share/phpmyadmin/config.inc.php
 
 vi나 vim 편집기로 열어서 내용 수정
 $sudo vim /usr/share/phpmyadmin/config.inc.php
@@ -839,9 +1014,23 @@ $cfg['Servers'][$i]['auth_type']     = 'config';
 
 그리고 temp 디렉토리 설정
 근데 cfg['TempDir']이 없다;; 그냥 하나 추가해주기
+아래 코드를 입력해준다
 $cfg['TempDir'] = '/var/lib/phpmyadmin/tmp';
-
 그리고 : 누르고 wq 를 눌러 저장하고 빠져나오기
+
+일단, config파일에는 넣어줬으나 실제로는 디렉토리가 없다 
+없다면 만들어야한다 (아마 처음에 먼저 만들었을 것임(위에서 설명))
+
+그리고 temp디렉토리가 없으면 phpmyadmin을 실행하게 되면 
+Permission denied 와 함께 아래와 같은 에러가 발생
+Backtrace
+
+./libraries/classes/Config.php#1285: mkdir(
+string '/usr/share/phpmyadmin//var/lib/phpmyadmin/tmp/twig',
+integer 504,
+boolean true,
+)
+temp 안만들면 어떻게 되나 봤더니, warning 메세지!
 
 이제는 아파치 웹 서버 설정파일 만들어주기
 아마 없을 것이다.. 그래서 어차피 빈 파일로 만들면서 
@@ -896,6 +1085,8 @@ $sudo systemctl restart httpd
 마지막 중요한 SELinux 설정
 이거 무시했다가 계속 에러가 남
 아마 SELinux를 관련 설정안하면 phpmyadmin 들어가면 Access Denied 라고 접속이 안될 것임
+처음에 에러 메세지가 안나오고 하얀화면만 나오면 
+/etc/php.ini 파일을 설정해서 에러가 표시되게 해야함 
 
 대개 centos는 enforcing 인가로 모드가 설정되어 있다고 함
 그래서 퍼미션 거부 에러가 계속 난다. (접속 시도시에) 이것을 몰라서 포기했다가 
@@ -935,4 +1126,144 @@ $sudo apt-get install fcitx-hangul
 추가하고 설정하기
 
 
+_____________________________________________________________________________________________________
+네트워크 시작부터 (부팅 후) 자동으로 시작되게 하기
+
+네트워크 관련 파일을 확인할 수 있는데
+```
+$cat /etc/sysconfig/network-scripts/ifcfg-enp3s0
+```
+
+여기에서 ONBOOT=no 에서 yes로 바꿔주면 된다
+
+** 참고:
+네트워크 자체를 내리기, 원래는 systemctl start network.service 로 하면 되는데 
+centos8에서는 deprected되었다고 한다. 그래서 nmcli 명령어를 사용한다
+```
+$sudo nmcli networking off
+$sudo nmcli networking on
+```
+이거를 하면 아예 네트워크를 내리는 것이기 때문에 
+GUI에서 셋팅에서 네트워크를 보면 아예 사라져버린다. on을 하면 다시 생김
+
+
+
+_____________________________________________________________________________________________________
+NGINX 설치
+
+참고사이트: https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-centos-8
+
+dnf로 설치하기
+```
+$sudo dnf install nginx
+```
+
+스타트. enbale은 시키고 싶으면 enable시키면 됨(자동시작)
+```
+$sudo systemctl start nginx
+$sudo systemctl enable nginx
+```
+
+방화벽 포트열어주기, 포트를 직접 지정하는것이 아니라 서비스 이름을 지정하게 됨
+(여태껏 포트번호로만 주로 넣어봄)
+```
+$sudo firewall-cmd --permanent --add-service=http
+```
+
+방화벽 리스트 확인하기
+```
+$sudo firewall-cmd --permanent --list-all
+```
+services부분에 보면 추가가 되었다면 ok!
+
+적용시키기
+```
+$sudo firewall-cmd --reload
+```
+
+읽어보기 환경설정 파일들
+Content
+
+    /usr/share/nginx/html: The actual web content, which by default only consists of the default Nginx page you saw earlier, is served out of the /usr/share/nginx/html directory. This can be changed by altering Nginx configuration files.
+
+Server Configuration
+
+    /etc/nginx: The Nginx configuration directory. All of the Nginx configuration files reside here.
+    /etc/nginx/nginx.conf: The main Nginx configuration file. This can be modified to make changes to the Nginx global configuration.
+    /etc/nginx/conf.d/: This directory contains server block configuration files, where you can define the websites that are hosted within Nginx. A typical approach is to have each website in a separate file that is named after the website’s domain name, such as your_domain.conf.
+
+Server Logs
+
+    /var/log/nginx/access.log: Every request to your web server is recorded in this log file unless Nginx is configured to do otherwise.
+    /var/log/nginx/error.log: Any Nginx errors will be recorded in this log.
+
+
+___
+멀티플 환경에서 사용할 수 있게 하기
+아파치의 virtual hosts와 비슷한 기능인데, 서버한개로 여러개의 도메인이름으로 서비스할 수 있게 해줌 
+그거를 Server Blocks라고 한다
+관련된 환경파일은 /etc/nginx/conf.d 
+
+기본으로는 /usr/share/nginx/html 이 기본으로 작동하는 디렉토리라고 보면됨
+여러개에서 작동할 수 있게 하려면
+/var/www 디렉토리를 만들어줘야하는데 
+이제 여기에서 your_domain자리는 각 도메인 이름이 되면 된다 (즉 프로젝트 디렉토리명이 될 듯)
+```
+$sudo mkdir -p /var/www/your_domain/html 
+```
+그리고 그 디렉토리의 권한을 현재 user로 주는데 환경변수를 사용 (environment variable)
+```
+$sudo chown -R $USER:$USER /var/www/your_domain/html 
+```
+
+vi편집기로 간단한 html파일을 만든다
+또는 vscode로 ! (Emmet)기능으로 간단하게 html페이지 만들어주기
+
+이제 Server Block이 잘 작동하기 위해 디렉토리를 맞춰주기 위해 .conf 파일을 만들어 줘야함
+vi 나 nano 편집기로 만들어 준다
+
+```
+$ sudo vi /etc/nginx/conf.d/your_domain.conf
+```
+
+파일에 아래 내용을 추가해준다
+```
+server {
+        listen 80;
+        listen [::]:80;
+
+        root /var/www/your_domain/html;
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name your_domain www.your_domain;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+}
+```
+
+listen은 말그대도 80번 포트로 http 로 듣고 있는 것
+root 경로를 설정해주고 (도메인(프로젝트) 디렉토리 위치)
+그 다음줄은 index.html 기본 파일들 정해줌
+그 다음은 server_name 이름을 정해주는 것인데, 이부분에서 localhost로 잘 될지 모르겠음
+
+에러가 없는지 확인은 
+```
+sudo nginx -t
+```
+ok, successful이라고 나오면 성공
+
+재시작
+```
+$systemctl restart nginx
+```
+
+custom document root 로 http 컨텐츠 가능하게 만들어주기
+chcon 은 Selinux 보안관련 파일을 바꾸는 명령어
+```
+$ chcon -vR system_u:object_r:httpd_sys_content_t:s0 /var/www/your_domain/
+```
+
+참고로 -R 은 recursive -v는 verbose (작업을 보이게 해주는 것)
 

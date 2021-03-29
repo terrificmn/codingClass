@@ -179,6 +179,27 @@ $cfg['blowfish_secret'] = '84657495123845128452'; /* YOU MUST FILL IN THIS FOR C
 $cfg['blowfish_secret'] = 'randomadmin'; 이렇게 되어 있던 것을
 $cfg['blowfish_secret'] = 'randomadmin0123456789randomadminlong'; 요렇게 길게 바꿈
 
+<트러블슈팅>
+Unable to connect
+Firefox can’t establish a connection to the server at localhost.
+이건 그냥 httpd가 서비스 되고 있는지 확인하면 된다
+$systemctl start httpd
+우분투는 
+$systemctl start apache2
+_____________________________________________________________________________________________________
+
+<트러블슈팅 phpmyadmin 워닝>
+에러는 아니지만 워닝싸인
+Warning in ./libraries/classes/Config.php#1282
+mkdir(): Permission denied
+
+이건 아마도 설치할 때 날림으로 해서;; ㅋㅋ
+일단 /usr/share/phpmyadmin/libraries/classes/Config.php 파일을 열어보자
+
+
+
+
+
 _____________________________________________________________________________________________________
 <트러블슈팅>
 Gtk-Message: 04:29:58.177: Failed to load module "canberra-gtk-module"
