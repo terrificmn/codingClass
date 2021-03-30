@@ -106,7 +106,7 @@ centos는 gcc gcc-c++
 development Tools를 설치하면 된다
 $ sudo yum group install "Development Tools"
 
-우분투는 
+우분투는 ubuntu gcc  설치 및 필요한 것 몽땅 설치
 $ sudo apt-get install build-essential
 
 그리고 나서 

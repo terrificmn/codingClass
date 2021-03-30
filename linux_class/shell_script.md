@@ -37,4 +37,56 @@ echo $result
 ```
 
 
+if문 사용하기 - 
+shell에서는 if문은 fi로 끝난다 (end if)를 의미함
+```shell
+#!/bin/sh
+
+#echo $0 #0은 파일명을 받는다
+#파라미터를 3개를 받아야하는데 2개만 받은 경우
+
+num1=$1
+num2=$2
+num3=$3
+
+if [ -z "$num3" ]  #-z null인지 확인 null이면 true리턴 
+        then
+                echo '입력해주세요'
+        else
+                echo $num1 $num2 $num3
+
+fi #end if
+
+exit 0
+```
+
+
+switch case 문   
+주목할 점은 조건을 in 뒤에다 적어주는데 ''나 ""의 문자열 상태로 적어주지 않는다
+파라미터 $VAR 로 들어온 값을 비교하는데 문자열이 각각 --start, --stop, --restart면 출력을 하는 프로그램
+*) 조건은 default 조건임
+```shell
+#!/bin/sh
+
+
+VAR=$1
+
+case "$VAR" in
+        '--start')
+        echo 'start~!';;
+
+        '--stop')
+        echo 'stop~!';;
+
+        '--restart')
+        echo 'restart';;
+
+*)
+        echo 'no codition';;
+
+esac #case문 종료
+
+exit 0
+
+```
 
