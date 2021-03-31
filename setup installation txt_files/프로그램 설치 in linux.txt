@@ -1487,76 +1487,100 @@ $sudo ufw status
 
 먼저 디렉토리를 만들어준다 
 기본디렉토리는 /var/www/html 인데 
-여기에서 www 하위디렉토리로 만들어준다 일단 example.com로 만들어 보자
+여기에서 www 하위디렉토리로 만들어준다 일단 id_testsite 로 만들어 보자
+그래서 sgtubun_testsite 로 만듬
 ```
 $cd /var/www
-$sudo mkdir -p example.com/html
+$sudo mkdir -p sgtubun_testsite/html
 ```
-아예 절대경로로 전체경로를 만들어도 상관없음
+이제 여기 경로에 html파일들이 있는 경로가 되겠음
+아예 절대경로로 전체경로를 만들어도 결과는 같음 (mkdir -p /var/www/sgtubun_testsite/html)
 
 디렉토리의 소유권을 변경해준다 -> 유저
 이것도 경로는 편한대로 , user이름을 직접적어도 되고 변수를 사용해도 됨
 ```
-$sudo chown -R $USER:$USER /var/www/example.com/html
+$sudo chown -R $USER:$USER /var/www/sgtubun_testsite/html
 ```
 
-퍼미션도 변경해준다 
+퍼미션도 변경해준다. 
 ```
-$sudo chmod -R 755 /var/www/example.com/html
+$sudo chmod -R 755 /var/www/sgtubun_testsite
 ```
 
 이제 테스트 페이지를 만들어 준다. vscode, nano 맘에드는 걸로
 html까지 적을필요도 없을 듯 하고 hello world 정도면.. 
 ```
-cd /var/www/example.com/html
+cd /var/www/sgtubun_testsite/html
 vim ./index.html
 ```
 
+## Virtual Host 셋팅하기
+
 이제 설정파일을 열어서 수정해준다
-/etc/nginx/sites-available 에 가면 default  파일이 있는데 복사해서 사용하면 될 듯 하다 
-/var/www/ 이하가 example.com으로 만들었기때문에 example.com으로 만든다
+/etc/nginx/sites-available 에 가면 default  파일이 있는데 참고하면 된다
+일단 파일을 하나 만들자
+/var/www/ 이하가 sgtubun_testsite으로 만들었기때문에 sgtubun_testsite으로 만든다
 ```
 cd /etc/nginx/sites-available
-sudo cp default example.com 
+sudo vim sgtubun_testsite 
 ```
 
-이제 example.com 으로 만든 파일을 열어서 내용을 수정한다
-예시로 되어 있는데 그 중 맨아래 부분의 주석을 제거한 후 만들어 준다
+default 파일을 열어보면 맨 아래 부분에 설명이 되어 있다
+Virtual Host configuration for example.com
+You can move that to a different file under sites-available / and symlink that to sites-enabled/ to 
+enable it
+심볼릭 링크를 먼저 만든다음에 수정하자. 사실 순서는 상관없음
+먼저 여기 sites-available 디렉토리에 있는 내용은 원본 소스파일이 된다. 
+심볼릭링크파일은 /etc/nginx/site-enable/  안에 만들어 준다
+절대경로로 만들어주는 것에 주의!
+```
+$ sudo ln -s /etc/nginx/sites-available/sgtubun_testsite /etc/nginx/site-enable/
+```
+
+그리고 심볼릭링크가 잘 되었는지확인
+```
+cd /etc/nginx/site-enable/
+ls -li
+```
+sgtubun_testsite -> /etc/nginx/sites-available/sgtubun_testsite
+이렇게 하늘색으로 나오면 됨
+만약 결과가 빨간색으로 나오면 -sf 옵션으로 다시 링크를 이어주고,아니면 심볼릭링크를 지우고 다시만든다
+
+링크파일을 열어서 내용을 써준다. 
+(구지 처음파일을 만들었을 때 수정을 안하고 심볼릭링크를 먼저 만들고 수정한 이유는
+심볼릭링크에 좀 더 익술해질려고 ㅋㅋㅋ 뭔가 헛깔리니깐
+어쨋든 여기 심볼릭링크를 수정하면 참조하고 있는 원본 파일도 바뀐다)
 
 ```
 server {
-    listen 80;
-    listen [::]:80;
+    listen 81;
+    listen [::]:81;
 
-    server_name example.com www.example.com;
+    server_name stgubun_testsite.com www.stgubun_testsite.com;
 
-    root /var/www/example.com/html;
+    root /var/www/stgubun_testsite/html;
     
-    index index.html index.htm index.nginx-debian.html;
+    index index.html index.htm;
 
     location / {
             try_files $uri $uri/ =404;
     }
 }
 ```
-여기서 중요한 것은 root 부분의 경로를 디렉토리를 만든 경로를 적어주면 된다
-root /var/www/example.com/html;
+server_name 내가 주고 싶은것을 적어준다. stgubun_testsite.com 으로 만들어봄
+왜냐하면 서버이름은 내가 주고 싶은 것을 주는 것은 실제 도메인을 가리키고 있는 것이 아니기 때문이라고 함.
+어느 이름도 상관없음
+여기서 중요한 것은 root 부분의 경로를 내가 만든 디렉토리를 적어주면 된다. 최종 html파일 위치가 
+index.html 파일을 읽어들이는 위치가 됨
 
-이제 심볼릭링크를 생성해준다 
-설정 파일 자체에 설명이 나와있다
+root /var/www/stgubun_testsite/html;
 
-Virtual Host configuration for example.com
-You can move that to a different file under sites-available / and symlink that to sites-enabled/ to 
-enable it
-
-```
-sudo ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled
-```
-심볼릭링크를 생성하면 nginx가 시작하면서 sites-enabled 의 파일을 읽는다고 한다.
-단 여기에서 주의할 점은 심볼릭 링크를 생성할 때 절대경로로 적어줘야한다
-만약 여기에서 심볼릭 링크생성에서 빨간색으로 나오면 지운다음에 다시 생성해준다
+포트번호는 80번이 기본인데, 81번으로 바꿔줌 80번으로 하고 테스트를 하면 기존의 원래 도메인들이 
+많아서 그런 사이트들도 이동하게 되고 나만 알 수있는 이름으로 만들어도 작동이 제대로 안됨
+아마 제대로 서비스를 할려고 할 때나 가능한 듯 하다...
 
 
+추가 설정
 그리고 hash bucket memory problem 을 막기 위해서 
 /etc/nginx/nginx.conf 파일의 주석처리되어 있는 것을 제거해준다
 
@@ -1573,11 +1597,27 @@ $ systemctl restart nginx
 ```
 
 그리고 접속을 해본다
-http://example.com
-이거를 다른걸로 해봐야할 듯 하다
-원래 example.com이 쓰이는 듯 하다;;;
+브라우저에 localhost:81 으로 입력하면 html 디렉토리에 입력했던 내용이 나오는 것을 알 수 있음 
+이제 /var/www/sgtubun_testsite/html 로 이동해서 index.html 파일을 수정해보자
+아무런 말을 적으면 됨
+<h2> Nginx works! great!! </h2>
+그리고 저장한 후 다시 브라우저에서 새로고침
+잘 나오면 성공
 
+여기까지는 잘 됐지만, site_name에서 적어준 것으로는 작동이 안된다
 
+http://sgtubun_testsite.com
+실제 도메인이 아니여서 작동을 안하는 듯 한데, 추후 더 공부가 필요할 듯 하다;;
+
+일단 포트번호를 달리해서 했지만 일단 2개의 사이트를(?) 만드는데 성공했다
+브라우저에 localhost 라고만 치면 기본 서버 디렉토리 경로인 
+/var/www/html 에서 index파일을 읽어서 웰컴 페이지가 뜨고 
+localhost:81 이라고 하면 내가 만든 사이트가 나온다~ 
+
+오 끝!
+참고사이트:
+https://ubuntu.com/tutorials/install-and-configure-nginx#5-activating-virtual-host-and-testing-results
+https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-18-04
 
 
 
