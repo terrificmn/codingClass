@@ -723,3 +723,38 @@ Korean (Hangul)을 선택할 수 있는데 괄호로(Hangul) 되어 있는 것�
 한글키로도 전환 될 것이다.
 
 끝!
+
+
+
+_____________________________________________________________________________________________________
+VirtualBox 를 설치할 때 
+Failed dependencies:
+	libSDL-1.2.so.0()(64bit) is needed by VirtualBox-6.1-6.1.18_142142_el8-1.x86_64
+없다고 할 때 
+
+새롭게 할게 된 것인데;; 크 이제야 알다니
+항상 
+yum install libSDL 이런식으로 입력을 했었는데 
+Error: Unable to find a match: libSDL 
+늘 상 그랬듯이 아 또 못 찾는구나, 하고 
+구글링을 하면 rpm으로 되어있는 파일들이 많아서 쉽게 해결할 수 있어 보였는데;;
+
+갑자기 키워드를 다 쳐볼까? 하는 생각에
+sudo yum install libSDL-1.2.so.0  까지 쳐보니깐
+
+Installing:
+ SDL            i686          1.2.15-39.el8            appstream          236 k
+Installing dependencies:
+ glibc          i686          2.28-151.el8             baseos             3.4 M
+
+이렇게 찾아준다..;;
+또는 SDL 만 쳐도 찾아줌;;
+
+이제 yum install 한 다음에 없다는 패키지를 좀더 다양하게 쳐봐야겠음
+
+뭐 그래도 없으면 구글링이겠지..
+
+
+
+
+
