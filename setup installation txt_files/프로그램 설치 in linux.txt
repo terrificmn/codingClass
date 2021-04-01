@@ -1537,6 +1537,14 @@ enable it
 $ sudo ln -s /etc/nginx/sites-available/sgtubun_testsite /etc/nginx/site-enable/
 ```
 
+좀 더 쉽게 하는 방법이 명령어를 인식할 수 있게 해서 실행하면 좀 더 편하게 할 수 있음
+먼저 해당 디렉토리로 이동한 후에 pwd를 실행해서 링크 파일 만들기 (``백틱으로 묶어줌)
+```
+$cd /etc/nginx/site-enable/
+$sudo ln -s /etc/nginx/sites-available/sgtubun_testsite `pwd`
+```
+위 처럼하면 현재경로 (pwd) 이하에 링크파일을 (같은 이름으로) 생성해준다 
+
 그리고 심볼릭링크가 잘 되었는지확인
 ```
 cd /etc/nginx/site-enable/
