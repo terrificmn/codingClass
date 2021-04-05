@@ -1,5 +1,5 @@
 설명으로 참고할 것
-
+여기에선는 networks설정이 빠져있음. 설명으로는 충분할 듯 단, 이대로 설정하면 phpmyadmin 접속이 안될 것임
 version: '3.5'
 
 services: 

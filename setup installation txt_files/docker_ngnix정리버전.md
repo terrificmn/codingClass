@@ -31,6 +31,7 @@ phpmyadmin은 localhost:8080 를 브라우저에 쳐본다
 
 즉, 잘 되는 거 확인했으면 이제 app 디렉토리를 지우고 프로젝트의 루트 디렉토리에서
 app으로 라라벨 new 프로젝트를 생성
+아예 첫 프로젝트를 진행할 때만 아래처럼 진행할 것~ 이미 있는 프로젝트이면 깃허브 clone하자
 ```
 $ laravel new app
 ```
@@ -64,13 +65,34 @@ vendor 디렉토리가 포함되어 있지 않다. 원래 gitignore에 포함됨
 그래서 먼저 필요한 npm 설치를 해준다  
 **blog프로젝트 시작 composer_frontend.md** 파일을 참고한다
 
-그 다음에 docker-compose.yml파일의 mariadb 관련 루트비번 디비 네임등을 다시 바꿔준다, root와 일반유저 각각 비번을 바꾼다.
+그리고 권한 문제가 발생하므로 소유권을 변경해준다
+```shell
+$ sudo chown -R $USER:33 app
+```
+
+**중요!!** 설정파일 계정 비번 디비명 등을 먼저 바꾼 후에 진행할 것. 처음에 그냥 테스트용으로 만들고 
+다시 바꾼다음에 하려고 하면 생성이 자동으로 안되서 로그인 안됨. (컨테이너에 직접 접근해서 명령어를 쳐서 할 수 있을 것 같기는 한데.. 어쨋든)
+docker-compose.yml파일의 mariadb 관련 루트비번 디비 네임등을 다시 바꿔준다, root와 일반유저 각각 비번을 바꾼다.
 그리고 프로젝트내의 env파일이 없다. .env.example 파일을 복사해서 .env 파일로 만들고 DB부분를 수정한다. 위의 yml파일에서 설정한 것을 넣어주면 된다
 
-그리고 docker-compose up 해준다
+그리고 docker-compose build 및 up 해준다
 ```shell
+$sudo docker-compose build
 $sudo docker-compose up
 ```
+
+이제 localhost:8000으로 접근을 하면 아마도 라라벨 키를 만들어야 한다고 나올 것임 키 생성 눌러주면 됨
+그리고 db에 데이터베이스까지만 만들어져 있고 테이블이 없는 상태이므로 migration을 해준다
+절대경로로 접근해야한다
+중요! .env 파일의 DB_HOST를 127.0.0.1 에서 mysql로 바꿔줘야한다. 
+```shell
+docker-compose exec php php /var/www/html/artisan migrate
+```
+
+이제 디비 테이블이 만들어졌다. 이제 아이디를 만들어보고 테스트를 해보면 된다 
+
+
+# <트러블슈팅>
 
 이제 웹브라우저에 localhost:8000 을 입력하면
 아마도.. 이런 에러가 
@@ -100,15 +122,18 @@ $sudo docker-compose exec web id www-data
 uid=33(www-data) gid=33(www-data) groups=33(www-data)
 이렇게 나오는데 
 
-도커 라라벨 프로젝트에 권한을 주게되면 된다. 그러면 컨테이너도 그 권한으로 사용하게 된다고 함.  chown 을 하는데 라라벨 프로젝트 디렉토리를 경로로 써주면 된다
+도커 라라벨 프로젝트에 권한을 주게되면 된다. 그러면 컨테이너도 그 권한으로 사용하게 된다고 함.  
+chown 을 해서 소유자 변경을 해준다. 라라벨 프로젝트 디렉토리를 경로로 써주면 된다
+$ sudo chown -R 33:33 myblogapp 단
+여기에서 소유자는 해당 소유자user로 남겨보자
 
 ```shell
-$ sudo chown -R 33:33 myblogapp
+$ sudo chown -R $USER:33 myblogapp
 ```
-
-여기에서 소유자는 user로 남겨볼려고 했는데 권한 때문에 풀리지 않음;; 방법을 찾아야 할 듯... 왜냐하면 이제 여기에서의 git clone은 pull 만 할 것이고 
+방법을 찾아야 할 듯... 왜냐하면 이제 여기에서의 git clone은 pull 만 할 것이고 
 push는 안할 것임. (서버용이므로)
 그래서 문제가 있을지 없을지 아직 잘 모르겠음. -테스트 필요
+
 
 암튼 소유자:그룹을 변경해주면 
 웹페이지는 뜨지만 
@@ -135,15 +160,83 @@ pull 을 한 후에
 다시 라라벨 페이지를 보려면 33:33으로 소유권을 바꿔준다.
 흠.. 이거 문제인듯;;;;
 
+우분투의 경우:
 그리고 나면 이제 페이지가 잘 보이는데 ;;
 회원가입을 하려고 하면  SQLSTATE[HY000] [2002] Connection refused
 phpmysql 접속이 안된다.. 이전에는 오히려 라라벨 프로젝트가 실행이 안되더니
 이번에는 phpmysql이 root로 로그인이 안됨;;;
 처음에 만들었던 이미지랑 달라서 그러는지;;; 연구필요함
 
+centOS의 경우는 
+```
+Not Found
+
+The requested URL was not found on this server.
+Apache/2.4.38 (Debian) Server at localhost Port 8080
+```
+
+원래 네트워크로 묶었는데 그걸 안한거 같다.. 원래 참고했던 유투버에서는 네트워크를 라라벨로 하고 
+그걸로 그래서 그 네트워크가 형성이 되었던거 같은데 
+
+그 사람은 phpmyadmin을 사용을 안 했기 때문에 다른 사람꺼를 또 참고 했고 그렇게 하다보니 
+네트워크가 빠지고 이래저래 학교에서 집에서 왔다가 갔다가 조금씩 다른 환경에서 했더니 조금씩 엇나간거 같음
+(왜냐하면 그 전에는 라라벨 페이지가 안 뜨더라도 phpmyadmin 접속 및 sql로 db 생성이 가능했었음)
+
+일단 docker 매뉴얼을 보면 docker-compose.yml 파일의 버전은 3.9가 되어야하는듯하다
+현재 도커 엔진 버전은 20.10.5 
+
+docker-compose.yml 에서 네트워크를 설정해주고, 이름은 backend로 해서 업데이트 함
+그리고 phpmysql 컨테이너 부분에서 link를 빼고 networks로 넣어줬다
+
+접속은 localhost:8080으로 하면 되고
+server는 mysql, 계정 및 패스워드는 mysql 컨테이너에 적었던 것을 넣어주면 됨
+
+테스트! phpmysql 컨테이너에 networks항목을 뺀다음에 다시 빌드 후 up해보니
+phpmyadmin에는 잘 접속이 되는데 로그인이 안된다. mysql서버에 로그인 할 수 없다고 나옴
+확실이 네트워크가 중요한가보다. 아무래도 컨테이너들 끼리는 서로 모르는 관계? 라고 해야하나
+
+두번째 문제는 기존에 테스트로 시작하면서 mysql관련 비번이랑 유저를 tutorial 식으로 해놓았는데 
+원래 비번으로 바꿔서 다시 진행하려고 해도 뭔가 안된다. 바뀐 유저랑 비번을 알아먹지를 못함
+그래서 docker-composer down 후 build && up해도 결과는 똑같음
+volumes로 연결해뒀던 mysqldata 디렉토리를 가서 sudo로 안의 파일을 지우고 다시 docker-composer를 up시키고 
+localhost:8080하니 아예 페이지를 못찾음 ㅋㅋ
+다시 docker-composer down 후 build && up 했더니 
+어떻게 보면 mysql관련 파일이 없어졌으니 다시 새로 시작된것 같다
+그래서 처음에 새로설정한 비번, 유저, 디비이름으로 다시 다 만들어준다
+그리고 처음에 시작하면서 루트 패스워드 설정하는 법도 알려주는데.. docker-composer exer로 가능할 것 같기도 해서 참고로 남겨둠
+```
+PLEASE REMEMBER TO SET A PASSWORD FOR THE MariaDB root USER !
+mysql         | To do so, start the server, then issue the following commands:
+mysql         | 
+mysql         | '/usr/bin/mysqladmin' -u root password 'new-password'
+mysql         | '/usr/bin/mysqladmin' -u root -h  password 'new-password'
+mysql         | 
+mysql         | Alternatively you can run:
+mysql         | '/usr/bin/mysql_secure_installation'
+
+2021-04-05 20:46:40+00:00 [Note] [Entrypoint]: Creating database blog
+mysql         | 2021-04-05 20:46:40+00:00 [Note] [Entrypoint]: Creating user larauser
+mysql         | 2021-04-05 20:46:40+00:00 [Note] [Entrypoint]: Giving user larauser access to schema blog
+```
+
+이제 디비 테이블을 만들 차례
+```shell
+docker-compose exec php php /var/www/html/artisan migrate
+```
+역시 에러 발생 ㅋㅋ
+```
+ Illuminate\Database\QueryException 
+
+  SQLSTATE[HY000] [2002] Connection refused (SQL: select * from information_schema.tables where table_schema = laravelblog and table_name = migrations and table_type = 'BASE TABLE')
+```
+.env 파일을 수정해줘야한다
+DB_HOST=127.0.0.1에서 mysql 로 바꿔준다
+이러면 Migration table created successfully. 잘 만들어진다
 ___
 
 일단 완성본 (라라벨 처음세팅에서 완벽하게 작동 25Mar 2021 : 
+phpmyadmin 접속 문제로 안되다가 다시 완벽하게 작동 확인 06Apr 2021
+
 nginx 서버로 라라벨 홈 화면 뜨는것 확인  localhost:8000 ,
 phpmyadmin 로 접속해서 server: mysql, username, password: docker-compose.yml 파일에 정의된 걸로 로그인 성공, 디비는 toturial로 만들어서 maraiadb와 연동되어 
 테이블까지 만들어 보는 걸로 테스트 성공! 
@@ -164,6 +257,81 @@ RUN pecl install xdebug && docker-php-ext-enable xdebug
 # 일단 로컬 호스트에서  chown -R 33:33 myblog(라라벨) 만 해도 됬었음
 ```
 
+<br/>
+
+docker-compose.yml 파일 업데이트 - 06APR 2021
+```yml
+version: "3.9"
+services: 
+  
+  web:
+    image: nginx:latest
+    container_name: nginx
+    networks: 
+      - backend
+    ports: 
+      - "8000:80"
+    volumes: 
+        - ./default.conf:/etc/nginx/conf.d/default.conf  #최상위 디렉토리에 default.conf만들기
+        - ./app:/var/www/html  # app 디렉토리도 생성한다해서 도커 nginx 서버와 매칭
+    depends_on:
+      - php
+      - mysql
+
+  php:
+    # image: php:fpm #이렇게만 적으면 가장 최신버전을 받는다. 명시할 수도 있음 php:8.0-fpm , php:7.4-fpm 
+    container_name: php
+    networks: 
+      - backend
+    volumes:
+      - ./app:/var/www/html  #이제 php를 app 디렉토리로 연결
+    build:  # 위의 image는 제거
+      context: .  # 현재 디렉토리
+      dockerfile: PHP.Dockerfile  #PHP.Dockerfile 에서 필요한 것을 읽어와 build 한다 . 그냥 Dockerfile 로 만들고 이름도 Dockerfile해도 됨
+    ports: 
+      - "9000:9000"
+
+  mysql:
+    image: mariadb:latest
+    container_name: mysql
+    networks: 
+      - backend
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: super89MD 
+      MYSQL_DATABASE: laravelblog
+      MYSQL_USER: larastarter
+      MYSQL_PASSWORD: laracent0987
+      SERVICE_TAGS: dev 
+    volumes:
+      - ./mysqldata:/var/lib/mysql
+  
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: phpmyadmin
+    networks: 
+      - backend
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST= mysql
+      - PMA_PORT= 3306
+
+networks: 
+  backend:
+
+volumes:
+  mysqldata: {}
+
+```
+
+<br/>
+
+예전 기록 사용하지 말 것 
 ___
 **docker-compose.yml
 ```yml
