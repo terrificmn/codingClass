@@ -1,38 +1,46 @@
 # 쉘 스크립트
-php와 매우 비슷하다.  c언어 때문에 
+php와 매우 비슷한 느낌
 
 변수 할당하기 
+```shell
 $ GREETING=hello
+```
 변수는 $ (달러사인)을 넣어주고 echo로 호출하면 됨
+```shell
 $ echo $GREETING
+```
 hello
 
 변수 할당 (메모리)에서 제거 
+```shell
 $ unset GREETING
-
+```
 
 환경변수 보기
-```
+```shell
 $ env
 ```
 라고 치면 환경변수에 저장된 것들을 볼 수 있다
 
 변수 값에는 띄어쓰기가 안되므로  변수 = 로 값을 지정할 때 띄어쓰기 하면 안됨
 예:
+```shell
 $ EXAMPLE = test example  ------ X 이렇게 하면 안됨
 $ EXAMPLE="test example"  ------ O 이렇게 해야함
-
+```
 ___
 
 export 로 변수를 환경변수에 저장하기
+```shell
 $ export MYNAME
 $ env | grep MYNAME
-
+```
 env로 확인해보면 MYNAME으로 저장했던 것이 있음
 
 export했던 것 지우기  (-n : 지우기)
+```shell
 $ export -n MYNAME
-
+```
 
 
 ___
@@ -50,7 +58,7 @@ ___
 
 `` 백틱으로 묶어 주게 되면 변수가 아닌 명령어로 인식하게 된다
 
-```
+```shell
 $ echo "I'm at `pwd`"
 ```
 이렇게 하면 `pwd`를 명령어로 인식해서 출력을 해준다
@@ -58,12 +66,10 @@ $ echo "I'm at `pwd`"
 
 
 백틱을 활용해서 env에 환경변수로 저장해보기
-```
+```shell
 $ $HEL=Hello
 $ $WOR=World
 $ export GREETING="`printf $HEL` `printf $WOR`"
 $ env | grep GREETING
 ```
 위의 결과는 변수로 저장한 것을 ` `으로 묶어서 printf함수로 출력한 것을 그대로 GREETING변수에 저장, 그리고 그것을 env 목록에 입력함
-
-

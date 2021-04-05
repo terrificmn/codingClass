@@ -6,6 +6,8 @@ httpd 서버와 거의 비슷함
 ngix의 ports  8000 이나 80으로 설정 
 만약 로컬에서 httpd가 돌아가거나 다른 서비스가 하고 있으면 안될 수 있으니 적절히 열어주자
 
+# 처음 라라벨 프로젝트를 도커로 진행할 시에 아래처럼 할 것!
+
 디렉토리는 app 으로 연결함, 즉 app 디렉토리도 만들어 주기
 Dockerfile은 최상단 경로에 복사해 만들어 놓으면 됨
 
@@ -41,6 +43,42 @@ php artisan 명령어를 사용하려면 docker-comopser exec 로 명령을 내�
 docker-compose exec php php /var/www/html/artisan migrate
 
 
+# git clone 으로 다운받아서 진행
+일단 docker-* 로 만들어진 디렉토리에서 깃 클론으로 다운받기
+```shell
+$git clone 내github_리포지터리.git
+```
+
+기존의 app 이 root:root 소유로 만들어져 있을텐데 지워준다 
+```shell
+$rm -rf app
+```
+
+이제 git 리포지터리 이름으로 다운이 되어 있을 텐데 app으로 바꿔주던가 
+docker-compose.yml파일의 디렉토리 설정을 바꿀지 결정- 그냥 프로젝트를 app 변경함
+
+```shell
+$mv laravelproject app
+```
+vendor 디렉토리가 포함되어 있지 않다. 원래 gitignore에 포함됨.
+그래서 먼저 필요한 npm 설치를 해준다  
+**blog프로젝트 시작 composer_frontend.md** 파일을 참고한다
+
+그 다음에 docker-compose.yml파일의 mariadb 관련 루트비번 디비 네임등을 다시 바꿔준다, root와 일반유저 각각 비번을 바꾼다.
+그리고 프로젝트내의 env파일이 없다. .env.example 파일을 복사해서 .env 파일로 만들고 DB부분를 수정한다. 위의 yml파일에서 설정한 것을 넣어주면 된다
+
+그리고 docker-compose up 해준다
+```shell
+$sudo docker-compose up
+```
+
+이제 웹브라우저에 localhost:8000 을 입력하면
+아마도.. 이런 에러가 
+```
+UnexpectedValueException
+The stream or file "/var/www/html/storage/logs/laravel.log" could not be opened in append mode: Failed to open stream: Permission denied 
+```
+아래 내용 참고
 
 현재 23mar2021 기준으로 다시 안되고 있음  
 2주 스트림릿 하느라고 안했더니 작동을 안함;; 아래 내용이랑 유투브랑 다시 해서 해결할 것!!
@@ -64,11 +102,44 @@ uid=33(www-data) gid=33(www-data) groups=33(www-data)
 
 도커 라라벨 프로젝트에 권한을 주게되면 된다. 그러면 컨테이너도 그 권한으로 사용하게 된다고 함.  chown 을 하는데 라라벨 프로젝트 디렉토리를 경로로 써주면 된다
 
+```shell
 $ sudo chown -R 33:33 myblogapp
+```
 
-그랬더니 드디어 라라벨 페이지 열림
+여기에서 소유자는 user로 남겨볼려고 했는데 권한 때문에 풀리지 않음;; 방법을 찾아야 할 듯... 왜냐하면 이제 여기에서의 git clone은 pull 만 할 것이고 
+push는 안할 것임. (서버용이므로)
+그래서 문제가 있을지 없을지 아직 잘 모르겠음. -테스트 필요
 
+암튼 소유자:그룹을 변경해주면 
+웹페이지는 뜨지만 
+새로운 에러
+```
+No application encryption key has been specified. 
+Generate your application encryption key using php artisan key:generate.
+```
+웹브라우저상에서 generate key 버튼을 누르라고 나온다. 눌러주면 
+(아니면 artisan 커맨드를 사용)
+The solution was executed successfully. Refresh now. 과 함께 새로고침을 하라고 함
 
+그러면 이제 잘 뜨는 것이 보일 것임
+
+하지만 여기에도 문제가 있음.. git clone으로 생성한 다음에 
+pull 을 한 후에 
+어쩔 수 없이 npm 으로 필요 패키지를 깔아줘야하는데 
+그러면 layouts/app.blade.php 파일이 변경되어 있다. 
+아마도 npm ui설치하면서 기본으로 바뀌는 듯..
+그래서 이미 pull 을 한 상태이므로 더이상의 pull 도 안됨
+그래서 깃허브 소스를 보고 app.blade.php 파일의 내용을 다 수정해주고 저장
+이때 (이름바꾼 laravel프로젝트에서 app으로) app 디렉토리 (상위에서)
+소유권을 유저로 바꿔준뒤 저장해야하고 
+다시 라라벨 페이지를 보려면 33:33으로 소유권을 바꿔준다.
+흠.. 이거 문제인듯;;;;
+
+그리고 나면 이제 페이지가 잘 보이는데 ;;
+회원가입을 하려고 하면  SQLSTATE[HY000] [2002] Connection refused
+phpmysql 접속이 안된다.. 이전에는 오히려 라라벨 프로젝트가 실행이 안되더니
+이번에는 phpmysql이 root로 로그인이 안됨;;;
+처음에 만들었던 이미지랑 달라서 그러는지;;; 연구필요함
 
 ___
 

@@ -1,7 +1,7 @@
 먼저 쉘 스크립트를 하나 만들어준다
 휴지통 만들기
 
-```
+```shell
 #!/bin/sh
 
 files=`ls`
@@ -28,7 +28,7 @@ for문은 done으로 끝남
 
 환경변수에 등록해주기- 어디에서든 실행할 수 있게 하기
 먼저 스크립트 파일이 있는 곳으로 이동하기
-```
+```shell
 cd /스크립트/to/있는곳/이동
 export PATH=$PATH:`pwd`
 ```
@@ -39,13 +39,13 @@ export PATH=$PATH:`pwd`
 pwd라는 명령어를 실행해서 현재 위치를 넣어주기 위해서 백틱으로 ` `감싸준다
 
 그리고 실행권한을 755로 설정 (스크립트 파일의 권한을 바꿔준다)
-```
+```shell
 $ chown 755 moveall
 ```
 
 그리고 최종적으로 파일을 지운다고 가정하고 옮길 파일을 touch 로 만들어 준다
 test 디렉토리를 만들고 이동을 한 후 파일을 마구 만들어 준다
-```
+```shell
 $mkdir test && cd test
 $touch 123 124 wer 124 adsfl 235lkj zdk tij 234ijadf alek234 23lk4jqwe
 ```
@@ -65,4 +65,3 @@ Command 'mval' not found, did you mean:
 
 그래서 위에서 환경변수 PATH에 디렉토리 위치를 (`pwd`) 로 등록하게 되면 
 실행을 했을 때 PATH에 들어가 있는 디렉토리를 다 찾아서 보게 되는데 마침 쉘스크립트가 있는 디렉토리가 있으므로 그 디렉토리에서도 해당파일 (mval)이라는 파일이 있는지 확인하고 있으니 실행이 되는것 
-
