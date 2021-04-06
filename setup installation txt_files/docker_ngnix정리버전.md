@@ -84,7 +84,7 @@ $sudo docker-compose up
 이제 localhost:8000으로 접근을 하면 아마도 라라벨 키를 만들어야 한다고 나올 것임 키 생성 눌러주면 됨
 그리고 db에 데이터베이스까지만 만들어져 있고 테이블이 없는 상태이므로 migration을 해준다
 절대경로로 접근해야한다
-중요! .env 파일의 DB_HOST를 127.0.0.1 에서 mysql로 바꿔줘야한다. 
+중요! .env 파일의 DB_HOST를 127.0.0.1 에서 mysql로 바꿔줘야한다. 물론 mariadb계정 및 비번도 다시 설정
 ```shell
 docker-compose exec php php /var/www/html/artisan migrate
 ```

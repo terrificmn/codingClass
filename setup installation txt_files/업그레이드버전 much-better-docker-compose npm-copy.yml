@@ -50,7 +50,7 @@ services:
     #$ docker-compose run --rm composer require tailwindcss(필요한라이브러리)
 
   npm:
-    image: node:13.7 #stable 버전
+    image: node:14.16 #stable 버전
     container_name: npm
     volumes: 
       - ./app:/var/www/html
@@ -126,7 +126,7 @@ services:
       - PMA_PORT= 3306
 
 networks:
-  - laravel:
+  laravel:
 
 volumes:
   mysqldata: {}

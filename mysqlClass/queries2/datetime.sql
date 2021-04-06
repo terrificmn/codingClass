@@ -8,6 +8,13 @@ CREATE TABLE people (
     birthdt datetime
 );
 
+-- 시간 입력 받는 순간에 입력되게 default값 주기
+CREATE TABLE people (
+	name varchar(100),
+    created_at timestamp DEFAULT now(),
+    updated_at timestamp DEFAULT now(),
+);
+
 INSERT INTO people (name, birthdate, birthtime, birthdt)
 VALUES ('Padma', '2000-11-11', '10:07:35', '2000-11-11 10:07:35');
 
