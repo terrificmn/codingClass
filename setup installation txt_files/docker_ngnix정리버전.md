@@ -92,6 +92,22 @@ docker-compose exec php php /var/www/html/artisan migrate
 이제 디비 테이블이 만들어졌다. 이제 아이디를 만들어보고 테스트를 해보면 된다 
 
 
+# 중요!! 테스트 해볼 것
+git push를 다시해서 충돌나는지 확인해볼필요가 있음
+modified:   package-lock.json
+	modified:   package.json
+	modified:   public/css/app.css
+	modified:   resources/css/app.css
+	modified:   resources/views/layouts/app.blade.php
+	modified:   routes/web.php
+footer를 pull 서버에서 pull 받았는데 
+Updating 9e5a6ab..1ba1aff
+Fast-forward
+ resources/views/layouts/footer.blade.php | 2 +-
+문제는 없었음..
+다만 app.blade.php는 안해봐서;; 테스트 해봐야할 듯
+
+
 # <트러블슈팅>
 
 이제 웹브라우저에 localhost:8000 을 입력하면
