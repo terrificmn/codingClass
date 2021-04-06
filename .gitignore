@@ -1,3 +1,4 @@
+flask_api/recipe-api/config/config.py
 phpClass/uploads/*
 python-school/test/*.png 
 *.json 
