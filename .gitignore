@@ -1,4 +1,3 @@
-flask_api/recipe-api/config/config.py
 phpClass/uploads/*
 python-school/test/*.png 
 *.json 
@@ -13,3 +12,4 @@ streamlit/day02/data
 streamlit/day02/temp
 streamlit/day03/data
 *.pyc 
+flask_api/recipe-api/config/config.py
