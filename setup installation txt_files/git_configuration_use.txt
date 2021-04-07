@@ -481,3 +481,18 @@ git fetch --all
 git reset --hard origin/master
 
 After this, all of the old commits will be kept in new-branch-to-save-current-commits.
+
+
+_____________________________________________________________________________________________________
+git 치명적인 실수 히스토리 지우기
+.gitignore 파일로 데이터베이스 관련 파일이 안올라가게 관리해야하는데 
+실수로.;;;
+git filter-branch -f --index-filter 'git rm --cached --ignore-unmatch flask_api/recipe-api/config/config.py' --prune-empty -- --all 
+
+
+WARNING: git-filter-branch has a glut of gotchas generating mangled history                                                      rewrites.  Hit Ctrl-C before proceeding to abort, then use an                                                           alternative filtering tool such as 'git filter-repo'                                                                    (https://github.com/newren/git-filter-repo/) instead.  See the                                                          filter-branch manual page for more details; to squelch this warning,                                                    set FILTER_BRANCH_SQUELCH_WARNING=1.                                                                           Proceeding with filter-branch...                                                                                                                                                                                                                Rewrite f4cf2224e99cdbde470d66cbfc4845a22e09d3bc (125/128) (47 seconds passed, remaining 1 predicted)    rm 'flask_api/recipe-api/config/config.py'                                                                                             Rewrite db25bcd635ca6633e9edea9c488ad3c3a6e93b70 (125/128) (47 seconds passed, remaining 1 predicted)    rm 'flask_api/recipe-api/config/config.py'                                                                                             Rewrite 95b103990771aaff7584479f5cbc3193ee5104a3 (125/128) (47 seconds passed, remaining 1 predicted)    rm 'flask_api/recipe-api/config/config.py'                                                                                             Rewrite a4c9b48c08985fa995738bfd774b67100f6d968a (128/128) (49 seconds passed, remaining 0 predicted)                   Ref 'refs/heads/main' was rewritten                                                                                     Ref 'refs/remotes/origin/main' was rewritten                 
+
+
+git push origin main --force    
+
+
