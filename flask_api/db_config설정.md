@@ -1,4 +1,6 @@
 # db를 함수화 하기
+[mysql-connector공식매뉴얼](https://dev.mysql.com/doc/connector-python/en/connector-python-example-connecting.html)
+
 DB디렉토리를 하위에 하나 만들고, connection을 하기 위해서 
 mysql.connector를 import한다
 그리고 조금더 보안에 신경쓰기 위해서 

@@ -481,21 +481,79 @@ git fetch --all
 git reset --hard origin/master
 
 After this, all of the old commits will be kept in new-branch-to-save-current-commits.
-<<<<<<< HEAD
-=======
 
 
 _____________________________________________________________________________________________________
-git 치명적인 실수 히스토리 지우기
-.gitignore 파일로 데이터베이스 관련 파일이 안올라가게 관리해야하는데 
-실수로.;;;
-git filter-branch -f --index-filter 'git rm --cached --ignore-unmatch flask_api/recipe-api/config/config.py' --prune-empty -- --all 
+
+파일을 실수로 올렸을 경우에는 해당파일을 지우더라도 히스토리에 남아서 언제든지 깃허브에 들어가면
+다시 볼 수 있다. 해당 히스토리에서 Load diff 를 보면 지워졌던 내용도 보인다 ㅠ
+뭔가 복구를 할 때는 정말 좋은 시스템이기는 하다, 하지만 노출되면 안되는 파일이 올라가면...
+올라가면 치명적이게 된다;; ㅠㅠ 
+
+어쨋든 히스토리에도 삭제하는 방법이다. git filter-branch 명령어를 사용한다
+
+[깃허브 매뉴얼](https://docs.github.com/en/github/authenticating-to-github/removing-sensitive-data-from-a-repository)
+
+중요! 먼저 하기전에 깃허브 매뉴얼에서도 이미 깃 허브에 커밋이 되었다면 (push까지) 노출이 되었으므로
+비번은 바꾸고, 키를 만들었으면 새로 만들라고 한다!!
+
+뭐.. 학습용이니 누가 볼까하지만서도 그래도 바꾸고 시작하는것도 좋을 듯하다
 
 
-WARNING: git-filter-branch has a glut of gotchas generating mangled history                                                      rewrites.  Hit Ctrl-C before proceeding to abort, then use an                                                           alternative filtering tool such as 'git filter-repo'                                                                    (https://github.com/newren/git-filter-repo/) instead.  See the                                                          filter-branch manual page for more details; to squelch this warning,                                                    set FILTER_BRANCH_SQUELCH_WARNING=1.                                                                           Proceeding with filter-branch...                                                                                                                                                                                                                Rewrite f4cf2224e99cdbde470d66cbfc4845a22e09d3bc (125/128) (47 seconds passed, remaining 1 predicted)    rm 'flask_api/recipe-api/config/config.py'                                                                                             Rewrite db25bcd635ca6633e9edea9c488ad3c3a6e93b70 (125/128) (47 seconds passed, remaining 1 predicted)    rm 'flask_api/recipe-api/config/config.py'                                                                                             Rewrite 95b103990771aaff7584479f5cbc3193ee5104a3 (125/128) (47 seconds passed, remaining 1 predicted)    rm 'flask_api/recipe-api/config/config.py'                                                                                             Rewrite a4c9b48c08985fa995738bfd774b67100f6d968a (128/128) (49 seconds passed, remaining 0 predicted)                   Ref 'refs/heads/main' was rewritten                                                                                     Ref 'refs/remotes/origin/main' was rewritten                 
+1. 먼저 다른 곳에 temp같은 디렉토리를 만들고 클론, (백업 목적) 을 해준다
+```
+$git clone MY-GIT-HUB-REPO.GIT
+```
+
+2. 그리고 문제가 있는 로컬의 디렉토리로 이동
+```shell
+$cd ~/Projects
+```
+
+3. 삭제시키는 명령어 적용
+강제로 진행하고, 특정 파일(경로/파일명)을 지우고, tags도 덮어씌운다
+```shell
+git filter-branch --force --index-filter "git rm --cached --ignore-unmatch flask_api/recipe-api/config/config.py" --prune-empty --tag-name-filter cat -- --all
+```
+문제였던 파일이 flask_api/recipe-api/config/config.py 처럼 문제가 된 파일을 잘 써준다
+
+원래 매뉴얼에 나와있는 명령어 참고
+```shell
+ $git filter-branch --force --index-filter \
+  "git rm --cached --ignore-unmatch PATH-TO-YOUR-FILE-WITH-SENSITIVE-DATA" \
+  --prune-empty --tag-name-filter cat -- --all
+  > Rewrite 48dc599c80e20527ed902928085e7861e6b3cbe6 (266/266)
+  > Ref 'refs/heads/main' was rewritten
+```
+
+4. 리다이렉트 기능을 이용해서 .gitignore에 추가해준다. 
+```shell
+$ echo "YOUR-FILE-WITH-SENSITIVE-DATA" >> .gitignore
+```
+
+나의 경우는 
+```shell
+$ echo "flask_api/recipe-api/config/config.py" >> .gitignore
+```
+
+5. 위의 깃 이그노어 파일을 add, commit을 해준다 
+```shell
+$ git add .gitignore
+$ git commit -m "add dir/file to .gitignore"
+```
 
 
-git push origin main --force    
+6. 강제 push를 한다. 내 컴터 로컬 변화를 깃허브 리포지터리에 덮어씌운다.
+```shell
+$git push origin --force --all
+```
 
+다른 코워커가 있다면 rebase를 해야한다고 한다. merge를 하면 안되고, rebase를 해보긴 했으나 
+아직 정확히 잘 모르겠다;; 공부가 더 필요
+그리고 혼자서 하는 중이니 해당사항 없음. 
 
->>>>>>> 4b3b6209295bf350cf8e4e4ed1f0780a49a85eb9
+결과: 다시 깃허브에서 해당 리포지터리를 들어가서 커밋이력을 보게되면
+해당 내용이 아예 안나오게 된다!
+
+좋은 공부가 되었다.. 깃 이그노어를 잘 사용하자;;
+잘 사용했었는데.. 서둘러서 commit하면 안되겠다.. 

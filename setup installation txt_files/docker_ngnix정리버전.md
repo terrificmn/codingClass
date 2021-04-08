@@ -107,6 +107,42 @@ Fast-forward
 문제는 없었음..
 다만 app.blade.php는 안해봐서;; 테스트 해봐야할 듯
 
+결과:
+error: Your local changes to the following files would be overwritten by merge:
+	resources/views/layouts/app.blade.php
+Please commit your changes or stash them before you merge.
+Aborting
+
+역시나 footer파일 변경한 것은 문제가 없었는데
+app.blade.php 파일도 변경후 서버에서 pull 하니 충돌 ㅠ
+
+서버쪽에서는 파일 수정을 안하려고 했는데 어쩔 수 없이 npm 빌드를 하면서 파일들이 수정이 되었고,
+(오히려 초기화면으로 바뀐 부분도 있었음) 그래서
+로컬에서는 최신버전일 상태이므로 아무 조금만 손을 봤다, 멘트 글자만 조금 바꿔서 다시 commit
+그리고 나서 서버에서 pull을 하려고 하니 위의 파일들이 modified가 되어 있어서 pull이 안되는 것임
+
+해결방안은 오히려 간단했다. 어차피 서버쪽에서는 수정된 것은 무시해버리고 
+로컬의 최신 버전만 받아버리면 된다고 생각하니깐 편해짐 ㅋㅋ
+서버쪽에서 modified 된 파일을 취소해버리면 되는 것임
+```shell
+git checkout -- resources/views/layouts/app.blade.php
+```
+
+git st를 해보면 resources/views/layouts/app.blade.php 가 빠져있게된다
+
+	modified:   package-lock.json
+	modified:   package.json
+	modified:   public/css/app.css
+	modified:   resources/css/app.css
+	modified:   routes/web.php
+아직 몇개가 남아 있지만 (위에 것들도 패키지 받으면서 생긴 것들) 
+추후 문제가 될 때 다시 정리하기로 하고 남겨둠. 흠 app.css 나 web.php 는 로컬에서 수정하면
+바로 서버쪽 파일 checkout으로 정리하고 다시 pull을 받아야 할 듯 하다
+(단, 위의 파일 백업을 한다음에 하자!!)
+
+암튼 
+이제 pull을 받으면 깔끔하게 정리된다
+
 
 # <트러블슈팅>
 
