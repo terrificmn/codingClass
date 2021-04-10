@@ -118,3 +118,9 @@ $ conda deactivate
 pip3 install streamlit    
 ```
 
+conda 지울 때는 그냥 디렉토리 채로 지워주면 된다. 
+그리고 conda관련해서 홈디렉토리에 .bashrc 파일에 환경 변수 관련해서 셀스크립트가 되어있는데
+conda initialize 부분을 지워준다 
+(if문 부분 포함해서 주석으로 # <<< conda initialize <<< 라고 주석처리되어 있음)
+conda를 설치하면 터미널에서 (base) [계정@localhost ~] 이런식으로 나오는거에서 
+이제 재부팅을 하면 (base) 가 없어지게 된다
