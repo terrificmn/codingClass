@@ -1,3 +1,5 @@
+flask_api/movie-recommendation-api/src/config/
+__pycache__
 phpClass/uploads/*
 python-school/test/*.png 
 *.json 
