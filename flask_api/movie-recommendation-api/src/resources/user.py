@@ -119,7 +119,6 @@ class UserResourceLogin (Resource):
         param = (email,)
 
         try :
-
             # db에서 가져오기
             cursor.execute(query, param)
             result = cursor.fetchone()
@@ -162,3 +161,35 @@ class UserResourceLogout (Resource):
         jwt_blocklist.add(jti)
 
         return { }, 200
+
+
+class UserMeInfo (Resource):
+    @jwt_required()
+    def post(self):
+        user_id = get_jwt_identity() # 토큰 변환
+
+        query = """
+                SELECT u.email, u.name, u.gender, m.title, r.rating
+                FROM movie m
+                JOIN rating r
+                ON m.id = r.item_id
+                JOIN user u
+                ON u.id = r.user_id
+                WHERE u.id = %s; """
+        try:
+            param = (user_id,)
+            connection = get_mysql_connection()
+            cursor = connection.cursor(dictionary=True)
+            cursor.execute(query, param)
+            result = cursor.fetchall()
+                    
+            if (len(result) == 0 ) :
+                return {'err_code': 5}, HTTPStatus.NOT_ACCEPTABLE
+                # 결과 없음 리뷰 없음
+
+            return { 'count' : len(result), 'ret': result }, 200
+            
+        except Error as e :
+            print(str(e))
+            return {'err_code': 11}, HTTPStatus.NOT_ACCEPTABLE
+            # err_code : 11 db 에러

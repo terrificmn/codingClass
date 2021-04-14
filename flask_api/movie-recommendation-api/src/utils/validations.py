@@ -20,3 +20,15 @@ def val_empty(requestedData):
     if strippedData == ""  :
         print('one of requested data is null')
         return False
+
+
+def val_number(number):
+    regex = '^[0-9]+$'
+    # 원래 json으로 숫자만 보내야하지만, 문자열 상태로 요청했을 때도 처리
+    #숫자일경우 변환
+    number = str(number)
+    # 공백 제거
+    number = number.strip(' ')
+    if re.search(regex, number) is None :
+        #print('only number')
+        return False
