@@ -83,7 +83,7 @@ class UserResourceRegister(Resource) :
 
         except Error as e :
             print(str(e))
-            return {'err_code': 10}, HTTPStatus.NOT_ACCEPTABLE
+            return {'err_code': 20}, HTTPStatus.NOT_ACCEPTABLE
 
 
 # 로그인
@@ -128,8 +128,8 @@ class UserResourceLogin (Resource):
             connection.close()
         except Error as e :
             print(str(e))
-            return {'err_code': 11}, HTTPStatus.NOT_ACCEPTABLE
-            # err_code : 11 db 에러
+            return {'err_code': 20}, HTTPStatus.NOT_ACCEPTABLE
+            # err_code : 20 db 에러
         
         # 등록된 이메일이 없을 경우
         if result is None :
@@ -145,7 +145,7 @@ class UserResourceLogin (Resource):
             else:
                 # 유저 토큰을 만들어 준다
                 user_id = result[0] #[0] id
-                print(user_id)
+                #print(user_id)
                 access_token = create_access_token(identity=user_id)
                 return {'token': access_token }, HTTPStatus.OK
 
@@ -184,12 +184,23 @@ class UserMeInfo (Resource):
             result = cursor.fetchall()
                     
             if (len(result) == 0 ) :
-                return {'err_code': 5}, HTTPStatus.NOT_ACCEPTABLE
-                # 결과 없음 리뷰 없음
-
-            return { 'count' : len(result), 'ret': result }, 200
+                query = """
+                SELECT email, name, gender  
+                FROM user u
+                WHERE id = %s; """
+                
+                param = (user_id,)
+                connection = get_mysql_connection()
+                cursor = connection.cursor(dictionary=True)
+                cursor.execute(query, param)
+                result = cursor.fetchall()
+                return { 'review' : 0, 'ret' : result }, HTTPStatus.OK
+                # return {'err_code': 5}, HTTPStatus.NOT_ACCEPTABLE
+                # 결과 없음 리뷰 없음에서 회원정보만 보여주는 것으로 변경
+            else:
+                return { 'count' : len(result), 'ret': result }, 200
             
         except Error as e :
             print(str(e))
-            return {'err_code': 11}, HTTPStatus.NOT_ACCEPTABLE
-            # err_code : 11 db 에러
+            return {'err_code': 20}, HTTPStatus.NOT_ACCEPTABLE
+            # err_code : 20 db 에러, 일치하는 회원없음

@@ -17,7 +17,6 @@ from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identi
 class Favorite (Resource) :
     @jwt_required()
     def post(self):
-        
         data = request.get_json()
         if 'movie_id' not in data: 
             return {'err_code': 1}, HTTPStatus.BAD_REQUEST
@@ -49,7 +48,6 @@ class Favorite (Resource) :
     # 즐겨찾기 지우기
     @jwt_required()
     def delete(self, title_id):
-        
         try:
             user_id = get_jwt_identity()
             connection = get_mysql_connection()
@@ -60,6 +58,7 @@ class Favorite (Resource) :
             param = (title_id, user_id)
             cursor.execute(query, param)
             result = cursor.fetchall()
+
             if len(result) == 0 :
                 return {'err_code': 10}, HTTPStatus.NOT_ACCEPTABLE
                 #err_code :10 일치하는 데이터 없음
