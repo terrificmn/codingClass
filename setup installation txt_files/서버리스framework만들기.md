@@ -176,7 +176,29 @@ $sudo sls deploy
 [serverless프레임워크 참고매뉴얼](https://www.serverless.com/framework/docs/providers/aws/guide/credentials/)  
 
 
+정확하지는 않지만, 몇번의 5~6번의 실패 끝에;; 
+최초 deploy를 한 후에 로컬에서 디플로이를 할 때는 sls deploy를 하면은 잘 된다
+근데 만약 이렇게해서 로컬에서 디플로이가 성공한 다음에 다시 깃허브를 연동해서 작업하면
+ci/cd 연동시 fail이 되는 듯 하다. (정확하지는 않지만.. 이제 테스트는 그만 ㅠ)
 
+깃허브를 연동할 때에는 어플리케이션 만든 후 최초 deploy만 로컬에 해주고 
+그 다음에는 cicd설정을 한 후에 깃허브로 push해서 자동배포가 이루어지게 하면 
+성공적으로 배포가 되었음~
+
+# 깃허브 연동시키기 , 서버레스 프레임워크에 어플리케이션 만드는 것부터 시작
+https://www.serverless.com/ 
+1. flask 어플리케이션 추가
+
+2. deply now 화면으로 바뀌면 provider credentials를 
+3. 화면에 나오는 복사 붙여넣기를 해준다 먼저 install
+```
+$sudo npm i -g serverless && serverless init sf_4SsdZq
+```
+처음 npm실행에만 sudo를 해주고, 뒤의 serverless 에는 sudo를 실행시키면 안됨
+init sf-문자열 은 어플리케이션을 만들면 자동으로 생성되는 고유의 문자열
+
+4. 아마 모듈에서 퍼미션 에러가 발생할 것임. 추측하기로는 npm 버전을 낮추면 되는거 같은데 아직 해결을 못함
+참고로 위와 같은 에러가 발생시에는 sudo를 해도 계속 같은 퍼미션 에러가 발생
 yp ERR! configure error 
 gyp ERR! stack Error: EACCES: permission denied, mkdir '/usr/lib/node_modules/serverless/node_modules/snappy/.node-gyp'
 gyp ERR! System Linux 4.18.0-294.el8.x86_64
@@ -185,41 +207,53 @@ gyp ERR! cwd /usr/lib/node_modules/serverless/node_modules/snappy
 gyp ERR! node -v v14.16.1
 gyp ERR! node-gyp -v v5.1.0
 gyp ERR! not ok 
+일단 이그노어하기로 함 ㅡㅡ;, 단, 마지막 메세지가 
+serverless ⚡framework
+Serverless › Template successfully installed. Run "cd movie-recommendation-api && serverless deploy" to get started...
+이렇게는 나와야함
+
+참고.. 
+일단 글로벌 설치로 안되는 이유가 npm 버전이 안맞아서 인거 같기도 한데 
+알아보니 6.1x 대로 바꿨더니 됐다는 것도 봤지만, 일단 npm을 사용하고 있기 때문에 
+최악의 경우 다운그레이드 하기로 함
 
 
+5. deploy 하기. cd로 생성된 디렉토리로 이동한 다음에 
+serverless deploy하기 sudo를 붙인다
+```
+$cd movie-recommendation-api && sudo serverless deploy
+```
 
-원래 npm i -g serverless && serverless init sf_tx8CdtzP
-요런식으로 설치를 하는데 
-
-위와 같은 에러가 발생시에는 sudo를 해도 계속 같은 퍼미션 에러가 발생
-퍼미션 에러가 나는 경우에도 파일들을 잘 설치되고 deploy도 되지만 그래서 
-enpoint도 나와서 접속도 되는데 정작 serverless framework 홈페이지에는 반영이 안됨
-
-일단 sudo로 npm 을 설치하면 error가 뜨지만 일단 메세지는 무시;;; 
-깃허브로 연동할 것이므로 
-마지막 deploy가 잘 되면 
+이제 endpoints 주소와 성공적으로 만들어졌다는 메세지가 나오면 일단 성공인데
 
 Publishing service to the Serverless Dashboard...
 Serverless: Successfully published your service to the Serverless Dashboard: https://app.serverless.com/terrificmn/apps/test2-cicd/test2-cicd/dev/us-east-1
-이 메세지가 나올 때까지 기다리고 안나온다면 
-/웹브라우저로 serverless 프레임워크가 있던 페이지로 돌아간다. 절대 새로고침 누르지 말것;;
-이것때문에;;; 암튼 버그가 많은거 같다;; 내가 문제일 수도 있겠지만
+
+**중요!!!**
+그리고 나서 이제 브라우저 화면으로 돌아가면 (서버레스 프레임워크 대시보드(홈피))
+자동으로 새로고침이 될 것임. 만약 새로고침이 안된다면 화면을 클릭해본다 
 어쨋든 디폴로이 버튼을 막 클릭해준다 ㅋㅋ 새로고침하지말고 그러면 잘 생성이 된다 
+여기에서 **절대 새로고침 누르지 말것;;** 
+화면이 자동으로 안바뀐다고 새로고침을 안했더니 어플리케이션이 연결이 안되는 버그가 있었다.
+물론 endpoint도 있어서 url에 치면되기는하나 홈페이지 대시보드(?) 화면에서 내용을 볼 수가 없었음
 
+뭔가 잘못되었다면 지울 수도 있다. 로컬에 생성된 파일을 먼저 지우면 안되고 
+생성된 어플리케이션 디렉토리로 이동한 후 (디폴리 된 디렉토리)
 참고로 아마존에 올라간 서버리스는 sls remove로 지울 수 있음
-sudo sls remove
-
-일단 글로벌 설치로 안되는 이유가 npm 버전이 안맞아서 인거 같기도 한데 
-알아보니 6.11 대로 바꿨더니 됐다는 것도 봤지만, 일단 npm을 사용하고 있기 때문에 
-최악의 경우 다운그레이드 하기로 함
-
+```shell
+$sudo sls remove
+```
+만약..
 삭제하다가 실패해서 디렉토리를 지워버렸다면 sls remove 가 되지 않는다 
 아마존 S3 에 가서 buckets에 있는 것을 직접 지워야한다
 아마도 지우다가 실패했기 때문에 empty로 만든다음에 
 지우기를 하면 된다. 
 
+이제 프로그래밍한 프로젝트를 디렉토리(파일)을 복사해서 deploy된 디렉토리에 붙여넣어준다
+이제 깃 허브와 연동할 차례다!
 
 # ci/cd 연결하기
+
 
 ci/cd 설정에서 add provide 를 정해주는데 provide type을 Role ARN 으로 설정해서 만들어 준다
 그러면 asw 페이지로 이동하는데 
@@ -233,24 +267,52 @@ aws에서 생성이 완료되면 자동으로 aws와 연결이 된다
 이제 깃과 연동할 차례인데 
 먼저 리포지터리를 새로 만들어 준다음에
 로컬 프로젝트 디렉토리에서 (sls deploy로 생긴 프로젝트 디렉토리)안에서 git init을 실행한 후에 
-.gitignore 파일을 만들고 node_modules 를 추가해준다 
-그리고 깃허브 리포지터리에 first commmit push를 해준다
+.gitignore 파일을 만들고 node_modules 를 추가해준다 (node_modules은 필요없음)
+private으로 만들어주는게 좋다. 
+(config파일의 비번이 노출되기때문에 이 파일은 ignore시키면 안됨)
+서버리스가 아니면 보통 깃허브라면 비번이 들어가있는 파일은 ignore시켜야한다
+
+그리고 프로그래밍한 프로젝트의 모든 파일들을 복사해서 넣어준다.
+그리고 깃허브 리포지터리에 first commmit push를 해준다. 
+
+먼저 git init을 한 후에 
+.gitignore 를 만들고 
+```
+node_modules
+__pycache__
+```
+그리고 serverless.yml 파일의 python 버전을 3.7로 수정하고 
+requirements.txt 파일에도 필요한 라이브러리를 넣어주고 
+pandas만 일단 빼고 하기로 했다 
+(**2차 커밋이 중요하다!!** 왜냐하면 이때 ci/cd로 연동이 되어서 이때 자동배포가 이루어지고 
+실제 프로젝트가 배포가 되는 것이기 때문이다)
+
+그리고 git remote add를 하고 commit & push를 해준다
+
+이제 깃허브 리포지터리가 셋팅이 되었고 서버레스 프레임워크의 CICD를 설정해준다
 
 그리고 서버레스 프레임워크의 설정을 해준다
 git 연동은 serverless 프레임워크 홈페이지에서 내가 만든 app를 선택하면 그 중에 ... 이 있고 
 거기를 클릭하면 settings가 있는데 클릭하면 된다
-여기에서는 git과 connect를 설정해주고
-전에 만든 repository settings 에서 브랜치등을 셋팅해준다. 
+여기에서는 git과 connect를 설정해주고 
+(전에 연동한게 있으면 disconnect 한 후 다시 연동- 리포지터리를 다시 연결해준다)
+전에 만든 repository settings 에서 branch deploys 브랜치등을 셋팅해준다. (main으로 함)
 
-그리고 나서 테스트로 app.py 파일의 message만 조금 손을 본 후에 (테스트로)
-그리고 serverless.yml 파일의 python 버전 3.7로 바꿔주고 (로컬 3.7에서 개발함)
-requirements.txt 필요한 패키지 목록 넣어준다 
-대망의 커밋 후 푸쉬~!
+이제 연동이 끝났으므로 테스트 2차 commit을 해서 push를 하면 
+requirements.txt 에서 pandas를 추가해준다음에 다시 commit 하고 push한다
 
-이제 서버리스 프레임워크 대시보드의(홈피)의 ci/cd 메뉴를 보면
-자동으로 깃허브 push를 감지해서 deploying을 시작한다
+그러면
+serverless framework에서 감지하고 자동으로 깃허브 push를 감지해서 
+자동으로 배포를 시작한다
+홈페이지 대시보드의 ci/cd deploys 을 들어가면 바로 deploying 을 확인할 수 있다.
 
-(오 4분걸려서;; success로 바뀜!)
-(일단 branch 가 master main은 상관이 없는 듯)
-이제 엔드포인트 주소로 복사해서 사이트가 뜨는지 확인!
-메세지가 커밋한 것으로 바뀌어 있음!! 굿!!
+이번에는 3;11 걸려서 성공
+
+
+
+참고: 
+나중에 깃허브로 연동이 되는 것이라 프로젝트명(디렉토리명) 자체는 문제가 안되는 듯 하다.
+
+로컬에서 테스트하기 위해서는 디렉토리명이 src로 되어야했는데(프로젝트명으로 바꿀 수는 있으나..)
+테스겸 디렉토리명을 바꾼다음에 해보니, 로컬에서도 문제없고
+깃허브 연동해서 cicd도 바로 적용된다.

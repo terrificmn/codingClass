@@ -226,7 +226,7 @@ $ sudo yum group install "Development Tools"
 $ sudo apt-get install build-essential
 
 그리고 python38-devel 이 필요 (현재 파이썬3.8 사용 중)
-python3 이라고 하면 3.6버전이 깔림
+3 이라고 하면 3.6버전이 깔림
 그래서
 $ sudo yum install python38-devel
 

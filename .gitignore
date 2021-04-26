@@ -1,4 +1,11 @@
-flask_api/movie-recommendation-api/src/config/
+tensorflow/object_detection/data
+tensorflow/yolo/cfg
+tensorflow/yolo/data
+tensorflow/yolo/images
+tensorflow/yolo/model
+tensorflow/yolo/videos
+tensorflow/yolo/__MACOSX
+
 __pycache__
 phpClass/uploads/*
 python-school/test/*.png 

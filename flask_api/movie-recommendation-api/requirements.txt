@@ -1,8 +1,0 @@
-flask
-flask-restful
-mysql-connector-python
-psycopg2-binary
-passlib
-email_validator
-Flask-JWT-Extended
-pandas
