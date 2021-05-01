@@ -34,18 +34,29 @@ centos는 npm은 깔리지만 nodejs 버전이 낮아서 문제가 된다
 
 install
 composer require laravel-frontend-presets/tailwindcss --dev
+(도커버전)docker-compose run --rm composer require laravel-frontend-presets/tailwindcss --dev 
+
+
 
 php artisan ui tailwindcss --auth
+(도커버전)docker-compose run --rm artisan ui tailwindcss --auth
+
 
 그 다음 라라벨믹스를 지웠다가 다시 깜 
 npm remove laravel-mix
+(도커버전)docker-compose run --rm npm remove laravel-mix
+
 npm install laravel-mix --save-dev
+(도커버전)docker-compose run --rm npm install laravel-mix --save-dev
 
 cross-env 설치
 npm install cross-env --save-dev 
+(도커버전)docker-compose run --rm npm install cross-env --save-dev
+
 
 tailwindcss를 매번 사용할 때마다 컴파일해서 사용하게 해줌
 npm run watch
+(도커버전)docker-compose run --rm npm run watch
 
 ----------------
 webpack compiled successfully 이렇게 나오면 끝
@@ -66,6 +77,9 @@ laravelblog db이름
 --> 이제는 깃으로는 pull만 받아서 사용한다 
 --> 충돌이 나기때문에 push는 안하고 로컬에서 파일을 수정하고 push하고 서버에서는 pull만 한다
 05apr 2021
+
+
+
 
 
 

@@ -27,12 +27,12 @@ utils_ops.tf = tf.compat.v1
 tf.gfile = tf.io.gfile
 
 
-def load_model(model_name):
-    base_url = 'http://download.tensorflow.org/models/object_detection/'
+def load_model(model_name, model_date):
+    base_url = 'http://download.tensorflow.org/models/object_detection/tf2/'
     model_file = model_name + '.tar.gz'
     model_dir = tf.keras.utils.get_file(
         fname=model_name, 
-        origin=base_url + model_file,
+        origin=base_url + model_date + '/' + model_file,
         untar=True)
 
     model_dir = pathlib.Path(model_dir)/"saved_model"
@@ -55,7 +55,8 @@ print(TEST_IMAGE_PATHS)
 # 모델 불러오기 , 함수호출
 #model_name = 'ssd_mobilenet_v1_coco_2017_11_17'
 model_name = 'faster_rcnn_inception_resnet_v2_640x640_coco17_tpu-8'
-detection_model = load_model(model_name)
+model_date = '20200711'
+detection_model = load_model(model_name, model_date)
 print(detection_model.signatures['serving_default'].output_dtypes)
 print(detection_model.signatures['serving_default'].output_shapes)
 

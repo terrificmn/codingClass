@@ -1,0 +1,43 @@
+https://computingforgeeks.com/how-to-install-latest-kernel-on-centos-linux/
+
+http://elrepo.org/tiki/kernel-ml
+
+https://elrepo.org/linux/kernel/el5/x86_64/
+
+
+rpm으로 설치할 때
+core 먼저 설치하고  modules, modules-extra, devel 식으로 설치하면 됨
+다 설치되면 재부팅
+
+
+
+
+커널 삭제 rpm으로 설치시 
+rpm으로 삭제하려고 하면 의존성때문에 안 지워진다.. 의존성까지 같이 지우는 방법이 있을 거 같기도 한데...
+
+어쨋든  커널 버전으로 검색하면
+```
+rpm -qa | grep 5.4.113
+```
+
+5.4버전으로 설치했던 것이 나오는데 
+yum 으로 지워준다
+core 와 module은 의존성이 있고 가장 중요하므로 제일 마지막에 지운다.
+
+```
+sudo yum uninstall kernel-lt-modules-extra-5.4.113-1.el8.elrepo.x86_64
+```
+
+마지막으로 
+```
+sudo yum remove kernel-lt-core-5.4.113-1.el8.elrepo.x86_64
+```
+하면 module까지 같이 지워준다.
+
+
+마지막으로 다시 확인해보면
+```
+rpm -qa | grep 5.4.113
+```
+
+지워져있다. 재부팅시 grub에 나오는지 확인해보자

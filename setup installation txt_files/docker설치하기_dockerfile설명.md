@@ -3,6 +3,28 @@ yum-tils 설치 (이미 설치되어 있음)
 ```
 $ sudo yum install -y yum-utils
 ```
+
+
+우분투 같은 경우 먼저 업데이트 
+```
+ sudo apt-get update
+
+ sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+```
+
+우분투
+리포지터리 추가
+echo \
+  "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+
+
 리포지터리 추가 
 설명:Before you install Docker Engine for the first time on a new host machine, you need to set up the Docker repository. Afterward, you can install and update Docker from the repository.
 ```
@@ -10,6 +32,15 @@ $ sudo yum-config-manager \
 --add-repo \
 https://download.docker.com/linux/centos/docker-ce.repo
 ```
+
+도커 엔진 설치
+다시한번 apt-get update 를 해준다
+안 그러면 도커 패키지를 못 찾음
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+
+
+
 
 docker engine 설치
 ```
@@ -32,9 +63,12 @@ sudo systemctl start docker
 
 
 
+
+여기는 공통!!
 docker-compose를 설치하기   (여기는 centos/ubuntu 같은 듯)
 먼저 binaries 다운받기
 sudo curl -L "https://github.com/docker/compose/releases/download/1.28.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
 
 그 다음 퍼미션 실행가능하게 만들기
 sudo chmod +x /usr/local/bin/docker-compose
@@ -53,7 +87,6 @@ sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 ```
 
 
-
 버전확인
 docker-compose --version
 
@@ -61,6 +94,34 @@ docker-compose --version
 
 참고 매뉴얼 
 https://docs.docker.com/engine/install/centos/
+
+
+옵션사항
+docker 그룹 추가 및 현 사용자 도커 그룹에 추가
+
+sudo groupadd docker
+sudo usermod -aG docker $USER
+
+아마도 도커 그룹은 있다고 할 것..
+
+newgrp docker 
+newgrp는 바로 다시 적용을 시켜준다. 아니면 로그아웃 한다음에 다시 로그인
+
+이제 sudo 없이 도커 명령어 사용가능
+
+
+시작할 떄 재시작 등록
+ sudo systemctl enable docker.service
+
+ sudo systemctl enable containerd.service
+
+취소는 disable
+
+재부팅 후 
+sudo systemctl status docker
+로 잘 되는지 확인
+
+
 
 
 

@@ -76,7 +76,11 @@ dnf 나 yum 으로 다운받기
 ```shell
 $sudo dnf install protobuf-compiler
 ```
+패키지 매니저로 설치했다면 아래는 skip
 
+<br>
+
+zip파일로 받아서 설치하기 (수동)
 
 https://github.com/protocolbuffers/protobuf/releases  
 에서 리눅스x64 버전으로 다운받는다 
@@ -203,18 +207,18 @@ $python -m pip install .
 ```shell
 $python object_detection/builders/model_builder_tf2_test.py 
 ```
-[      OK ]...
-[ RUN     ]...
-이런식으로 테스트가 진행이 된다.
+[      OK ]...  
+[ RUN     ]...  
+이런식으로 테스트가 진행이 된다.  
 
-마지막으로 이렇게 나오면 잘 된것임~
-Ran 21 tests in 33.745s
+마지막으로 이렇게 나오면 잘 된것임~  
+Ran 21 tests in 33.745s  
 OK (skipped=1)
 
+<br>
 
 
-
-모델 다운도르 받기
+모델 다운로드 받기
 https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/tf2_detection_zoo.md
 
 
@@ -222,7 +226,14 @@ https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc
 https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/auto_examples/plot_object_detection_saved_model.html#download-the-model
 
 
+<br>
 
+<br>
+
+<br>
+
+추후 정리 예정
+___
 
 
 

@@ -557,3 +557,176 @@ $git push origin --force --all
 
 좋은 공부가 되었다.. 깃 이그노어를 잘 사용하자;;
 잘 사용했었는데.. 서둘러서 commit하면 안되겠다.. 
+
+
+_____________________________________________________________________________________________________
+깃 커밋 잘못했을 때 커밋 취소하기
+이그노어를 수정한다음에 커밋을 했는데 용량 큰거를 뺀다고 한게 data디렉토리를 누락시켰다.
+알고 봤더니 용량이 꽤 컷다..
+그래서 push를 할 때 에러가 발생~ ssl 에러가
+error: RPC failed; curl 55 OpenSSL SSL_write: SSL_ERROR_ZERO_RETURN, errno 32
+fatal: the remote end hung up unexpectedly
+Writing objects: 100% (82/82), 252.69 MiB | 15.38 MiB/s, done.
+Total 82 (delta 3), reused 0 (delta 0), pack-reused 0
+fatal: the remote end hung up unexpectedly
+
+
+그래서 git log를 확인한 후에 git reset으로 취소시킨다
+아래를 보자
+
+
+```
+(base) [sgtOcta@localhost src]$ git log
+commit e4ec9a3702c28d4ab1c4a879c387edecd5326d64 (HEAD -> main)
+Author: terrificmn <mildsm@gmail.com>
+Date:   Fri Apr 30 17:24:00 2021 +0900
+
+    complete except video
+
+commit 645e2fd1f83992f84d92d78e602b8de9020465c1 (tfod/main)
+Author: terrificmn <mildsm@gmail.com>
+Date:   Tue Apr 27 16:32:31 2021 +0900
+
+    Dockerfile yml requirements file removed
+
+commit 97f2088e95cf80b77cd5dd59056056b35ff0bd07
+Author: terrificmn <mildsm@gmail.com>
+Date:   Tue Apr 27 14:13:55 2021 +0900
+
+    first commit
+(base) [sgtOcta@localhost src]$ git reset --soft HEAD~1
+```
+그리고 다시 git log를 확인해보면
+마지막에 했던 커밋이 취소되어 있다 
+
+커밋은 취소되었지만.. 이그노어가 제대로 반영이 안된다..
+
+일단 git status
+를 해보면
+
+```
+	modified:   .gitignore
+	new file:   Dockerfile
+	modified:   app.py
+	new file:   data/coco_classes.txt
+	new file:   data/images/logo/anaconda_logo.png
+	new file:   data/images/logo/awsec2_logo.png
+	new file:   data/images/logo/centos_logo.png
+	new file:   data/images/logo/docker_logo.png
+	new file:   data/images/logo/git_logo.png
+	new file:   data/images/logo/github_logo.png
+	new file:   data/images/logo/opencv_logo.png
+	new file:   data/images/logo/python_logo.png
+	new file:   data/images/logo/streamlit_logo.png
+	new file:   data/images/logo/tensorflow_logo.png
+	new file:   data/images/logo/ubuntu_logo.png
+	new file:   data/images/show/boxed.jpg
+	new file:   data/images/show/children-640.jpg
+	new file:   data/images/show/completed-elder-1920.jpg
+	new file:   data/images/show/completed-park-people-1280.jpg
+	new file:   data/images/show/completed-students-640.jpg
+	new file:   data/images/show/dog-640.jpg
+	new file:   data/images/show/models-hero.svg
+	new file:   data/images/show/sayitYOLO.jpg
+	new file:   data/images/show/segmentation_ex1.png
+	new file:   data/images/show/segmentation_ex2.png
+	new file:   data/images/show/ssd-head.png
+	new file:   data/images/show/ssd_output.jpg
+	new file:   data/images/show/woman-640_yolox.jpg
+	new file:   data/images/show/yolo_multi_exmp.png
+	new file:   data/images/test/bike-640.jpg
+	new file:   data/images/test/elder-1920.jpg
+	new file:   data/images/test/hanoi-640.jpg
+	new file:   data/images/test/park-people-1280.jpg
+	new file:   data/images/test/seg_example_01.png
+	new file:   data/images/test/seg_example_02.jpg
+	new file:   data/images/test/sport-1280.jpg
+	new file:   data/images/test/sport-640.jpg
+	new file:   data/images/test/students-640.jpg
+	new file:   data/images/test/traffic-640.jpg
+	new file:   data/images/test/twopeople_dog.jpg
+	new file:   data/images/user-upload/2021-04-30T09-04-47-951135-1.png
+	new file:   data/images/user-upload/2021-04-30T09-15-57-519880-10.jpeg
+	new file:   data/images/user-upload/2021-04-30T09-43-21-456215-3.jpeg
+	new file:   data/images/user-upload/2021-04-30T10-34-11-896590-5.jpeg
+	new file:   data/yolo.h5
+	new file:   docker-compose.yml
+	new file:   e2c_warning.py
+	new file:   enet_data/enet-cityscapes/enet-classes.txt
+	new file:   enet_data/enet-cityscapes/enet-colors.txt
+	new file:   enet_data/enet-cityscapes/enet-model.net
+	new file:   enet_data/images/example_02.jpg
+	new file:   enet_data/images/example_03.jpg
+	new file:   enet_data/images/example_04.png
+	new file:   enet_data/images/test2.jpg
+	new file:   enet_data/images/test3.jpg
+	new file:   enet_data/images/test4.jpg
+	new file:   enet_data/images/test5.jpg
+	new file:   enet_data/images/test6.jpg
+	new file:   enet_data/images/test_image.jpg
+	new file:   fake.py
+	modified:   image_func.py
+	new file:   requirements.txt
+	new file:   saveCap.py
+	new file:   scaledown.py
+	new file:   semanticSeg.py
+	modified:   tensorflow_od.py
+	new file:   video_func.py
+	new file:   yolo.py
+	new file:   yolo_model/darknet53.py
+	new file:   yolo_model/yolo_model.py
+
+```
+
+뉴 파일들로 추가가 되어 있는 상태.. 즉 add를 한 상태이기 때문에 
+다시 add된 것을 취소 시켜줘야한다 
+
+이거는 다시 git restore --stage <file> 으로 하면 되는데
+
+git restore --staged data/
+이런식으로 하면 해당 디렉토리가 다 취소됨
+
+그리고 * 로 했더니 에러 발생.;;
+그래서 일일이 하나씩 해줌 
+화살표 위에 키랑 탭을 이용해서 하면 뭐.. 금방 한다
+
+마지막으로 하면 git st
+라고 해보면
+
+```
+git st
+On branch main
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   .gitignore
+	modified:   app.py
+	modified:   image_func.py
+	modified:   tensorflow_od.py
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	Dockerfile
+	data/
+	docker-compose.yml
+	e2c_warning.py
+	fake.py
+	requirements.txt
+	saveCap.py
+	scaledown.py
+	semanticSeg.py
+	video_func.py
+	yolo.py
+```
+
+다시 마지막 add 로 staged영역에 들어가기 전의 상태로 되돌린다
+위의 파일들처럼 추적하고 있는 파일들과 추적안하고 있는 상태의 파일들로 돌리는 것임
+
+이제 다시 이그노어 리스트를 다시 정리하고 
+다시 제대로 add 
+커밋전에 data 의 용량이 큰것들이 잘 빠져있는지 확인 후 
+다시 커밋 푸쉬하면 되겠다
+
+
+
+

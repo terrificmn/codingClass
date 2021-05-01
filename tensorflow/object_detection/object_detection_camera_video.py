@@ -8,6 +8,7 @@ import zipfile
 import os
 import pathlib
 import cv2
+import time
 
 from collections import defaultdict
 from io import StringIO
@@ -53,27 +54,6 @@ def load_model(model_name, model_date):
     model = tf.saved_model.load(str(model_dir))
 
     return model
-
-# Enable GPU dynamic memory allocation
-gpus = tf.config.experimental.list_physical_devices('GPU')
-
-# 모델 불러오기 함수호출 load_model()
-#model_name = 'ssd_mobilenet_v1_coco_2017_11_17'
-
-# 다운로드 주소에서 링크주소를 마우스 오른쪽 버튼 누른 후 카피해서 사용
-# tensorflow의 매뉴얼에서 파일명 규칙은 주소에서 날짜부분은 model_date에 넣어주고
-# model_name 은 압축파일 확장자를 뺀 상태로 넣어주면 됨
-# https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/auto_examples/plot_object_detection_saved_model.html
-
-model_name= 'faster_rcnn_resnet152_v1_800x1333_coco17_gpu-8'
-#model_name = 'ssd_mobilenet_v1_coco_2017_11_17'
-model_date = '20200711'
-
-#model_name = 'mask_rcnn_inception_resnet_v2_1024x1024_coco17_gpu-8'
-detection_model = load_model(model_name, model_date)
-print(detection_model.signatures['serving_default'].output_dtypes)
-print(detection_model.signatures['serving_default'].output_shapes)
-
 
 
 def run_inference_for_single_image(model, image):
@@ -136,24 +116,75 @@ def show_inference(model, image_np):
         line_thickness=8)
 
     cv2.imshow('result', image_np)
+    # 이미지 저장하기 위해서 리턴
+    return image_np
 
-import time
+
+
+# 모델 불러오기 함수호출 load_model()
+#model_name = 'ssd_mobilenet_v1_coco_2017_11_17'
+
+# 다운로드 주소에서 링크주소를 마우스 오른쪽 버튼 누른 후 카피해서 사용
+# tensorflow의 매뉴얼에서 파일명 규칙은 주소에서 날짜부분은 model_date에 넣어주고
+# model_name 은 압축파일 확장자를 뺀 상태로 넣어주면 됨
+# https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/auto_examples/plot_object_detection_saved_model.html
+
+#model_name= 'faster_rcnn_resnet152_v1_800x1333_coco17_gpu-8'
+model_name = 'ssd_mobilenet_v1_coco_2017_11_17'
+model_date = '20200711'
+
+#model_name = 'mask_rcnn_inception_resnet_v2_1024x1024_coco17_gpu-8'
+detection_model = load_model(model_name, model_date)
+print(detection_model.signatures['serving_default'].output_dtypes)
+print(detection_model.signatures['serving_default'].output_shapes)
+
+
+
 # 카메라의 영상 실행
 #cap = cv2.VideoCapture(0) # 캠 영상 실행
-cap = cv2.VideoCapture('data/video/video.mp4')
+cap = cv2.VideoCapture('data/video/library1.mp4')
 
 if cap.isOpened() == False:
     print("error occured to start to play a video")
 
 else:
+
+    #######
+    ### 이미지 사이즈 줄이기
+    # frame_width = int(cap.get(3))
+    # frame_height = int(cap.get(4))
+
+    # #이미지 사이즈 줄이기
+    # if int(frame_width / 2) % 2 ==0 : #짝수 
+    #     frame_width = int(frame_width / 2)
+    # else:
+    #     frame_width = int(frame_width / 2) + 1 #홀수가 안되게 만들어 줌
+
+    # if int(frame_height / 2) % 2 == 0 :
+    #     frame_height = int(frame_height / 2)
+    # else:
+    #     frame_height = int(frame_height / 2 ) + 1
+
+    # out = cv2.VideoWriter('data/video/dashcam2_sesized.mp4', 
+    #                         cv2.VideoWriter_fourcc(*'H264'),
+    #                         10, 
+    #                         ( frame_width, frame_height) )
+    ## 저장하는 코드 write()메소드 부분을 주석 해제할 것.. 아래코드
+    #######
+
     while cap.isOpened():
         ret, frame = cap.read() #동영상의 사진을 하나씩 frame에 넣어준다
         if ret == True:
             #cv2.imshow('Frame', frame)
             startTime = time.time()
-            show_inference(detection_model, frame)  # 이미지 경로는 필요없고 이미 np array로 받아왔기때문에 frame넘겨주면 됨
+            #이미지 사이즈 줄여서 저장할때는 주석해제 #img = show_inference(detection_model, frame)  # 이미지 경로는 필요없고 이미 np array로 받아왔기때문에 frame넘겨주면 됨
+            show_inference(detection_model, frame)
             endTime = time.time()
+            # 처리 시간 출력
             print(endTime-startTime)
+            #save resized image 
+            #out.write(img)
+
             if cv2.waitKey(25) & 0xFF == 27:
                 break
         else:

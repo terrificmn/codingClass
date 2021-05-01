@@ -50,6 +50,7 @@ Save settings to /home/
 
 yes를 눌러준다 
 
+
 ~/.keras/keras.json 파일을 열어서 수정
 keras.josn 파일을 보면
 ```
@@ -105,3 +106,30 @@ $pip uninstall plaidml-keras
 ```
 수정했던 keras.json파일은 원래 전 상태로 (수정 전) 상태로 바뀌어 있다. 
 
+
+만약 tensorflow model을 사용할 때 아래와 같은 에러가 나온다면
+ValueError: Unable to import backend : plaidml.keras.backend
+
+혹시 ~/.keras/keras.json 가 제대로 복구되었는지 확인
+의 backend value부분을 "tensorflow"로 바꿔준다
+{
+    "floatx": "float32",
+    "epsilon": 1e-07,
+    "backend": "plaidml.keras.backend",
+    "image_data_format": "channels_last"
+}
+
+
+
+
+
+
+ROCm 다음에 알아보기 
+일단 커널이 안 맞아서 안될 것 같다.. 
+amd드라이버 설치 실패도 커널이 안맞아서 그런거 같은데.. 나중에...
+https://rocmdocs.amd.com/en/latest/Installation_Guide/Installation-Guide.html#centos-rhel
+
+
+이거도 실패..
+좀 더 복잡도가 있는 거 같은데.. 문제는 GPU를 못잡는다...
+모르겠다;;

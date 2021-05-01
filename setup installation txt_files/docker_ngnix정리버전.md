@@ -80,17 +80,65 @@ docker-compose.yml파일의 mariadb 관련 루트비번 디비 네임등을 다�
 $sudo docker-compose build
 $sudo docker-compose up
 ```
+--- npm 컨테이너 포함버전
+컨트롤 c로 종료시킨다음에 
+
+npm 설치를 한다 
+docker-compose run -rm npm install 이런식으로..
+**blog프로젝트 시작 composer_frontend.md** 파일을 참고한다
+
+
+
+ERROR: The Compose file './docker-compose.yml' is invalid because:
+services.php.build.context contains null, which is an invalid type, it should be a string
+일때에는 
+docker-compose 파일에 띄어쓰기나 들여쓰기를 확인해야한다. 또는 빠져있는 것이 없는지 확인
+. 을 빼먹음
+
 
 이제 localhost:8000으로 접근을 하면 아마도 라라벨 키를 만들어야 한다고 나올 것임 키 생성 눌러주면 됨
 그리고 db에 데이터베이스까지만 만들어져 있고 테이블이 없는 상태이므로 migration을 해준다
 절대경로로 접근해야한다
 중요! .env 파일의 DB_HOST를 127.0.0.1 에서 mysql로 바꿔줘야한다. 물론 mariadb계정 및 비번도 다시 설정
+
+서버일 경우에는 nginx를 80:80으로 하기
 ```shell
 docker-compose exec php php /var/www/html/artisan migrate
 ```
+도커버전(artisan 포함)
+```
+docker-compose run --rm artisan migrate
+```
+
 
 이제 디비 테이블이 만들어졌다. 이제 아이디를 만들어보고 테스트를 해보면 된다 
 
+asw서버일 경우에는 phpmyadmin을 8080으로 했으니 방화벽에서 8080을 열어줘야한다.
+aws 콘솔을 이용한다.
+
+그리고 처음에 npm, composer로 패키지를 설치하면 몇몇 페이지가 초기화 된다.
+특히 header include 부분이 빠지게 되는데 
+일단 로컬에서 살짝수정해주는데 수정할 여지가 많이 없으면 글자만 바꾸거나 주석처리등의 방법을 사용하고 commit
+그리고 서버에서 pull을 받는다. 
+
+또는 
+서버에 디플로이 한거면 dockerfile등을 지워줘야해서 dockerfile을 지우고 commit을 한다음에 push
+
+이제
+서버에서 git status를 확인해서 
+modified로 나오는  
+modified:   resources/views/layouts/app.blade.php
+modified:   routes/web.php
+
+를 git checkout을 해서 수정된 부분을 취소시킨다.
+(modified 상태이기 때문에 로컬에서 수정하고 pull을 받으려면 충돌이 난다. )
+git checkout -- resources/views/layouts/app.blade.php
+
+그리고 pull을 받으면 된다. (서버쪽에서는 pull만 받을 것이니 최신으로 유지만 하면 됨)
+
+그리고 깃허브에서 pull받은 상태가 최신이었으니 다른 변경된 파일도 git checkout 시켜준다.
+아마도 이상없을 듯? ㅋ
+아래 참고하자
 
 # 중요!! 테스트 해볼 것
 git push를 다시해서 충돌나는지 확인해볼필요가 있음
@@ -104,8 +152,6 @@ footer를 pull 서버에서 pull 받았는데
 Updating 9e5a6ab..1ba1aff
 Fast-forward
  resources/views/layouts/footer.blade.php | 2 +-
-문제는 없었음..
-다만 app.blade.php는 안해봐서;; 테스트 해봐야할 듯
 
 결과:
 error: Your local changes to the following files would be overwritten by merge:
@@ -113,7 +159,6 @@ error: Your local changes to the following files would be overwritten by merge:
 Please commit your changes or stash them before you merge.
 Aborting
 
-역시나 footer파일 변경한 것은 문제가 없었는데
 app.blade.php 파일도 변경후 서버에서 pull 하니 충돌 ㅠ
 
 서버쪽에서는 파일 수정을 안하려고 했는데 어쩔 수 없이 npm 빌드를 하면서 파일들이 수정이 되었고,
@@ -121,27 +166,17 @@ app.blade.php 파일도 변경후 서버에서 pull 하니 충돌 ㅠ
 로컬에서는 최신버전일 상태이므로 아무 조금만 손을 봤다, 멘트 글자만 조금 바꿔서 다시 commit
 그리고 나서 서버에서 pull을 하려고 하니 위의 파일들이 modified가 되어 있어서 pull이 안되는 것임
 
+근데 몇번 해봤더니 꼭 위 처럼 할 필요가 없음. 상관은 없지만 
+git checkout 해서 깃에서 pull받은 상태를 유지하는게 나은 거 같다. (수정 2021 04 28)
+
 해결방안은 오히려 간단했다. 어차피 서버쪽에서는 수정된 것은 무시해버리고 
 로컬의 최신 버전만 받아버리면 된다고 생각하니깐 편해짐 ㅋㅋ
 서버쪽에서 modified 된 파일을 취소해버리면 되는 것임
 ```shell
 git checkout -- resources/views/layouts/app.blade.php
 ```
-
 git st를 해보면 resources/views/layouts/app.blade.php 가 빠져있게된다
 
-	modified:   package-lock.json
-	modified:   package.json
-	modified:   public/css/app.css
-	modified:   resources/css/app.css
-	modified:   routes/web.php
-아직 몇개가 남아 있지만 (위에 것들도 패키지 받으면서 생긴 것들) 
-추후 문제가 될 때 다시 정리하기로 하고 남겨둠. 흠 app.css 나 web.php 는 로컬에서 수정하면
-바로 서버쪽 파일 checkout으로 정리하고 다시 pull을 받아야 할 듯 하다
-(단, 위의 파일 백업을 한다음에 하자!!)
-
-암튼 
-이제 pull을 받으면 깔끔하게 정리된다
 
 
 # <트러블슈팅>
@@ -185,6 +220,8 @@ $ sudo chown -R $USER:33 myblogapp
 방법을 찾아야 할 듯... 왜냐하면 이제 여기에서의 git clone은 pull 만 할 것이고 
 push는 안할 것임. (서버용이므로)
 그래서 문제가 있을지 없을지 아직 잘 모르겠음. -테스트 필요
+
+
 
 
 암튼 소유자:그룹을 변경해주면 

@@ -182,18 +182,63 @@ $ sudo apt-get install vsftpd
 
 이제 vsftpd.conf 파일을 열어서 환경설정 파일을 수정하는데, 사실 바꿀 부분은 딱히 없다.
 아래는 환경설정 설명
-anonymous_enable=NO   # disable anonymous users
-local_enable=YES   # allow local users
-write_enable=YES   # allow ftp write commands
-local_umask=022    # set default umask
+anonymous_enable=NO   # disable anonymous users #그대로
+local_enable=YES   # allow local users  #그대로
+write_enable=YES   # allow ftp write commands  # 주석제거
+local_umask=022    # set default umask  # 주석제거
 dirmessage_enable=YES   # enable messages on change directory
 xferlog_enable=YES   # enable logging of uploads and downloads
 connect_from_port_20=YES  # ensure PORT transfer connections from port 20 (ftp-data)
-xferlog_std_format=YES   # keep standard log format
+xferlog_std_format=YES   # keep standard log format  # 주석제거/ 안해도 됨(선택)
 listen=NO    # prevent vsftpd run in stand alone mode
 listen_ipv6=YES    # allow vsftpd to listen on IPv6 socket
-pam_service_name=vsftpd   # set PAM Service name to vsftpd
+pam_service_name=vsftpd   # set PAM Service name to vsftpd  #그대로
 
+
+# AWS ftp 등록하기 (이 부분만 따로 정리하기)
+서버에서는 
+sudo apt-get install vsftpd
+ 로 설치하고 
+위의 설정 몇개만 건들여 주고 vsfptd 을 restart 시켜주면 된다
+
+그리고 클라이언트에서 filezila 를 깔아주고 
+그냥 sftp 프로토콜 선택
+host는 서버 아이피주소
+port 번호는 빈칸
+logon Type을 Key file 로 해주고 pem키를 지정해주면 된다
+유저만 ubuntu로 한다
+
+
+주의! aws 팸키로 sftp로 접속을 하는 경우에는 
+fptusers에 등록을 안해도 잘 접속되고 등록을 해도 밴 당하지 않음.
+그래서 유저등록을 따로 user_list로 해도 전혀 안 먹힘;;;
+전혀 변화가 없다. 
+chroot도 안먹히..햐.. 루트까지 다 올라갈 수 있는데 홈디렉토리에만 권한을 주는 것도 안됨;;
+pem키로 들어와서 그런가? 아니면 sftp 프로토콜이어서 그런가?
+
+내 추축은.. 아마도 sftp 프로토콜 ssh랑 같은 22번 포트여서 vsftpd 설정이 안먹히는 듯 하다..
+대충 들어 맞은거 같다.. 클라이언트 프로그램을 filezila ftp 프로토콜을 사용했는데;..
+전혀 관계가 없었다.. 서버에 vsftpd 는 지워야 겠다..
+
+STP 프로토콜을 사용하고 stpd 데몬을 사용
+설정은 /etc/ssh/sshd.config 파일을 수정해 주면 된다. 
+내가 원한 것은 chroot를 홈디렉토리로 지정해주는 것인데... 
+
+
+Match User ubuntu
+ChrootDirectory /home/ubuntu
+를 추가한다. 
+
+그리고 sudo systemctl restart sshd
+재시작
+
+위 코드가 대충 실마리 인데.. 이 정도로는 안되는거 같다.. 접속실패한다. ftp는 많이 사용은 안할것 같으니 일단 접어두기로 함
+apr28 2021 (역시 vsftpd 는 지웠다. 아;; vsftpd 연습 설치 많이 해봤는데.. 별 소득이 없는 거 같다.. 쩜..;;)
+
+
+
+
+# 유저 등록
 
 이제 특정유저만  ftp를 사용할 수 있게 특정 유저를 등록해준다
 마찬가지로 같은 경로에 위치하는 user_list 파일에 유저를 등록해주면 된다
@@ -211,6 +256,10 @@ $ sudo passwd ftpuser
 (우분투에서는 user_list파일이 없음, 못찾은 것일지도.. 어쨋든 그냥 만들면 되기는 함)
 먼저 vsftpd.conf
 
+우분투에는 /etc/ftpusers 에 파일이 있는데 금지 유저 목록이 들어가 있으므로 
+그냥 userlist로 하나 만들어 주자
+
+새로 추가 (우분투 기준으로는 없음)
 ```
 userlist_enable=YES   # enable vsftpd to load usernames
 userlist_deny=NO   # allow access to users in userlist
@@ -222,7 +271,51 @@ $sudo echo ftpuser >> ./user_list
 ```
 근데 퍼미션때문에 안된다면 그냥 편집기 열어서 추가해주자
 
+우분투는
+sudo vi /etc/vsftpd.userlist 로 만들고 
+user를 추가해주자
+ec2는 ubuntu 이므로 ubuntu 유저를 등록
+```
+userlist_enable=YES
+userlist_file=/etc/vsftpd.userlist
+userlist_deny=NO
+```
+centos에서는 userlist 파일이 있어서 등록이 되는 거 같은데 우분투는 따로 없으므로 
+userlist_file에 해당경로를 써준다
 
+ 
+```
+# vsftpd userlist
+# If userlist_deny=NO, only allow users in this file
+# If userlist_deny=YES (default), never allow users in this file, and
+# do not even prompt for a password.
+# Note that the default vsftpd pam config also checks /etc/vsftpd/ftpusers
+# for users that are denied.
+root
+bin
+daemon
+adm
+lp
+sync
+shutdown
+halt
+mail
+news
+uucp
+operator
+games
+nobody
+```
+파일 예.. centOS 같은 경우에는 /etc/vsftpd/ 디렉토리가 있어서 그 안에 user_list 파일이 있는데 
+우분투는 아예 vsftpd 디렉토리가 없고 /etc/vsftpd.conf 만 있기 때문에 
+
+위의 설명처럼 userlist_deny를 NO로 하게되면 파일에 있는 유저 목록만 로그인 할 수 있게 한다고 하니깐
+다른 유저 리스트는 지우고 내 계정만 추가해준다. 그러면 아예 오픈이 되어 버리는 것이니깐
+먼저 /etc/ftpusers 가 있는데 centos는 /etc/vsftpd/ftpusers
+에는 유저 목록이 잘 있는지를 확인하다. 아마도 여기에 있는 ftpusers에 있는 유저들은 금지
+
+
+# 홈 디렉토리만 개방
 그리고 여기에서 유저의 디렉토리 허용하는 방식이 2가지 있음
 다시 vsftpd.conf 를 열어서 내용을 추가해준다
 
@@ -233,19 +326,26 @@ chroot jail 이라고 불리는 것인데, 아래처럼 하면 특정유저의 �
 $ chroot_local_user=YES   # Create chrooted environment for users
 $ allow_writeable_chroot=YES  # Allow write permission to user on chroot jail directory
 ```
-chroot_local_user=YES 도 기본으로 되어 있고
+chroot_local_user=YES 도 기본으로 되어 있고 (주석 되어있는 거 제거 )
 allow_writeable_chroot=YES 가 없어서 넣어줘야한다
+
+You may restrict local users to their home directories.  See the FAQ for
+# the possible risks in this before using chroot_local_user or
+# chroot_list_enable below.
+chroot_local_user=YES
+이렇게 설명이 되어 있다.
 
 이제 유저의 홈디렉토리 전체가 ftp에 사용될 수 있게 한다
 
 
-두 번째는 ftp업로드 시에 홈 디렉토리가 아닌 특정 다른 디렉토리만 사용하게 할 수 있음
-vsftpd.conf 파일에 추가해준다. 그리고 allow_writeable_chroot 옵션은 입력하지 않는다
+두 번째 방법은 ftp업로드 시에 홈 디렉토리가 아닌 특정 다른 디렉토리만 사용하게 할 수 있는 방법
+vsftpd.conf 파일에 추가해준다. 그리고 이때에는 allow_writeable_chroot 옵션은 입력하지 않는다
 ```
 user_sub_token=$USER
 local_root=/home/$USER/ftp
 ```
-유저 환경 변수에 ftp디렉토리를 만들어서 ftp 디렉토리만 사용하게 하는 방법이 있고
+특정 디렉토리를 만들고 (예: ftp 라고 만듬)
+유저 환경 변수를 사용해서 ftp 디렉토리만 사용하게 하는 방법이 있다
 
 (두 개 다 해보자 ㅋㅋ)
 
@@ -1707,3 +1807,32 @@ $sudo ln -s /opt/Postman/Postman /usr/local/bin/postman
 $ls -l /usr/local/bin/postman
 ```
 
+
+
+__________________________________________
+powertools 가능하게 하기
+
+obs-stdio를 설치하려고 하면 
+sudo dnf install obs-studio
+
+conflicting requests
+  - nothing provides libSDL2-2.0.so.0()(64bit) needed by ffmpeg-4.2.4-1.el8.x86_64
+필요햐다면서 설치가 안되는데 
+libSDL2-2.0은 아무리 yum 명령어를 쳐도 match 되는게 없다
+
+이때 powertools를 사용가능하게 리포지터리 추가를 해주면
+쉽게 다운받아지고 의존성 패키지도 해결해준다
+
+You can enable it with the following commands:
+
+yum install dnf-plugins-core
+
+And then:
+
+yum config-manager --set-enabled powertools
+
+
+화면 캡쳐 블랙일때 
+wayland에서 x11로 로그인 해준다
+ 
+그러면 스크린 캡쳐가 잘 된다.

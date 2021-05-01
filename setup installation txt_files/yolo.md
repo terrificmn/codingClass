@@ -1,5 +1,5 @@
 YOLO 
-you only look onece
+you only look once
 
 이미지 크기가 크면 작은 커널에서는 제대로 탐지를 못함
 그래서 
@@ -20,8 +20,18 @@ Bh - 물체의 중심좌표로부터 height (사각형을 그리기 위해)
 C1 - 클래스1 (dog) - 개이면 1 아니면 0
 C2 - 클래스2 (human) - 사람이면 1 아니면 0  #분류가 2개일 경우
 
-| image classification | object localization |
+| . | image classification / object localization |
 | -- | -- |
+| Pc | 이미지 안에 관심있는 물체가 있을 확률 (예: 개 or 사람이 있으면 1, 없으면 0) |
+| Bx | 물체의 x좌표 |
+| By | 물체의 y좌표 |
+| Bw | 물체의 중심좌표로부터 width (사각형을 그리기 위해) |
+| Bh | 물체의 중심좌표로부터 height (사각형을 그리기 위해) |
+| C1 | 클래스1 (dog) - 개이면 1 아니면 0 |
+| C1 | 클래스2 (human) - 사람이면 1 아니면 0  #분류가 2개일 경우 |
+
+<br>
+
 
 그래서 분류 문제였으면 마지막 output 값이 시그모이드로 1이 되었는데 
 
