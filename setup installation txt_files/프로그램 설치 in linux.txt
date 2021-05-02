@@ -1,3 +1,6 @@
+repositories참고
+https://wiki.centos.org/AdditionalResources/Repositories
+
 페도라에서 LAMP 설치하기 
 **참고: LAMP란?
   Linux
@@ -1836,3 +1839,16 @@ yum config-manager --set-enabled powertools
 wayland에서 x11로 로그인 해준다
  
 그러면 스크린 캡쳐가 잘 된다.
+
+
+
+_____________________________________________________________________________________________________
+vlc 동영상 플레이어 설치
+
+
+```
+sudo yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+sudo yum install https://download1.rpmfusion.org/free/el/rpmfusion-free-release-8.noarch.rpm
+sudo yum install vlc
+```
+

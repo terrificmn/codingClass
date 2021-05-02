@@ -117,6 +117,8 @@ $export PATH="~/tensorflow/protoc/bin:$PATH"
 계속 사용하려면 홈디렉토리에 .bashrc 에 추가해 준 후에 저장  
 그리고 source .bashrc 를 해준다 
 
+export PYTHONPATH="$PYTHONPATH:$HOME/Workspace/docker-tfod/src/models/research:$HOME/Workspace/docker-tfod/src/models/research/slim"
+
 ```shell
 export PYTHONPATH="$PYTHONPATH:$HOME/Workspace/tensorflow/models/research:$HOME/Workspace/tensorflow/models/research/slim"
 ```
@@ -238,7 +240,42 @@ ___
 
 
 
+심볼릭 링크 /usr/bin/pyhothn3 -> /etc/alternatives/python3
+를 가리키고 있고 (이놈도 심볼릭링크다) 
+다시 이 심볼릭링크 /etc/alternatives/python3 -> /usr/bin/python3.6 
+(실제실행 파일을 가리키고 있음)
 
+그래서 이 부분을 수정해주면 원래 소스 실행될 파일 파이썬3.8을 기존의 3.6으로의 연결을 끓고 
+다시 연결해준다 
+```
+sudo ln -sf /usr/local/bin/python3.8 /etc/alternatives/python3
+```
+
+그리고 확인 
+```
+ls -li /etc/alternatives/python3*
+```
+68080898 lrwxrwxrwx. 1 root root 24 May  2 08:22 /etc/alternatives/python3 -> /usr/local/bin/python3.8
+녹색으로 잘 나오면 됨~ 빨간색이면 연결이 잘 안된거니 주의
+
+이제 파이썬 python3 이라고 입력하면 3.8이 실행된다.
+
+python이라고 치면 
+bash: python: command not found...
+명령어가 없다고 한다.. 
+위에 처럼 python 심볼릭 링크를 만들어 주거나 
+
+또는 
+.bashrc 파일에 alias 를 설정해주면 된다.
+
+(나중에 업데이트)
+
+
+
+
+
+
+실패이력!!!! 
 
 먼저 .bashrc 파일에 alias 라고 해서 python python3 으로 입력하게 되면 
 모두 파이썬 3.8로 하게 되어 있는데..

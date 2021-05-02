@@ -33,12 +33,13 @@ $ sudo yum-config-manager \
 https://download.docker.com/linux/centos/docker-ce.repo
 ```
 
+-우분투 경우
 도커 엔진 설치
 다시한번 apt-get update 를 해준다
 안 그러면 도커 패키지를 못 찾음
-
+```
 sudo apt-get install docker-ce docker-ce-cli containerd.io
-
+```
 
 
 

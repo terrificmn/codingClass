@@ -793,3 +793,47 @@ FedoraMediaWriter-win64-4.2 버전을 받아서
 iso파일로 굽기 시도
 
 참고 사이트: https://docs.centos.org/en-US/centos/install-guide/Making_Media_USB_Windows/
+
+
+
+_____________________________________________________________________________________________________
+Davinci Resolve 설치 시 에러
+
+GUI모드에서 실행이 아예 안되고 아무런 에러도 안남
+그래서 터미널에서 /opt/resolve/bin 으로 이동해서 resolve를 실행해보면
+
+libGLU.so.1: cannot open shared object file: No such file or directory on centos
+
+이때는 libGLU.so.1 설치를 해야하는데 
+```
+sudo yum -y install libGLU
+```
+
+이제 실행이 잘 된다.
+
+
+_____________________________________________________________________________________________________
+도커설치시 centos 8
+
+리파지터리를 추가한 후에 
+sudo yum install docker-ce docker-ce-cli containerd.io
+했을 때 아래와 같은 에러가 발생 시 
+
+Error: 
+ Problem 1: problem with installed package podman-2.2.1-7.module_el8.3.0+699+d61d9c41.x86_64
+  - package podman-2.2.1-7.module_el8.3.0+699+d61d9c41.x86_64 requires runc >= 1.0.0-57, but none of the providers can be installed
+  - package containerd.io-1.4.4-3.1.el8.x86_64 conflicts with runc provided by runc-1.0.0-70.rc92.module_el8.3.0+699+d61d9c41.x86_64
+  - package containerd.io-1.4.4-3.1.el8.x86_64 obsoletes runc provided by runc-1.0.0-70.rc92.module_el8.3.0+699+d61d9c41.x86_64
+  - cannot install the best candidate for the job
+
+에러가 날때 
+```
+sudo
+yum remove runc
+```
+
+그리고 다시 설치해주면 잘 설치가 된다
+```
+sudo  yum install docker-ce docker-ce-cli containerd.io
+
+```
