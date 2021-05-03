@@ -1,13 +1,39 @@
-amdgpu 그래픽 드라이버를 설치해준다
-https://www.amd.com/en/support/graphics/amd-radeon-r9-series/amd-radeon-r9-300-series/amd-radeon-r9-380
+# 머신러닝 GPU로 하기! - AMD Radeon
+
+원래 Nvidia 에서는 tensorflow 지원이 되는걸로 알았지만..
+현재 내 그래픽카드는 라데온이다.. 
+라데온으로 할 수 있는 방법을 찾아보니 
+ROCM 과 인텔에서 오픈소스로 만든 PlaidML 이라는 것이 있었다..
+
+PlaidML은 맥이나 AMD 그래픽카드도 지원을 한다고 해서 
+설치도 쉽고 설정도 쉽다고 해서 
+이걸로 해야겠다해서 설치를 알아보고 했지만.. 
+
+역시 쉬운게 없지;. 될리가 없지 ㅋㅋ 안되는 거 며칠째 붙들고 있다가
+거의 포기했는데 obs-stdio, Davinci Resolve를 설치하면서 
+(간단한 영상 편집이 필요했음- 프로젝트;)
+gmdgpu-pro 드라이버가 설치가 안되어 있으니 위의 프로그램들도 안됨;;
+
+그래서 결국은.. 거의 1주 넘게 해서 성공했다.. ㅠㅠ
+암튼 그 방법을 기록
+
+기존에 원래 그래픽 드라이버가 설치되어 있지만.. OpenCL이 있어야 
+GPU로 연산을 할 수가 있다.
+
+amdgpu 그래픽 드라이버를 설치해준다. 자신의 그래픽 드라이버를 맞게 선택해주자  
+
+https://www.amd.com
+
+https://www.amd.com/en/support/graphics/amd-radeon-r9-series/amd-radeon-r9-300-series/amd-radeon-r9-380  
 
 https://amdgpu-install.readthedocs.io/en/latest/install-installing.html
 
-tar.xz 파일을 압축을 풀어준다
-```
+<br>
+
+다운받은 파일의 tar.xz 파일을 압축을 풀어준다  
+```shell
 $tar xvf amdgpu-pro-21.10-1247438-rhel-8.3/
 ```
-
 
 그리고 해당 디렉토리로 이동을 한 후 실행
 ```
@@ -15,18 +41,30 @@ $cd amdgpu-pro-xxxxx(버전)
 $ ./amdgpu-pro-install -y
 ```
 
-그리고 재부팅
+그리고 재부팅, 사실 재부팅은 필요없는 듯;;
 
-그리고 콘다 가상환경으로 들어가기
+가상환경이 있다면 해당 가상환경에서 해도 되고,  
+사실.. 그냥 가상환경 없이 진행했다..
 ```
 conda activate tfod
 ```
 
-주인공 PlaidML을 설치한다. 
+가상환경 만드는 법 참고
+
+
+주인공 PlaidML을 설치한다. 설치는 pip으로 쉽다..  
 To install PlaidML with Keras, run the following:
 ```
 pip install -U plaidml-keras
 ```
+이때 주의할 점은 pip 버전으로 차이가 나니깐 --version으로 확인한다음에 원하는 버전으로 설치해줘야한다.
+
+```
+$pip --version
+$pip3 --version
+$pip3.8 --version
+```
+참고로 파이썬은 버전별로 설치가 가능해서 멀티로 가능하게 해주니깐 원하는 환경에 설치해줘야한다.
 
 그 전에는 keras가 설치가 되어 있었는데 버전이 2.4.3 이었는데 설치과정에서 자동으로 지운 후에 
 kears2.24 버전을 설치해준다
@@ -49,8 +87,9 @@ Enable experimental device support? (y,n)[n]
 Save settings to /home/
 
 yes를 눌러준다 
+여기에서 함정이... CPU목록만 나오는 것이였음;; 잘 되는줄만 알았지...  
 
-
+vi 편집기 등으로 
 ~/.keras/keras.json 파일을 열어서 수정
 keras.josn 파일을 보면
 ```
@@ -62,83 +101,96 @@ keras.josn 파일을 보면
 }
 ```
 backend 키를 수정해준다 
- "backend": "plaidml.keras.backend"
-
+"backend": "plaidml.keras.backend"
+그리고 저장
 
 파이썬 코드로 yolo코드를 실행해봤다.. 근데 cpu로 처리하던 속도랑 거의 똑같은거 같은데..
-뭔가 잘 된다 했다..
+뭔가 잘 된다 했다..ㅋㅋ
 
-데스트탑에서 setting > Details > About 에 보면
-이렇게 바뀌어있음
-AMD® Radeon
-원래는 그래픽카드명이 나왔는데 세부 그래픽명이 안나온다.. 이상하다..
-
-에러 전혀 인지를 못하고 있었으나... plaidml-setup 했을 때 cpu만 나오고 gpu가 나오지 않는다..;;
+에러가 난 것을 전혀 인지를 못하고 있었으나... plaidml-setup 했을 때 cpu만 나오고 gpu가 나오지 않는다..;;  
 그래서 봤더니 amdgpu를 설치할 때 warning 에러가 발생한게 있었음..
 ```
 amdgpu-pro-uninstall 
 ```
 
 지운 후 다시 설치. 역시 같은 에러 발생
+지웠다 설치도 여러번 하고, 이것저것 해봤지만 안됨   
 
-amdgpu-dkms-1:5.9.20.104-1247438.el8.noarch
-Complete!
-WARNING: amdgpu dkms failed for running kernel
+이거를 고치겠다고 주말에 틈틈히 계속 매달려서 해봤지만 모두 실패~  
+그러다가 마치 소문이라도 들은양.. 구글로 어딘가에서 본 커널 업데이트를 해야한다고 해서 
 
-이거를 고치겠다고 주말에 틈틈히 계속 매달려서 해봤지만 모두 실패~
-그러다가 마치 소문이라도 들은양 커널 업데이를 해야한다고 해서 커널 업데이트까지 시도
-그래서 커널 업데이트 포스팅은 여기
+처음으로 커널 업데이트까지 시도 그래서 커널 업데이트 포스팅은 여기
 
 결국 다 똑같은 워닝 및 에러..
-
-에러 로그를 찾아보자
-vi /var/lib/dkms/amdgpu/5.9.20.104-1247438.el8/build/make.log
-  /var/lib/dkms/amdgpu/5.9.20.104-1247438.el8/build/Makefile:26: "Local GCC version 80404 does not match kernel compiler GCC version 80401"
-
-하지만.. 실마리는 찾았지만~
-일단 다음에 시도하기로.. 뭐 내 컴으로 머신러닝을 돌릴꺼도 아닌데.. 그냥 확인만 해볼려고 했던건데..
-힘들다...
+warning dkms 트러블 슈팅은 여기  
 
 
-# 지우기
+# plaidml 지우기 
+그렇다 이 글을 작성할 때에는 포기하고 그냥 원래 상태로 돌아갈려고 했었다..
+
 ```shell
-$pip uninstall plaidml-keras
+$pip3.8 uninstall plaidml-keras
 ```
 수정했던 keras.json파일은 원래 전 상태로 (수정 전) 상태로 바뀌어 있다. 
 
-
-만약 tensorflow model을 사용할 때 아래와 같은 에러가 나온다면
+다시 파이썬 코드로, 현재 프로젝트가 streamlit을 이용하는데 웹 어플리케이션 구동 시   
+해서 tensorflow model을 사용할 때 아래와 같은 에러가 나온다면  
+```
 ValueError: Unable to import backend : plaidml.keras.backend
+```
 
-혹시 ~/.keras/keras.json 가 제대로 복구되었는지 확인
-의 backend value부분을 "tensorflow"로 바꿔준다
+혹시 ~/.keras/keras.json 가 제대로 복구되었는지 확인한다.  
+vi 편집기로 열어서 backend키의 value부분을 "tensorflow"로 바꿔준다
 {
     "floatx": "float32",
     "epsilon": 1e-07,
     "backend": "plaidml.keras.backend",
     "image_data_format": "channels_last"
 }
+"plaidml.keras.backend"--> 에서 다시 "tensorflow" 로 한 후 저장
 
 
+중간에 ROCM쪽도 조금 알아보고 했지만.. 그쪽도 실패.. 
+결론은 opencl이라는게 필요한데 그럴려면 그래픽드라이버를 업데이를 해야하는데   
+설치가 안되니 해결이 안되고 있는 상황  
 
 
+위에서 언급한 것처럼 커널도 업데이트 해도 예전 커널로 설치해볼려고 했으나   
+번번히 설치 실패..   
 
+현재 쓰고 있는 CentOS 8 stream 인데.. 이게 왠지 8.3 버전 일 것이라고 생각했으나..  
+정확한 버전을 알기는 좀 어려웠다..  amd 사이트에서는 centos 8 은 8.3버전 지원이라고 했으니..  
+stream은 몇 버전인지 모르겠다.. 추측하기로는 커널 버전이 높으니 더 높은 버전 같았다..  
 
-ROCm 다음에 알아보기 
-일단 커널이 안 맞아서 안될 것 같다.. 
-amd드라이버 설치 실패도 커널이 안맞아서 그런거 같은데.. 나중에...
-https://rocmdocs.amd.com/en/latest/Installation_Guide/Installation-Guide.html#centos-rhel
+암튼 이게 문제였다..  
 
+우분투도 지원하니.. 맘편하게 우분투로 넘어갈까 하다가도..   
+왠지 센트os에 적응이 되서.. CentOS 8로 설치하기 결정..   
+아~ 이거 올해까지만 지원되는데.. 모르겠다.  
+사실 컴터로 머신러닝을 돌릴 것은 아닌데,, 동영상 편집도 좀 해보고.. 사실 너무 많이 왔다.. 돌아가기에는 ..ㅠ
 
-이거도 실패..
-좀 더 복잡도가 있는 거 같은데.. 문제는 GPU를 못잡는다...
-모르겠다;;
+<br>
 
+# 답은 CentOS stream은 지원이 안되는 것이었음
+사실 커널 아래 버전을 설치하면 될 것도 같았으나.. 번번히 실패해서 결국은 os배포판을 바꿔버렸다.  
 
+이게 시작이였다...
+일단 업데이트를 했다면 새로 업데이트 된 커널에서 다시 설치하여야 하므로 
+재부팅을 한다.
 
+----dkms 설치를 한다를 참고----
 
- plaidml-setup
-을 실행했을 때 
+<br>
+
+amdgpu-pro 가 잘 설치가 되었다면.. (dkms 부분도 잘 설치고)  
+다시 
+```
+pip3.8 install plaidml-keras 
+```
+
+# 트러블슈팅~
+plaidml 설치 후 plaidml-setup 을 실행하면..
+
 ```
 Traceback (most recent call last):
   File "/home/sgtocta/.local/bin/plaidml-setup", line 5, in <module>
@@ -151,28 +203,32 @@ Traceback (most recent call last):
     raise plaidml.exceptions.PlaidMLError(
 plaidml.exceptions.PlaidMLError: Could not find PlaidML configuration file: "experimental.json".
 ```
-파일 위치를 못 찾을 때 
+파일 위치를 못 찾는다면서 실행이 안된다..
 
 
 환경변수 등록해주기 
+```shell
+$export PLAIDML_NATIVE_PATH=$HOME/.local/lib/libplaidml.so
+$export RUNFILES_DIR=$HOME/.local/share/plaidml
+```
+이 부분은 운영체제마다 조금씩 다를 수 있다. 
+알아본 바로는 우분투, 센트os는 위의 경로가 맞는 듯 하다.. 
 
-export PLAIDML_NATIVE_PATH=$HOME/.local/lib/libplaidml.so
-export RUNFILES_DIR=$HOME/.local/share/plaidml
-
-
-이렇게 해서 지운다음에 
 ```
 plaidml-setup
 ```
-하면 cpu 목록 gpu 목록이 셋업 페이지가 뜬다. 
-하지만..;; GPU가 없다;;
+을 다시하면 셋업을 할 수 있는 페이지? 가 나오고 설정을 할 수가 있는데  
+그토록 원하던 gpu가 안나온다..
+하지만..;; GPU가 없다;;  
 돌아버리;..
 
-먼저 언인스톨을 다시하고
-
-깨끗하게 하고 싶으면 아래가 해당 패키지가 설치되는 곳인데 사실 안에 파일들을 거의 다 남아있었음
+침착하게...  
+먼저 언인스톨을 다시하고  
+깨끗하게 하고 싶으면 아래가 해당 패키지가 설치되는 곳인데 사실 안에 파일들을 거의 다 남아있었음  
+```
 /home/sgtocta/.local/lib/python3.8/site-packages/plaidml/keras/*
 /home/sgtocta/.local/lib/python3.8/site-packages/plaidml_keras-0.7.0.dist-info/*
+```
 
 아마도 도커랑 시도를 해봤는데 그때 생성된것 때문에 그러는 것 같기도하고;;
 어쨋든 rm -rf 로 깨끗이 삭제
@@ -182,15 +238,17 @@ $cd ~/.local/lib/python3.8/site-packages
 $rm -rf plaidml
 $rm -rf plaidml_keras-0.7.0.dist-info
 ```
+언제 rm을 할때는 더블 체크한 후에 진행하자!
 
-다시 설치를 해도 결과는 똑같음 그래서 로그를 봐야함
-환경변수 등록해주기
+다시 설치를 해도 결과는 똑같음~ 하.. 그래서 로그를 봐야함  
+환경변수 등록해서 로그를 볼 수있게 하자
+
 ```
 export PLAIDML_VERBOSE=4
 ```
-그리고 다시 plaidml-setup
 
-그러면 역시 cpu밖에 안나오고 
+그리고 다시 plaidml-setup 을 하면
+그러면 역시 cpu밖에 안나오고   
 
 화면에는 이렇게 출력됨
  
@@ -204,8 +262,7 @@ DEBUG:plaidml:Failed to initialize HAL: clGetPlatformIDs libOpenCL.so: cannot op
 Default Config File Location:
    Unknown/
 ```
-
-
+libOpenCl.so를 못 찾고 있다.  
 
 특정 라이브러리 설치 확인하기
 ```
@@ -228,20 +285,22 @@ Matched from:
 Filename    : /usr/lib64/libOpenCL.so
 ```
 
-이렇게 나온다..; 이제 이게 힌트였는데 큰 의미는 없을 수도 있지만
-ampgpu-pro opencl이 잘 설치는 되어있는거 같고..
+이렇게 나온다..; 
+ampgpu-pro opencl이 잘 설치는 되어있는거 같고.. 다행 ㅠ
 
-중요한거는 아래 부분
+중요한거는 /usr/lib64/libOpenCL.so 부분이다 (distro에 따라 다를 수 있음)
 ```
-[sgtocta@localhost lib]$ ls -li /usr/lib64/libOpenCL.*
+[octa@localhost lib]$ ls -li /usr/lib64/libOpenCL.*
 73525982 lrwxrwxrwx. 1 root root     18 May 15  2019 /usr/lib64/libOpenCL.so.1 -> libOpenCL.so.1.0.0
 73525983 -rwxr-xr-x. 1 root root 133472 May 15  2019 /usr/lib64/libOpenCL.so.1.0.0
 ```
-여기에서 보면 libOpenCL.so.1 이 실제파일 libOpenCL.so.1.0.0 을 가리키고 있는데 
-아무래도 plaidml-setup을 하면 libOpenCL.so.1 파일이 아닌,
-libOpenCL.so 파일을 찾는 거 같다.. 그래서 새로운 심볼릭 링크를 또 만들어 준다
+여기에서 보면 libOpenCL.so.1 이 실제파일 libOpenCL.so.1.0.0 을 가리키고 있는데   
+아무래도 plaidml-setup을 하면 libOpenCL.so.1 파일이 아닌,  
+libOpenCL.so 파일을 찾는 거 같다..   
+그래서 새로운 심볼릭 링크를 또 만들어 준다  
 
-심볼릭 링크를 libOpenCL.so를 만들어서 이거를 다시 심볼릭 링크인 libOpenCL.so.1 에 연결!!
+심볼릭 링크를 libOpenCL.so를 만들어서   
+이거를 다시 심볼릭 링크인 libOpenCL.so.1 에 연결!!
 ``` 
 sudo ln -s libOpenCL.so.1 libOpenCL.so
 ```
@@ -263,8 +322,7 @@ amd쪽 opencl을 연결해줘야했더니 먼저 연결했더 되지도 않고;;
 
 이제 다시 plaidml-setup 을 실행하면 
 ```
-...
-..
+..생략
 ..
 Experimental Config Devices:
    llvm_cpu.0 : CPU (via LLVM)
@@ -274,6 +332,7 @@ Experimental Config Devices:
 이제 y를 누르면
 뭔가 셋팅을 시작하고 
 
+```
 Multiple devices detected (You can override by setting PLAIDML_DEVICE_IDS).
 Please choose a default device:
 
@@ -281,15 +340,13 @@ Please choose a default device:
    2 : opencl_amd_tonga.0
 
 Default device? (1,2)[1]:2
-
+```
 라고 물어보면 2을 눌러준다.. 
 
 
 마지막으로 
 Success!
 라고 나오면 끝!
-
-눈물난다.ㅠ
 
 
 참고 이슈
@@ -305,170 +362,10 @@ streamlit run app.py
 그러면
 앱이 실행되면서 
 Using TensorFlow backend.
-라고 나오는데 
+라고 나오는데, Tensorflow가 나오면 안되는데..   
 
-파이썬 코드로 
-os.environ["KERAS_BACKEND"] = "plaidml.keras.backend"
-을 넣어주면 실행을 할때 plaidml의 gpu로 되야하는데
-cpu와 속도가 같다;;
+아.. 눈물난다.ㅠ 하지만 끝이 아니였음;; 
 
-그래서 이번에는 
-스트림릿을 끄고
-
-vi ~/.keras/keras.json
-을 수정해준다
-
-다시 스트림릿 실행하면
-partially initialized module 'plaidml' has no attribute 'library'
-
-plaidml-keras 0.7.0 requires keras==2.2.4, but you'll have keras 2.4.3 which is incompatible.
-
-keras가 2.4 버전이어서 지워준다
-pip3.8 uninstall keras
-
-다시 설치
-pip3.8 install keras==2.2.4
-
-
-이제 또ㅓ;;
-
- Could not find PlaidML configuration file: "experimental.json".
-
-파일위치가 
-홈디렉토리안에 .local/share/plaidml 안에
-experimental.json 이 들어있고, config.json도 있는데 코드내에서 넣어줘야한다
-
-다른 시스템에서는 /usr/share/plaidml 에 들어있는 경우도 있고 
-맥 같은 경우는 
-/Library/Frameworks/Python.framework/Versions/3.7/share/plaidml
-이런식인듯..
-
-그래서인지 경로를 잘 못찾아 주는듯..
-경로를 export 해서 환경변수 등록도 해줬는데 안된는 걸로 봐서는 
-코드로 넣어줘야하는듯 하다
-
-프로젝트 메인인 app.py 맨 위에 코드 삽입
-```py
-import os
-
-os.environ["KERAS_BACKEND"] = "plaidml.keras.backend"
-os.environ["PLAIDML_NATIVE_PATH"] = "/home/sgtocta/.local/lib/libplaidml.so"
-os.environ["RUNFILES_DIR"]="/home/sgtocta/.local/share/plaidml"
-```
-경로를 시스템에 따라 다른 듯 하다. 
-centos와 우분투는 홈 디렉토리 안에 있는 듯하다..
-
-이번에는 라이브러리를 못찾는다고 나오는데..
-아예 스트림릿을 종료 ^C 한 후에 
-다시 시작해보면 
-```
- You can now view your Streamlit app in your browser.
-
-  Local URL: http://localhost:8501
-  Network URL: http://xxx.xxx.xxx.xxx:8501
-
-Using plaidml.keras.backend backend.
-```
-이렇게 나오면 성공!!
-
-주의할 점은 keras 모듈을 불러올 때 tensorflow.keras로 하면 안 된다고 한다
-```py
-import keras 를 먼저하고 
-from keras.models import Sequential #모델 불러오고 Sequential() 불러오는 식으로 해야한다고 함
-from keras import backend as K
-```
-
-계속 에러 메세지만 나오고 있었는데;; 스트림릿을 껏다가 켰더니 되어서 조금 어벙벙하네;;
-중요한 점은 
-
-마지막으로 해보자는 생각으로 uninstall을 한 후에 했는데 
-이번에는 테스트 코드를 한번 돌려봤다.. 이때 도움이 된지는 모르겠다
-
-마지막 정리.. 마지막으로 했던 코드 정리
-```
-$pip3.8 install pyopencl
-$pip3.8 uninstall plaidml-keras
-$pip3.8 install plaidml-keras
-$plaidml-setup
-$pip3.8 install plaidbench
-```
-
-아.. pyonecl이라는 것을 설치했었는데 이게 도움이 된것인지는 모르겠다..;;
-그리고 확실하게 파일내에 코드로 환경변수 정의해주고
-테스트 코드도 돌림
-
-아래는 테스트 코드
-```py
-import os
-
-# IMPORTANT: PATH MIGHT BE DIFFERENT. SEE STEP 6
-os.environ["KERAS_BACKEND"] = "plaidml.keras.backend"
-os.environ["PLAIDML_NATIVE_PATH"] = "/home/sgtocta/.local/lib/libplaidml.so"
-os.environ["RUNFILES_DIR"]="/home/sgtocta/.local/share/plaidml"
-#os.environ["RUNFILES_DIR"] = "/Library/Frameworks/Python.framework/Versions/3.7/share/plaidml"
-#os.environ["PLAIDML_NATIVE_PATH"] = "/Library/Frameworks/Python.framework/Versions/3.7/lib/libplaidml.dylib"
-
-# Don't use tensorflow.keras anywhere, instead use keras
-import keras
-from keras.datasets import mnist
-from keras.models import Sequential
-from keras.layers import Dense, Dropout, Flatten
-from keras.layers import Conv2D, MaxPooling2D
-from keras import backend as K
-batch_size = 128
-num_classes = 10
-epochs = 12
-# input image dimensions
-img_rows, img_cols = 28, 28
-# the data, split between train and test sets
-(x_train, y_train), (x_test, y_test) = mnist.load_data()
-if K.image_data_format() == 'channels_first':
-    x_train = x_train.reshape(x_train.shape[0], 1, img_rows, img_cols)
-    x_test = x_test.reshape(x_test.shape[0], 1, img_rows, img_cols)
-    input_shape = (1, img_rows, img_cols)
-else:
-    x_train = x_train.reshape(x_train.shape[0], img_rows, img_cols, 1)
-    x_test = x_test.reshape(x_test.shape[0], img_rows, img_cols, 1)
-    input_shape = (img_rows, img_cols, 1)
-x_train = x_train.astype('float32')
-x_test = x_test.astype('float32')
-x_train /= 255
-x_test /= 255
-print('x_train shape:', x_train.shape)
-print(x_train.shape[0], 'train samples')
-print(x_test.shape[0], 'test samples')
-# convert class vectors to binary class matrices
-y_train = keras.utils.to_categorical(y_train, num_classes)
-y_test = keras.utils.to_categorical(y_test, num_classes)
-model = Sequential()
-model.add(Conv2D(32, kernel_size=(3, 3),
-                 activation='relu',
-                 input_shape=input_shape))
-model.add(Conv2D(64, (3, 3), activation='relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))
-model.add(Dropout(0.25))
-model.add(Flatten())
-model.add(Dense(128, activation='relu'))
-model.add(Dropout(0.5))
-model.add(Dense(num_classes, activation='softmax'))
-model.compile(loss=keras.losses.categorical_crossentropy,
-              optimizer=keras.optimizers.Adadelta(),
-              metrics=['accuracy'])
-model.fit(x_train, y_train,
-          batch_size=batch_size,
-          epochs=epochs,
-          verbose=1,
-          validation_data=(x_test, y_test))
-score = model.evaluate(x_test, y_test, verbose=0)
-print('Test loss:', score[0])
-print('Test accuracy:', score[1])
-```
-
-복사 붙여넣기해서 바로 vscode 기준 실행버튼을 누르면 
-바로 실행이 되고
-역시 Using plaidml.keras.backend backend. 라고 뜸
-
-그리고 나서, 아 되는 구나~ 라는 생각이 들어서 포기를 안함;;
-테스트 코드를 실행해 보는 것도 괜찮은것 같다는 생각이 듬
+2차 트러블 슈팅 보러가기
 
 
