@@ -214,6 +214,12 @@ $export RUNFILES_DIR=$HOME/.local/share/plaidml
 이 부분은 운영체제마다 조금씩 다를 수 있다. 
 알아본 바로는 우분투, 센트os는 위의 경로가 맞는 듯 하다.. 
 
+mac os 같은 경우에는 아래처럼 되는 듯 함..
+```shell
+export PLAIDML_NATIVE_PATH=/usr/local/lib/libplaidml.dylib
+export RUNFILES_DIR=/usr/local/share/plaidml
+```
+
 ```
 plaidml-setup
 ```
