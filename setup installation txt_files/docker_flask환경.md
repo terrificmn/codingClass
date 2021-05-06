@@ -40,3 +40,20 @@ CMD ["flask", "run"]
 
 ```
 
+
+
+requirements.txt 파일에 필요한 라이브러리     
+
+Dockerfile 파일에서 RUN으로 pip install을 실행하거나   
+RUN으로 직접 pip install 을 실행하지 않고,   
+COPY 명령어로 requirements.txt 파일을 복사 한 다음에 (주석해제)   
+RUN으로 requirements.txt 파일을 이용해서 pip3 install한다   
+```
+flask
+flask-restful
+mysql-connector-python
+psycopg2-binary
+passlib
+email-validator
+```
+
