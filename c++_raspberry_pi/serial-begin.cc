@@ -23,8 +23,8 @@ void setup()
 void loop() // 함수자체가 loop 리턴은 값은 없음 void
 {
 	data = digitalRead(SWT); // INPUT으로 읽어올 때에는 핀번호만 넘겨주면 된다
-  	Serial.print("button data: ");
-  	Serial.println(data);
+  Serial.print("button data: ");
+  Serial.println(data);
 }
 
 
