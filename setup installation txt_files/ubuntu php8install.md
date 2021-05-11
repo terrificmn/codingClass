@@ -1,7 +1,8 @@
 우분투에서 php8.0 설치
+```
 sudo apt install software-properties-common
 sudo add-apt-repository ppa:ondrej/php
-
+```
 Once the PPA is enabled, you can install PHP 8.
 Installing PHP 8.0 with Apache
 
@@ -10,8 +11,10 @@ Install PHP as Apache Module
 
 Installing PHP as an Apache module is a straightforward task:
 
+```
 sudo apt update
 sudo apt install php8.0 libapache2-mod-php8.0
+```
 
 근데 여기에서 당장 아파치는 필요하지 않아서 php8.0-fpm으로 설치함
 PHP-FPM (“fastCGI process manager”)

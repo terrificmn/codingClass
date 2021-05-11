@@ -18,7 +18,4 @@ Falling Edge
 
 ```c++
 
-
-
-
 ```

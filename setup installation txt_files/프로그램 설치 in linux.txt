@@ -82,7 +82,7 @@ $sudo systemctl restart httpd
 
 _____________________________________________________________________________________________________
 _____________________________________________________________________________________________________
-mariadb 설치 (3.10.3-27 버전 /2021년 2월 13일 확인)
+mariadb 설치 (10.3.10.3-27 버전 /2021년 2월 13일 확인)
 <쉽게 설치 버전>
   $ dnf install mariadb-server
 or (권한 필요시)
@@ -90,6 +90,11 @@ or (권한 필요시)
 
 참고:
 https://fedoraproject.org/wiki/MariaDB
+
+
+raspberry pi에서는 그냥 sudo apt로 설치하자. 
+버전도 10.3 이다. 이게 속편하다. 
+아래의 공식사이트에는 debian은 있지만 10 buster인가 있는데 raspbian버전을 못찾는 거 같다
 
 ------------------------------
 centOS repo는 보수적으로 안정적으로 접근하기 때문에 최신버전은 없음
@@ -1052,6 +1057,11 @@ install python on linux CentOs8 (최신버전 source파일로 받아서 설치�
   $sudo yum -y groupinstall "Development Tools"
   $sudo yum -y install openssl-devel bzip2-devel libffi-devel
 
+라즈베리파이에 필요한 패키지들
+```
+sudo apt-get install -y build-essential tk-dev libncurses5-dev libncursesw5-dev libreadline6-dev libdb5.3-dev libgdbm-dev libsqlite3-dev libssl-dev libbz2-dev libexpat1-dev liblzma-dev zlib1g-dev libffi-dev
+```
+
 python 사이트에서 최신 버전 다운로드 (tar 압축파일로 받으면 됨)
 다운로드 디렉토리에서 압축 풀기
   $tar -xvf Python-파일명.tar
@@ -1109,7 +1119,9 @@ make 한 후 이렇게 나옴 (추후 알아봐야할 듯)
   WARNING: The script pip3.9 is installed in '/usr/local/bin' which is not on PATH.
   Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
 
-
+alias 만들어 주기 
+리다이렉트로 넣어주기 또는 vi로 열어서 넣어준다
+echo "alias python=/usr/local/bin/python3.8" >> ~/.bashrc
 _____________________________________________________________________________________________________
 _____________________________________________________________________________________________________
 git 설치하기 (*쉽게)
@@ -1289,6 +1301,8 @@ dbeaver &
 dbeaver 도 되서
 & 붙이면 어떻게 실행되는지는 안해봄
 
+라즈베리파이는 32비트여서.. 호환이 안됨 설치불가;;
+phpmyadmin으로 설치하 (다른것 찾아봐야할 듯..)
 
 _____________________________________________________________________________________________________
 phpmyadmin 설치
@@ -1366,6 +1380,8 @@ temp 안만들면 어떻게 되나 봤더니, warning 메세지!
 
 $sudo vim /etc/httpd/conf.d/phpmyadmin.conf
 
+우분투/라즈베리파이  sudo vim /etc/apache2/conf-available/phpmyadmin.conf 여기에 만든다
+
 아래내용을 copy & paste
 ```
 # Apache configuration for phpMyAdmin
@@ -1409,6 +1425,10 @@ $ sudo apachectl configtest
 
 그리고 httpd 재시작
 $sudo systemctl restart httpd
+
+sudo systemctl restart apache2
+데비안 계열
+
 
 마지막 중요한 SELinux 설정
 이거 무시했다가 계속 에러가 남
