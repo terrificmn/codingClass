@@ -1321,6 +1321,12 @@ tmp 디렉토리 만들어주기
 $sudo mkdir -p /var/lib/phpmyadmin/tmp
 $sudo chown -R apache:apache /var/lib/phpmyadmin
 
+데비안계열 (우분투, 라즈베리파이)
+유저와 그룹명이 apache가 아니고 www-data:www-data 로 조금 다르다
+```
+$sudo chown -R www-data:www-data /var/lib/phpmyadmin
+```
+
 어떤 블로그에는  /usr/share/phpmyadmin/tmp 로 만드는 방법도 있던데
 딱히 경로는 중요하지 않은것 같다.. 나중에 한번 지워보고 어떻게 되나 해봐야겠다
 
