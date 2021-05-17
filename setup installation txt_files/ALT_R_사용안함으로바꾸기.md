@@ -1,3 +1,5 @@
+# 간략하게 포스팅할 수 는 있으나  ALT_R_ 키맵핑2.md 파일 참고하기
+
 키보드를 바꿨는데 여기에는 한영키 자체가 없고 오른쪽 ALT로 같이 사용하게 되어 있음  
 그런데 제조사에는 오른쪽 alt키는 사용안되고 한글키로만 사용되는 것이라고 설명되어 있었으나 역시나 리눅스에서는 안 먹힌다.
 
@@ -46,8 +48,8 @@ mod5        ISO_Level3_Shift (0x5c),  Mode_switch (0xcb)
 
 본론으로 들어가서 다음은 키 맵핑을 하기
 ```
-$ xmodmap -e 'remove mod1 = Alt_R'
-$ xmodmap -e 'keycode 108 = Hangul'
+$ xmodmap -e "remove mod1 = Alt_R"
+$ xmodmap -e "keycode 108 = Hangul"
 $ xmodmap -pke > ~/.Xmodmap
 ```
 -e가 실행모드인데, 먼저 오른쪽 Alt_R 모드를 지우는 실행
@@ -67,7 +69,7 @@ mod1        Alt_L (0x40),  Meta_L (0xcd)
 
 Alt_R이 사라져있다. 한영키는 보이지 않지만, 
 ~ 디렉토리로 이동해서 .Xmodmap 파일을 열어보면
-`keycode 108 = Hangul NoSymbol Hangul`
+"keycode 108 = Hangul NoSymbol Hangul"
 요렇게 등록이 되어 있어서 작동을 하는 것 같다
 
 어쨋든 쓸때 없이 여기저기 봤는데,...;;
@@ -80,7 +82,7 @@ $ vi .bashrc
 ```
 파일이 열리면 아래코드를 입력 후 저장 :wq
 ```
-xmodmap -e 'keycode 108 = Hangul'
+xmodmap -e "keycode 108 = Hangul"
 xmodmap -pke > ~/.Xmodmap
 ```
 그리고 
@@ -92,6 +94,40 @@ source .bashrc
 참고로..
 Alt_R' 은 이미 제거가 되서 그런지 몰라도 .bashrc 파일에 넣으면 재부팅시에
 에러가 나면서 안됨. 그래서 넣을 필요는 없는듯..
+
+
+---새로운 에러 발생
+
+may 15 2021- centos 8 stream에서는 이런경우가 없었는데
+centos 8 에서는 이런현상이 생김- 
+사용을 안해서 로그아웃(?)이 되는 경우 다시 로그인을 해서 들어오면 
+.bashrc 파일이 실행이 되지 않는다. 그래서 한글키가 다시 안먹는 현상이 발생
+(.bashrc) 파일은 non-login 일 때 실행이 되어서
+즉, 셀을 열었을 때 실행이 된다. 터미널 하나만 열어주면 바로 한글키가 (alt)가 작동한다.
+
+.bashrc 파일을 쉘 터미널을 열어야지 작동을 한다. 아주간단하게 터미널 하나만 새로 열어주면 
+자동실행이 되면서 한글이 또 변환이 된다.
+
+하지만 셀을 열어야 되서 불편하다. 그래서 
+로그인 될 때 작동하는 .bash_profile 에 xmodmap 코드를 넣어봤는데 이것도 소용이 없다.
+.bash_profile은 터미널에 로그인할 때 사용되서 ssh를 해서 로그인 (터미널 사용), 
+또는 다른계정으로 터미널에 로그인을 할 때에만 작동하는 것 같다..
+
+그래서 그래픽컬 로그인에는 작동을 안하는 듯함
+
+~/.profile 이 있으면 GUI에서 로그인을 할 떄 읽는다고 하는데, 소용이 없다
+/etc/X11/xinit/xinitrc-common 파일이 X11이 시작될 때 사용되는 파일이라고 하는데
+
+로그아웃이 되어서 (자동 시간 지나서 절전모드 처럼 로그아웃되면) 다시 들어오면
+Xmodmap이 초기화 되어 있는거 같다. xmodmap을 실행해보면
+mod1        Alt_L (0x40),  Alt_R (0x6c),  Meta_L (0xcd)
+
+원래는 Alt_R 대신에 한글변환이 들어가 있어야하는데;; 암튼 버그 인지 뭔지;;
+Wayland 디스플레이 서버를 바꿔도 똑같다. 소용없다
+현재 해결책은:
+어쨌든 그냥 터미널 하나만 열어주면 바로 한글키 사용가능하다. .bashrc가 실행이 되서
+기존에 열려있는것을 필요없고 무조건 새로 하나 열자;;;
+
 
 참고블로그
 https://velog.io/@unihit/ubuntu%EC%97%90%EC%84%9C-vscode-%ED%95%9C%EC%98%81%ED%82%A4%EB%A1%9C-%EB%B3%80%ED%99%98%EC%9D%B4-%EB%90%98%EC%A7%80-%EC%95%8A%EC%9D%84-%EB%95%8C

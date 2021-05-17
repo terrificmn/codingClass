@@ -74,7 +74,7 @@ services:
   artisan:
     build:
       context: .
-        dockerfile: Dockerfile
+      dockerfile: Dockerfile
     container_name: artisan
     volumes:
       - ./app:/var/www/html

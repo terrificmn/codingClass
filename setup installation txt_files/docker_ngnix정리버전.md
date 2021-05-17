@@ -8,9 +8,10 @@ ngix의 ports  8000 이나 80으로 설정
 
 # 처음 라라벨 프로젝트를 도커로 진행할 시에 아래처럼 할 것!
 
-디렉토리는 app 으로 연결함, 즉 app 디렉토리도 만들어 주기
+디렉토리는 app 으로 연결함, 즉 app 디렉토리도 만들어 주기 (src 디렉토리로 변경: may 2021)
 Dockerfile은 최상단 경로에 복사해 만들어 놓으면 됨
 
+(서버에 배포한 내용은 much-better버전 (npm, artisan 포함) )
 nginx설정파일도 만들어 줘야함 default.conf로 최상위디렉토리에 만들어 주고
 설정 파일내용은 그냥 php와 라라벨용이 있으니 먼저
 라라벨이 설치가 안되어 있으면 라라벨용으로 docker-compose up 하면 웹서버 작동안함
@@ -29,9 +30,9 @@ phpmyadmin은 localhost:8080 를 브라우저에 쳐본다
 그냥 php일때는 app/public/index.php 로 테스트
 라라벨로 할때는 app 이 라라벨프로젝트 자체이면 됨
 
+완전 처음 프로젝트 만들 때 아래 처럼 사용
 즉, 잘 되는 거 확인했으면 이제 app 디렉토리를 지우고 프로젝트의 루트 디렉토리에서
 app으로 라라벨 new 프로젝트를 생성
-아예 첫 프로젝트를 진행할 때만 아래처럼 진행할 것~ 이미 있는 프로젝트이면 깃허브 clone하자
 ```
 $ laravel new app
 ```
@@ -44,7 +45,7 @@ php artisan 명령어를 사용하려면 docker-comopser exec 로 명령을 내�
 docker-compose exec php php /var/www/html/artisan migrate
 
 
-# git clone 으로 다운받아서 진행
+# 이미 있는 프로젝트이면 깃허브 clone하자, git clone 으로 다운
 일단 docker-* 로 만들어진 디렉토리에서 깃 클론으로 다운받기
 ```shell
 $git clone 내github_리포지터리.git
@@ -55,7 +56,7 @@ $git clone 내github_리포지터리.git
 $rm -rf app
 ```
 
-이제 git 리포지터리 이름으로 다운이 되어 있을 텐데 app으로 바꿔주던가 
+이제 git 리포지터리 이름으로 다운이 되어 있을 텐데 app으로 바꿔주던가  (src 디렉토리로 변경함 may 2021)
 docker-compose.yml파일의 디렉토리 설정을 바꿀지 결정- 그냥 프로젝트를 app 변경함
 
 ```shell
@@ -88,12 +89,60 @@ docker-compose run -rm npm install 이런식으로..
 **blog프로젝트 시작 composer_frontend.md** 파일을 참고한다
 
 
-
+빌드시;;
 ERROR: The Compose file './docker-compose.yml' is invalid because:
 services.php.build.context contains null, which is an invalid type, it should be a string
 일때에는 
 docker-compose 파일에 띄어쓰기나 들여쓰기를 확인해야한다. 또는 빠져있는 것이 없는지 확인
 . 을 빼먹음
+
+
+.env 파일을 복사해서 만든다. vscode에서 만들던가 cli로
+```
+cp .env.example .env
+```
+그 다음에 docker-compose.yml 파일에서 mysql에 적어줬던 비번을 넣어 준다. 
+중요! 최초빌드할 때 비번과 데이터베이스는 넣어줘야한다. 그냥 예시로 아무거나 넣어주면 그대로 만들어지고,,
+새로운 비번, 데이터베이스를 넣어서 다시 빌드해도 만들어지지는 않는다. 아마도 컨테이너에 직접 접근해서 만들던가 해야할 듯
+
+
+그 다음에 localhost:8000 으로 접근
+```
+Your app key is missing
+
+Generate your application encryption key using php artisan key:generate.
+```
+그리고 Generate App Key 버튼이 있는데 누르면 만들어 지지만...보통 만들어졌던거 같은데;;;
+안만들어진다.. 그러면 ctrl+c로 docker를 종료시키고 
+직접 컨테이너로 실행해서 키를 생성
+```
+docker-compose run --rm artisan key:generate
+```
+이왕 한거 migrate도 해준다.
+```
+docker-compose run --rm artisan migrate
+```
+
+다시 docker-compose up
+
+이제 다시 새로고침을 하면 페이지가 정상적으로 보일 것이다..
+대신에 홈페이지부분이 npm설치에 영향을 받아서 약간 이상하게 되어 있다...
+
+깃허브로 받았던 프로젝트 소스코드가 최신임이므로 src 디렉토리로 이동해서 
+그리고 gitignore등에 포함된 파일도 아니므로, 다 원래로 돌려주면 된다.
+
+git status를 한 후 
+```
+git checkout -- routes/web.php 
+```
+이런식으로 파일을 다 취소시켜준다. (한 6개 파일정도 되었던 것 같음)
+
+그리고 나서 다시 새로고침을 해보면
+최신버전으로 페이지가 바뀌어 있음! 굿!
+
+
+트러블슈팅:
+처음에 localhost:8000으로 접근했을 때 아무런 화면이 나오지 않는다면 env 파일을 만들었는지 확인할 것
 
 
 이제 localhost:8000으로 접근을 하면 아마도 라라벨 키를 만들어야 한다고 나올 것임 키 생성 눌러주면 됨
