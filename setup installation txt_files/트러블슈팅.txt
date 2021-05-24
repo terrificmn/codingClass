@@ -844,7 +844,14 @@ sudo  yum install docker-ce docker-ce-cli containerd.io
 _____________________________________________________________________________________________________
 데비안 계열에서 라즈베리파이 에서 오류 - mariadb (mysql) 로그인시 접근 거부
 
-마리아 dB를 설치하고 installation 셋업도 끝났는데
+설치를 마치고 mysql_secure_installation을 해주면 root 권한 및 첫 보안 설정을 해 줄 수가 있다.
+```
+mysql_secure_installation
+```
+우분투나 CentOS에서는 그렇게만 해주면 설정은 끝이였는데  
+첫 셋팅을 해주었음에도  
+라즈베리파이에서는 root로 로그인할 때 비번을 넣고 로그인을 하면 접근에러가 난다.  
+
 root (mysql)로 로그인 하려고 하면 에러발생
 ```
 $mariadb -u root -p

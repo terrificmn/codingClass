@@ -52,17 +52,13 @@ In order to use PHP with MySQL or MariaDB database we need to install the follow
 	
 sudo apt install -y php8.0-mysql
 PHP integration with Apache
+딱히 안해도 문제가 없음
 
-
-아마 따로 설치하려고 해도 이미 apache2는 설치가 되는 듯 하다.
-
-If we want to integrate PHP with Apache HTTP server then install the following extension:
-1
-	
+apache2와 연동하려면 아래 설치  
+libapache2-mod-php8.0 모듈은 아파치2와 연동. 이게 없으면 웹서버에서 php페이지가 제대로 안나오게 된다
+```
 sudo apt install -y libapache2-mod-php8.0
-
-Once installation was completed restart Apache.
-1
-	
+```
+```
 sudo service apache2 restart
-
+```
