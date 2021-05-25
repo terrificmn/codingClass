@@ -1650,6 +1650,15 @@ Nginx HTTPS
 ```
 $sudo ufw allow 'Nginx HTTP'
 ```
+
+참고, http 또는 80 식으로 허용해줄 수 있다
+```
+$sudo ufw allow 80
+$sudo ufw allow http
+```
+그리고 처음에 ufw를 enable 시키면 ssh가 방화벽에 막힐 수 있으므로 ssh를 사용하는 경우면
+ssh를 확인 후 열어주자
+
 상태확인
 ```
 $sudo ufw status
@@ -1901,4 +1910,24 @@ sudo yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noa
 sudo yum install https://download1.rpmfusion.org/free/el/rpmfusion-free-release-8.noarch.rpm
 sudo yum install vlc
 ```
+
+
+_____________________________________________________________________________________________________
+우분투 dd로 설치 usb 굽기
+
+먼저 usb를 연결한 후 
+```
+$lsblk -p
+```
+로 usb장치를 확인해준다. 중요 /dev/sd(X) 숫자제외는 제외한다
+
+위에서는 라즈베리파이에서 해서 /dev/sda로 잡혔고, 데스크탑이라면 아마도 /dev/sda는 하드디스크 일 것이므로 
+usb장치를 잘 결정해준다. 주의!!! 장치 디렉토리를 잘 못 지정해주면 다른 하디디스크 등의 내용이 지워질 수 있으므로 
+조심할 것!
+
+```
+sudo dd if=./ubuntu-20.04.2.0-desktop-amd64.iso of=/dev/sda bs=1M status=progress
+```
+
+
 

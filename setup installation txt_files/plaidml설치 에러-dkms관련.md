@@ -46,8 +46,9 @@ CentOS 8의 지원 중단 -> 올해까지 2021년 말까지만 지원을 하고 
 ```shell
 $ su -
 #비번 입력 후 
-# dd if=./CentOS-8.3.2011-x86_64-dvd1.iso of=/dev/sdd
+# dd if=./CentOS-8.3.2011-x86_64-dvd1.iso of=/dev/sdd status=progress
 ```
+
 
 그리고 리눅스 배포판 운영체제를 설치하면   
 처음으로 해야할 것은 업데이트 
