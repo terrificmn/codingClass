@@ -106,7 +106,7 @@ dd의 파라미터
 이제 압축이 풀린 디렉토리로 이동 후 아래와 같이 입력
 ```shell
 cd ~/Downloads/raspberry
-sudo dd if=2021-03-04-raspios-buster-armhf-full.img of=dev/sdd bs=4M conv=fsync status=progress
+sudo dd if=2021-03-04-raspios-buster-armhf-full.img of=/dev/sdd bs=4M conv=fsync status=progress
 ```
 status파라미터는 꼭 넣어주자, 안 쓰게 되면 아무런 표시가 안되서 답답할 수 있다.  
 시간이 꽤 걸리므로 같이 입력하는 것을 추천!
