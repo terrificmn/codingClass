@@ -76,6 +76,35 @@ $cd ~/Projects/docker-wordpress/src
 $sudo chown -R www-data:www-data wordpress
 ```
 
-만약 docker-compose build를 했을 때 mysql 관련해서 build failed 되면
+만약 docker-compose build를 했을 때 mysql 관련해서 build failed 되면  
 [여기를 참고하세요 - 보러가기](/blog/)
+
+<br>
+
+# docker 시작 시키기
+아래와 같은 에러가 발생 시 docker가 실행 중인지 확인해 보세요
+```
+Traceback (most recent call last):
+  File "urllib3/connectionpool.py", line 677, in urlopen
+  File "urllib3/connectionpool.py", line 392, in _make_request
+  File "http/client.py", line 1277, in request
+  File "http/client.py", line 1323, in _send_request
+  File "http/client.py", line 1272, in endheaders
+  File "http/client.py", line 1032, in _send_output
+  File "http/client.py", line 972, in send
+  File "docker/transport/unixconn.py", line 43, in connect
+FileNotFoundError: [Errno 2] No such file or directory
+
+During handling of the above exception, another exception occurred:
+```
+
+상태 체크하기
+```
+systemctl status docker
+```
+inactive (dead) 상태라면 바로 시작을 해주세요
+
+```
+systemctl start docker
+```
 
