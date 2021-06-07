@@ -17,12 +17,18 @@ $ sudo yum install -y yum-utils
     lsb-release
 ```
 
-우분투
+우분투 공식 GPG 키 추가
+```
+ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+```
+
+우분투 x86_64 / amd64
 리포지터리 추가
+```
 echo \
   "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-
+```
 
 
 리포지터리 추가 
@@ -68,8 +74,9 @@ sudo systemctl start docker
 여기는 공통!!
 docker-compose를 설치하기   (여기는 centos/ubuntu 같은 듯)
 먼저 binaries 다운받기
+```
 sudo curl -L "https://github.com/docker/compose/releases/download/1.28.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-
+```
 
 그 다음 퍼미션 실행가능하게 만들기
 sudo chmod +x /usr/local/bin/docker-compose
@@ -99,10 +106,10 @@ https://docs.docker.com/engine/install/centos/
 
 옵션사항
 docker 그룹 추가 및 현 사용자 도커 그룹에 추가
-
+```
 sudo groupadd docker
 sudo usermod -aG docker $USER
-
+```
 아마도 도커 그룹은 있다고 할 것..
 
 newgrp docker 
