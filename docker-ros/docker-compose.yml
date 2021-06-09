@@ -6,3 +6,12 @@ services:
     build: 
       context: .  # 현재 디렉토리
       dockerfile: Dockerfile  
+
+
+#테스트용
+      #  environment:
+      #   - DISPLAY=unix$DISPLAY
+      #   - QT_X11_NO_MITSHM=1
+      #   devices:
+      #   - "/dev/dri:/dev/dri"
+      #   privileged: true
