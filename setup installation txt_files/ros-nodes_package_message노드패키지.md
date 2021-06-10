@@ -25,7 +25,7 @@
 이 둘은 서로 통신을 할 수 가 있는데 이때  
 topics, services, 그리고 actions을 통해서 통신을 하게 된다
 
-[ROS Topics, Services, Actions 대해서 보러 가기](/blog/)
+[ROS Topics, Services, Actions 대해서 보러 가기](/blog/ROS-topics-services-and-actions-에-대해서-알아보자)  
 
 그리고 서로 다른 패키지에 있는 노드와도 통신을 하게 된다.   
 (참고: 노드는 같은 이름을 가질 수 없다)
