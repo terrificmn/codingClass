@@ -1,5 +1,8 @@
+####  테스트 중
 # 이 부분은 테스트 해보기 # windows10 에서 안됨 - 더 테스트 해봐야할 듯
 FROM ros:melodic-ros-core-bionic
+
+#FROM ros:melodic  //다음에는 이걸로!!!!!! 위에 지우자
 
 RUN apt-get update && apt-get install -y \
     ros-melodic-desktop-full
@@ -27,7 +30,49 @@ RUN rosdep init && \
 
 ## http://wiki.ros.org/docker/Tutorials/Hardware%20Acceleration
 
-# 사용 예
+
+#이제 실행은 아래처럼만 하면 됨
+#현재 catkin_ws 연결이 되어 있는 상태
+# 다만 docker-compose에서는 아직 실행이 잘 안되서 연결이 안됨 주의
+
+# 그냥 실행 잘됨
+# docker run \
+#     -it \
+#     -v ./catkin_ws:/root/catkin_ws \
+#     -v ~/.ssh:/root/.ssh \
+#     --network host \
+#     --env ROS_MASTER_URI=http://localhost:11311 \
+#     --name ros
+#     docker-ros_ros
+# 네임 겹침 주의
+
+
+# cli 한줄로 바꾼것 (위에 꺼를 )
+#docker run -it -v ~/Workspace/docker-ros/catkin_ws:/root/catkin_ws -v ~/.ssh:/root/.ssh --network host --env ROS_MASTER_URI=http://localhost:11311 docker-ros_ros
+# 이렇게 하면 컨테이너에 들어가 진다
+# volumn도 연결이 되어 있어서 로컬의 catkin_ws가 도커로 연결이 됨
+
+# 컨테이너로 들어가면 
+#source /opt/ros/melodic/setup.sh
+#해주고
+# 이제 /root/catkin_ws 로 가보면 (도커 컨테이너 안)
+# 로컬 호스트에 넣어두었던 파일이 보임
+
+#이제 작업은 작업은 로컬 호스트에서 해주면 된다
+# 뭔가 실행을 하려면 다시 컨테이너로 와서 
+
+# catkin_make 로 빌드하면 됨
+# 그리고 패키지를 인식하게 하려면 catkin_ws로 이동해서 source devel/setup.bash
+# 해준다
+# 이제 roscore rosrun 차례로 하면 됨
+
+
+# 들어가면 
+#  $source /opt/ros/melodic/setup.sh
+#  해주기
+
+
+# 로컬 GUI 사용 예 (아직까지는 실패)
 # docker run \
 #     --device=/dev/dri \
 #     --group-add video \
