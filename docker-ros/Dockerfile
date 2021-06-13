@@ -2,6 +2,8 @@
 # 이 부분은 테스트 해보기 # windows10 에서 안됨 - 더 테스트 해봐야할 듯
 FROM ros:melodic-ros-core-bionic
 
+# 또는 아예 desktop풀이미지 FROM osrf/ros:noetic-desktop-full 로 받기
+
 #FROM ros:melodic  //다음에는 이걸로!!!!!! 위에 지우자
 
 RUN apt-get update && apt-get install -y \
@@ -22,11 +24,15 @@ RUN apt-get update && \
   apt-get -y install libgl1-mesa-glx libgl1-mesa-dri && \
   rm -rf /var/lib/apt/lists/*
 
-ENV ROS_DISTRO melodic
+# rsodep 최초실행  init 및 update만 하면 sudo 로 하라는 에러발생
+RUN rosdep init \
+  && rosdep update \
+  && rosdep fix-permissions
 
-# rsodep 최초실행
-RUN rosdep init && \
-  rosdep update --rosdistro $ROS_DISTRO
+#RUN echo 'source /opt/ros/$ROS_DISTRO/setup.bash' >> /root/.bashrc
+
+# RUN echo "source /root/catkin_ws/devel/setup.bash" >> /root/.bashrc
+#CMD ["/bin/bash", "-c", "source /opt/ros/$ROS_DISTRO/setup.bash && roscore"]
 
 ## http://wiki.ros.org/docker/Tutorials/Hardware%20Acceleration
 
