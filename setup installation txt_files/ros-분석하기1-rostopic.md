@@ -63,17 +63,50 @@ $ rostopic list
 ```
 
 토픽이 **/yh_topic**이라고 나온다.   
-이제 토픽을 받아서 테스트를 해볼 수 있다, 이럴 때 사용하는 것이 echo 이다
 
-echo로 테스트 해보기
+토픽의 정보를 확인해보자
+```
+$ rostopic info /yh_topic
+```
+결과는 아래 처럼 나온다
+```
+Type: yh_tutorial/yh_msg_tutorial
+
+Publishers: 
+ * /pub_test (http://f61579209fde:46157/)
+
+Subscribers: None
+```
+
+먼저 rosrun으로 노드 실행을 시켰던 것은 Publisher 인 것을 알 수가 있고   
+토픽 yh_topic는 type부분에서 yh_toturial 패키지의 msg 디렉토리의 yh_msg_tutorial을 사용한다는 것을 알 수가 있다
+
+이번에는 직접 토픽을 이용해서 subscriber 처럼 내용을 직접 받아 볼 수 있다  
+바로 **echo** 인데, 해보면 yh_topic에서 퍼블리싱되는 내용을 받아준다
+
+rostopic echo로 테스트 해보기
 ```
 $ rostopic echo /yh_topic
 ```
+내용은 이렇다
+```
+생략...
+---
+stamp: 
+  secs: 1623701264
+  nsecs: 827808734
+data: 153
+---
+stamp: 
+  secs: 1623701264
+  nsecs: 927906854
+data: 154
+---
+```
 
-을 해보면 yh_topic에서 퍼블리싱되는 내용을 받아준다
+stamp와 data 변수 사용을 하고 있는 것을 알 수 있다    
+stamp에서 secs, nsecs 부분이 나오는 것을 봐서 time 데이터 인것을 유추할 수 있다  
 
-echo를 해서 topic에서 stamp와 data 변수 사용을 하고 있는 것을 알 수 있다  
-pub_test에서 퍼블리싱되는 내용을 subscribe해서 출력해준다
 
 
 <img src=0>
