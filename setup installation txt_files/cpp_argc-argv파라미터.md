@@ -10,7 +10,8 @@ int main (int argc, char** argv) {
 argc는 몇 개를 입력 받음을 숫자로 알 수가 있고,
 argv는 문자열로 입력된 값을 받는다   
 
-이를 명령줄 인수라고 부른다. rosrun을 명령을 할 때 인수를 넘긴다고 해서 그렇게 부르는 듯하다
+이를 명령줄 인수라고 부른다. 또는 명령어 옵션이라고도 한다   
+rosrun을 명령을 할 때 인수를 넘긴다고 해서 그렇게 부르는 듯하다. 
 
 ros에서 노드 실행은 rosrun [패키지명] [노드명] 으로 하는데
 
@@ -35,7 +36,7 @@ int main (int argc, char** argv) {
 > 먼저 패키지를 만들어야하고, CMakeLists.txt 파일과 catkin_make로 빌드를 해줘야한다
 
 
-[ros 패키지 만들기](/tag/catkin_create_pkg)
+[ros 패키지 만들기 튜토리얼 보러가기](/tag/catkin_create_pkg)
 
 이제 실행을 해보자. 예를 들어서 이런식으로 만들었다고 하면 (rosrun 패키지명 노드명)
 ```
@@ -43,13 +44,13 @@ $ rosrun main_test main_test_param
 ```
 
 노드명까지 제대로 입력이 되었으면 argc는 int로 몇개가 인수로 입력이 되었는지를 받는데
-위 처럼 하면 결과는 
+위 처럼 하면 결과는
 ```
 1
 ```
 이라고 나온다
 
-일단 기본값이 1 이라는 것을 알 수 있다
+일단 기본값이 **1** 이라는 것을 알 수 있다.
 
 이번에는 아규먼트(인수) 값을 넘겨보자
 
@@ -75,7 +76,7 @@ $ rosrun main_test main_test_param 10
 2
 ```
 그래서 만약에 노드에서 뭔가 파라미터를 받아서 처리해야한다고 할 때면   
-그 수를 **+1** 을 해서 생각을 해주면 된다
+그 수를 **+1** 을 해서 생각을 해주면 된다.
 
 이번에는 2개를 넘겨보자
 ```
@@ -179,9 +180,6 @@ $ rosrun main_test main_test_param 10
 이제 이를 응용해서 atoll 이라는 함수를 사용해서 서비스 클라이언트를 만들 때
 각각 변수에 저장을 해줄 수가 있다. 
 
-> atoll 함수는 매개변수로 받은 값을 처리할 때 사용하는 함수이며 
-인쿠르드를 시켜서 사용한다
-
 그래서 이를 사용한 예는
 ```cpp
 // atoll을 사용하려면 인쿠르드해야함
@@ -191,23 +189,29 @@ $ rosrun main_test main_test_param 10
  srv.request.a = atoll(argv[1]);  //argv로 들어온 값을 문자열로 받아짐 // request.a 에 저장
  srv.request.b = atoll(argv[2]);
 ```
+주석에 설명되어 있듯이 cstdlib를 사용해서 atoll() 함수를 사용할 수 있고
+argv로 들어온 것을 atoll()함수를 사용해서 long int 형으로 변환해주는 역할을 한다
 
-입력받은 인수를 argv로 받아서 정확하게 형 변환해줄려면
-stod() 함수를 사용할 수 있다
+> service의 srv파일이 int64로 되어 있어서 그렇다 
+
 
 만약 파라미터가 int가 아닌 double로 선언되어 있다면 
-소수점으로 입력을 하더라도 문자열로 받아진다  
-그래서 stod()함수를 이용하면 문자열로 받은 값을 double형으로 바꿀 수가 있다
+소수점으로 입력을 하더라도 이것도 마찬가지로 문자열로 받아진다    
+이번에는 stod() 함수를 사용할 수 있다. 문자열로 받은 값을 double형으로 바꿀 수가 있다
 
 ```cpp
 double param1 = std::stod(argv[1]);
 ```
+<br/>
 
-이와 비슷한 함수로는   
+이와 비슷한 문자열 변환 함수는 아래의 함수를 사용하면 된다
+
+
 | 함수 | 내용 |
 | -- | -- |
 | std::stof()  | 문자열을 float형으로 변환  |
-|std::stold() | 문자열을 longdouble형으로 변환  |
-|std::stoi() | 문자열을 int형으로 변환  |
+| std::stold() | 문자열을 longdouble형으로 변환  |
+| std::stoi() | 문자열을 int형으로 변환  |
+
 
 끝!
