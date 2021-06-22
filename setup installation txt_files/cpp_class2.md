@@ -89,30 +89,27 @@ class Employee {
 private :
     string Name;
     string Company;
-    int Age;
+    int Year;
 
 public:
     //method
     void Intorduce() {
         std::cout << "Hello my name is " << Name << std::endl;
-        std::cout << "I am " << Age << " year old" << std::endl;
-        std::cout << "I work for " << Company << std::endl;
+        std::cout << "I work for " << Company << "from " << Year << std::endl;
     }
 
     //constructor
-    Employee (string name, string company, int age) {
+    Employee (string name, string company, int year) {
         Name = name;
         Company = company;
-        Age = age;
+        Year = year;
     }
-
-    
 
 };  //class는 ; (세미콜론으로 닫아줘야한다)
 
 int main () {
     // 클래스로 오브젝트 만들기
-    Employee Anyone("Seongmin", "yh", 30);
+    Employee Anyone("John", "yh", 30);
     
     // 메소드 호출
     //Anyone.Intorduce();
@@ -146,7 +143,7 @@ int main () {
         return Age;
     }
 
-     Anyone.setName("Kim");
+    Anyone.setName("Kim");
     std::cout << Anyone.getName() << std::endl;
     Anyone.setCompany("Google");
     std::cout << Anyone.getCompany() << std::endl;
@@ -156,4 +153,6 @@ int main () {
 
 위의 코드처럼 바뀌게 되면 이제 외부에서 접근을 할 수 없지만 메소드를 통해서 
 클래스의 속성들 (Name, Company, Age)을 바꿔줄 수 있고, 그 값을 받는 것을 메소드를 통해서 가능하게 해준다
+
+
 
