@@ -58,6 +58,21 @@ tailwindcss를 매번 사용할 때마다 컴파일해서 사용하게 해줌
 npm run watch
 (도커버전)docker-compose run --rm npm run watch
 
+
+
+23Jun 2021 추가사항
+```
+found 21 vulnerabilities (20 moderate, 1 high)
+  run `npm audit fix` to fix them, or `npm audit` for details
+```
+아마도 npm 버전이 달라서 그럴 수도 있는데 그럴 경우에 
+```
+docker-compose run --rm npm audit fix
+```
+을 해준다음에 npm run watch를 해줌
+
+
+
 ----------------
 webpack compiled successfully 이렇게 나오면 끝
 
@@ -84,7 +99,93 @@ laravelblog db이름
 --> 충돌이 나기때문에 push는 안하고 로컬에서 파일을 수정하고 push하고 서버에서는 pull만 한다
 05apr 2021
 
+---> 해결방안은 git으로 다 취소시킨다
+예를 들어서 git status를 하면
+```
+	modified:   composer.lock
+	modified:   package-lock.json
+	modified:   package.json
+	modified:   public/css/app.css
+	modified:   resources/css/app.css
+	modified:   resources/views/auth/register.blade.php
+	modified:   resources/views/layouts/app.blade.php
+	modified:   routes/web.ph
+```
+이렇게 나오는데 
 
+git checkout -- file명 으로 취소시켜주면된다. 방금 git pull myblog main을 받았다면 
+최신버전이므로 다 취소시킨다
+(변경된 이유는 npm등을 설치해줬기 때문에.. npm 패키지등은 git에 추가가 안되어 있기에 따로 설치를 해야함)
+
+
+아마도 처음에 docker-compose up을 실행시킨 후 
+localhost:8000 을 접속을 시도하면 
+
+퍼미션 에러가 발생
+우분투 기준
+ sudo chown -R ubun:www-data src/
+로 바꿔주면 퍼미션은 해결
+
+그리고 나서 다시 또 새로고침하면 키를 만들라고 함
+라라벨 페이지상에서 generate Key를 누르면 생성이 됨
+
+그리고 나서 새로고침을 하면 아무생각없이 하면 계속 에러가 발생함 ㅋㅋ
+SQLSTATE[HY000] [2002] Connection refused (SQL: select * from `posts` order by `id` desc limit 1) 
+
+당연히 migrate가 안되어 있기 때문에 에러 발생
+
+docker-compose run --rm artisan migrate
+
+이후에 localhost:8080에 접속하면 
+ mysqli::real_connect(): (HY000/1045): Access denied for user 'blogroot'@'172.18.0.6' (using password: YES)
+ 이런에러가 발생
+
+ env파일을 다시 수정해줘야한다
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+
+이 부분의 DB_HOST 부분은 mysql로 바꿔준다. 즉 도커컨테이너로 연결해주는 것임
+DB_HOST=mysql
+
+이렇게 한 후 아이디와 비번을 잘 적어준다 (env 파일에서 Dockerfile 에서 만든 것으로 참고)
+root 아이디와 일반 유저랑 다르므로 잘 적어주면 된다
+
+이제 새로고침을 하면 
+```
+ A table was not found
+
+You might have forgotten to run your migrations. You can run your migrations using php artisan migrate.
+
+Pressing the button below will try to run your migrations.
+```
+버튼을 눌러도 될 것 같지만 그냥 migrate를 해준다
+
+이제 사용을 하면 되는데 포스팅 한게 없어서 updated_at 컬럼 내용이 없어서 에러가 발생
+에러예외처리를 해놔야할 듯하다
+localhost/home 으로 이동하고
+잠깐 회원가입을 막아놓은것을 잠깐 푼다음에 회원가입하고 다시 ctrl+z 해주면 깃에 영향 없이 깔끔하다
+
+그리고 storage 심볼릭 링크를 만들어 준다
+docker-compose run --rm artisan storage:link
+
+이러면 초기셋팅은 거의 끝~
+이제 다시 작업을 하면 된다
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------
 
 
 
@@ -131,3 +232,4 @@ RouteServiceProvide::HOME을 리다이렉트하고 있는데
 
 app/Providers/RouteServiceProvider.php 에서 
 public const HOME = '/home'; 이라고 정해져있어서 home 지우고 '/' 만 남기면 됨
+larablog89MD
