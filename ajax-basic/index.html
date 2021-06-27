@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ajax test</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous">
+    </script> -->
+
+    <script>
+        // 작동을 하게 하게 하려면 jquery를 받아야하는데 CDN으로 사용할 수 있다 
+        // jquery.com 으로 들어가서 Download 부분에 들어가서 
+        // https://code.jquery.com/ 여기 부분 CDN으로 사용 버전이 많은데 minified 버전으로 카피해서 
+        // 붙여넣어준다
+
+
+        $(document).ready(function() {
+            $("#btn").click(function() {   // click()이벤트 //btn아이디를 가진 버튼을 누르면 작동하는데
+                $("#test").load("data.txt", {  //$는 셀렉터이고, id test를 셀렉트하면 load 하는 함수
+                    Name: "Gunther",   // load() 메소드의 첫 번째 아규먼트는 URL이 되고(파일), 두 번째 아규먼트는 get/post를 선택해줄 수 있음
+                    Lastname: "Kim"
+                } );   
+            });  
+        });
+    </script>
+</head>
+<body>
+    
+    <div id="test">
+        <p>This is the first contest!</p>
+    </div>
+
+    <button id="btn">Click to change</button>
+
+</body>
+</html>
