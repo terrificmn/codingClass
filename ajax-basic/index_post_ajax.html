@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ajax 2 test get/post</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+
+            $("input").keyup(function() { //keyup()은 input태그에서 입력을 하면 바로 작동
+                var name = $("input").val(); //name변수 선언하고 input의 value를 저장해준다
+                // post방식은 3개의 아규먼트가 있음, 첫번째 url, 두번째 post방식으로 넘겨줄 변수
+                // 3번째는 바뀌는 부분
+                $.post("sugeestions.php", {
+                    suggestions: name
+                }, function(data, status) {
+                    $("#test").html(data);
+                });
+            })
+
+        });
+    </script>
+</head>
+<body>
+    <input type="text" name="name">
+    <p id="test"></p>
+</body>
+</html>
