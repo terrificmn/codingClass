@@ -86,3 +86,81 @@ $ rosservice list
 ```
 
 
+topic중에 처음에 있는 쉬워 보이는 놈으로 하나 만들어 보기
+
+```
+rostopic info /camera/depth/camera_info
+```
+
+```
+Type: sensor_msgs/CameraInfo
+
+Publishers: 
+ * /camera/realsense2_camera_manager (http://ubun-sc:34955/)
+
+Subscribers: None
+```
+
+topic type을 넣어서 패키지 만들어보기
+
+cd ~/catkin_ws/src
+catkin_create_pkg intel_lidar_test std_msgs roscpp
+
+그리고 vscode열어서 
+src파일 작성
+
+
+소스파일의 topic의 type 확인 한 것대로 적어주고 
+
+subscribe를 한 후에 callback 함수 내에서 사용할 변수들을 알아본다
+
+```
+rosmsg show sensor_msgs/CameraInfo
+```
+
+
+먼저 잘 되는지만 확인해보자
+
+대충 소스코드
+
+```cpp
+#include <ros/ros.h>
+#include <sensor_msgs/CameraInfo.h>
+#include <iostream>
+
+
+void msgCallback(const sensor_msgs::CameraInfo::ConstPtr &msg) { 
+    std::cout << msg->distortion_model << std::endl;
+    std::cout << msg->height << std::endl;
+    std::cout << msg->width << std::endl;
+}
+
+
+int main (int argc, char** argv) {
+    ros::init(argc, argv, "intel_lidar_test");
+    ros::NodeHandle nh;
+
+    ros::Subscriber sub = nh.subscribe("/camera/depth/camera_info", 10, msgCallback);
+    ros::spin();
+
+    return 0;
+}
+```
+
+string distortion_model, height, width 만 찍어보기
+
+
+CMakelist.txt도 바꿔주고 
+
+시간관계상 생략
+
+그리고 
+rosrun 해보면 
+```
+plumb_bob
+240
+320
+
+```
+
+이렇게 잘 받아온다~
