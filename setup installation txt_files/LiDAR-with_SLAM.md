@@ -6,8 +6,55 @@ https://github.com/wh200720041/ssl_slam
 
 Prerequisites 을 다 설치한 후 
 그 중 Ceres Solver 설치는
-링크 눌러서 나온 맨첨에 나온 것을 다운로드 받은 후 (latest버전) 그리고 
+링크 눌러서 나온 맨첨에 나오는 latest stable release 버전을 다운 받은 후
 리눅스 부분에 가서 make 및 make install을 하면 됨
+
+의존성 해결
+```
+# CMake
+sudo apt-get install cmake
+# google-glog + gflags
+sudo apt-get install libgoogle-glog-dev libgflags-dev
+# BLAS & LAPACK
+sudo apt-get install libatlas-base-dev
+# Eigen3
+sudo apt-get install libeigen3-dev
+# SuiteSparse and CXSparse (optional)
+sudo apt-get install libsuitesparse-dev
+```
+
+설치 
+
+```
+tar zxf ceres-solver-2.0.0.tar.gz
+mkdir ceres-bin
+cd ceres-bin
+cmake ../ceres-solver-2.0.0
+make -j3
+make test
+# Optionally install Ceres, it can also be exported using CMake which
+# allows Ceres to be used without requiring installation, see the documentation
+# for the EXPORT_BUILD_DIR option for more information.
+sudo make install
+```
+
+
+## plc 다운도르
+404로 뜨면 아래에서 다운받는다
+https://pointclouds.org/downloads/
+
+또는 그냥 아래 커맨드 입력
+```
+sudo apt install libpcl-dev
+```
+## OctoMap 다운도르
+
+```
+sudo apt-get install ros-melodic-octomap*
+```
+
+## Trajectory visualization 
+sudo apt-get install ros-melodic-hector-trajectory-server
 
 
 rosbag 파일은 일단 받을 필요 없고
