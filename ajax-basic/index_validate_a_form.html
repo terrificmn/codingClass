@@ -1,0 +1,47 @@
+form이 있어야하고 action은 post로 해서 만들고 
+만약 form이 여러개이면 id를 만들어서 사용해서 jquery에서 알 수 있게 한다
+그리고 각 input 에서도 id를 사용한다
+
+제일 먼저 스크립트을 열어주고 jqeury를 열결해주고 
+스크립트를 짜준다
+
+실제로 테스트는 못해봄 php가 안깔려있어서 ㅋㅋ 
+귀찮아서 라라벨에다가 시도해볼려다가 잘 안될꺼 같아서 라라벨용으로 연구해봐야겠다 JuL 1 2021
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function() {
+        $("comment-form").submit(function(event) {
+            event.preventDefault(); //form action 을 diable 시킨다
+            var submit = $("#comment-submit").val();
+            // var name = $("#comment-email").val(); //이런식으로 input tag의 id를 이용해서 변수로 만들어준다 (#은 ID .은 클래스)
+            $("#comment-txt").load("/comment/create", {  // form action과 같은 위치
+                // name: name,
+                // email: email, //왼쪽은 다음페이지로 보낼 데이터, 오른쪽은 실제 폼의 데이터임
+                submit: submit
+            });
+
+        });
+    });
+</script>
+
+
+
+<form id="comment-form" action="index_validate_a_form.php" method="post">
+    <div class="box_title bg-grey-lighter px-3 py-2 border-b">
+        <label class="block">
+            <span class="text-gray-700">댓글을 달아 주세요!</span>
+
+            <textarea required name="comment" placeholder="오늘도선플" 
+                class="form-textarea rounded resize-none text-grey-darkest w-full flex-1 p-2 mt-3 bg-white bg-transparent"></textarea>
+        </label>
+    </div>
+    
+    <div class="pt-2">
+        <button id="comment-submit" type="submit" class="bg-blue-700 text-gray-100 text-lg font-extrabold py-4 px-8 rounded-2xl">댓글전송</button>
+    </div>
+</form>
+
+대충만들어 놓으거라 input 태그가 없지만 id를 만들어 만들어 주면된다
+<input id="comment-name" type="text"> 이런식
+

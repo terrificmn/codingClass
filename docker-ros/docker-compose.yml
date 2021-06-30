@@ -9,20 +9,26 @@ services:
     volumes:
       - ./catkin_ws:/root/catkin_ws   # 현재 디렉토리 기분으로 연결
       - ~/.ssh:/root/.ssh  # 홈디렉토리에 있는 .ssh 연결
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /usr/lib64/libGL.so.1
+
     ports:
       - "11311:11311"
+    command:
+      - roscore  
+    stdin_open: true
+    privileged: true
+    tty: true
+    devices:
+      - "/dev/dri"
+    group_add:
+      - video
+    # network_mode: host
     environment:
       - "ROS_MASTER_URI=http://localhost:11311"
-#    command:
-#      - roscore  # Dockerfile의 CMD 효과랑 같지만 훨씬 간결하다
+      - DISPLAY
+      - QT_X11_NO_MITSHM=1
 
-
-
-# 현재 도커-컴포즈로는 연결이 안되는 듯 jun11 2021
-#테스트용
-      #  environment:
-      #   - DISPLAY=unix$DISPLAY
-      #   - QT_X11_NO_MITSHM=1
-      #   devices:
-      #   - "/dev/dri:/dev/dri"
-      #   privileged: true
+# network_mode: host // ports를 사용할 경우경우에는 사용하면 
+# docker.errors.InvalidArgument: "host" network_mode is incompatible with port_bindings 에러 발생함
+# devices와 group_add는 amd/ati 에서 사용하라고 되어 있는데 소용없음 
