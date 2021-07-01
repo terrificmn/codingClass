@@ -1,8 +1,8 @@
 ROS
 https://github.com/IntelRealSense/realsense-ros/releases/tag/2.3.0
 
-에서 소스코드 다운로드
-
+에서 소스코드 다운로드를 해도 되지만 apt패키지매니저를 이용해서 설치하면 
+다운로드 까지는 필요없음
 
 먼저 README.MD 파일을 봐도 되고 
 
@@ -14,6 +14,10 @@ echo $ROS_DISTRO 해보면 melodic으로 잘 나옴
 
 ```
 sudo apt-get install ros-$ROS_DISTRO-realsense2-camera
+```
+
+```
+sudo apt-get install ros-$ROS_DISTRO-realsense2-description
 ```
 
 realsense2와 의존성 패키지를 설치해준다
