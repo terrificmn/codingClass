@@ -10,8 +10,6 @@ services:
       - ./catkin_ws:/root/catkin_ws   # 현재 디렉토리 기분으로 연결
       - ~/.ssh:/root/.ssh  # 홈디렉토리에 있는 .ssh 연결
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
-      - /usr/lib64/libGL.so.1
-
     ports:
       - "11311:11311"
     command:
@@ -20,15 +18,26 @@ services:
     privileged: true
     tty: true
     devices:
-      - "/dev/dri"
+    - /dev/dri:/dev/dri
     group_add:
       - video
     # network_mode: host
     environment:
-      - "ROS_MASTER_URI=http://localhost:11311"
-      - DISPLAY
+      - ROS_MASTER_URI=http://localhost:11311
+      - DISPLAY=$DISPLAY
       - QT_X11_NO_MITSHM=1
+      #- LIBGL_ALWAYS_INDIRECT=1
+      
 
+## 성공! X11로 실행하지말고 
+
+### 참고 실패한 것들 ####
 # network_mode: host // ports를 사용할 경우경우에는 사용하면 
 # docker.errors.InvalidArgument: "host" network_mode is incompatible with port_bindings 에러 발생함
 # devices와 group_add는 amd/ati 에서 사용하라고 되어 있는데 소용없음 
+
+# ldd `which glxinfo` 라고 터미널에 입력하면 opengl 라이브러리 위치를 보여주는데 
+# ls -l을 해서 심볼릭링크까지 찾아서 해줬는데 소용없다
+# volumns 에서 
+# - /opt/amdgpu-pro/lib64/libGL.so.1.2:/opt/amdgpu-pro/lib64/libGL.so.1.2
+# 로 연결을 해주고 environment에 - LD_PRELOAD=/opt/amdgpu-pro/lib64/libGL.so.1.2 해도 소용없음

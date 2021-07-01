@@ -93,12 +93,17 @@ RUN echo "source /root/catkin_ws/devel/setup.bash" >> /root/.bashrc
 # 에러가 발생하는 중
 
 
-###################GUI 연동 중....###########################
+###################GUI 성공###########################
+## X11로 하지 말자. (불가능한것은 아닌 듯?)
+## Wayland display server로 실행한다. 처음에 로그인시 변경 
+## 이게 참;; obs스튜디오나, davinch resolve프로그램은 X11 에서 실행되는데 참;; ㅋㅋㅋ
+
+## 
 # 참고하기
 # https://stackoverflow.com/questions/16296753/can-you-run-gui-applications-in-a-linux-docker-container/25280523#25280523
 
 # xhost +local:docker 를 해준다
-# 그냥 쉽게 하려면 xhost +  를 해준다 그냥 다 할 수 있게 해주는 것
+# 그냥 쉽게 하려면 xhost + 처음에는 이렇게 했는데  xhost +local:docker를 한 이후로는 xhost + 로는 안됨
 
 # 아래 코드는 실행은 됨 turtlesim, rqt, rqt_graph 정도는 되나, gazebo rviz 는 실행 안됨
 
@@ -107,23 +112,8 @@ RUN echo "source /root/catkin_ws/devel/setup.bash" >> /root/.bashrc
 ##이거는 docker-compose와 관계없이 실행~ docker-compose file하는 법도 알아볼 것
 ## docker run --rm -it -v $HOME/Workspace/docker-ros/catkin_ws:/root/catkin_ws -v ~/.ssh:/root/.ssh --network host --env ROS_MASTER_URI=http://localhost:11311 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --env="QT_X11_NO_MITSHM=1" docker-ros_ros bash
 
+## MEANING:
+# The flag -v /tmp/.X11-unix:/tmp/.X11-unix gives the container access to your X socket and -e DISPLAY=$DISPLAY sets the DISPLAY environment variable in the container the same as that of your desktop.
 
-
-#(그래픽용실행용 - 이걸로 하면 caktin 디렉토리는 연동이 안됨 -v 옵션 넣어줘야함)
-#docker run --rm -it --net=host --ipc=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --env="QT_X11_NO_MITSHM=1" docker-ros_ros bash
-
-
-
-
-
-
-#### AMD용 이지만 실패함
-## 실행은 잘 되나 amdgpu는 안됨
-# docker run -it --rm \
-#     --device=/dev/dri \
-#     --group-add video\
-#     --env="DISPLAY" \
-#     --env="QT_X11_NO_MITSHM=1" \
-#     --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
-#     docker-ros_ros bash
-    
+# 참고 사이트 
+# https://www.pugetsystems.com/labs/hpc/Docker-and-NVIDIA-docker-on-your-workstation-Using-Graphical-Applications-915/

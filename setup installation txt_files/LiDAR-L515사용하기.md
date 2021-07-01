@@ -1,9 +1,3 @@
-http://wiki.ros.org/pcl/Overview
-포인트 클라우드 확인하기
-sensor_msgs::PointCloud2
-
-
-
 기존방식으로 rs_camera.launch파일을 실행하면 
 
 /diagnostics
