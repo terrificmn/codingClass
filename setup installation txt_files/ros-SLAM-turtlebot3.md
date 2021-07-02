@@ -2,8 +2,8 @@
 
 [참고페이지-TurtleBot3 페이지](https://emanual.robotis.com/docs/en/platform/turtlebot3/quick-start/)
 
-설치
-```
+설치 의존성 패키지 설치해주기
+``` 
 $ sudo apt-get install ros-melodic-joy ros-melodic-teleop-twist-joy \
   ros-melodic-teleop-twist-keyboard ros-melodic-laser-proc \
   ros-melodic-rgbd-launch ros-melodic-depthimage-to-laserscan \
@@ -79,7 +79,7 @@ $roslaunch turtlebot3_gazebo turtlebot3_gazebo_rviz.launch
 
 가제보실행
 ```
-
+roslaunch turtlebot3_gazebo turtlebot3_world.launch
 ```
 
 slam실행
