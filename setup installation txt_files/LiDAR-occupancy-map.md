@@ -2,6 +2,10 @@
 브런치만 따로 설치해주기~  realsense가 설치가 되어 있는 경우 에러가 날 수도 있다.
 아마도 
 sudo apt-get install ros-$ROS_DISTRO-realsense2-camera 로 설치를 하지말고
+
+아마도 realsense2-camera는 지우고 시작해야할 듯 -- 먼저 확인해보자!
+지우기 전에 catkin_make 해보고 실행~ 충돌나면 지우고 하면 될 듯하다
+
 따로 깃허브에서 클론을 받아서 catkin_make를 시도해봐야할 듯
 [realsense-ros](https://github.com/IntelRealSense/realsense-ros)
 

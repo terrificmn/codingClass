@@ -73,3 +73,15 @@ roslaunch ssl_slam ssl_slam.launch 로 실행할 때
 이 부분을 주석처리하고 반대로 real sensor를 사용할 때는 주석을 풀어준다
 
 일단 에러는 발생하지 않지만, 실행도 안 되므로 트러블슈팅 해야함
+
+ssl_slam_L515.launch 파일을 실행하게 되면
+
+realsense2_camera 의 rs_camera.launch를 실행하게 되어 있다
+rs_camera에서 
+```xml
+<arg name="enable_gyro"         default="false"/>
+<arg name="enable_accel"        default="false"/>
+<arg name="enable_pointcloud"         default="false"/>
+```
+로 되어 있는데 true로 바꾼 다음에 실행을 시켜보자!
+테스트 결과 업데이트 하기
