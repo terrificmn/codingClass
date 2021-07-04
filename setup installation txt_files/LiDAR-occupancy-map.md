@@ -6,8 +6,9 @@ sudo apt-get install ros-$ROS_DISTRO-realsense2-camera 로 설치를 하지말�
 [realsense-ros](https://github.com/IntelRealSense/realsense-ros)
 
 occupancy와 합쳐서 catkin_make를 해보자!
-만약 그래도 에러가 난다면, SDK도 지운다음에 시도?
 
+prerequisites:  Intel RealSense SDK 2.0 should be installed before catkin_make
+ 
 확인이 필요함. 도커내에서는 작동 잘 됨
 ```
 $ git clone -b occupancy-mapping --single-branch https://github.com/IntelRealSense/realsense-ros
@@ -15,10 +16,15 @@ $ git clone -b occupancy-mapping --single-branch https://github.com/IntelRealSen
 
 catkin_make 를 해준다
 
-
 시리얼 번호 확인하는 법
 먼저 학교에서 launch파일 먼저 실행해보고 잘 되는지 먼저 확인해본다음에 안되면
-시리얼 번호를 넣어보자!
+
+```
+[ERROR] [1625433706.500848039]: The requested device with serial number D400_SN is NOT found!
+[ERROR] [1625433706.841606223]: The requested device with serial number T265_SN is NOT found!
+```
+It won't work without serial numbers.  시리얼 번호를 넣어보자!
+
 
 ```
 rs-enumerate-devices

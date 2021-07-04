@@ -1,5 +1,13 @@
 # ROS 패키지 만들기 - Topics 통신 하기
 
+Need to make a catkin_workspace which is catkin_ws
+```
+$ mkdir -p ~/catkin_ws/src
+$ cd ~/catkin_ws/
+$ catkin_make
+```
+then catkin_ws/src dir has been created and build, devel directories as well
+
 먼저
 이동 catkin_ws 의 src 디렉토리 까지 이동을 하자
 

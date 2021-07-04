@@ -6,7 +6,7 @@ gpg: keyserver receive failed: No keyserver available
 이렇게 나올 시에는 아래처럼
 
 ```
-sudo apt-update
+sudo apt-get update
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE
 ```
 
