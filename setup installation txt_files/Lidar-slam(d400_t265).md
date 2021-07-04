@@ -8,7 +8,6 @@ The traceback for the exception was written to the log file
 sudo apt install ros-melodic-rtabmap-ros
 ```
 
-
 먼저 중요 토픽을 살펴보면
 /camera/accel/sample
 /camera/gyro/sample

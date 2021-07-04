@@ -9,7 +9,7 @@ Prerequisites 을 다 설치한 후
 링크 눌러서 나온 맨첨에 나오는 latest stable release 버전을 다운 받은 후
 리눅스 부분에 가서 make 및 make install을 하면 됨
 
-의존성 해결
+Ceres Solver를 설치하기 위한 의존성 해결 설치
 ```
 # CMake
 sudo apt-get install cmake
@@ -23,9 +23,9 @@ sudo apt-get install libeigen3-dev
 sudo apt-get install libsuitesparse-dev
 ```
 
-설치 
-
+ceres-solver 설치
 ```
+wget http://ceres-solver.org/ceres-solver-2.0.0.tar.gz
 tar zxf ceres-solver-2.0.0.tar.gz
 mkdir ceres-bin
 cd ceres-bin
@@ -40,10 +40,9 @@ sudo make install
 
 
 ## plc 다운도르
-404로 뜨면 아래에서 다운받는다
 https://pointclouds.org/downloads/
 
-또는 그냥 아래 커맨드 입력
+아래 커맨드 입력해서 설치
 ```
 sudo apt install libpcl-dev
 ```

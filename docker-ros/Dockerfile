@@ -1,5 +1,6 @@
 ####  테스트 중
 # 이 부분은 테스트 해보기 # windows10 에서 안됨 - 더 테스트 해봐야할 듯
+FROM ubuntu:18.04
 FROM ros:melodic-ros-core-bionic
 
 # 또는 아예 desktop풀이미지 FROM osrf/ros:noetic-desktop-full 로 받기
@@ -29,9 +30,16 @@ RUN rosdep init \
   && rosdep update \
   && rosdep fix-permissions
 
+## librealsense2 설치
+RUN apt-get update && \
+  apt-get install -y software-properties-common
 
-RUN echo 'source /opt/ros/$ROS_DISTRO/setup.bash' >> /root/.bashrc
-RUN echo "source /root/catkin_ws/devel/setup.bash" >> /root/.bashrc
+RUN apt-key adv --keyserver keys.gnupg.net --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE && \
+  add-apt-repository "deb https://librealsense.intel.com/Debian/apt-repo $(lsb_release -cs) main" -u && \
+  apt-get install -y librealsense2-dkms librealsense2-utils vim
+
+RUN echo 'source /opt/ros/$ROS_DISTRO/setup.bash' >> /root/.bashrc && \
+  echo "source /root/catkin_ws/devel/setup.bash" >> /root/.bashrc
 
 #CMD ["/bin/bash", "-c", "source /opt/ros/$ROS_DISTRO/setup.bash && roscore"]
 

@@ -1,9 +1,9 @@
-https://github.com/IntelRealSense/librealsense/blob/master/doc/distribution_linux.md
-여기에 나온방식대로 안됨
+# RealSense™ SDK 2.0 설치
+
+[참고 공식 깃허브](https://github.com/IntelRealSense/librealsense/blob/master/doc/distribution_linux.md)
 
 gpg: keyserver receive failed: No keyserver available
-
-이렇게 나옴
+이렇게 나올 시에는 아래처럼
 
 ```
 sudo apt-update

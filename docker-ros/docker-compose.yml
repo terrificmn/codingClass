@@ -9,7 +9,8 @@ services:
     volumes:
       - ./catkin_ws:/root/catkin_ws   # 현재 디렉토리 기분으로 연결
       - ~/.ssh:/root/.ssh  # 홈디렉토리에 있는 .ssh 연결
-      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /dev:/dev   ## devices에만 적어주면 안될 떄가 있는 듯 하다
     ports:
       - "11311:11311"
     command:
@@ -18,7 +19,7 @@ services:
     privileged: true
     tty: true
     devices:
-    - /dev/dri:/dev/dri
+      - /dev:/dev
     group_add:
       - video
     # network_mode: host

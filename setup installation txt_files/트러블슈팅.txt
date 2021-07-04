@@ -1018,3 +1018,13 @@ $ls -li /etc/apache2/conf-enabled/phpmyadmin.conf
 
 이제 웹 브라우저에서 localhost/phpmyadmin 엔터를 치면
 phpmyadmin 페이지가 나온다
+
+
+-------------------------------------------------------
+우분투에서 
+add-apt-repository command not found’ Error on Ubuntu
+
+sudo apt-get install software-properties-common
+sudo apt-get update
+
+를 해주면 된다.
