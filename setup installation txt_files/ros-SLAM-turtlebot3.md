@@ -95,4 +95,15 @@ rosrun rviz rviz -d 'rospack find turtlebot3_slam'/rviz/turtlebot3_slam.rviz
 teleop실행을 하면 된다
 
 
+## bag데이터 다운로드해서 시뮬레이션 돌리기
+```
+wget https://github.com/ROBOTIS-GIT/bags/raw/master/TB3_WAFFLE_SLAM.bag
+``
 
+```
+roslaunch turtlebot3_bringup turtlebot3_remote.launch
+rosrun rviz rviz -d 'rospack find turtlebot3_slam'/rviz/turtlebot3_slam.rviz
+
+rosbag play ./TB3_WAFFLE_SLAM.bag 
+rosrun map_server map_saver -f ~/map
+```

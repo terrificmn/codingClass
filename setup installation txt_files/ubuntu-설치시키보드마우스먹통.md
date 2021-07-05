@@ -1,9 +1,9 @@
 # 우분투를 설치하다!
-우분투로 리눅스 실습을 할 때에도 centos로도 거분히 대응이 되었고~
+우분투로 리눅스 실습을 할 때에도 centos로도 거뜬히 대응이 되었고~
 
 AWS는 강사님의 추천에 따라 서버에 ubuntu 18.04로 설치를 해놓았지만
 집에서는 centos 를 사용하고 서버환경은 우분투이기 때문에 (같은 리눅스 이지만 ㅋ)
-이렇게 개발환경이 달라서 고민했던 부분에서 docker로 해결했었다
+이렇게 개발환경이 달라서 고민했던 부분은 docker로 해결했었다
 
 그래서 ROS를 본격적으로 할 때에도 
 신기하게도😚 그 전에 삽질(?)을 많이 해 놓은 덕에 ROS도 docker를 이용해서 했었기에 
@@ -20,7 +20,7 @@ AWS는 강사님의 추천에 따라 서버에 ubuntu 18.04로 설치를 해놓�
 설치 프로그램이 시작되면서 첫 화면 즉, 사용자 언어를 고르고 install ubuntu를 클릭해야하는 화면에서
 마우스, 키보드 둘 다 작동을 하지 않는다. 
 
-USB 몇번이 다시 굽고 ㅋ 그래서 USB 자체가 문제인 줄 알고 다른 USB도 사용해 보고  
+USB를 몇번이나 다시 굽고 ㅋ 그래서 USB 자체가 문제인 줄 알고 다른 USB도 사용해 보고  
 
 참 검색도 많이 했지만, 
 USB 3.0 포트에 껴보란 말도 있었고, USB 허브를 통해서도 해보고, 다른 마우스를 가져가다 껴보기도 하고
@@ -50,13 +50,14 @@ USB에서 잘못된 신호를 주거나, 전류가 많이 흐르거나? 뭐 그�
 어쨌든 이 방법 저 방법으로 재부팅만 수십번 했을까?
 그러던 중에 ubuntu 포럼에서 옛날 글을 발견했다 2013년 7월에 작성된 글이었는데
 
-우분투 13버전 쯤 되겠다. 다른 사람들이 마우스를 ps/2 방식으로 해봐다 다른키보드를 해봐라 하고 있을 때
+우분투 13버전을 쓰는데 키보드가 안 된다는 글이 있었다.   
+답변 내용이 마우스를 ps/2 방식으로 해봐다 다른 키보드로 바꿔서 해봐라 하고 있을 때
 
-어떤 사람이 말그대로 'magic' BIOS 옵션 IOMMU Controller를 Enabled 시키면 키보드 사용이 가능하다는 것이였다
+어떤 사람이 답변이 말그대로 'magic' 이었다 ㅋㅋ BIOS 옵션 IOMMU Controller를 Enabled 시키면 키보드 사용이 가능하다는 것이었다
 
 > In case of Gigabyte 970A-UD3, the "magic" BIOS option is "IOMMU Controller". Set it to "Enabled" and your keyboard will work (didn't tried mouse yet). Good luck!
 
-이런 대단 하신분 🤩
+이런이런 대단 하신분 🤩
 
 <br/>
 
@@ -139,13 +140,15 @@ GRUB_CMDLINE_LINUX="iommu=soft"
 
 다음은 새로운 grub.cfg 파일을 생성해 줘야한다. 거의 다 왔다 ㅋㅋ
 ```
-$ sudo grub-mkconfig -o /boot/grub2/grub.cfg
+$ sudo grub-mkconfig -o /boot/grub/grub.cfg
 ```
 그러면 뭔가 진행이 되고 
 done이라고 끝남. 이제 재부팅을 해도 따로 입력할 필요도 없고 usb 인식도 문제가 없다
 
-> 혹시 AMD라데온 그래픽 카드를 사용한다면 듀얼모니터가 안되는 경우라면  
-그럴때에는 위의 GRUB_CMDLINE_LINUX="amdgpu.dc=0" 라고 해주면 2개의 모니터를 사용할 수 있다
+추가로 
+
+> 혹시 AMD라데온 그래픽 카드를 사용한다면 듀얼모니터가 안되는 경우라면   
+그럴때에는 위의 GRUB_CMDLINE_LINUX="amdgpu.dc=0" 라고 해주면 2개의 모니터를 사용할 수 있다  
 사실 이것도 아주~예전에 엄청 고생해서 찾았던 것인데, centos나 ubuntu나 모니터 2개를 인식 못하는 것은 똑같다
 
 

@@ -1,11 +1,9 @@
 ####  테스트 중
 # 이 부분은 테스트 해보기 # windows10 에서 안됨 - 더 테스트 해봐야할 듯
-FROM ubuntu:18.04
 FROM ros:melodic-ros-core-bionic
 
-# 또는 아예 desktop풀이미지 FROM osrf/ros:noetic-desktop-full 로 받기
-
-#FROM ros:melodic  //다음에는 이걸로!!!!!! 위에 지우자
+# 또는 아예 desktop풀이미지 FROM osrf/ros:melodic-desktop-full 로 받기
+# 해보지는 않음
 
 RUN apt-get update && apt-get install -y \
     ros-melodic-desktop-full
@@ -30,7 +28,6 @@ RUN rosdep init \
   && rosdep update \
   && rosdep fix-permissions
 
-## librealsense2 설치
 RUN apt-get update && \
   apt-get install -y software-properties-common
 
@@ -41,10 +38,11 @@ RUN apt-key adv --keyserver keys.gnupg.net --recv-key F6E65AC044F831AC80A06380C8
 RUN echo 'source /opt/ros/$ROS_DISTRO/setup.bash' >> /root/.bashrc && \
   echo "source /root/catkin_ws/devel/setup.bash" >> /root/.bashrc
 
-#CMD ["/bin/bash", "-c", "source /opt/ros/$ROS_DISTRO/setup.bash && roscore"]
 
 #위의 CMD 또는 docker-compose.yml 파일에서 command 부분에 roscore 를 안 사용한다면
 #터미널에서 docker-compose run 으로 사용할 수 있음1
+#CMD ["/bin/bash", "-c", "source /opt/ros/$ROS_DISTRO/setup.bash && roscore"]
+
 
 ## http://wiki.ros.org/docker/Tutorials/Hardware%20Acceleration
 
