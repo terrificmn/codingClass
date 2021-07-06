@@ -111,6 +111,3 @@ subscriber를 하고 있는 토픽을 수정해준다
 큰 효과는 없는 듯 하다
 그리고~ /occupancy 토픽이 퍼블리쉬가 안되고 있음
 type /nav_msgs/OccupancyGrid
-
- 여기 읽어보기!!!
-https://github.com/introlab/rtabmap/issues/574
