@@ -34,9 +34,11 @@ rosrun map_server map_saver map:=/rtabmap/grid_map
 ```
 이렇게 하면 2D로 맵을 저장해준다. map.pgm, map.yml 파일로 만들어 준다
 
+<br/>
 
+## 이미 완료 되어 있는 db데이터 이용해서 2D 만들기
 또는 이미 완료되어 있는 rtabmap.db를 이용해서 하는 방법
-rosrun rtabmap_ros rtabmap _database_path:=
+rosrun rtabmap_ros rtabmap _database_path:= 이하는 경로를 설정
 
 ```
 rosrun rtabmap_ros rtabmap _database_path:=~/.ros/rtabmap.db
@@ -47,7 +49,7 @@ rosrun rtabmap_ros rtabmap _database_path:=~/.ros/rtabmap.db
 rosrun map_server map_saver map:=/grid_map
 
 ```
-참고로 /proj_map 은 deprecated되므로 /grid_map을 하면 됨
+참고로 /proj_map 은 deprecated되므로 /grid_map을 하면 됨. (example에서는 /proj_map 으로 되어있으나)
 
 이제 다른 창에 rosservice list 쳐보면 /publish_map 이라는 서비스가 있는데 
 아규먼트를 넣어서 아래처럼 실행해준다
