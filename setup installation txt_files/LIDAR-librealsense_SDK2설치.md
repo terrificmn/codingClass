@@ -18,25 +18,25 @@ sudo add-apt-repository "deb https://librealsense.intel.com/Debian/apt-repo $(ls
 
 
 이제 리포지터리 등록 후 인스톨
-
+```
 sudo apt-get install librealsense2-dkms
 sudo apt-get install librealsense2-utils
-
+```
 
 시간관계 상 이거는 나중에 해보자
 
 Optionally install the developer and debug packages:
+```
 sudo apt-get install librealsense2-dev
 sudo apt-get install librealsense2-dbg
+```
 
 usb-c 타입을 컴퓨터와 라이다 카메라와 연결 후 
 
-이제 실행은 터미널에서 
+이제 실행은 터미널에서   
 realsense-viewer 
 
 그러면 viewer가 실행되고 
 Intel RealSense L515 를 발견했다며 Version 업데이트를 하라고 한다. 눌러준다
 
 시간이 좀 걸림
-
-

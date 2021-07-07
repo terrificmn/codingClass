@@ -1,12 +1,119 @@
  여기 읽어보기!!!
 https://github.com/introlab/rtabmap/issues/574
 
+[참고 튜토리얼 사이트 꼭 보기](http://wiki.ros.org/rtabmap_ros/Tutorials/HandHeldMapping)
+
 [참고 사이트Rtab slam](https://sudonull.com/post/18423-Localization-and-navigation-in-ROS-using-rtabmap)
+
+
+## IMU tools 설치하기
+[깃허브 ](https://github.com/ccny-ros-pkg/imu_tools)
+
+브랜치만 클론
+```
+$ git clone -b melodic https://github.com/ccny-ros-pkg/imu_tools.git
+```
+
+rosdep을 이용해서 dependency를 해결
+```
+$ rosdep install imu_tools
+```
+
+catkin_ws 디렉토리에서 빌드를 해준다
+```
+$ catkin_make
+```
+imu_filter_nodelet, imu_filter_node, rviz_imu_plugin
+이렇게 설치되는 듯하다
+
+
+<br/>
+
+## rtabmap실행
 
 실행하기
 ```
 $ roslaunch realsense2_camera rs_rtabmap.launch 
 ```
+
+# 한번 실행해볼 것 
+l515 에 있는 것인데, 흔들리는 것을 잘 잡아줄 지 ? 단독 사용시 사용하는 듯
+```
+roslaunch realsense2_camera rs_camera.launch \
+    align_depth:=true \
+    unite_imu_method:="linear_interpolation" \
+    enable_gyro:=true \
+     enable_accel:=true
+
+rosrun imu_filter_madgwick imu_filter_node \
+    _use_mag:=false \
+    _publish_tf:=false \
+    _world_frame:="enu" \
+    /imu/data_raw:=/camera/imu \
+    /imu/data:=/rtabmap/imu
+```
+
+D400+T265 런치 파일을 특별히 넣어줄 아규먼트가 없는 듯 하다
+
+
+## mapping mode - 테스트 해볼 것
+rtabmap.launch 실행할 때 
+set rviz:=true to open rviz 
+rtabmapviz:=true to open rtabmapviz (default true) for visualization. 
+
+```
+rosrun nodelet nodelet standalone rtabmap_ros/point_cloud_xyz \
+    _approx_sync:=false  \
+    /depth/image:=/camera/depth/image_rect_raw \
+    /depth/camera_info:=/camera/depth/camera_info \
+    _decimation:=4
+
+$ roslaunch rtabmap_ros rtabmap.launch\
+    rtabmap_args:="\
+      --delete_db_on_start \
+      --Icp/VoxelSize 0.05 \
+      --Icp/PointToPlaneRadius 0 \
+      --Icp/PointToPlaneK 20 \
+      --Icp/CorrespondenceRatio 0.2 \
+      --Icp/PMOutlierRatio 0.65 \
+      --Icp/Epsilon 0.005 \
+      --Icp/PointToPlaneMinComplexity 0 \
+      --Odom/ScanKeyFrameThr 0.7 \
+      --OdomF2M/ScanMaxSize 15000 \
+      --Optimizer/GravitySigma 0.3 \
+      --RGBD/ProximityPathMaxNeighbors 1 \
+      --Reg/Strategy 1" \
+    icp_odometry:=true \
+    scan_cloud_topic:=/cloud \
+    subscribe_scan_cloud:=true \
+    depth_topic:=/camera/aligned_depth_to_color/image_raw \
+    rgb_topic:=/camera/color/image_raw \
+    camera_info_topic:=/camera/color/camera_info \
+    approx_sync:=false \
+    wait_imu_to_init:=true \
+    imu_topic:=/rtabmap/imu 
+```
+
+ D400+T265 mapping 을 할 때, l515로 수정해서 되는지 테스트 해 볼 것
+ 
+ [ICP odometry example-ref](http://official-rtab-map-forum.67519.x6.nabble.com/Kinect-For-Azure-L515-ICP-lighting-invariant-mapping-td7187.html)
+
+```
+ $ roslaunch rtabmap_ros rtabmap.launch \
+   args:="-d --Mem/UseOdomGravity true --Optimizer/GravitySigma 0.3" \
+   odom_topic:=/t265/odom/sample \
+   frame_id:=t265_link \
+   rgbd_sync:=true \
+   depth_topic:=/d400/aligned_depth_to_color/image_raw \
+   rgb_topic:=/d400/color/image_raw \
+   camera_info_topic:=/d400/color/camera_info \
+   approx_rgbd_sync:=false \
+   visual_odometry:=false
+```
+
+<br/>
+
+## 맵 저장되는 위치
 
 An exception has been thrown: failed to set power state
 [ERROR] [1625561305.606543840]: Exception: failed to set power state
@@ -78,6 +185,20 @@ rtabmap-databaseViewer rtabmap.db
 
 처음실행했을 때부터 보여준다. 특징점도 보여주는 듯
 
+
+## localization 모드
+미리 만들어진 rtabmap database를 이용해서 Detection 의 Localization를 이용
+그리고 아규먼트를 localization:=true 를 해줘야함
+
+rtabmap_args:="--delete_db_on_start"  는 넣어주면 안됨!!
+
+rosservice call /rtabmap/reset_odom 
+를 이용하거나 GUI 모드를 이용하면 리로케이션을 한다
+
+"Mem/IncrementalMemory" 파라미터도 "false"가 되어야하는데 (예전버전 인 듯)
+localization:=true만 넘겨주면 안에 파라미터에 if문이 들어가 있어서 알아서 false로 만들어준다
+
+그리고 메뉴에서 Downlaod map을 해준다
 
 
 첨고 사이트: 맵변환 
