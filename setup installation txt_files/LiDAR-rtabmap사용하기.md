@@ -11,12 +11,16 @@ https://github.com/introlab/rtabmap/issues/574
 
 브랜치만 클론
 ```
-$ git clone -b melodic https://github.com/ccny-ros-pkg/imu_tools.git
+$ git clone -b melodic https:visual_odometry//github.com/ccny-ros-pkg/imu_tools.git
 ```
 
 rosdep을 이용해서 dependency를 해결
 ```
 $ rosdep install imu_tools
+```
+rosdep이 없다면 
+```
+$ sudo apt-get install python-rosdep
 ```
 
 catkin_ws 디렉토리에서 빌드를 해준다
@@ -52,6 +56,9 @@ rosrun imu_filter_madgwick imu_filter_node \
     /imu/data_raw:=/camera/imu \
     /imu/data:=/rtabmap/imu
 ```
+따로 rviz로 실행하면 imu를 add해서 볼 수가 있는데 떨림이 심하다. 못쓸 것 같음
+
+
 
 D400+T265 런치 파일을 특별히 넣어줄 아규먼트가 없는 듯 하다
 
@@ -91,8 +98,12 @@ $ roslaunch rtabmap_ros rtabmap.launch\
     camera_info_topic:=/camera/color/camera_info \
     approx_sync:=false \
     wait_imu_to_init:=true \
-    imu_topic:=/rtabmap/imu 
+    imu_topic:=/rtabmap/imu \
+    rviz:=true
+
 ```
+위의 런치코드는 실행이 안됨 --;
+
 
  D400+T265 mapping 을 할 때, l515로 수정해서 되는지 테스트 해 볼 것
  
@@ -104,12 +115,13 @@ $ roslaunch rtabmap_ros rtabmap.launch\
    odom_topic:=/t265/odom/sample \
    frame_id:=t265_link \
    rgbd_sync:=true \
-   depth_topic:=/d400/aligned_depth_to_color/image_raw \
-   rgb_topic:=/d400/color/image_raw \
-   camera_info_topic:=/d400/color/camera_info \
+   depth_topic:=/l515/aligned_depth_to_color/image_raw \
+   rgb_topic:=/l515/color/image_raw \
+   camera_info_topic:=/l515/color/camera_info \
    approx_rgbd_sync:=false \
    visual_odometry:=false
 ```
+
 
 <br/>
 
