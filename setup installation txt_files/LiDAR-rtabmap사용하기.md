@@ -75,7 +75,7 @@ rosrun nodelet nodelet standalone rtabmap_ros/point_cloud_xyz \
     /depth/camera_info:=/camera/depth/camera_info \
     _decimation:=4
 
-$ roslaunch rtabmap_ros rtabmap.launch\
+$ roslaunch realsense2_camera rs_rtabmap.launch\
     rtabmap_args:="\
       --delete_db_on_start \
       --Icp/VoxelSize 0.05 \
@@ -98,8 +98,8 @@ $ roslaunch rtabmap_ros rtabmap.launch\
     camera_info_topic:=/camera/color/camera_info \
     approx_sync:=false \
     wait_imu_to_init:=true \
-    imu_topic:=/rtabmap/imu \
-    rviz:=true
+    imu_topic:=/rtabmap/imu 
+
 
 ```
 위의 런치코드는 실행이 안됨 --;
@@ -109,18 +109,7 @@ $ roslaunch rtabmap_ros rtabmap.launch\
  
  [ICP odometry example-ref](http://official-rtab-map-forum.67519.x6.nabble.com/Kinect-For-Azure-L515-ICP-lighting-invariant-mapping-td7187.html)
 
-```
- $ roslaunch rtabmap_ros rtabmap.launch \
-   args:="-d --Mem/UseOdomGravity true --Optimizer/GravitySigma 0.3" \
-   odom_topic:=/t265/odom/sample \
-   frame_id:=t265_link \
-   rgbd_sync:=true \
-   depth_topic:=/l515/aligned_depth_to_color/image_raw \
-   rgb_topic:=/l515/color/image_raw \
-   camera_info_topic:=/l515/color/camera_info \
-   approx_rgbd_sync:=false \
-   visual_odometry:=false
-```
+안됨;;;
 
 
 <br/>
