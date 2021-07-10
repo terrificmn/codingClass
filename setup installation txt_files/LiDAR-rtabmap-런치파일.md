@@ -121,6 +121,14 @@ cd libpointmatcher
 ```
 libpointmatcher를 이제 옵션사항으로 설치할 수 있는게 있는데 스킵함, 자세한것은 공식 깃허브 참고
 
+위의 libnabo와 비슷
+```
+SRC_DIR=${PWD}
+BUILD_DIR=${SRC_DIR}/build
+mkdir -p ${BUILD_DIR} && cd ${BUILD_DIR}
+cmake -D CMAKE_BUILD_TYPE=RelWithDebInfo ${SRC_DIR}
+```
+
 이제 libpointmatcher 컴파일하기. N 대신에 숫자로 넣어주면 된다. 동시에 parallel로 작업해서 속도를 높힘
 ```
 make -j N

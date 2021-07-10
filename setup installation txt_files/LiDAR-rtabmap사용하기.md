@@ -152,7 +152,7 @@ rosrun rtabmap_ros rtabmap _database_path:= 이하는 경로를 설정
 rosrun rtabmap_ros rtabmap _database_path:=~/.ros/rtabmap.db
 ```
 그리고 다른 터미널에서 rostopic list 를 해보면
-여러 토픽을 볼 수가 있는데 이중에서 /grid_map 를 이용
+여러 토픽을 볼 수가 있는데 이중에서 /grid_map 를 이용. 같은 디렉토리에서 실행해야함 (rtabmap.db가 있는 디렉토리에서)
 ```
 rosrun map_server map_saver map:=/grid_map
 
