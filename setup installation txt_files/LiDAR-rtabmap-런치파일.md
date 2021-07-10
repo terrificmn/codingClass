@@ -26,6 +26,11 @@ ros-패키지로 설치를 했었는데 (ros-melodic-rtabmap-ros) 먼저 에러�
 ```
 옵션 사항 설치는 스킵 후   
 RTAB-Map standalone libraries 깃 클론 후 설치 (catkin_ws에 설치하지 말것)
+
+cmke를 한 후 나오는 부분에서 
+  With RealSense2           = YES (License: Apache-2)
+가 되어 있는지 확인하자
+
 ```
 $ cd ~
 $ git clone https://github.com/introlab/rtabmap.git rtabmap
