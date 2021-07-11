@@ -40,3 +40,79 @@ realsense-viewer
 Intel RealSense L515 를 발견했다며 Version 업데이트를 하라고 한다. 눌러준다
 
 시간이 좀 걸림
+
+
+
+## 빌드 하기
+
+[공식 깃허브](https://github.com/IntelRealSense/librealsense/blob/master/doc/installation.md)
+
+```
+git clone https://github.com/IntelRealSense/librealsense.git
+```
+
+usb제거 후 , 핵심 패키지 설치
+```
+sudo apt-get install git libssl-dev libusb-1.0-0-dev pkg-config libgtk-3-dev
+```
+
+우분투 18
+```
+sudo apt-get install libglfw3-dev libgl1-mesa-dev libglu1-mesa-dev at
+```
+
+realsense permission script실행 (librealsense 루트 리렉토리에서 실행)
+```
+./scripts/setup_udev_rules.sh
+```
+
+build 디렉토리 생성
+```
+mkdir build && cd build
+```
+
+cmake하기
+cmake ../ - The default build is set to produce the core shared object and unit-tests binaries in Debug 
+mode. Use -DCMAKE_BUILD_TYPE=Release to build with optimizations.
+```
+cmake ../ -DBUILD_EXAMPLES=true
+
+
+```
+참고 옵션 들..
+cmake ../ -DBUILD_EXAMPLES=true - Builds librealsense along with the demos and tutorials
+cmake ../ -DBUILD_EXAMPLES=true -DBUILD_GRAPHICAL_EXAMPLES=false - For systems without OpenGL or X11 build only textual examples
+
+Recompile and install librealsense binaries:
+```
+sudo make uninstall && make clean && make -j4 && sudo make install
+```
+
+Tip: Use make -jX for parallel compilation, where X stands for the number of CPU cores available:
+sudo make uninstall && make clean && make **-j8** && sudo make install
+
+
+# realsense2-camera 설치
+[공식 깃허브](https://github.com/IntelRealSense/realsense-ros)
+
+이동
+```
+cd ~/catkin_ws/src/
+```
+
+```
+git clone https://github.com/IntelRealSense/realsense-ros.git
+cd realsense-ros/
+git checkout `git tag | sort -V | grep -P "^2.\d+\.\d+" | tail -1`
+cd ..
+```
+ddynamic_reconfigure가 필요한데 설치가 안되어 있다면
+
+```
+git clone https://github.com/pal-robotics/ddynamic_reconfigure.git
+```
+
+빌드
+```
+catkin_make -DCATKIN_ENABLE_TESTING=False -DCMAKE_BUILD_TYPE=Release
+```

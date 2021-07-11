@@ -2,13 +2,171 @@
 
 시리얼 넘버 바꾸기, 
 
-## rtabmap, rtabmap_ros 빌드로 설치하는게 좋은 듯,  libpointmatcher 설치
+[realsense2 런치파라미터 보기](https://github.com/IntelRealSense/realsense-ros#launch-parameters)
+
+[참고 사이트](https://github.com/introlab/rtabmap/issues/574)
+
+
+rostopic echo /rtabmap/odom/pose/pose
+으로 나오는 ROS_INFO 를 보면 
+[ INFO] [1600664613.655947447]: Odom: ratio=0.046694, std dev=0.015367m|0.015367rad, update time=0.033356s
+
+update time=0.0333 정도면 걸어거거나 손으로 작동시킬 때 충분히 좋은 정도의 속도라고 함
+
+
+## rtabmap 빌드 설치하기
+
+RTAB-Map from source Parameter Icp/PM is set to true but RTAB-Map has not been built with libpointmatcher support. Setting to false.and build with libpointmatcher support.
+이런 에러가 나면 빌드를 해야한다고 함
+
+ros-패키지로 설치를 했었는데 (ros-melodic-rtabmap-ros) 먼저 에러가 나는지 실행을 해봐야겠다
+
+[rtabmap 빌드](https://github.com/introlab/rtabmap_ros#build-from-source)
+지우기
+```
+ sudo apt remove ros-melodic-rtabmap ros-melodic-rtabmap-ros
+```
+옵션 사항 설치는 스킵 후   
+RTAB-Map standalone libraries 깃 클론 후 설치 (catkin_ws에 설치하지 말것)
+
+cmke를 한 후 나오는 부분에서 
+  With RealSense2           = YES (License: Apache-2)
+가 되어 있는지 확인하자
+
+```
+$ cd ~
+$ git clone https://github.com/introlab/rtabmap.git rtabmap
+$ cd rtabmap/build
+$ cmake ..  [<---double dots included]
+$ make
+$ sudo make install
+```
+
+RTAB-Map ros-pkg 설치 이번에는 catkin_ws/src 에서 클론 후 설치
+```
+$ cd ~/catkin_ws/src
+$ git clone https://github.com/introlab/rtabmap_ros.git src/rtabmap_ros
+$ cd ..
+$ catkin_make -j1
+```
+
+이후 rtabmap 실행했을 때 
+```
+rtabmap: error while loading shared libraries: librtabmap_gui.so.0.20: cannot open shared object file: No such file or directory
+```
+가 나면
+```
+sudo ldconfig
+```
+그러면 잘 실행된다. 
+빌드한 버전은 l515가 설정이 나옴
+
+
+
+## libpointmatcher 설치
+
+
+[libpointmatcher support 필요](https://github.com/ethz-asl/libpointmatcher#quick-start)
+
+튜토리얼 https://github.com/ethz-asl/libpointmatcher/blob/master/doc/index.md
+
+RTAB-Map from source and build with libpointmatcher support.
+
+부스트 설치여부 확인
+ldconfig -p | grep libboost
+리스트가 나오면 스킵
+없으면 설치
+sudo apt-get install libboost-all-dev
+
+cmake설치
+```
+sudo apt-get install cmake cmake-gui
+```
+
+Eigen 설치
+```
+sudo apt-get install libeigen3-dev
+```
+
+ libnabo 설치 깃허브 클론 이용 (로컬경로는 맘대로)
+```
+mkdir ~/Libraries/
+cd ~/Libraries
+git clone git://github.com/ethz-asl/libnabo.git
+cd libnabo
+```
+
+컴파일 및 테스트 , 설치
+```
+SRC_DIR=$PWD
+BUILD_DIR=${SRC_DIR}/build
+mkdir -p ${BUILD_DIR} && cd ${BUILD_DIR}
+cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo ${SRC_DIR}
+make
+```
+
+테스트  build 디렉토리에서
+```
+make test
+```
+
+```
+sudo make install
+```
+
+다음은 libpointmatcher 설치
+먼저 만들었던 Libraries 디렉토리로 이동 후 , 깃 클론하기
+```
+cd ~/Workspace/Libraries
+git clone git://github.com/ethz-asl/libpointmatcher.git
+cd libpointmatcher
+```
+libpointmatcher를 이제 옵션사항으로 설치할 수 있는게 있는데 스킵함, 자세한것은 공식 깃허브 참고
+
+위의 libnabo와 비슷
+```
+SRC_DIR=${PWD}
+BUILD_DIR=${SRC_DIR}/build
+mkdir -p ${BUILD_DIR} && cd ${BUILD_DIR}
+cmake -D CMAKE_BUILD_TYPE=RelWithDebInfo ${SRC_DIR}
+```
+
+이제 libpointmatcher 컴파일하기. N 대신에 숫자로 넣어주면 된다. 동시에 parallel로 작업해서 속도를 높힘
+```
+make -j N
+```
+그냥 make -j 4 함
+
+최종 인스톨
+```
+sudo make install
+```
+
+
+
 
 참고 
 http://official-rtab-map-forum.67519.x6.nabble.com/Kinect-For-Azure-L515-ICP-lighting-invariant-mapping-td7187.html
 
 
-# 런치파일
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ```xml
 <launch>
@@ -118,8 +276,7 @@ http://official-rtab-map-forum.67519.x6.nabble.com/Kinect-For-Azure-L515-ICP-lig
         <!-- Max Size of Global Map to keep in "history" -->
         <param name="OdomF2M/ScanMaxSize"        type="string" value="40000"/> 
       </node>    
-      
-    // 이 부분에서 odom 값을 t265로 바꿔보기 odom값 확인한 후 
+   
     <node if="$(arg scan_cloud_assembling)" pkg="rtabmap_ros" type="point_cloud_assembler" name="point_cloud_assembler" output="screen">
         <remap from="cloud"           to="/l515/depth/color/points"/>
         <remap from="odom"            to="odom"/>
