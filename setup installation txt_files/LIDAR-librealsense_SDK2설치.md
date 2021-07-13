@@ -44,6 +44,13 @@ Intel RealSense L515 를 발견했다며 Version 업데이트를 하라고 한�
 
 
 ## 빌드 하기
+앞서 apt-get으로 설치했다면 지워주기
+ 1997  sudo apt-get remove librealsense2-dkms
+ 1998  sudo apt-get remove librealsense2-utils
+ 1999  sudo apt-get remove librealsense2-dev
+ 2000  sudo apt-get remove librealsense2-dbg
+ 2001  sudo apt-get remove ros-melodic-realsense2-camera
+
 
 [공식 깃허브](https://github.com/IntelRealSense/librealsense/blob/master/doc/installation.md)
 
@@ -58,7 +65,7 @@ sudo apt-get install git libssl-dev libusb-1.0-0-dev pkg-config libgtk-3-dev
 
 우분투 18
 ```
-sudo apt-get install libglfw3-dev libgl1-mesa-dev libglu1-mesa-dev at
+sudo apt-get install libglfw3-dev libgl1-mesa-dev libglu1-mesa-dev
 ```
 
 realsense permission script실행 (librealsense 루트 리렉토리에서 실행)
