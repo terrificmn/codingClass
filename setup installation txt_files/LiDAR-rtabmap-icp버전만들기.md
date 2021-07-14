@@ -20,7 +20,7 @@ rosrun nodelet nodelet standalone rtabmap_ros/point_cloud_xyz \
 roslaunch rtabmap_ros rtabmap.launch\
     rtabmap_args:="\
       --delete_db_on_start \
-      --Icp/VoxelSize 0.05 \
+      --Icp/VoxelSize 1 \
       --Icp/PointToPlaneRadius 0 \
       --Icp/PointToPlaneK 20 \
       --Icp/CorrespondenceRatio 0.2 \
