@@ -1,3 +1,9 @@
+[참고매뉴얼](http://wiki.ros.org/rtabmap_ros#rtabmap_ros.2Fpoint_cloud_xyz)
+
+!!!!!!!!!!!!!!!!!!!!!!!!! rs-imu-callibration tool  사용해보기
+[rs-imu-callibration tool](https://github.com/IntelRealSense/librealsense/tree/master/tools/rs-imu-calibration)
+
+
 roslaunch realsense2_camera rs_camera.launch\
     align_depth:=true \
     unite_imu_method:="linear_interpolation" \
