@@ -29,5 +29,39 @@ config 디렉토리에 lua파일을 만들어 주는데 summit.lua 로 만들어
  rosrun tf view_frames 
 ```
 
-https://www.youtube.com/watch?v=bXNK8VTQ4zo 참고해서 
-40분 부터 다시 보기
+launch 파일도 비슷하게 참고해서 복사해서 만들어준다
+
+catkin_iso_ws (다른 워크스테이션으로 만듬) 로 이동해서 아래명령어를 해줌
+```
+cd catkin_iso_ws
+source install_isolated/setup.bash
+ropack profile
+```
+이렇게 해줘야지 제대로 인식한다
+
+
+아마도 런치파일과 lua 파일을 잘 바꿔야지 잘 나올 듯 하다
+
+그리고 조작은 일단 scout-mini는 시리얼통신으로 무선조종으로 움직이자
+
+
+맵 저장하기 (2D)
+```
+rosrun map_server map_saver -f map_name
+```
+
+2D 맵이 생성이 되었으면 Navigation부분을 만들어줘야하는데 일단 패키지로 만들어준다
+패키지에서는 launch, map, src 디렉토리등을 포함하고 위에 만들어진 map.pgm, map.yaml 파일을 넣어준다
+launch 디렉토리에는 필요한 amcl, move_base, navigation 런치파일등이 필요하게 된다
+
+(navigation에는 map server, localization, move_base, rviz가 필요하다)
+scout-mini 의 acml 과 move_base 참고하기 (description)
+
+
+https://www.youtube.com/watch?v=GzZGl0kzGOM
+이어서 봐야할 듯
+
+
+
+https://www.youtube.com/watch?v=bXNK8VTQ4zo 참고
+

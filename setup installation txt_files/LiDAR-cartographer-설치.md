@@ -9,20 +9,20 @@ https://www.opencv-srf.com/2010/09/object-detection-using-color-seperation.html
 중요 catkin_make_isolated 명령어로 패키지를 빌드하게 되는데 
 기존 catkin_ws 디렉토리에 넣어서 하게 되면 
 다음부터하는 패키지 변경시에는 catkin_make가 동작을 안하게 된다
-실수로라도 catkin_make_isolated 로 하게되면 빌드가 깨지게 되므로 주의하고 
+실수로라도 catkin_make_isolated 로 하게되면 빌드가 깨지게 되므로 주의해야하는 듯
 하나의 패키지만 따로 하려면 
 ```
 catkin_make_isolated --pkg <your package name> 
 ```
 위 처럼 해준다
 
-차라리 워크스테이션을 따로 다시 만들어 준다
+그래서 차라리 워크스테이션을 따로 다시 만들어 준다
 
 
 ```
-mkdir catkin_ws_iso
+mkdir catkin_iso_ws
 ```
-그래서 이하 catkin_ws 는 catkin_ws_iso 디렉토리에서 작업을 해주면 
+그래서 이하 catkin_ws 는 catkin_iso_ws 디렉토리에서 작업을 해주면 
 catkin_ws 에서는 이제 catkin_make를 하는데 문제가 없다!!! 
 
 중요한 것은 ~/.bashrc 에서 setup.bash 파일을 넣어줘서 실행이 되게 해줘야함
@@ -47,7 +47,7 @@ sudo apt-get install -y python-wstool python-rosdep ninja-build stow
 
 catkin_ws에 cartographer_ros 워크스페이스 만들기
 ```
-cd catkin_ws
+cd catkin_iso_ws   ### 또는 cd catkin_ws
 wstool init src
 wstool merge -t src https://raw.githubusercontent.com/cartographer-project/cartographer_ros/master/cartographer_ros.rosinstall
 wstool update -t src
@@ -87,6 +87,9 @@ catkin_make_isolated --install --use-ninja
 
 ```
 
+___
+
+## 트러블 슈팅
 
 만약 
 에러발생
