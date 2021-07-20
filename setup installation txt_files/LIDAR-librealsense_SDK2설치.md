@@ -111,7 +111,6 @@ cd ~/catkin_ws/src/
 git clone https://github.com/IntelRealSense/realsense-ros.git
 cd realsense-ros/
 git checkout `git tag | sort -V | grep -P "^2.\d+\.\d+" | tail -1`
-cd ..
 ```
 ddynamic_reconfigure가 필요한데 설치가 안되어 있다면
 
@@ -121,5 +120,6 @@ git clone https://github.com/pal-robotics/ddynamic_reconfigure.git
 
 빌드
 ```
+cd ../..
 catkin_make -DCATKIN_ENABLE_TESTING=False -DCMAKE_BUILD_TYPE=Release
 ```

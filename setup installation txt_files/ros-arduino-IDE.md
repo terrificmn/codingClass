@@ -4,8 +4,8 @@ ROS에서 IDE를 이용해서 바로 사용이 가능하다
 
 먼저 설치
 ```
-sudo apt-get install ros-indigo-rosserial-arduino
-sudo apt-get install ros-indigo-rosserial
+sudo apt-get install ros-melodic-rosserial-arduino
+sudo apt-get install ros-melodic-rosserial
 ```
 
 그리고 ros_lib를 설치
@@ -27,6 +27,7 @@ install.sh 파일이 있다 실행을 해주자
 ```
 sudo ./intall.sh
 ```
+done! 출력과 함께 인스톨이 된다
 
 이제 아두이노 IDE에서 ros_lib를 설치할 수 있음
 스케치북을 실행을 해주자. Arduino IDE로 찾을 수 있음
@@ -36,7 +37,7 @@ sudo ./intall.sh
 
 검색이 되었으면 install 버튼을 눌러서 설치를 해준다
 
-이제 Sketch > Include Library 에서 보면
+이제 Sketch > Include Library 에서 보면 Contributed libraries에 보면
 Rosserial Arduino Library가 추가가 되어 있고
 
 File메뉴의 Examples를 통해서 코드를 볼 수가 있음

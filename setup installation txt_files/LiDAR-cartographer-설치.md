@@ -1,15 +1,43 @@
 # google cartographer 사용하기 
-***** 먼저 설치하기 전에 l515-pcl 패키지 해결해야함 - 그리고 git commit 할 것
-그리고 참고할 사이트
+참고할 사이트
 https://google-cartographer-ros.readthedocs.io/en/latest/compilation.html
 https://opensource.google/projects/cartographer
 
 오픈cv 참고할 것 
 https://www.opencv-srf.com/2010/09/object-detection-using-color-seperation.html
 
-###############################################################3
+중요 catkin_make_isolated 명령어로 패키지를 빌드하게 되는데 
+기존 catkin_ws 디렉토리에 넣어서 하게 되면 
+다음부터하는 패키지 변경시에는 catkin_make가 동작을 안하게 된다
+실수로라도 catkin_make_isolated 로 하게되면 빌드가 깨지게 되므로 주의하고 
+하나의 패키지만 따로 하려면 
+```
+catkin_make_isolated --pkg <your package name> 
+```
+위 처럼 해준다
+
+차라리 워크스테이션을 따로 다시 만들어 준다
 
 
+```
+mkdir catkin_ws_iso
+```
+그래서 이하 catkin_ws 는 catkin_ws_iso 디렉토리에서 작업을 해주면 
+catkin_ws 에서는 이제 catkin_make를 하는데 문제가 없다!!! 
+
+중요한 것은 ~/.bashrc 에서 setup.bash 파일을 넣어줘서 실행이 되게 해줘야함
+
+source $HOME/catkin_ws_iso/devel_isolated/setup.bash
+를 추가해준다
+
+그리고 
+```
+rospack profile
+```
+을 해주면 런치파일 및 rosrun 으로 노드들이 바로 잘 인식된다
+
+
+# 본격 설치
 
 툴 설치 wstool rosdep ninja (build를 하기 위한 툴이라고 함)
 ```
@@ -25,7 +53,8 @@ wstool merge -t src https://raw.githubusercontent.com/cartographer-project/carto
 wstool update -t src
 ```
 
-dependencies 설치하기
+[cartographer_ros] Done. 이라고 나오면 잘 되고 있는 것  
+이제 dependencies 설치하기 (경로는 catkin_ws 에서)
 ```
 sudo rosdep init
 rosdep update
@@ -33,6 +62,9 @@ rosdep install --from-paths src --ignore-src --rosdistro=${ROS_DISTRO} -y
 ```
 한번 실행했으면 에러가 발생하지만 무시하면 됨
 ERROR: default sources list file already exists:
+
+설치가 잘 되었다면 #All required rosdeps installed successfully 
+나온다
 
 만약 이런 비슷한 에러가 나면 해당 패키지의 package.xml 에 의존성 패키지를 잘 못 써준경우
 수정해주면 된다
@@ -47,6 +79,7 @@ src/cartographer/scripts/install_abseil.sh
 ```
 sudo apt-get remove ros-${ROS_DISTRO}-abseil-cpp
 ```
+설치가 안되어 있으면 설치가 안되어 있으므로 안 지운다라고 뜨면 정상
 
 마지막으로 빌드 
 ```
@@ -136,4 +169,21 @@ sudo make install
 catkin_make_isolated --install --use-ninja
 ```
 설치가 꽤 오래걸린다
+
+
+
+또 에러 발생
+
+ninja: error: '/usr/lib/x86_64-linux-gnu/libGL.so', needed by '/home/ubun/catkin_ws/devel_isolated/cartographer_rviz/lib/libcartographer_rviz.so', missing and no known rule to make it
+
+
+그래서 ls -li /usr/lib/x86_64-linux-gnu/libGL.so
+를 검색해보면 파일이 없다. 이럴때 싱볼릭 링크를 만들어줘야한다
+```
+sudo ln -s /usr/lib/libGL.so.1 /usr/lib/x86_64-linux-gnu/libGL.so
+
+```
+
+최종 아래 처럼 나오면 성공! 
+<== Finished processing package [31 of 31]:
 
