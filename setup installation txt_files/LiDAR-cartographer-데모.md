@@ -37,12 +37,51 @@ cd catkin_iso_ws
 source install_isolated/setup.bash
 ropack profile
 ```
-이렇게 해줘야지 제대로 인식한다
+이렇게 해줘야지 제대로 인식한다 (이것도 되는 듯 source devel_isolated/setup.bash)
+bashrc 파일을 열어서 맨 아래에 추가해주자
+```
+vi ~/.bashrc
+source $HOME/catkin_ws_iso/install_isolated/setup.bash
+```
 
 
 아마도 런치파일과 lua 파일을 잘 바꿔야지 잘 나올 듯 하다
 
+런치파일을 실행해보면 cartographer_node 가 실행이 되는데
+
+rostopic list 및 echo로 확인을 해보면
+```
+ubun@ubun-sc:~$ rostopic list
+
+ubun@ubun-sc:~$ rostopic info /points2
+Type: sensor_msgs/PointCloud2
+
+Publishers: None
+
+Subscribers: 
+ * /cartographer_node (http://ubun-sc:38707/)
+
+
+ubun@ubun-sc:~$ rostopic info /imu/data
+Type: sensor_msgs/Imu
+
+Publishers: None
+
+Subscribers: 
+ * /cartographer_node (http://ubun-sc:38707/)
+
+```
+위의 두개의 토픽을 cartographer_node에서 구독하고 있는 것을 알 수 있고
+
+
+
+
+
+
+
 그리고 조작은 일단 scout-mini는 시리얼통신으로 무선조종으로 움직이자
+
+
 
 
 맵 저장하기 (2D)
@@ -65,3 +104,6 @@ https://www.youtube.com/watch?v=GzZGl0kzGOM
 
 https://www.youtube.com/watch?v=bXNK8VTQ4zo 참고
 
+
+
+https://www.programmersought.com/article/53468612944/ 추후 참고

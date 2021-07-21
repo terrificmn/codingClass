@@ -27,7 +27,8 @@ catkin_ws 에서는 이제 catkin_make를 하는데 문제가 없다!!!
 
 중요한 것은 ~/.bashrc 에서 setup.bash 파일을 넣어줘서 실행이 되게 해줘야함
 
-source $HOME/catkin_ws_iso/devel_isolated/setup.bash
+source $HOME/catkin_ws_iso/install_isolated/setup.bash
+위에꺼만해도 됨 (source $HOME/catkin_ws_iso/devel_isolated/setup.bash) 
 를 추가해준다
 
 그리고 

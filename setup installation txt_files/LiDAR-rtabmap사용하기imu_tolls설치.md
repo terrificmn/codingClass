@@ -12,7 +12,7 @@ https://github.com/introlab/rtabmap/issues/574
 브랜치만 클론
 ```
 $ cd ~/catkin_ws/src
-$ git clone -b melodic https:visual_odometry/github.com/ccny-ros-pkg/imu_tools.git
+$ git clone -b melodic https://github.com/ccny-ros-pkg/imu_tools.git
 ```
 
 rosdep을 이용해서 dependency를 해결

@@ -10,6 +10,15 @@ https://pointclouds.org/documentation/classpcl_1_1_point_cloud.html#details
 [깃허브 클론후 catkin_make](https://github.com/ros-perception/pointcloud_to_laserscan)
 
 !!! 주의: 깃클론 받아서 시도 (깃허브로 클론해서 하려면 ros2이므로 브랜치 lunar-devel 로 사용)
+```
+ git clone -b lunar-devel https://github.com/ros-perception/pointcloud_to_laserscan.git
+```
+
+필요한 패키지를 설치해준 후에 catkin_make
+```
+sudo apt-get install ros-melodic-tf2-sensor-msgs
+catkin_make
+```
 
 [참고](http://wiki.ros.org/pointcloud_to_laserscan)
 
@@ -48,3 +57,8 @@ self.e = msg.ranges[1] // front
 
 
 앵글이 -3.14 에서 3.14 까지 된다고 가정하면 180
+
+
+
+https://opensource.googleblog.com/2016/10/introducing-cartographer.html
+참고하기
