@@ -184,6 +184,9 @@ ninja: error: '/usr/lib/x86_64-linux-gnu/libGL.so', needed by '/home/ubun/catkin
 그래서 ls -li /usr/lib/x86_64-linux-gnu/libGL.so
 를 검색해보면 파일이 없다. 이럴때 싱볼릭 링크를 만들어줘야한다
 ```
+ls: cannot access '/usr/lib/x86_64-linux-gnu/libGL.so': No such file or directory
+```
+```
 sudo ln -s /usr/lib/libGL.so.1 /usr/lib/x86_64-linux-gnu/libGL.so
 
 ```

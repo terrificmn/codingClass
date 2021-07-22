@@ -89,7 +89,7 @@ rviz에서 Map부분에서 topic을 /map으로 변경 해줘야한다
 tracking_frame = "imu_link", 이 부분을 해결해야한다
 
 rostopic echo -n1 /odom
-이 있는지도 확인해 볼 것
+이 있는지도 확인해 볼 것 - 나오는 것 없음!!!
 
 오도메트리는 처음 전원을 킨 위치가 0이 된다 
 (pose와 twist가 있는 )
@@ -125,7 +125,9 @@ x is forward from the starting point, y is to the left, and z is upwards.
 ```
 
 리맵은 to="/robot_pose"라면 to pull data from the “/robot_pose” 
-from은 topic output by cartographer :카토그래퍼가 내보내는 토픽이 됨. 이게 좀 헤깔림 (마치 거꾸로 되어 있는 듯하다)
+from은 topic output by cartographer :카토그래퍼가 내보내는 토픽이 됨. 이게 좀 헤깔리지만 (마치 거꾸로 되어 있는 듯하다)
+하는 방법은 해당 깃허브나 매뉴얼에서 나오는 subscriber/publisher를 확인해봐야한다
+그래서 어떤 토픽을 받고 어떤 토픽을 보내는지 확인
 
 
 하다하다 정 안 되면 bag파일 저장해서 하는 방식이 되는지도 해보자
@@ -428,14 +430,14 @@ return options
 ```
 
 코멘트 
-n this version I am inputting the imu from my wheels into carto, but IIRC you can input the odom from T265 by changing <arg name="publish_odom_tf" default="true"/> to <arg name="publish_odom_tf" default="false"/> and then in the carto launch file <remap from="odom" to="/rr_robot/mobile_base_controller/odom"/> to <remap from="odom" to="rs_t265/sample/odom"/> on that last one, please double check the topic name, as I am writing it down from memory.
+n this version I am inputting the imu from my wheels into carto, but IIRC you can input the odom from T265 by changing <arg name="publish_odom_tf" default="true"/> to <arg name="publish_odom_tf" default="false"/> and then in the carto launch file <remap from="odom" to="/rr_robot/mobile_base_controller/odom"/> to <remap from="odom" to="rs_t265/odom/sample"/> 
 
 Hope this helps. Now I am working in making a 3D map (and a 2D for navigation) with carto, RPLidar, t265 and d435i, I am a little bit confused here.
 
 t265 imu를 쓰고 있는 거죠라고 물어본 말에 답변
 on those launch files yes, but if you do the modification that is on the end of the comment, you will be also feeding the odometry output of the t265 to cartographer. I am still tunning this at the moment tot make it more reliable. but as it is, with the RP Lidar works fine at low angular speeds.
 this is the bit that I am refering to, in the carto launch file:
-remap from="odom" to="/rr_robot/mobile_base_controller/odom"/> to <remap from="odom" to="rs_t265/odom/sample"/> I added the right toipoic name this time
+<remap from="odom" to="/rr_robot/mobile_base_controller/odom"/> to <remap from="odom" to="rs_t265/odom/sample"/> I added the right toipoic name this time
 
 
 이슈 참고하기

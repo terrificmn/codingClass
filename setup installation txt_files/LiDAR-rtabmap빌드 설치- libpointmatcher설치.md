@@ -47,7 +47,6 @@ RTAB-Map ros-pkg 설치 이번에는 catkin_ws/src 에서 클론 후 설치
 ```
 $ cd ~/catkin_ws
 $ git clone https://github.com/introlab/rtabmap_ros.git src/rtabmap_ros
-$ cd ..
 $ catkin_make -j1
 ```
 
