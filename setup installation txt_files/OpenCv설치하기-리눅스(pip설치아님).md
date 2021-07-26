@@ -8,9 +8,9 @@ sudo apt update && sudo apt install -y cmake g++ wget unzip
 wget -O opencv.zip https://github.com/opencv/opencv/archive/master.zip
 unzip opencv.zip
 # Create build directory
-mkdir -p build && cd build
+mkdir -p opencv-master/build && cd opencv-master/build
 # Configure
-cmake  ../opencv-master
+cmake  ..
 # Build
 cmake --build .
 ```
