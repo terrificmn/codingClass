@@ -32,3 +32,7 @@ $ roslaunch turtlebot3_gazebo turtlebot3_empty_world.launch
 
 
 rs-sensor-control
+
+https://github.com/introlab/rtabmap/issues/402
+
+네비게이션 꼭 읽어보기
