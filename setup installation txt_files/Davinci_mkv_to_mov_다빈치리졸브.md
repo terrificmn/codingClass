@@ -12,6 +12,18 @@ obs-studio에서 캡쳐링 한 영상인 mkv를 mov로 변환해 준다.
 ffmpeg -i input.mkv -map 0:0 -map 0:1 -vcodec dnxhd -acodec:0 pcm_s16le -acodec:1 pcm_s16le -s 1920x1080 -r 30000/1001 -b:v 36M -pix_fmt yuv422p -f mov output.mov
 ```
 
+만약 아래와 같은 메세지가 뜬다면
+```
+Stream map '0:1' matches no streams.
+To ignore this, add a trailing '?' to the map.
+```
+
+이런식으로 -map 0:1 뒤에 ? 를 붙여준다
+```
+ffmpeg -i color_tracker1.mp4 -map 0:0 -map 0:1? -vcodec dnxhd -acodec:0 pcm_s16le -acodec:1 pcm_s16le -s 1920x1080 -r 30000/1001 -b:v 36M -pix_fmt yuv422p -f mov tracker-output-cap.mov
+```
+
+
 힘들게 변환한 이유는...
 
 obs-studio로 캡쳐한 방식 mkv 또는 mp4방식 둘 다 다빈치 리졸브에서 열리지를 않는다.
