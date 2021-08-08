@@ -7,13 +7,11 @@
 <br/>
 
 ## 어떤 서비스를 할 수 있을까?
-로봇에 어쩌면 가장 중요한 기능이자 기본이 되는 자율주행을 가능하게 한다면 여러가지 서비스를 
-제공할 수 있게 되는데 예를 들자면 배달, 경비, 서빙 서비스등 가능해집니다.
-자율주행이 목표를 세웠지만 이는 다양하게 서비스를 제공할 수 있는 방향으로
+로봇에 어쩌면 가장 중요한 기능이자 기본이 되는 자율주행을 가능하게 한다면 여러가지 서비스를   
+제공할 수 있게 되는데 예를 들자면 배달, 경비, 서빙 서비스등 가능해집니다.  
+
+자율주행이 목표를 세웠지만 이는 다양하게 서비스를 제공할 수 있는 방향으로  
 발전할 수 있다고 생각했습니다.
-
-이미지??
-
 
 <br/>
 
@@ -63,20 +61,22 @@ ROS melodic 버전은 ubuntu 18.04 LTS 버전에 맞춰서 나왔기 때문에 �
 
 각자 commit 및 push가 끝나게 되면 pull request를 통해서 main(master)브랜치와 합병을 했습니다.
 
-
+## 깃허브
 [무인 모바일 프로젝트 깃허브](https://github.com/terrificmn/patrol-robot.git)
 
 <br/>
 
 ## 핵심 기술 
 1. LiDAR: Light Detection and Ranging
+Luminar의 라이다 이미지  
 
 <img src=3>
+<br/>
 
 2. SLAM: Simultaneous Localization and Mapping 
 
 <img src=4>
-
+<br/>
 
 <br/>
 
@@ -117,6 +117,8 @@ color-tracker 패키지의 구성도 입니다.
 
 ## color 트랙커 영상
 빨간색 원형 물체를 따라가는 영상 입니다.
+
+<img src=5>
 
 영상 링크
 <br/>
