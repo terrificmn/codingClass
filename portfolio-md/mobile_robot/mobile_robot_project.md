@@ -20,28 +20,32 @@
     - 각기 다른 4바퀴 모터 구동
 
 <img src=0>
+<br/>
 
 2. Intel L515 라이다 카메라 
     - 3D LiDAR, RGBD 카메라 사용가능 
 
 <img src=1>
+<br/>
 
 3. Intel T265 스테레오 카메라
     - 어안렌즈와 함께 IMU 센서 제공
 
 <img src=2>
+<br/>
 
 4. INTEL NUC Mini PC
     - 인텔사의 10세대 i5 프로세서 컴퓨터
 
 <br/>
 
+
 ## 소프트웨어
 1. ROS (Robot Operating System): melodic 버전  
-로봇을 제어하기 위해 필요한 라이브러리 제공 및 로봇 운영체제
+    - 로봇을 제어하기 위해 필요한 라이브러리 제공 및 로봇 운영체제
 
 2. Ubuntu: 18.04 Bionic Beaver
-ROS melodic 버전은 ubuntu 18.04 LTS 버전에 맞춰서 나왔기 때문에 리눅스 운영체제 배포판으로 사용
+    - ROS melodic 버전은 ubuntu 18.04 LTS 버전에 맞춰서 나왔기 때문에 리눅스 운영체제 배포판으로 사용
 
 3. C++ / Python: 주 개발은 C++ 사용, Python
 
@@ -99,7 +103,11 @@ rtabmap은 입력으로 스테레오, RGBD 카메라 및 2D/3D 라이다를 지�
 <br/>
 
 ## 슬램 영상
-링크 걸기!
+
+<video width="640" height="480" controls>
+  <source src="http://54.180.113.157/storage/footage/portfolio_clips/mobile-robot-slam-video.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video> 
 
 <br/>
 
@@ -110,7 +118,7 @@ rtabmap은 입력으로 스테레오, RGBD 카메라 및 2D/3D 라이다를 지�
 L515 LiDAR를 이용해서 앞에 사람이 있을 경우 멈춥니다.
 
 color-tracker 패키지의 구성도 입니다.
-<img src=5>
+<img src=6>
 
 
 <br/>
@@ -118,10 +126,18 @@ color-tracker 패키지의 구성도 입니다.
 ## color 트랙커 영상
 빨간색 원형 물체를 따라가는 영상 입니다.
 
-<img src=5>
-
-영상 링크
+이미지   
+<img src=7>
 <br/>
+
+<video width="640" height="480" controls>
+  <source src="http://54.180.113.157/storage/footage/portfolio_clips/color-tracker-final.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video> 
+
+
+<br/>
+
 
 
 ## 3조 협업 프로젝트를 진행
@@ -147,6 +163,11 @@ color-tracker 패키지의 구성도 입니다.
 ## sleep-detection 소개 영상
 디텍팅과 자동차 제어 협업 영상입니다.
 
-영상 링크
 
-<br/>
+<video width="640" height="480" controls>
+  <source src="http://54.180.113.157/storage/footage/portfolio_clips/sleep-detect-final.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video> 
+
+
+# 감사합니다!

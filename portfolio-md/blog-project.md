@@ -9,10 +9,8 @@ Blog를 직접 개발, 배포 하고 직접 운영도 하는 프로젝트입니�
 
 ## 기능
 1. Posts - 기술 블러그 및 공부한 내용을 업로드 합니다.
-
 2. DevNotes - 개발과정을 일지처럼 남길 수 있는 게시판 입니다.
-
-3. Portfolio - 포트폴리오를 업로드 
+3. Portfolio - 포트폴리오를 업로드
 
 <br/>
 
@@ -33,20 +31,25 @@ MariaDB - OpenSource RDBMS
 <br/>
 
 ## 프레임워크
-Laravel - 중복되는 작업을 줄여줄 수 있는 프레임워크 입니다. php언어로 MVC 아키텍쳐에 의해 작성할 수 있습니다.
+1. Laravel    
+    - 중복되는 작업을 줄여줄 수 있는 프레임워크 입니다.   
+    - php언어로 MVC 아키텍쳐에 의해 작성할 수 있습니다.
+
+2. tailwindcss  
+    - css를 미리 만들어져 있는 tailwindcss를 사용해서 쉽게 적용할 수 있습니다.
 
 <br/>
 
 ## 개발환경
 1. 리눅스 배포판 운영체제 (CentOS 8 / Ubuntu 18.04)
-    - CentOS 8 에서 개발
 
-2. Docker 
-    - 우분투에서도 쉽게 작업할 수 있게 도커 환경 구축  
-    - 컨테이너 구성은 nginx, php, mariadb, composer, npm, artisan  
-    - PhpMyAdmin: DB tool을 사용 합니다    
-    - npm, composer 같은 패키지(라이브러리) 관리     
-    - Laravel 프레임워크의 Command Line Interface인 artisan도 container로 구성하여 쉽게 사용할 수 있습니다.  
+2. Docker: 우분투에서도 쉽게 작업할 수 있게 도커 환경 구축  
+
+3. Docker3 테스트
+
+- 컨테이너 구성은 nginx, php, mariadb, composer, npm, artisan  PhpMyAdmin: DB tool을 사용 합니다    
+- npm, composer 같은 패키지(라이브러리) 관리     
+- Laravel 프레임워크의 Command Line Interface인 artisan도 container로 구성하여 쉽게 사용할 수 있습니다.  
 
 <br/>
 
