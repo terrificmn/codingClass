@@ -51,8 +51,16 @@ python
 <br/>
 
 ## 필요한 라이브러리 (requirements)
-streamlit, cython, tensorflow==2.2.0, numpy, pandas, pycocotools  
-joblib, opencv-python-headless, keras, imutils  
+- streamlit
+- cython
+- tensorflow==2.2.0
+- numpy
+- pandas
+- pycocotools  
+- joblib
+- opencv-python-headless
+- keras
+- imutils  
 
 <br/>
 
