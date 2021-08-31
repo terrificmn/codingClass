@@ -18,10 +18,7 @@ ffmpeg -i input.mkv -map 0:0 -map 0:1 -vcodec dnxhd -acodec:0 pcm_s16le -acodec:
 
 또는 dnxhd 가 아닌 mpeg4로 쉽게 하기 (조금 퀄리티가 떨어질 수 있다고 함- 용량이 훨씬 작아짐 (위의 방식은 용량이 큼))
 ```
-ffmpeg -i input.mp4 \
-    -c:v mpeg4 -qscale:v 1 \
-    -c:a pcm_s16le \
-    -f mov output.mov
+ffmpeg -i input.mp4 -c:v mpeg4 -qscale:v 1 -c:a pcm_s16le -f mov output.mov
 ```
 
 
