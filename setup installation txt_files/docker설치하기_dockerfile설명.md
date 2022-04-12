@@ -2,7 +2,7 @@ docker 설치  (centOS 8)
 yum-tils 설치 (이미 설치되어 있음)
 ```
 $ sudo yum install -y yum-utils
-```
+``` 
 
 
 우분투 같은 경우 먼저 업데이트 
@@ -55,20 +55,20 @@ $sudo yum install docker-ce docker-ce-cli containerd.io
 ```
 try to add '--allowerasing' to command line to replace conflicting packages 라는 메세지가 나옴
 
-패키지가 호환이 안되는 것이 있어서 --allowerasing 옵션을 넣어준다
+만약 패키지가 호환이 안된다고 나오는 경우에는 --allowerasing 옵션을 넣어준다
 
 ```
-docker-ce docker-ce-cli containerd.io --allowerasing
+$sudo yum install docker-ce docker-ce-cli containerd.io --allowerasing
 ```
+docker를 설치하고 호환되지 않는 것은 삭제하며 설치를 시작한다
 
-docker를 설치하고 호환되지 않는 것은 삭제해준다
-
-시작
+도커 시작해 주기
 ```
 sudo systemctl start docker
 ```
 
 
+[도커컴포즈 설치~ docs확인하기](https://docs.docker.com/compose/install/)
 
 
 여기는 공통!!
@@ -111,6 +111,8 @@ sudo groupadd docker
 sudo usermod -aG docker $USER
 ```
 아마도 도커 그룹은 있다고 할 것..
+groupadd: group 'docker' already exists
+
 
 newgrp docker 
 newgrp는 바로 다시 적용을 시켜준다. 아니면 로그아웃 한다음에 다시 로그인

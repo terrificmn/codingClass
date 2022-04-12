@@ -66,6 +66,9 @@ npm install
 그래서 처음부터 nodejs를 14, 15버전으로 리포지터리 추가해서 설치할 것
 
 gcc 확인 아마 설치되어 있을 것, 없으면 설치 // 대개 centOS경우에는 (Development Tools인가로 설치하면 다 설치 됨)
+```
+$ sudo yum group install "Development Tools"
+```
 dnf install gcc-c++ make
 
 리포지터리에 추가 
