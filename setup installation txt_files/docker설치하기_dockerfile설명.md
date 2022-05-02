@@ -67,15 +67,29 @@ docker를 설치하고 호환되지 않는 것은 삭제하며 설치를 시작�
 sudo systemctl start docker
 ```
 
+## Docker compose 설치
 
 [도커컴포즈 설치~ docs확인하기](https://docs.docker.com/compose/install/)
 
 
 여기는 공통!!
 docker-compose를 설치하기   (여기는 centos/ubuntu 같은 듯)
-먼저 binaries 다운받기
+
+~~먼저 binaries 다운받기~~
+
+예전 방법
+~~sudo curl -L "https://github.com/docker/compose/releases/download/1.28.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose~~
+
+
+Docker Compose binary 을 깃허브어서 다운 받은 후에 $HOME/.docker/cli-plugins 에 docker-compose로 카피하게 된다고 한다
+
 ```
-sudo curl -L "https://github.com/docker/compose/releases/download/1.28.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
+
+mkdir -p $DOCKER_CONFIG/cli-plugins
+
+curl -SL https://github.com/docker/compose/releases/download/v2.4.1/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose
+
 ```
 
 그 다음 퍼미션 실행가능하게 만들기
