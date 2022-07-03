@@ -17,7 +17,7 @@ services:
 
 ```
 
-environment: 부분을 Dockerfile의 ENV 환경변수에 직접 넣고 yml파일에서는 빼도 되는지는 테스트 해볼 것
+environment: 부분을 Dockerfile의 ENV 환경변수에 직접 넣고 yml파일에서는 빼도 되는지는 테스트 해볼 것  
 결과: 가능하다.  
 
 ```Dockerfile

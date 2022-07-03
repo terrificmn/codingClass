@@ -107,9 +107,9 @@ protoc이라는 파일이 있는데 다른디렉토리에서도 사용할 수 �
 $cd ~/tensorflow/protoc/bin
 $export PATH=$PATH:`pwd`
 
-또는
+#또는
 $export PATH=$PATH:"~/tensorflow/protoc/bin"
-또는
+#또는
 $export PATH="~/tensorflow/protoc/bin:$PATH"
 ```
 
@@ -117,12 +117,14 @@ $export PATH="~/tensorflow/protoc/bin:$PATH"
 계속 사용하려면 홈디렉토리에 .bashrc 에 추가해 준 후에 저장  
 그리고 source .bashrc 를 해준다 
 
-export PYTHONPATH="$PYTHONPATH:$HOME/Workspace/docker-tfod/src/models/research:$HOME/Workspace/docker-tfod/src/models/research/slim"
-
+그다음 source 해주기
 ```shell
 export PYTHONPATH="$PYTHONPATH:$HOME/Workspace/tensorflow/models/research:$HOME/Workspace/tensorflow/models/research/slim"
 ```
-그다음 source 해주기
+도커 사용시
+```shell
+export PYTHONPATH="$PYTHONPATH:$HOME/Workspace/docker-tfod/src/models/research:$HOME/Workspace/docker-tfod/src/models/research/slim"
+```
 
 
 이제 protoc 을 이용해서 컴파일하기
@@ -167,9 +169,9 @@ $make
 원래 매뉴얼에는 make를 실행해야하는데 python을 못 찾는다. 그래서 직접 입력을 해준다 
 
 이 부분에서 너무 많이 애를 먹어서;;
-centOS 8에는 기본으로 파이썬3.6이 설치가 되어 있는데. 나는 따로 파이썬3.8을 설치를 했고
-아나콘다 가상환경에서도 파이썬3.8을 설치했다
-그래서 이부분에서 파이썬 3.8로 실행할 수 있게 해야한다. 이게 안되면 계속 꼬이고 설치가 잘 안된다.
+centOS 8에는 기본으로 파이썬3.6이 설치가 되어 있는데. 나는 따로 파이썬3.8을 설치를 했고  
+아나콘다 가상환경에서도 파이썬3.8을 설치했다  
+그래서 이부분에서 파이썬 3.8로 실행할 수 있게 해야한다. 이게 안되면 계속 꼬이고 설치가 잘 안된다.  
 
 python 환경변수 설정 및 심볼릭 링크 수정을 참고하자!
 
@@ -240,12 +242,12 @@ ___
 
 
 
-심볼릭 링크 /usr/bin/pyhothn3 -> /etc/alternatives/python3
-를 가리키고 있고 (이놈도 심볼릭링크다) 
-다시 이 심볼릭링크 /etc/alternatives/python3 -> /usr/bin/python3.6 
+심볼릭 링크 /usr/bin/pyhothn3 -> /etc/alternatives/python3  
+를 가리키고 있고 (이놈도 심볼릭링크다)   
+다시 이 심볼릭링크 /etc/alternatives/python3 -> /usr/bin/python3.6   
 (실제실행 파일을 가리키고 있음)
 
-그래서 이 부분을 수정해주면 원래 소스 실행될 파일 파이썬3.8을 기존의 3.6으로의 연결을 끓고 
+그래서 이 부분을 수정해주면 원래 소스 실행될 파일 파이썬3.8을 기존의 3.6으로의 연결을 끓고   
 다시 연결해준다 
 ```
 sudo ln -sf /usr/local/bin/python3.8 /etc/alternatives/python3
@@ -255,17 +257,19 @@ sudo ln -sf /usr/local/bin/python3.8 /etc/alternatives/python3
 ```
 ls -li /etc/alternatives/python3*
 ```
-68080898 lrwxrwxrwx. 1 root root 24 May  2 08:22 /etc/alternatives/python3 -> /usr/local/bin/python3.8
+68080898 lrwxrwxrwx. 1 root root 24 May  2 08:22 /etc/alternatives/python3 -> /usr/local/bin/python3.8  
 녹색으로 잘 나오면 됨~ 빨간색이면 연결이 잘 안된거니 주의
 
 이제 파이썬 python3 이라고 입력하면 3.8이 실행된다.
 
-python이라고 치면 
-bash: python: command not found...
-명령어가 없다고 한다.. 
+python이라고 치면   
+```
+bash: python: command not found...   
+```
+명령어가 없다고 한다..   
 위에 처럼 python 심볼릭 링크를 만들어 주거나 
 
-또는 
+또는   
 .bashrc 파일에 alias 를 설정해주면 된다.
 
 (나중에 업데이트)
@@ -277,166 +281,28 @@ bash: python: command not found...
 
 실패이력!!!! 
 
-먼저 .bashrc 파일에 alias 라고 해서 python python3 으로 입력하게 되면 
-모두 파이썬 3.8로 하게 되어 있는데..
-그래서 평상시 python 또는 python3 , python3.8 이렇게만 쳐주면 
-3.8.8 버전이 뜨게 되고, 
+먼저 .bashrc 파일에 alias 라고 해서 python python3 으로 입력하게 되면  
+모두 파이썬 3.8로 하게 되어 있는데..  
+그래서 평상시 python 또는 python3 , python3.8 이렇게만 쳐주면   
+3.8.8 버전이 뜨게 되고,   
 오직 python3.6 이라고 해야지 3.6버전 인터프리터가 실행된다
 
-하지만 python setpu.py install 같이 설치할 때에는 이게 제대로 작동을 안한다
+하지만 python setpu.py install 같이 설치할 때에는 이게 제대로 작동을 안한다   
 계속 python 을 못찾게 된다.
 
-어찌어찌 python이 실행되게 하면
+어찌어찌 python이 실행되게 하면  
 python3 이 3.8이 아닌 3.6을 가리키는 바람에 계속 호환성 때문에 안되다가, 
 
-그래서 심볼릭 링크를 수정을 해줬는데.. 이 부분을 했음에도 
-뭔가 꼬였는지 numpy가 없다고 한다.. no module found
+그래서 심볼릭 링크를 수정을 해줬는데.. 이 부분을 했음에도   
+뭔가 꼬였는지 numpy가 없다고 한다.. no module found  
 그래서 다 지우고 다시 해서 설치를 성공함;;
 
-.local/lib/python3.8/site-packages
-디렉토리를 날려버리고 , 단 아나콘다를 설치한 후 pip을 사용해서 아직까지는 python3.8 만들어 지지 않고 있음
-(이걸 한 이유는 cocoapi를 설치할 때 계속 3.6으로만 실행되다가 3.8로 실행이 되게 했더니...
-setuptools가 없다고 하고, numpy가 없다고 하고,, 거의 미칠 지경 ㅋㅋㅋ 왜냐면 다 설치가 되어 있으니;;; 
+.local/lib/python3.8/site-packages  
+디렉토리를 날려버리고 , 단 아나콘다를 설치한 후 pip을 사용해서 아직까지는 python3.8 만들어 지지 않고 있음  
+(이걸 한 이유는 cocoapi를 설치할 때 계속 3.6으로만 실행되다가 3.8로 실행이 되게 했더니...  
+setuptools가 없다고 하고, numpy가 없다고 하고,, 거의 미칠 지경 ㅋㅋㅋ 왜냐면 다 설치가 되어 있으니;;;   
 어딘가에서 꼬인거 같아서 삭제해버림-- 일단 추천하지는 않음)
 
-파이썬 3.8 소스 파일에서 다시 인스토를 함
+파이썬 3.8 소스 파일에서 다시 인스토를 함  
 아나콘다도 지우고 다시 설치
 
-
-
-pycocotools/_mask.c:4:10: fatal error: Python.h: No such file or directory
-
-
-
-
-yum search python3 | grep devel
-
-
-
- 511488 lrwxrwxrwx. 1 root root   31 Apr  2 01:50 /usr/bin/python3.6 -> /usr/libexec/platform-python3.6
-
-
-pycocotools/_mask.c:4:20: fatal error: Python.h: No such file or directory
-이럴 때는 
-sudo yum install python36-devel 을 설치해주는데 
-3.8이면
-sudo yum install python38-devel
-
-
-
-which python
-alias python='python3.8'
-	/usr/local/bin/python3.8
-
-
-심볼릭 링크 만들기 (소스파일 데스티네이션)
-# sudo ln -s /usr/local/bin/python3.8 /usr/bin/python3
-결과
-ls -li /usr/bin/python*
-458069 lrwxrwxrwx. 1 root root   24 Apr 22 16:55 /usr/bin/python3 -> /usr/local/bin/python3.8
-
-
-
-
-
-jinfagang faced same problem with you, maybe you use Python3 but installed cython for python2.
-
-if you use python3, maybe you shoud modify PythonAPI/Makefile
-Origin Makefile:
-
-all:
-    # install pycocotools locally
-	python setup.py build_ext --inplace
-	rm -rf build
-
-install:
-	# install pycocotools to the Python site-packages
-	python setup.py build_ext install
-	rm -rf build
-
-you should change python to python3:
-
-all:
-    # install pycocotools locally
-	python3 setup.py build_ext --inplace
-	rm -rf build
-
-install:
-	# install pycocotools to the Python site-packages
-	python3 setup.py build_ext install
-	rm -rf build
-
-
-이것도 안됨;;
-
-
-
-
-[sgtOcta@localhost PythonAPI]$ ls -li /usr/bin/python3*
- 831314 lrwxrwxrwx. 1 root root   25 Apr 22 13:46 /usr/bin/python3 -> /etc/alternatives/python3
- 511488 lrwxrwxrwx. 1 root root   31 Apr  2 01:50 /usr/bin/python3.6 -> /usr/libexec/platform-python3.6
-2909136 lrwxrwxrwx. 1 root root   17 Apr  2 01:50 /usr/bin/python3.6-config -> python3.6m-config
- 511489 lrwxrwxrwx. 1 root root   32 Apr  2 01:50 /usr/bin/python3.6m -> /usr/libexec/platform-python3.6m
-2913037 lrwxrwxrwx. 1 root root   39 Apr  2 01:50 /usr/bin/python3.6m-config -> /usr/libexec/platform-python3.6m-config
-2913057 lrwxrwxrwx. 1 root root   46 Apr  2 01:50 /usr/bin/python3.6m-x86_64-config -> /usr/libexec/platform-python3.6m-x86_64-config
- 831301 lrwxrwxrwx. 1 root root   18 Apr 22 13:43 /usr/bin/python3.8 -> /usr/bin/python3.6
- 507461 -rwxr-xr-x. 1 root root  171 Apr  1 02:32 /usr/bin/python3.8-config
- 507462 -rwxr-xr-x. 1 root root 3616 Apr  1 02:24 /usr/bin/python3.8-x86_64-config
-[sgtOcta@localhost PythonAPI]$ ls -l /usr/libexec/platform-python3.6
--rwxr-xr-x. 2 root root 11816 Mar 19 14:15 /usr/libexec/platform-python3.6
-
-
- ls -li /usr/bin/python*
-1399641 lrwxrwxrwx. 1 root root   24 Apr 22 17:49 /usr/bin/python -> /usr/local/bin/python3.8
- 458069 lrwxrwxrwx. 1 root root   24 Apr 22 16:55 /usr/bin/python3 -> /usr/local/bin/python3.8
-
-
-여기 연결 고리를 끊어주기 원래 상태 경로는 /etc/alternatives/python3
-(base) [sgtOcta@localhost alternatives]$ ls -li python*
-458064 lrwxrwxrwx. 1 root root 22 Apr 22 21:11 python -> /usr/libexec/no-python
-490420 lrwxrwxrwx. 1 root root 18 Apr 22 21:11 python3 -> /usr/bin/python3.6
-511489 lrwxrwxrwx. 1 root root 34 Apr 22 21:11 python3-man -> /usr/share/man/man1/python3.6.1.gz
-(base) [sgtOcta@localhost alternatives]$ sudo ln -sf /usr/local/bin/python3.8 /etc/alternatives/python3
-[sudo] password for sgtOcta: 
-(base) [sgtOcta@localhost alternatives]$ ls -li python*
-458064 lrwxrwxrwx. 1 root root 22 Apr 22 21:11 python -> /usr/libexec/no-python
- 44807 lrwxrwxrwx. 1 root root 24 Apr 22 21:34 python3 -> /usr/local/bin/python3.8
-511489 lrwxrwxrwx. 1 root root 34 Apr 22 21:11 python3-man -> /usr/share/man/man1/python3.6.1.gz
-
-문제는 계속 파이썬 3.6버전으로 설치를 하려고 하는 것
-
-저렇게 해주면 3.8로 연결을 해놓으면 정말 3.8을 실행하지만 
-이제는 
-File "setup.py", line 1, in <module>
-    from setuptools import setup, Extension
-ImportError: cannot import name 'setup' from 'setuptools' (unknown location)
-에러가 발생.. 미치;
-
-
-
-
- ls -li /bin/python*
- 458069 lrwxrwxrwx. 1 root root   25 Apr 22 21:11 /bin/python3 -> /etc/alternatives/python3
-  44785 lrwxrwxrwx. 1 root root   31 Apr  2 01:50 /bin/python3.6 -> /usr/libexec/platform-python3.6
-2909136 lrwxrwxrwx. 1 root root   17 Apr  2 01:50 /bin/python3.6-config -> python3.6m-config
-  44801 lrwxrwxrwx. 1 root root   32 Apr  2 01:50 /bin/python3.6m -> /usr/libexec/platform-python3.6m
-2913037 lrwxrwxrwx. 1 root root   39 Apr  2 01:50 /bin/python3.6m-config -> /usr/libexec/platform-python3.6m-config
-2913057 lrwxrwxrwx. 1 root root   46 Apr  2 01:50 /bin/python3.6m-x86_64-config -> /usr/libexec/platform-python3.6m-x86_64-config
- 507461 -rwxr-xr-x. 1 root root  171 Apr  1 02:32 /bin/python3.8-config
- 507462 -rwxr-xr-x. 1 root root 3616 Apr  1 02:24 /bin/python3.8-x86_64-config
-[sgtOcta@localhost PythonAPI]$ ls -li /etc/alternatives/python*
-458064 lrwxrwxrwx. 1 root root 22 Apr 22 21:11 /etc/alternatives/python -> /usr/libexec/no-python
- 44807 lrwxrwxrwx. 1 root root 24 Apr 22 21:34 /etc/alternatives/python3 -> /usr/local/bin/python3.8
-511489 lrwxrwxrwx. 1 root root 34 Apr 22 21:11 /etc/alternatives/python3-man -> /usr/share/man/man1/python3.6.1.gz
-
-
-
-
- pwd
-/home/sgtOcta/.local/lib/python3.8
-[sgtOcta@localhost python3.8]$ ls -l
-total 12
-drwx------. 136 sgtOcta sgtOcta 8192 Apr 23 10:03 site-packages
-[sgtOcta@localhost python3.8]$ 
-
-삭제함
