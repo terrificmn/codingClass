@@ -2,17 +2,19 @@
 
 lrwxrwxrwx. 1 root root 32 Mar 23 15:15 /etc/localtime -> ../usr/share/zoneinfo/Asia/Seoul
 
-시간대 정보가 /usr/share/zoneinfo/Asia/Seoul 에 있는데 
-심볼릭 링크를 /etc/localtime 로 만들어 주면 된다. 대신 연결이 되어있으므로 기존 연결을 제거하고 (-f 옵션) 다시 연결
+시간대 정보가 /usr/share/zoneinfo/Asia/Seoul 에 있는데   
+심볼릭 링크를 /etc/localtime 로 만들어 주면 된다. 대신 연결이 되어있으므로 기존 연결을 제거하고 (-f 옵션) 다시 연결  
 ```shell
 $ ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 ```
 
-런레벨 을 찾아보면 각 심볼릭링크로 되어 있는데 원본 파일들을 각각 가리키고 있다 
-$ ls -l /lib/systemd/system/runlevel?.target
+런레벨 을 찾아보면 각 심볼릭링크로 되어 있는데 원본 파일들을 각각 가리키고 있다
+```   
+$ ls -l /lib/systemd/system/runlevel?.target  
+```
 으로 리스트를 보면
 ```
-[sgtOcta@localhost hardAndSymbolicPrac]$ ls -l /lib/systemd/system/runlevel?.target
+[ta@localhost hardAndSymbolicPrac]$ ls -l /lib/systemd/system/runlevel?.target
 lrwxrwxrwx. 1 root root 15 Feb  1 18:05 /lib/systemd/system/runlevel0.target -> poweroff.target
 lrwxrwxrwx. 1 root root 13 Feb  1 18:05 /lib/systemd/system/runlevel1.target -> rescue.target
 lrwxrwxrwx. 1 root root 17 Feb  1 18:05 /lib/systemd/system/runlevel2.target -> multi-user.target
@@ -22,7 +24,7 @@ lrwxrwxrwx. 1 root root 16 Feb  1 18:05 /lib/systemd/system/runlevel5.target -> 
 lrwxrwxrwx. 1 root root 13 Feb  1 18:05 /lib/systemd/system/runlevel6.target -> reboot.target
 ```
 
-runlevel숫자.target 파일들이 원파일들을 가리키고 있는데
+runlevel숫자.target 파일들이 원파일들을 가리키고 있는데  
 원래 원본 파일들을 같은 경로에 있다. /lib/systemd/system/ 안에 있음
 
 바꾸고 싶은 원파일을 가리키게 default.target으로 심볼릭 링크를 만들어주면 된다
@@ -45,7 +47,7 @@ ln 명령어는 <원본파일:타켓> <심볼릭링크만들파일이름>
 
 ___
 
-grep 파일 내용 찾기: 내용이 있으면 하이라이트 해주고 없으면 아무것도 안나옴
+grep 파일 내용 찾기: 내용이 있으면 하이라이트 해주고 없으면 아무것도 안나옴  
 grep 문자열 파일명
 
 ```shell
@@ -57,7 +59,7 @@ $ grep -n string afile.txt
 
 ___
 
-find 파일 찾기 : 해당경로를 설정해주면 그 기준으로 파일을 찾는다
+find 파일 찾기 : 해당경로를 설정해주면 그 기준으로 파일을 찾는다  
 find 경로 -name 파일명
 ```shell
 $find ./ -name a_find_file

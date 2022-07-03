@@ -1,6 +1,0 @@
-200~Loading new amdgpu-5.9.20.104-1247438.el8 DKMS files...
-Building for 4.18.0-240.22.1.el8_3.x86_64
-Building initial module for 4.18.0-240.22.1.el8_3.x86_64
-Done.
-Forcing installation of amdgpu
-
