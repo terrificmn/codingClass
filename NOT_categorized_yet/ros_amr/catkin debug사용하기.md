@@ -1,5 +1,7 @@
 cakin build --help를 통해서 알아보자   
 
+> catkin tools가 필요함
+
 이 중에서 cmake-args ARG를 사용
 ```
 --cmake-args ARG [ARG ...]
@@ -67,7 +69,3 @@ MinSizeRel is the same as Release, with its optimization configuration just set 
     If I want to generate a production build, should I choose Release?
 
 Yes, that should do the right job for you. Debug/Release are the most commonly used options.
-
-Reading this CMAKE FAQ will actually help you a lot.
-
-
