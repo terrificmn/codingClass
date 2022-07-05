@@ -38,8 +38,23 @@ catkin config
 ### 지우기
 지우기 build devel 을 모두 지워준다
 ```
-catkin clean -b -d
+catkin clean -bd
 ```
+참고
+```
+-b, --build, --build-space
+                        Remove the entire build space.
+-d, --devel, --devel-space
+                    Remove the entire devel space.
+-i, --install, --install-space
+                    Remove the entire install space.
+-L, --logs, --log-space
+                    Remove the entire log space.
+```
+
+## help
+[메뉴얼보기https://catkin-tools.readthedocs.io/en/latest/](https://catkin-tools.readthedocs.io/en/latest/)
+
 
 
 
