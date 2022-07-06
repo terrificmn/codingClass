@@ -1,5 +1,12 @@
 추후 다시 한번 살펴보기   
-https://github.com/nocoinman/Multi-Robot-Coverage-Planning
+   
+[여기 깃허브는 py script가 있고 런치파일은 별 도움은 안되지만 나중에 py코드나 cpp 코드 필요할 경우 살펴보기](https://github.com/nocoinman/Multi-Robot-Coverage-Planning)
+
+
+[multirobot 관련 launch파일 참고할 수 있음- 깃허브링크](https://github.com/gingineer95/Multi-Robot-Exploration-and-Map-Merging/tree/main/launch)
+
+
+
 
 먼저 시뮬레이션을 하기 위해서 turtlebot3 패키지를 받아준다 
 
@@ -15,8 +22,7 @@ mkdir -p turtlebot3_ws/src
 rostopic pub -1 /tb3_1/cmd_vel geometry_msgs/Twist -- '[0.0, 0.0, 0.0]' '[0.0, 0.0, 0.3]'
 ```
 
-https://github.com/gingineer95/Multi-Robot-Exploration-and-Map-Merging/tree/main/launch   
-여기확인 - 일단 됨 
+
 
 
 # deprecated
@@ -42,8 +48,17 @@ xacro.py 에서 xacro 로 변경해서 사용할 것
 <param name="robot_description" command="$(find xacro)/xacro '$(find mybot_description)/urdf/mybot.xacro'"/>
 ```
 
-3. 그 밖에 noetic에서 바뀐 것들 참고할 것  
+3. robot_description
+```xml
+    <!-- Spawn the model in gazebo -->
+    <node name="spawn_turtlebot3" pkg="gazebo_ros" type="spawn_model"
+        args="$(arg init_pose) -urdf -model $(arg robot_name) -param robot_description"/>
+```
+에서 -param 은 robot_description 이고 앞에서 /를 붙이면 에러 발생함
+
+4. 그 밖에 noetic에서 바뀐 것들 참고할 것  
 https://wiki.ros.org/noetic/Migration
+
 
 
 
@@ -63,81 +78,58 @@ robot1/odom
 robot2/odom
 ```
 
-그런데 여기에서 파라미터를 이용해서 tf_prefix를 사용하는 부분이 있었는데 tf_prefix를 사용하는 것도  
-**더 이상 지원이 안된다고 한다**  
-일단 아래와 같은 방식으로 실행시키는 것을 *참고만* 하자
+launch 파일 예 
+1. 방법 1 파라미터 tf_prefix를 이용해서 실행   
+위의 토픽 예 처럼 되어야 하지만 위에서 말한 것 처럼  
+~~tf_prefix 파라미터가 tf2로 업데이트가 되면서 deprecated가 되었다고 한다. 2020년~~   
 
-launch 파일 예
+하지만 Noetic에도 2021 10월쯤 업데이트가 PR이 되어서 Noetic에서도 Melodic에서 사용한 것 처럼 된다고 함
+
+spawn_robots_prefix.launch 파일 중에
 ```xml
 <launch>
-    <param name="robot_description" command="$(find xacro)/xacro.py $(find turtlebot3_description)/robots/urdf/turtlebot3_burger.urdf.xacro">
-
-    <group ns="robot1">
-        <param name="tf_prefix" value="robot1_tf" />  ## tf_prefix를 이용해서 앞에 value값이 붙는다 
-        <include file="$(find multiple_turtlebots_sim)/launch/one_robot.launch">
-            <arg name="init_pose" value="-x 3 -y 1 -z 0" /> ## use different place
-            <arg name="robot_name" value="Robot1" />
-        </include>
-    </group>
-
-
-    <group ns="robot2">
-        <param name="tf_prefix" value="robot2_tf" />
-        <include file="$(find multiple_turtlebots_sim)/launch/one_robot.launch">
-            <arg name="init_pose" value="-x -4 -y 1 -z 0" />
-            <arg name="robot_name" value="Robot2" />
-        </include>    
-    </group>
-
-
-    <group ns="robot3">
-        <param name="tf_prefix" value="robot3_tf" />
-        <include file="$(find multiple_turtlebots_sim)/launch/one_robot.launch">
-            <arg name="init_pose" value="-x 1 -y -6 -z 0" />
-            <arg name="robot_name" value="Robot3" />
-        </include>
-    </group>
-
-</launch>
-
-```
-
-아런식으로 되어야 하지만 위에서 말한 것 처럼  
-tf_prefix 파라미터가 tf2로 업데이트가 되면서 deprecated가 되었다고 한다.   
-그래서 group을 하면 그 그룹내에 있는 노드, topic 등에 자동적으로   
-예를 들어 위의 코드에서는 만약 cmd_vel topic을 사용한다고 하면  
-하나는 robot1/cmd_vel  
-두번째는 robot2/cmd_vel  
-이런식으로 되어야 하는데 이것이 이제 안 된다고 한다  
-
-그래서 방법을 살짝 바꿔서 group은 하되 각 노드를 실행시키는 방법으로 변경  
-먼저 아규먼트 부분을 살펴보자  
-처음 시작할 좌표를 선택해 준 다음에 실행할 노드에서 쓰인다
-
-```xml
-<arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
-    <arg name="first_x_pos" default="-2.0"/>  ## x좌표 
-    <arg name="first_y_pos" default="-2.0"/>  ## y좌표
-    <arg name="second_x_pos" default="2.0"/> 
-    <arg name="second_y_pos" default="-2.0"/>
     
-    <!-- combine x / y_pos--> ## 로봇 좌표를 하나의 아규먼트에 넣어준다 -x -y -z 식
+    <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
+    <arg name="first_x_pos" default="-3.0"/>
+    <arg name="first_y_pos" default="-2.0"/>
+    <arg name="second_x_pos" default="-3.0"/>
+    <arg name="second_y_pos" default="-1.0"/>
+    
+    <!-- combine x / y_pos-->
     <arg name="init_pose_first" default="-x $(arg first_x_pos) -y $(arg first_y_pos) -z 0.0" />
     <arg name="init_pose_second" default="-x $(arg second_x_pos) -y $(arg second_y_pos) -z 0.0" />
 
-    ## 월드파일을 열어주기
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
         <arg name="world_name" value="$(find multiple_robots_sim)/worlds/office_small.world"/>
         <arg name="use_sim_time" value="true"/>
         <arg name="gui" value="true"/>
     </include>
+
+    <group ns="tb3_1">
+        <param name="tf_prefix" value="robot1_tf"/>
+        <include file="$(find multiple_robots_sim)/launch/one_robot.launch">
+            <arg name="init_pose" value="$(arg init_pose_first)"/>
+            <arg name="robot_name" value="robot1_tf"/>
+        </include>
+    </group>
+
+    <group ns="tb3_2">
+        <param name="tf_prefix" value="robot2_tf"/>
+        <include file="$(find multiple_robots_sim)/launch/one_robot.launch">
+            <arg name="init_pose" value="$(arg init_pose_second)"/>
+            <arg name="robot_name" value="robot2_tf"/>
+        </include>
+    </group>
+
+</launch>
 ```
 
-그 다음 로봇 group부분
+2. 다른 방법으로는 파라미터를 사용 안하고 각기 다른 런치파일을 실행을 시킨다   
 ```xml
-<group ns="tb3_1">  ## 이제 토픽명등에서 네임스페이스로 tb3_1/ 붙음
+    
+    <group ns="tb3_1">
         <include file="$(find multiple_robots_sim)/launch/tb3_robot1.launch">
-            <arg name="init_pose" value="$(arg init_pose_first)"/>  ## 위에서 합쳐준 값을 사용하게 됨
+            <arg name="init_pose" value="$(arg init_pose_first)"/>
             <arg name="robot_name" value="tb3_robot1"/>
         </include>
     </group>
@@ -150,5 +142,45 @@ tf_prefix 파라미터가 tf2로 업데이트가 되면서 deprecated가 되었�
     </group>
 ```
 
+
+이제 위의 런치파일에서 그룹태그로 묶여서 one_robot.launch 파일이 실행됨   
+여기에서 robot_description 과 robot_state_publisher spawn_model 실행  
+```xml
+<launch>
+    <arg name="robot_name"/>
+    <arg name="init_pose"/>
+    <arg name="model" default="$(env TURTLEBOT3_MODEL)" doc="model type [burger, waffle, waffle_pi]"/>
+
+    <!-- Load the specific robot decription for turtlebot3 -->
+    <param name="robot_description" 
+        command="$(find xacro)/xacro --inorder $(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro" />
+
+    <!-- Start the robot state publisher -->
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher"
+        output="screen">
+        <param name="publish_frequency" type="double" value="50.0" />
+    </node>
+
+    <!-- Spawn the model in gazebo 가제보 서비스임-->
+    <node name="spawn_turtlebot3" pkg="gazebo_ros" type="spawn_model"
+        args="$(arg init_pose) -unpause -urdf -model $(arg robot_name) -param robot_description"/>
+
+</launch>
+```
+
+
+
+
+
 위에서 world 및 모델 파일을 github 주소 업데이트
+
+
+이제 tb3_robot1.launch 파일을 보면  
+robot_state_pulisher 와 gazebo_ros 패키지의 spawn_model 이 있는데 이를 살펴보면  
+
+https://wiki.ros.org/gazebo 를 확인해보자 https://wiki.ros.org/gazebo  
+
+
+roslaunch를 통해서 spawn URDF robots 사용하는 방법에는   
+ROS service call Spawn Method가 있음  
 
