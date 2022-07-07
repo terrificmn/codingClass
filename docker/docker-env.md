@@ -1,16 +1,45 @@
-환경변수를 Dockerfile 에서는 
-ENV USER=name  식으로 해야지 정확히 인식하는 듯 하다.  
-조금 테스트가 필요하지만  
-.evn 파일에서 정의했던 환경변수가 Dockerfile에서 인식이 안된다? 이유는 잘 모르겠다.  
-Rocky 에서는 잘 되었는데 docker버전이 달라서 그럴 수도? 일단 Ubuntu에서는 안 되서   
-Dockerfile 에도 ENV USER=${USER} 로 설정해줬다. (그리고 .env 파일에도 설정)
+# Docker에서 env, arg 의 이해  
+
+## .env파일
+일단 .env 파일을 많이 활용을 했었는데 docker-compose.yml 파일에서만 인식한다  
+같은 디렉토리에 있어야 한다  
+USER=me  - .env 파일에서   
+${USER} 식으로 사용 - yml파일에서     
 
 
+## ARG
+그리고 ARG는 Docker image를 만들 때 사용된다 즉 build-time variables. 임  
+그래서 RUN 으로는 사용 가능 하다  
+하지만 컨테이너가 시작되었을 때에는 사용이 안됨  
+ENTRYPOINT, CMD 등에서 사용 못함  
 
-docker run -it --net=host --gpus all \
-    --env="NVIDIA_DRIVER_CAPABILITIES=all" \
-    --env="DISPLAY" \
-    --env="QT_X11_NO_MITSHM=1" \
-    --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
-    docker-ros_ros \
-    bash -it -c "roslaunch gazebo_ros empty_world.launch"
+ARG Dockerfile 에서 사용 시 
+```
+ARG BUILDTIME_VARIABLE=default_value
+``` 
+
+그리고 변수를 사용할 때에는 `$BUILDTIME_VARIABLE` 이렇게 써주면 되는데  
+docker_compose에서 쓰이는 ${} {}로 묶는 방식은 인식을 못함
+
+docker-compose.yml 에서는 아래처럼 사용
+```
+args:  
+    VARIABLE_NAME: a_value
+```
+그리고 중요한 것이 RUN 에서만 변수를 사용할 수 있고 거의 다 사용 못하는 듯 하다  
+
+예를 들어 ARG 변수를 USER, WORKDIR 등에서 사용이 안된다 
+```
+ARG USER=me
+USER $USER  #변수를 인식 못함
+```
+
+## ENV
+ENV 는 컨테이너에서 사용가능, RUN 커맨드도 사용가능  
+사용예  
+```
+ENV TERM xterm
+# a default value
+ENV foo /bar
+# or ENV foo=/bar
+```
