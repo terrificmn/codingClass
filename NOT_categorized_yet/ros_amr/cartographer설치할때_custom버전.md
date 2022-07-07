@@ -2,6 +2,15 @@
 
 https://google-cartographer-ros.readthedocs.io/en/latest/compilation.html
 
+
+여기에서 우분투 18 melodic은 python버전으로 설치를 해야하고  
+```
+sudo apt-get install -y python-wstool python-rosdep ninja-build stow 
+```
+
+우분투 20.04 noetic 은 python3 버전으로 설치함에 유의한다
+
+
 단, 여기에서 wstool merge 는 하지 않는다. 이미 파일들이 있으므로 다운은 안 받는다.   
 
 > wstool merge 는 카토그래퍼를 다운을 받는다 
@@ -12,6 +21,33 @@ https://google-cartographer-ros.readthedocs.io/en/latest/compilation.html
 ```
 catkin build --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebinfo
 ```
+
+
+
+## 정리해서 Noetic 버전 설치 정리 버전
+
+sudo apt update  
+sudo apt-get install -y python3-wstool python3-rosdep ninja-build stow 
+
+catkin_ws가 이미 만들어져있으므로 이동  
+cd catkin_ws
+
+wools 툴은 사용하지 않는다. 기존에 있는 cartographer 사용함  
+
+sudo rosdep init  
+> The command ‘sudo rosdep init’ will print an error if you have already executed it since installing ROS. This error can be ignored.
+
+rosdep update
+
+rosdep install --from-paths src --ignore-src --rosdistro=${ROS_DISTRO} -y
+
+src/cartographer/scripts/install_abseil.sh
+
+충돌 가능성이 있을 수 있어서 만약 있다면 삭제
+sudo apt-get remove ros-${ROS_DISTRO}-abseil-cpp
+
+여기에서 닌자로 빌드하지 않고 catkin tools로 build
+
 
 
 
