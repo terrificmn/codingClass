@@ -138,3 +138,21 @@ source ~/.bashrc
 
 [여기참고했습니다~](https://www.cyberciti.biz/faq/bash-shell-change-the-color-of-my-shell-prompt-under-linux-or-unix/)
 
+
+
+## ubuntu 기본 프롬프트  
+```
+\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$
+```
+
+우분투에는 .bashrc 파일에 조금 더 if문으로 짜여져 있다  
+```
+if [ "$color_prompt" = yes ]; then
+    #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '  ## It is original 
+    PS1="[\[\e[0;32m\]\u\[\e[m\]@\h \W]\$ "
+else
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+fi
+
+```
+

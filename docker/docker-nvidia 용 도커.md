@@ -5,6 +5,19 @@
 
 을 설치해준다  
 
+libGL error: failed to load driver: swrast
+rviz_1           | libGL error: No matching fbConfigs or visuals found
+rviz_1           | libGL error: failed to load driver: swrast
+
+이런 비슷한 에러가 나면서 rviz가 실행이 안되는 상황   
+
+
+
+여기 참고   
+https://hub.docker.com/r/nvidia/cudagl
+
+
+
 Requirements  
 - NVIDIA Driver 
 - GNU/Linux x86_64 with kernel version > 3.10  

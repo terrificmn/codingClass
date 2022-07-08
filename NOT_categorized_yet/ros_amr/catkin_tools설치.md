@@ -13,4 +13,8 @@ sudo apt-get update
 sudo apt-get install python3-catkin-tools
 ```
 
+ROS Melodic, Noetic 2개 모두 python3-catkin-tools로 설치한다 
+
 그 외에 pip3, source파일로부터 빌드로 설치할려고 하는 경우에는 맨 위의 링크를 참고
+
+
