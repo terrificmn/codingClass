@@ -1,6 +1,9 @@
 
 
 # summit_xl_common 패키지
+summit_xl_common 설치하는데에는 실패했지만, 의존성 관련 해결해주면 build까지는 문제 없음  
+GPS 관련해서 참고하자 
+
 
 의존성 패키지 필요
 ros-melodic-velocity-controllers  

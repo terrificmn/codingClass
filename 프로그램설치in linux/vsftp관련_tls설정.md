@@ -115,6 +115,12 @@ $lftp ftpuser@127.0.0.1
 exit를 한 후 새로 gui상태에서 새로 로그인을 해주면 환경설정이 되면서   
 디렉토리등이 만들어 지는데 다시 로그아웃을 하고 원래 계정으로 로그인을 해준다   
 
+ubuntu 에서 설치  
+```
+sudo apt install lftp
+```
+
+
 다시~
 ```
 $lftp ftpuser@127.0.0.1

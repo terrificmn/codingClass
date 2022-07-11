@@ -36,6 +36,22 @@ E: ID_MODEL_ID=ea60
 
 이제 usb 가 파악이 되었다면 omo_r1 패키지에서 제공하는 스크립트를 보자
 
+**주의** 만약 1-1 이 같은 usb가 겹친다면 위에 처럼 1-1 과 1-3 으로 다를 수도 있지만  
+1-1, 1-1 과 같이 나오게 된다면 그 다음줄까지 봐서 바꾸면 된다  
+
+ttyUSB1을 확인했을 경우와 
+```
+DEVPATH=/devices/pci0000:00/0000:00:15.0/usb1/1-1/1-1.4/1-1.4:1.0/ttyUSB1/tty/ttyUSB1
+```
+ttyUSB2를 확인했을 경우  
+```
+DEVPATH=/devices/pci0000:00/0000:00:15.0/usb1/1-1/1-1.2/1-1.2:1.0/ttyUSB2/tty/ttyUSB2
+```
+1-1로 같다. 이럴 때에는 1-1.4와 1-1.2 처럼 뒤에 것으로 비교해주면 됨   
+KERNELS 설정도 1-1.4 처럼 해주면 된다
+
+
+
 ## udev rule 설정하기
 편리하게 스크립트에서는 해당 장치를 symlink로 특정 이름을 지정해서 만들어 줄 수가 있다  
 위에서 찾은 정보를 매칭해서 수정해주자 (KERNELS, ATTRS의 idVendor, idProduct 등..)
@@ -45,18 +61,26 @@ E: ID_MODEL_ID=ea60
 ```sh
 ...생략
 ...
-echo "YD LiDAR (USB Serial) : /dev/ttyUSBx to /dev/ydlidar :"
-if [ -f "/etc/udev/rules.d/ydlidar.rules" ]; then
-    echo "ydlidar.rules file already exist."
+echo "This script copies md udev rules to /etc/udev/rules.d/"
+echo ""
+
+echo "Motor Driver (USB Serial from -) : /dev/ttyUSBx to /dev/mdMotor :"
+if [ -f "/etc/udev/rules.d/98-md.rules" ]; then
+    echo "98-md.rules file already exist."
 else
-    echo 'SUBSYSTEM=="tty", KERNELS=="1-1", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", MODE:="0666", GROUP:="dialout",  SYMLINK+="ydlidar"' >/etc/udev/rules.d/97-ydlidar.rules
+    echo 'SUBSYSTEM=="tty", KERNELS=="1-1.4", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", MODE:="0666", GROUP:="dialout", SYMLINK+="mdMotor"' > /etc/udev/rules.d/98-md.rules
 
-    echo 'ydlidar.rules created'
+    echo '98-md.rules created'
 fi
+
+echo ""
+echo "Reload rules"
+echo ""
+
 ```
 
-확인해보면 심볼릭 링크로 잘 연결이 되어 있다. 만들어진 /dev/ydlidar를 보면  
+확인해보면 심볼릭 링크로 잘 연결이 되어 있다. 만들어진 /dev/mdMotor 보면  
 ```
-ls -l /dev/ydlidar 
-lrwxrwxrwx 1 root root 7 Jul  4 19:28 /dev/ydlidar -> ttyUSB0
+ls -l /dev/mdMotor 
+lrwxrwxrwx 1 root root 7  7월 11 17:26 /dev/mdMotor -> ttyUSB1
 ```

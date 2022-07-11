@@ -1,3 +1,5 @@
+# ubuntu 18.04 melodic 버전 
+
 백업을 복사를 했다고 해도 일단 cartographer 설치하는 법에 따라서 그대로 따라서 설치를 진행해야 한다  
 
 https://google-cartographer-ros.readthedocs.io/en/latest/compilation.html
@@ -33,6 +35,9 @@ catkin_ws가 이미 만들어져있으므로 이동
 cd catkin_ws
 
 wools 툴은 사용하지 않는다. 기존에 있는 cartographer 사용함  
+
+catkin_ws 위치에서 실행한다  
+cd ~/catkin_ws  
 
 sudo rosdep init  
 > The command ‘sudo rosdep init’ will print an error if you have already executed it since installing ROS. This error can be ignored.
