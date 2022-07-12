@@ -1,16 +1,29 @@
 # omo_r1 패키지를 설치할 때 USB확인
+omo_r1 패키지를 설치할 때 USB확인
+
+## dmesg
+먼저 dmesg 명령어 사용  
+```
+dmesg | grep ttyUSB*   
+```
+도 확인가능
+
+USB가 많이 연결되어 있을 경우에는 어떤 USB인지 또, 같은칩을 사용했다고 하면  
+더 찾기가 어려워지므로  
+
+dmesg를 사용하면 방금 연결이 해제되거나 연결했을 경우에 알 수가 있다  
+usb연결을 해제하고 `dmesg | grep ttyUSB*` 으로 입력하면  
+
+disconnected 되었다고 나오는데 이를 참고하면 되겠다  
+
+
+## udev_rulds
 omo_r1_bringup 패키지의 제공되는 scripts 에서 udev_rules를 정의할 수 있는데  
 
 먼저 usb 장치를 확인해보면 udevadm 명령어를 사용할 수 있다
 ```
 udevadm info /dev/ttyUSB0
 ```
-
-또는 dmesg 명령어 사용  
-```
-dmesg | grep ttyUSB*   
-```
-도 확인가능
 
 아래는 그 중 몇몇 정보임
 ```

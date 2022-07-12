@@ -19,7 +19,7 @@ sudo apt install libgeographic-dev
 ```
 
 4. config 관련해서 yaml파일을 만들고 config관련해서 패키지 만듬
-이제 robot_localization 패키지 필요    
+이제 robot_localization 패키지 필요 깃 클론해준다  
 ```
 git clone -b melodic-devel https://github.com/cra-ros-pkg/robot_localization.git
 ```
@@ -34,10 +34,11 @@ robot odometry, robot IMU, GPS odometry를 이용하게 된다 (fuse하게 됨)
 
 
 
-6. hector gps plugin을 사용하기 위해서 apt install 
+6. hector gps plugin을 사용하기 위해서 apt install (gazebo 플러그인으로 사용할 시에)
 ```
 sudo apt install ros-melodic-hector-gazebo-plugins
 ```
+
 
 
 
