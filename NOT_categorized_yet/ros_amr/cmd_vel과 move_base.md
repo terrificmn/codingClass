@@ -1,6 +1,6 @@
 # move_base 사용
 wiki.ros.org/navigation/Tutorials/RobotSetup   
-https://www.youtube.com/watch?v=4nctAuEaWbI  여기 14분 부터
+https://www.youtube.com/watch?v=4nctAuEaWbI  
 
 먼저 turtlebot3를 클론  
 https://github.com/ROBOTIS-GIT/turtlebot3   
