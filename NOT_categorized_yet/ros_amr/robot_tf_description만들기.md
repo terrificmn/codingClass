@@ -57,3 +57,16 @@ xacro 파일로 만들었다면 파라미터를 조금 다르게 쓴다
 
 여하튼 frame id를 지정해주는 곳이 많이 있으므로 (런치파일 등에서)  
 내 로봇과 같은 프레임 아이디를 지정해줘야한다  
+
+
+## rviz 에서 실행할 때
+일단 fixed가 아닌 continous나 revolute 같은 type으로 joint 태그가 되어있다면  
+
+joint_state_publisher_gui가 실행되어야 rviz에서 바퀴 등이 잘 나온다 
+```xml
+<node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" />
+```
+
+
+## gazebo 상에서는 
+urdf만으로는 모델링이 어려운 듯 하다.   제대로 안 나온다 
