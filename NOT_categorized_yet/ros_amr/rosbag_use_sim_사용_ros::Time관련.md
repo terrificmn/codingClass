@@ -8,9 +8,10 @@ rosparam get /use_sim_time
 확인을 해보면   
 true / false 가 나옴  
 
+```
 rosparam set /use_sim_time false
-
+```
 그러면 false로 바꿔주면  시간이 0이 아닌 제대로 나오게 된다 
 
 
-
+터미널 한쪽에서만 실행해주면 다 반영됨
