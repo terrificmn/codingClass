@@ -1,7 +1,7 @@
 CMakeLists.txt 파일을 만들어준다  
 
 참고 restc-cpp 관련 패키지 만들 때 사용한 CMakeLists.txt 파일   
-```
+```c
 cmake_minimum_required(VERSION 3.0)
 project (restapi_test)
 
