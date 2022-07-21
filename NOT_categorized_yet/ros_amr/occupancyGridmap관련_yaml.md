@@ -99,4 +99,64 @@ in ROS as the Rrnasform between the laser and the robot.
 
 
 https://www.youtube.com/watch?v=mYwIu4OVMR8  
-37
+
+
+2개의 transforms이 필요하게 된다 
+
+the frame attached to laser -> base_link : Usually a fixed value, broadcast periodically by    
+a robot_state_publisher, or a tf static_transform_publisher.
+
+base_link -> odom : Usually provided by the Odometry system.
+
+
+
+transform 보기
+```
+rosrun tf view_frames
+```
+
+
+## General Parameters  (gmapping)
+base_frame (default: "base_link")   
+map_frame (default: "map")   
+odom_frame (default: "odom")   
+map_update_interval (default: 5.0)   
+
+
+laser 관련 파라미터   
+maxRange (float): Sets the maximum range of athe laser. Set this value to something    
+slightly higher than the real sensor's maximum range.  
+
+maxUrange (default: 80.0): Sets the maximum usable range of the laser.   
+the laser beams will be cropped to this value
+
+minimumScore (default: 0.0): sets the minimum score to consider a laser reading good.
+
+xmin (default: -100.0): initial map size
+ymin (default: -100.0): initial map size
+xmax (default: 100.0): initial map size
+ymax (default: 100.0): initial map size
+delta (default: 0.05) : sets the resolution of the map
+
+linearUpdate (default: 1.0): Sets the linear distance that the robot has to move in order to process a laser reading. 
+angularUpdate (default: 0.5): Sets the angular distance that the robot has to move in order to process a laser reading.  
+temporalUpdate (default: -1.0) Sets the time (in seconds) to wait between laser readings. If the value is set to -1.0,   
+then this function is turened off.
+
+particles (defulat: 30): Number of particls in the filter --> localization을 하기 위해서 필요   
+
+런치 파일에서 rosparam 이용해서 파라미터를 넣을 수도 있고   
+또는 아예 yaml파일을 만들어서 불러오게 해서 적용할 수도 있다  
+```xml
+<param name="base_frame" value="base_link"/>
+```
+예:
+
+```xml
+<rsoparam file="$(find gappion_launcher/params/gmapping_param.yaml" command="load") />
+```
+
+
+
+
+
