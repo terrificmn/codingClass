@@ -5,7 +5,7 @@ https://medium.com/black-coffee-robotics/ros-and-ros2-navigation-stacks-a-perfor
 http://wiki.ros.org/global_planner
 
 
-##
+## GPS를 사용하는 nav를 할 때에 
 GPS 관련 global planner 를 NavFn으로 해야하는 듯 하다
 
 Navfn (global planner)
