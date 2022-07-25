@@ -133,3 +133,14 @@ initial_estimate_covariance: [1e-9, 0,    0,    0,    0,    0,    0,    0,    0,
                               0,    0,    0,    0,    0,    0,    0,    0,    0,    0,     0,     0,     0,    0,    1e-9]
 
 ```
+
+
+```
+[ERROR] [1658735032.249385268]: The goal pose passed to this planner must be in the map frame.  It is instead in the odom frame.
+[ERROR] [1658735032.249471086]: The goal pose passed to this planner must be in the map frame.  It is instead in the odom frame.
+[ERROR] [1658735032.249548593]: The goal pose passed to this planner must be in the map frame.  It is instead in the odom frame.
+[ERROR] [1658735032.249652250]: The goal pose passed to this planner must be in the map frame.  It is instead in the odom frame.
+[ERROR] [1658735032.251136115]: The goal pose passed to this planner must be in the map frame.  It is instead in the odom frame.
+
+```
+
