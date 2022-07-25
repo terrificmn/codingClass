@@ -11,3 +11,4 @@ https://www.meshlab.net/
 inertia 관련  
 https://classic.gazebosim.org/tutorials?tut=inertia
 
+http://library.isr.ist.utl.pt/docs/roswiki/urdf(2f)Tutorials(2f)Adding(20)Physical(20)and(20)Collision(20)Properties(20)to(20)a(20)URDF(20)Model.html
