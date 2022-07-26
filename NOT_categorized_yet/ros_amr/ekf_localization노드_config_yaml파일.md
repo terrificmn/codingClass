@@ -1,3 +1,7 @@
+[robot_localization 설정방법 참고](http://docs.ros.org/en/lunar/api/robot_localization/html/configuring_robot_localization.html#configuring-robot-localization)
+
+
+
 config 파일인 yaml 파일에서   
 
 odom0: 는 wheel odometry를 말하고  
