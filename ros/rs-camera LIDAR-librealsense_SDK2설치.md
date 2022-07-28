@@ -41,6 +41,17 @@ Intel RealSense L515 를 발견했다며 Version 업데이트를 하라고 한�
 
 시간이 좀 걸림
 
+## D435i
+D435i를 설치할 때에
+sudo apt-get install librealsense2-dkms    
+있어도 된다  
+
+꼭 util은 없어도 될 듯 하고 
+
+
+secure boot가 활성화 되어 있다고 하면  
+비밀번호를 잘 입력해준다. 8자 이상  (꼭 기억해두자)
+
 
 
 ## 빌드 하기
@@ -114,6 +125,12 @@ git checkout `git tag | sort -V | grep -P "^2.\d+\.\d+" | tail -1`
 ```
 ddynamic_reconfigure가 필요한데 설치가 안되어 있다면
 
+꼭 빌드를 할 필요는 없다 
+```
+sudo apt install ros-melodic-ddynamic-reconfigure
+```
+
+빌드는 참고만..   
 ```
 git clone https://github.com/pal-robotics/ddynamic_reconfigure.git
 ```
@@ -123,3 +140,15 @@ git clone https://github.com/pal-robotics/ddynamic_reconfigure.git
 cd ../..
 catkin_make -DCATKIN_ENABLE_TESTING=False -DCMAKE_BUILD_TYPE=Release
 ```
+
+
+
+## 빌드가 딱히 소용없다면 지우기
+먼저 librealsense 설치하는 build로 이동 후 지우기
+```
+cd ~/librealsense/build
+sudo make uninstall && make clean
+cd 
+rm -rf librealsense/
+```
+
