@@ -28,3 +28,14 @@ sudo apt install ros-melodic-imu-filter-madgwick
 </launch>
 ```
 예시
+
+
+또는 imu_complementary_filter 사용해보기    
+비슷할 것으로 예상  
+
+http://wiki.ros.org/imu_complementary_filter?distro=melodic
+
+멜로딕 버전 클론
+```
+git clone -b melodic https://github.com/CCNYRoboticsLab/imu_tools.git
+```
