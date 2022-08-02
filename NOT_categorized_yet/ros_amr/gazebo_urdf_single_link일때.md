@@ -28,12 +28,8 @@ https://nu-msr.github.io/me495_site/lecture10_sdf_gazebo.html
     <turnGravityOff>false</turnGravityOff>
     <preserveFixedJoint>true</preserveFixedJoint>
   </gazebo>
-  <gazebo reference="imu_link_joint">
-    <turnGravityOff>false</turnGravityOff>
-    <preserveFixedJoint>true</preserveFixedJoint>
-  </gazebo>
-  <gazebo reference="base_link_to_chassis_link_joint">
-    <preserveFixedJoint>true</preserveFixedJoint>
-  </gazebo>
 ```
+
+preseveFixedJoint true로 사용하면 안되는 듯 하다   
+모델이 joint별로 마구마구 떨리는 현상 발생  
 
