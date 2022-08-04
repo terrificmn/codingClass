@@ -82,3 +82,5 @@ catkin build navigation
 
 
 으하하하 소용없음!! ㅡㅡ; 
+
+dwa관련 planner 패키지를 제대로 실행을 못 시키는 듯 하다 navigation stack 재확인하기  

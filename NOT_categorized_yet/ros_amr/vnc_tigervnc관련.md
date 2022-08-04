@@ -4,7 +4,9 @@
 sudo apt install xserver-xorg-core
 sudo apt install tigervnc-standalone-server tigervnc-xorg-extension tigervnc-viewer
 
+여기 다시 참고해서 도전하기!
 
+https://www.tecmint.com/install-and-configure-vnc-server-on-ubuntu/
 
 
 해상도 정해서 vnc서버 실행
