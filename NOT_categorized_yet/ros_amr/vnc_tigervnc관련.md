@@ -1,34 +1,188 @@
-아직 제대로 정리 안됨;; 실행 안됨
-
- vnc서버 먼저 설치
-sudo apt install xserver-xorg-core
-sudo apt install tigervnc-standalone-server tigervnc-xorg-extension tigervnc-viewer
 
 여기 다시 참고해서 도전하기!
 
 https://www.tecmint.com/install-and-configure-vnc-server-on-ubuntu/
 
 
-해상도 정해서 vnc서버 실행
+# 설치  
+먼저 vnc는 데스크탑 쉐어링 시스템이기 때문에 desktop 환경을 사용할 수 있게 설치를 먼저 해줘야 한다  
+
+서버쪽에 ubuntu-desktop 과 ubunutu gnome을 설치를 하는데  일단 ubuntu gnome이 공식적으로 사용된다   
+그리고 DE(데스크탑) 관련해서는 선택해서 설치할 수 있다  
+
+
+## 서버쪽  
+먼저 데스크탑 관련 설치  
 ```
- vncserver -depth 24 -geometry 1680x1050
+$ sudo apt-get install ubuntu-desktop	
+$ sudo apt install ubuntu-gnome-desktop	 
 ```
- vncserver -kill :*
+ubuntu-desktop 은 우분투에서 기본으로 되어 있는 데스크탑  
+ubuntu-gnome-deskto 은  공식 지원하는 환경  
+
+optional
+```
+sudo apt-get install xfce4		
+$ sudo apt-get install lxde			
+$ sudo apt-get install kubuntu-desktop		
+```
+순서대로 LXDE, LXDE, KDE라고 부르는데 일단 스킵
+
+그리고 tigervnc 관련 패키지 설치하기 
+```
+sudo apt install tigervnc-standalone-server tigervnc-common tigervnc-xorg-extension tigervnc-viewer
+```
+
+설치가 되었다면 vncserver 명령어로 실행 가능   
+```
+vncserver
+```
+를 하게 되면 비밀번호를 설정하라고 한다  
+비밀번호를 설정하고 a view-only password에는 n를 선택  
+
+그러면 ~/.vnc 디렉토리가 만들어진다  
 
 
-문제
-r1d2@omo:~$ ssh sgtubunamr@192.168.10.27 -L 5901:127.0.0.1:5901
-ssh: connect to host 192.168.10.27 port 22: Connection refused
+켜져있는 서버를 끌려면  
+```
+vncserver -kill :1
+```
+또는 다 끄기  
+```
+vncserver -kill :*
+```
+뒤의 숫자는 디스플레이 서버 순서대로 만들어진 번호  
 
-openssh가 설치가 안되어 있을 수가 있다  
 
 
-뷰어 일단 이거는 보류
+이제 xstartup 파일을 만들어야 한다. desktop과 관련된 파일
+ 
+vi ~/.vnc/xstartup   
+그리고 아래 내용을 복사 한다 
+```
+#!/bin/sh
+exec /etc/vnc/xstartup
+xrdb $HOME/.Xresources
+vncconfig -iconic &
+dbus-launch --exit-with-session gnome-session &
+```
+vnc 서버가 시작될 때 자동으로 실행되는 파일이고   
+설치한 DE에 따라 명령어는 달라질 수 있다. 위는 gnome-desktop 기준  
+
+
+권한도 조정해준다  실행가능하게 다른 유저, 그룹 권한은 빼버린다  
+
+```
+sudo chmod 700 ~/.vnc/xstartup 
+```
+
+이제 실행할 때 -localhost 옵션을 넣어서 localhost만 사용되게 해준다   
+그리고 -geometry 를 이용해서 해상도를 선택, -depth로 8, 24, 32 중에 선택  
+
+:1의 의미는 포트번호인데 기본이 5900인데 :1로 하게 되면 포트 5900으로 하겠다는 의미이다  
+
+```
+vncserver :1 -localhost -geometry 1024x768 -depth 32
+```
+
+아래와 같은 메세지가 나옴
+```
+Use xtigervncviewer -SecurityTypes VncAuth -passwd /home/r1d2/.vnc/passwd :1 to connect to the VNC server.
+```
+
+netstat으로 포트번호로 listen 중인데 확인하기
+```
+netstat -tlnp 
+```
+또 서버에서 띄운 리스트 보기   
+```
+vncserver -list
+```
+
+
+## 클라이언트 접속하기
+vnc는 보안은 설정이 안되어 있기 때문에  암호화가 되어 있지않고 누구든 볼 수 있다고 한다   
+
+그래서 ssh tunnel을 만들어서 client와 server간 통로를 ssh를 통해서 만들어 준다 
+
+만약 문제 ssh로 접속을 시도했는데   
+ssh: connect to host 192.168.10.22 port 22: Connection refused  
+이렇게 나온다면 openssh가 설치가 안되어 있을 수가 있다  
+설치해주자  
+
+SSH tunneling을 하려면 서버와 같은 방식인 5901 포트로 트래픽을 보내주게 된다   
+
+클라이언트 쪽에서  
+ssh -i ~/.ssh/ubuntu20.04 -L 5901:127.0.0.1:5901 -N -f -l 서버아이디 서버주소192.168.10.101   로 입력  
+
+```
+ssh -i ~/.ssh/ubuntu20.04 -L 5901:127.0.0.1:5901 -N -f -l seruser 192.168.10.101
+```
+그러면 비밀번호를 물어보는데 서버 계정 비번을 쳐주면 됨   
+
+그리고 뷰어를 설치
+```
 sudo apt install tigervnc-viewer
+```
+
+
+이제 클라이언트쪽에서 터미널에 
+```
+vncviewer localhost:5901
+```
+해주면  처음에 설정했던 암호를 치고 들어가면 된다   
+
+굿!
 
 
 
-x서버에서 마우스 키보드 안 될 때 
+# 트러블 슈팅
+
+vncserver: Failed command '/etc/X11/Xvnc-session': 256! 발생하고   
+로그인을 해도 회색화면 밖에 안나오는 경우   
+
+
+```
+ls /usr/share/xsessions/   
+```
+해보면 
+gnome.desktop  gnome-xorg.desktop  ubuntu-communitheme-snap.desktop  ubuntu.desktop
+
+데스크 탑 종류가 나오는데 여기에서 .desktop에 주목  
+원하는 데스크탑을 .vnc/xstartup 파일에 넣어줘야한다  exec 명령어를 통해서 넣어주는데  
+
+.vnc/xstartup 파일을 다시 열어서 수정해준다
+```
+#!/bin/sh
+unset SESSION_MANAGER
+unset DBUS_SESSION_BUS_ADDRESS
+exec vncconfig -iconic &
+dbus-launch --exit-with-session gnome-session &
+```
+
+이제 된다  
+
+
+처음에 실행을 하면 vncconfig 작은 창이 실행되어 있다. 아니면 Activies를 (왼쪽상단)을 눌렀을 때  
+vncconfig 가 보이는데 여기에서 클립보드로 복사 붙여넣기를 할 수 있는 기능을 제공하기 때문에  
+끄면 안된다. 꺼버리면 로컬 컴퓨터에서 복사해서 리모트로 vnc 접속한 화면에 붙여넣기가 안된다  
+
+만약 불편하면 sudo apt-get install autocutsel 설치하고 (서버에도 설치해야하는지는 확인안해봄)  
+~/.vnc/xstartup 파일을 열어서 아래 내용을 추가해준다. 
+```
+# allow copy & paste - autocutsel
+autocutsel -fork 
+```
+서버를 kill 했다가 다시 켜주면 된다 
+
+
+
+## 트러블 슈팅 
+x서버에서 마우스 키보드 안 될 때  
+xserver-xorg-input-all 지워져버리면 발생한다 (vnc 관련해서 지울때 의존성 때문에 같이 지워져버린 듯하다)
+```
 sudo apt install xserver-xorg-input-all
+```
+> 그런데 어떻게 입력? ssh로 접속하거나~ 처음 부팅 시 wayland로 들어간다 (로그인 시 톱니바퀴)
 
-그런데 어떻게 입력? ssh로 접속하거나~ wayland로 들어간다  
+
