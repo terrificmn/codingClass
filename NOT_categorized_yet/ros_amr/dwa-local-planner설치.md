@@ -4,3 +4,9 @@ ording to the loaded plugin descriptions the class dwa_local_planner/DWAPlannerR
 ```
 sudo apt install ros-melodic-dwa-local-planner
 ```
+
+noetic
+
+```
+sudo apt install ros-noetic-dwa-local-planner
+```

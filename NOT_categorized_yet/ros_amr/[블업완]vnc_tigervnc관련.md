@@ -1,8 +1,17 @@
 # VNC TIGER 설치 및 사용법  
 https://www.tecmint.com/install-and-configure-vnc-server-on-ubuntu/
 
-## desktop 
-먼저 vnc는 데스크탑 쉐어링 시스템이기 때문에 desktop 환경을 사용할 수 있게 설치를 먼저 해줘야 한다  
+## 윈도우에서는
+시작하기 전에 이 포스팅은 우분투 환경에서 설치 방법이라서   
+Windows일 경우에는 바이너리 파일들을 제공하는데 아래 링크에서   
+[stable버전 1.12.0버전-tigervnc 받기](https://sourceforge.net/projects/tigervnc/files/stable/1.12.0/)   
+vncviewer64-1.12.0.exe 을 받으면 될 듯 하다. 클라이언트 뷰어 (실제로 테스트는 못해봄 ㅠ)  
+
+<br/>
+
+## 우분투 설치 desktop 설치 먼저
+이제 우분투 환경에서 설치 법
+먼저 vnc는 데스크탑 쉐어링 시스템이기 때문에 desktop 환경을 사용할 수 있게 desktop관련 설치를 먼저 해줘야 한다  
 
 서버쪽에 ubuntu-desktop 과 ubunutu gnome을 설치를 하는데 (ubuntu gnome이 주로 사용된다)   
 그리고 다른 종류의 데스크탑 관련해서는 선택해서 설치할 수 있다  
@@ -44,9 +53,6 @@ vncserver
 
 그러면 ~/.vnc 디렉토리가 만들어진다  
 
-
-뒤의 숫자는 디스플레이 서버 순서대로 만들어진 번호  
-
 이제 xstartup 파일을 만들어야 한다. 원하는 에디터로 열어준다(vi, gedit, code 등)   
 ``` 
 vi ~/.vnc/xstartup   
@@ -54,8 +60,9 @@ vi ~/.vnc/xstartup
 그리고 아래 내용을 복사 한다 
 ```
 #!/bin/sh
-exec /etc/vnc/xstartup
-xrdb $HOME/.Xresources
+unset SESSION_MANAGER
+unset DBUS_SESSION_BUS_ADDRESS
+exec /etc/vnc/xstartup &
 vncconfig -iconic &
 dbus-launch --exit-with-session gnome-session &
 ```
@@ -140,7 +147,7 @@ ssh -i ~/.ssh/mykey -L 5901:127.0.0.1:5901 -N -f -l seruser 192.168.10.101
 
 일단 만들어 놓은 것이 없으므로 스킵
 
-
+<br/>
 
 ## tigervnc 접속하기  
 클라이언트에는 뷰어만 있으면 된다  
@@ -154,38 +161,12 @@ vncviewer localhost:5901 &
 ```
 해주면 vncserver 처음 시작할 때 설정 했던 암호를 입력하면 된다.  
 
+<br/>
 
-
-# 트러블 슈팅
-
-vncserver: Failed command '/etc/X11/Xvnc-session': 256! 발생하고   
-로그인을 해도 회색화면 밖에 안나오는 경우   
-
-
-```
-ls /usr/share/xsessions/   
-```
-해보면 
-gnome.desktop  gnome-xorg.desktop  ubuntu-communitheme-snap.desktop  ubuntu.desktop
-
-데스크 탑 종류가 나오는데 여기에서 .desktop에 주목  
-원하는 데스크탑을 .vnc/xstartup 파일에 넣어줘야한다  exec 명령어를 통해서 넣어주는데  
-
-.vnc/xstartup 파일을 다시 열어서 수정해준다
-```
-#!/bin/sh
-unset SESSION_MANAGER
-unset DBUS_SESSION_BUS_ADDRESS
-exec vncconfig -iconic &
-dbus-launch --exit-with-session gnome-session &
-```
-
-이제 된다  
-
-
-처음에 실행을 하면 vncconfig 작은 창이 실행되어 있다. 아니면 Activies를 (왼쪽상단)을 눌렀을 때  
-vncconfig 가 보이는데 여기에서 클립보드로 복사 붙여넣기를 할 수 있는 기능을 제공하기 때문에  
-끄면 안된다. 꺼버리면 로컬 컴퓨터에서 복사해서 리모트로 vnc 접속한 화면에 붙여넣기가 안된다  
+## 복사 & 붙여넣기 
+처음에 실행을 하면 vncconfig 작은 창이 실행되어 있다. 아니면 Activies를 (왼쪽상단)을 눌렀을 때   
+vncconfig 가 설정 화면이 보이는데 여기에서 클립보드로 복사 붙여넣기를 할 수 있는 기능을 제공하기 때문에  
+종료 시키면 로컬 컴퓨터에서의 내용을 복사해서 vnc 화면에 붙여넣기가 안되므로 종료하지 않는 것이 좋다  
 
 만약 불편하면 sudo apt-get install autocutsel 설치하고 (서버에도 설치해야하는지는 확인안해봄)  
 ~/.vnc/xstartup 파일을 열어서 아래 내용을 추가해준다. 
@@ -195,7 +176,7 @@ autocutsel -fork
 ```
 서버를 kill 했다가 다시 켜주면 된다 
 
-
+<br/>
 
 ## 트러블 슈팅 
 x서버에서 마우스 키보드 안 될 때  
