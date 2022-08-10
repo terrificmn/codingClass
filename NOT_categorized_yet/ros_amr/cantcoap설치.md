@@ -23,3 +23,6 @@ clang부분을 주석처리하고
 CXX=g++ 를 주석해제 시키고 make 터미널에서 명령을 하면 잘 실행 된다 
 
 
+cantcoap 훌륭한 예제 파일들 참고 
+
+https://cpp.hotexamples.com/examples/-/CoapPDU/setPayload/cpp-coappdu-setpayload-method-examples.html

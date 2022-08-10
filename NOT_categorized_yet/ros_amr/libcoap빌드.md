@@ -54,3 +54,10 @@ sudo ldconfig
 
 
 
+minimal coap 예제   
+https://github.com/obgm/libcoap-minimal
+
+libcoap-3가 있어야 하고 간단한 예제지만,, 실패;; 그냥 참고만 하자 어렵다 ㅠ
+
+cantcoap cpp 용으로 사용하자 
+
