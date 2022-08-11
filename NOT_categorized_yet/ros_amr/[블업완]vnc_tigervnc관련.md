@@ -19,7 +19,16 @@ vncviewer64-1.12.0.exe 을 받으면 될 듯 하다. 클라이언트 뷰어 (실
 <br/>
 
 ## 서버 쪽 설치
-먼저 데스크탑 관련 설치  
+만약 서버쪽 PC에서 접근해서 직접 사용이 가능하면 직접 서버 컴퓨터가 되는 곳에서 작업을 하고   
+
+그냥 client쪽에서 진행을 하려면은 ssh로 접속을 한다 
+
+터미널을 열어서 ssh {서버id}@{ip주소} 형태로 입력해 준다. 예:  
+```
+ssh ubuntu@192.168.1.100
+```
+
+이후 데스크탑 관련 설치  
 ```
 $ sudo apt-get install ubuntu-desktop	
 $ sudo apt install ubuntu-gnome-desktop	 
