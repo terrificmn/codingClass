@@ -2,7 +2,7 @@ std::string으로 만들어 진 것은 그냥 메소드를 그대로 사용할 �
 .length() .size() 등으로 사용하면 됨  
 
 예   
-```
+```cpp
 std::string name = "Duc";
 std::cout << "Length: " << name.length() << std::endl;
 std::cout << "Size: " << name.size() << std::endl;
