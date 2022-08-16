@@ -27,8 +27,7 @@ vncviewer64-1.12.0.exe 을 받으면 될 듯 하다. 클라이언트 뷰어 (실
 ```
 ssh ubuntu@192.168.1.100
 ```
-
-이후 데스크탑 관련 설치  
+비번 입력 후 데스크탑 관련 설치를 진행 한다 
 ```
 $ sudo apt-get install ubuntu-desktop	
 $ sudo apt install ubuntu-gnome-desktop	 
@@ -141,20 +140,25 @@ sudo apt install openssh
 
 SSH tunneling을 하려면 서버와 같은 방식인 5901 포트로 트래픽을 보내주게 된다   
 
-클라이언트 쪽에서 아래와 같은 방식으로 입력
-ssh -L 5901:127.0.0.1:5901 -N -f -l 서버아이디 서버ip주소로 입력  
+클라이언트 쪽에서 아래와 같은 방식으로 입력 ( {}는 입력하지 않음)   
+ssh -L 5901:127.0.0.1:5901 -N -f -l {서버계정아이디} {서버ip주소로입력}
 
 ```
-ssh -i ~/.ssh/ubuntu20.04 -L 5901:127.0.0.1:5901 -N -f -l seruser 192.168.10.101
+ssh -L 5901:127.0.0.1:5901 -N -f -l server_user 192.168.10.101
 ```
-그러면 비밀번호를 물어보는데 이때에는 서버의 기본 계정 비번을 입력하면 된다  
+그러면 비밀번호를 물어보는데 server_user의 비밀번호를 물어보는데 이때에는 서버의 기본 계정 비번을 입력하면 된다  
+예:   
+```
+server_user@192.168.10.101's password: 
+```
 
-> 만약 private 키를 가지고 있다면 -i 옵션을 사용한다    
+> 참고로 아무런 메세지 없이 자신의 프롬포트로(client PC) 나오면 성공   
+만약 private 키를 가지고 있다면 -i 옵션을 사용한다    
 ```
 ssh -i ~/.ssh/mykey -L 5901:127.0.0.1:5901 -N -f -l seruser 192.168.10.101
 ```
 
-일단 만들어 놓은 것이 없으므로 스킵
+일단 만들어 놓은 것이 없으므로 스킵하고 첫 번째 방법을 사용하면 된다   
 
 <br/>
 
@@ -169,6 +173,12 @@ sudo apt install tigervnc-viewer
 vncviewer localhost:5901 &
 ```
 해주면 vncserver 처음 시작할 때 설정 했던 암호를 입력하면 된다.  
+
+> &은 백그라운드로 실행하겠다는 의미  
+
+또는 super key (윈도우 키)를 눌러서 vncserver client 프로그램을 찾아서 직접 실행을 해도 된다  
+VNC server: 에 위에 처럼 localhost:5901 를 입력해주면 된다   
+
 
 <br/>
 
@@ -188,11 +198,36 @@ autocutsel -fork
 <br/>
 
 ## 트러블 슈팅 
-x서버에서 마우스 키보드 안 될 때  
+트러블 슈팅 
+
+### x서버에서 마우스 키보드 안 될 때  
 xserver-xorg-input-all 지워져버리면 발생한다 (vnc 관련해서 지울때 의존성 때문에 같이 지워져버린 듯하다)
 ```
 sudo apt install xserver-xorg-input-all
 ```
 > 그런데 어떻게 입력? ssh로 접속하거나~ 처음 부팅 시 wayland로 들어간다 (로그인 시 톱니바퀴)
+
+
+### 특정 데스크탑을 못 찾을 경우 
+```
+/home/amr/.vnc/xstartup: 4: exec: startxfce4: not found
+=============================================================================
+Starting applications specified in /home/amr/.vnc/xstartup has failed.
+```
+위 처럼 fce4를 찾을 수 없다고 나오거나  (startup파일에 exec startxfce4로 되어 있을 경우에)   
+처음에 데스크탑 종류가 여러개가 있는데 그 중   
+```
+sudo apt-get install xfce4 
+```
+설치를 해서 사용을 하던가 xstartup 파일에 gnome을 사용하게 하면 된다 (위의 기본 설정 방법 참고)   
+
+
+## 패스워드 다시 설정
+패스워드 파일을 지운 다음에 다시 vnc를 켜 준다  
+```
+cd ~/.vnc
+rm -i passwd
+```
+y를 누른 후에 vncserver를 입력해주면 다시 비밀번호를 설정하라고 나온다  
 
 
