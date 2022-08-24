@@ -14,6 +14,8 @@ $vi test.sh
 exit 0
 ```
 
+> bash shell 을 사용하려면 #!/bin/bash
+
 변수 설정
 변수에 넣는 것은 숫자로 넣어도 모두 문자로 인식  
 VAR=test 처럼 = 사이는 없어야 하고   
@@ -61,35 +63,6 @@ fi #end if
 exit 0
 ```
 
-
-switch case 문   
-주목할 점은 조건을 in 뒤에다 적어주는데 ''나 ""의 문자열 상태로 적어주지 않는다  
-파라미터 $VAR 로 들어온 값을 비교하는데 문자열이 각각 --start, --stop, --restart면 출력을 하는 프로그램  
-*) 조건은 default 조건임
-```shell
-#!/bin/sh
-
-
-VAR=$1
-
-case "$VAR" in
-        '--start')
-        echo 'start~!';;
-
-        '--stop')
-        echo 'stop~!';;
-
-        '--restart')
-        echo 'restart';;
-
-*)
-        echo 'no codition';;
-
-esac #case문 종료
-
-exit 0
-
-```
 
 ## if문 사용시 주의
 
