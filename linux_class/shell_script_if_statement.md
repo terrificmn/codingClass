@@ -36,6 +36,7 @@ result=`expr $num1 + $num2`
 echo $result
 ```
 
+## if  파라미터 parameter 받기
 
 if문 사용하기 -   
 shell에서는 if문은 fi로 끝난다 (end if)를 의미함
@@ -90,3 +91,16 @@ exit 0
 
 ```
 
+## if문 사용시 주의
+
+if문 사용시 주의할 점 [] 대괄호를 사용할 때 한칸씩 띄어서 사용해야함  
+안그러면 command not found 에러가 발생함
+```
+#if [$password="password"]  #이렇게 하면 에러발생
+if [ $password="password" ]
+then
+    ...
+else 
+    ...
+fi
+```
