@@ -77,3 +77,23 @@ else
     ...
 fi
 ```
+그리고 == 도 안된다. if문에서 문자열은 = 로 비교가 되지만   
+-eq 옵션을 사용하면 원치않는 결과가 나온다  
+
+
+## 숫자 비교
+-eq 등의 옵션은 숫자일 때만 되는 것 같다  
+```sh
+#!/bin/bash
+m=1
+n=2
+
+if [ $n -eq $m ]
+then
+        echo "Both variables are the same"
+else
+        echo "Both variables are different"
+fi
+```
+
+부등호는 사용을 안하고 옵션(?)으로 선택해서 사용하는 듯 하다  
