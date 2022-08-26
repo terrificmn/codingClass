@@ -76,5 +76,12 @@ export OpenCV_DIR=/usr/local/share/OpenCV
 좀 더 찾아봐야할 듯 -- 업데이트할 것
 
 
+참고로 우분투 20.04 기준, ROS Noetic 에서 OpenCV는 버전 4.2 이고 find_package()을 안해도 문제가 없다  
+우분투에서는 apt install python3-opencv 으로 설치됨
+```
+>>> print(cv2.__version__)
+4.2.0
+```
+
 
 
