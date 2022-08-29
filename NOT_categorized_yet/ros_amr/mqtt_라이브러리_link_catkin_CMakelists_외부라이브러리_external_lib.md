@@ -75,6 +75,5 @@ CMakeLists.txt 파일 여기에서 89번째와, 91번째에서 단서를 발견;
 일단 set(PAHO_CPP_LIB paho-mqttpp3) 을 한 것이지만 paho-mattpp3을 사용했다느 것을 알 수 있음   
 ROS에서 계속 빌드 실패할 때에는 ${PAHO_CPP_LIB} 변수를 계속 사용 했었으나 set으로 설정이 안 되어 있었음   
 
-조금 더 알아봐야할 듯 하다. 라이브러리 이름을 특정하는지!
 
 
