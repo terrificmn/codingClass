@@ -134,8 +134,15 @@ ssh: connect to host 192.168.10.100 port 22: Connection refused
 이렇게 나온다면 openssh가 설치가 안되어 있을 수가 있다  
 설치해주자  
 
+한번 더 확인을 하면 
 ```
-sudo apt install openssh
+systemctl status ssh
+```
+로 서비스가 작동 또는 있는지 확인한다 
+
+없다면..?
+```
+sudo apt install openssh-server
 ```
 
 SSH tunneling을 하려면 서버와 같은 방식인 5901 포트로 트래픽을 보내주게 된다   

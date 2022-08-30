@@ -1,6 +1,6 @@
 # Eclipse Paho MQTT C++ 라이브러리
 
-## 설치
+## 디펜던시 설치
 먼저 필요한 패키지 설치  우분투 기준
 c++11, MQTT 브러커 연결 및 퍼블리싱 메세지, 토픽 구독
 
@@ -13,6 +13,12 @@ secure sockets 이용
 ```
 sudo apt-get install libssl-dev 
 ```
+
+doxygen도 필요할 수 있음
+```
+sudo apt-get install doxygen
+```
+
 
 ### 먼저 Paho C 라이브러리를 먼저 빌드
 먼저 디렉토리 하나 만들고 그 안에 클론 후에 하나씩 실행하면 된다   

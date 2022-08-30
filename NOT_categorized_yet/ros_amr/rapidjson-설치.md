@@ -1,10 +1,17 @@
+# rapidjson 설치
+
 깃 클론을 받은 후에 
-
-
 ```
-git clone 
+git clone https://github.com/Tencent/rapidjson.git
 ```
-이제 디렉토리로 이동
+
+이제 디렉토리로 이동해서 보면 include 디렉토리가 있는데 rapidjson 패키지는  
+header 파일만 있으므로 빌드나 설치가 필요 없다   
+
+> header only c++ library
+
+그냥 /usr/include 디렉토리에 복사 또는 이동 시켜주면 된다     
+
 ```
 cd ~/rapidjson/include
 ```
@@ -14,6 +21,13 @@ cd ~/rapidjson/include
 ```
 sudo mv rapidjson/ usr/include/
 ```
+
+이제 나머지 파일은 지워도 됨
+
+```
+rm -rf rapidjson/
+```
+
 
 이제 cpp 코드에서 인쿠르드해서 사용하면 된다 
 ```cpp
