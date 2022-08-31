@@ -29,7 +29,14 @@ cd lib_paho
 git clone https://github.com/eclipse/paho.mqtt.c.git
 cd paho.mqtt.c
 git checkout v1.3.8
+```
+git branch 로 잘 변경되었는지 확인
+```
+git branch
+```
+결과로 * (HEAD detached at v1.3.8) 나오면 됨
 
+```
 cmake -Bbuild -H. -DPAHO_ENABLE_TESTING=OFF -DPAHO_BUILD_STATIC=ON \
     -DPAHO_WITH_SSL=ON -DPAHO_HIGH_PERFORMANCE=ON
 sudo cmake --build build/ --target install

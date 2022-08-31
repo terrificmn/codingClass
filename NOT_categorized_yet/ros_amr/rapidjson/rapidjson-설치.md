@@ -19,12 +19,13 @@ cd ~/rapidjson/include
 디렉토리 파일 통으로 /usr/include/ 또는 프로젝트 include path에 넣어 준다 
 
 ```
-sudo mv rapidjson/ usr/include/
+sudo mv rapidjson/ /usr/include/
 ```
 
 이제 나머지 파일은 지워도 됨
 
 ```
+cd
 rm -rf rapidjson/
 ```
 
