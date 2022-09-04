@@ -566,6 +566,13 @@ sudo chown -R 33:$USER app
 먼저 docker-comopse.yml 파일에서 web 컨테이너 부분에서 volume 부분에서   
 nginx_conf/default_dev.conf 파일로 연결해준다 (yml파일 수정됨)
 
+.env 파일 이용하는 방법으로 변경 됨   
+.env 파일에서 변수 value를 dev로 변경  
+
+```
+CONF_STATUS=dev
+```
+
 그래서 docker-comopse build 를 해서 다시 up을 시키면 웹서버가 실행이 되고   
 웹서버가 돌아가고 있을 때 인증을 받을 수 있다.
 
@@ -573,8 +580,16 @@ nginx_conf/default_dev.conf 파일로 연결해준다 (yml파일 수정됨)
 인증서 발급 자체가 웹서버가 정상적으로 응답을 해야지 발급이 된다.  
 그리고 (로컬에서 개발도 계속 해야하기 때문에 분리를 해놓음)
 
+또한 안타깝게도 재갱신에 실패를 해서 재발급을 받았으므로 갱신에 성공한다면 업데이트 필요!
 
 ## 서버에서 적용시에 ssl https 로 최초 인증서 받기
+env파일의 변수를 dev로 변경을 했다면  
+```
+docker-compose build
+docker-compose up
+```
+만약 build를 안해도 nginx가 잘 열린다면 (default_dev.conf)이 그렇다면 build는 안 해도 될 듯
+
 docker-compose up을 함과 동시에 certbot 디렉토리가 생성이 됨   
 ls를 해보면 certbot이 생겼을 것 임 (.gitignore 에 추가되어 있음)
 
@@ -582,8 +597,7 @@ ls를 해보면 certbot이 생겼을 것 임 (.gitignore 에 추가되어 있음
 ```
 docker-compose run --rm certbot certonly --webroot --webroot-path /var/www/certbot/ -d example.com
 ```
-
-example.com 부분에 자신의 도메인을 쓴다
+> example.com 부분에 자신의 도메인을 쓴다
 
 그러면 
 ```
@@ -610,22 +624,21 @@ These files will be updated when the certificate renews.
 
 certificates 이렇게 생성이 되었다.
 
-이제 웹 브라우저에 https: 붙이게 되면 웹서버를 찾지 못하므로 default_prod.conf를 수정해줘야한다
+이제 웹 브라우저에 https: 붙이게 되면 웹서버를 찾지 못하므로 default_prod.conf를 수정해줘야한다  
+왜냐하면 http용 default_dev.conf 파일을 사용하고 있기 때문  
 
-nginx_conf 디렉토리에는 default_dev.conf, default_prod.conf파일 지정이 되어 있는데   
-default_prod.conf 지정되어 있는 것을 default_prod.conf 파일로 바꿔준다. 주석해제 하고    
-default_dev.conf 는 주석처리
+~~nginx_conf 디렉토리에는 default_dev.conf, default_prod.conf파일 지정이 되어 있는데
+default_dev.conf 지정되어 있는 것을 default_prod.conf 파일로 바꿔준다. 주석해제 하고    
+default_dev.conf 는 주석처리~~
 
-```
-volumes: 
-    - ./nginx_conf/default_prod.conf:/etc/nginx/conf.d/default.conf  # 서버에서 prod 으로 사용하기
-    #- ./nginx_conf/default_dev.conf:/etc/nginx/conf.d/default.conf  #최상위 디렉토리에 defau
-```
+.env 파일에서 설정하는 것으로 변경했음. .env 파일에서 dev로 바꿔준다 
 
 그리고 nginx_conf/default_prod.conf 의 파일을 열어준다
 ```
 vi nginx_conf/default_prod.conf
 ```
+
+> 아래 내용은 처음 깃 허브에서 클론하고 적용할 때 처음만 바꿔주면 되고 server에서 commit는 최대한 자제하자
 
 이때 server_name 등은 바꿔줘야 한다 (내 도메인으로)
 
@@ -652,7 +665,6 @@ docker-compose up 을 해준다
 웹 브라우저에 http://도메인이름.com 으로 하면 자동으로 https://도메인이름.com 으로 넘어가고   
 
 주소창 옆에 connection secure 아이콘으로 바뀐다 
-
 
 
 

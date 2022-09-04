@@ -11,6 +11,10 @@ docker-compose run --rm certbot renew
 docker-compose run --rm certbot certificates
 ```
 
+90일 지나버렸다 ㅋㅋㅋ   
+이 상태에서 갱신을 하려고 했더니 실패  
+1 renew failure(s), 0 parse failure(s)
+
 
 ## crontab 아직 실행 안해봄
 테스트 전 
