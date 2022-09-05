@@ -150,3 +150,17 @@ sudo ln -s $HOME/Groot/build/Groot /usr/bin/groot
 export PATH=$PATH:$HOME/Groot
 ```
 이제 터미널 어디에서라도 Groot이라고 치면 위의 경로도 찾아서 실행해준다
+
+문제 없이 실행이 된다면  
+~/.bashrc 파일에 추가해준다   
+
+에디터로 열어서
+```
+vi ~/.bashrc
+```
+
+아래에 내용 추가 후 저장
+```
+#groot(bt)
+export PATH=$PATH:$HOME/Groot
+```

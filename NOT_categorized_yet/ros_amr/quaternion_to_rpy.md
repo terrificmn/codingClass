@@ -2,7 +2,7 @@
 ## quartnion to r p y
 
 일단 yaw 값만 ..변환
-```
+```cpp
 #include <tf/tf.h>
 
 // quartnion to r p y
@@ -23,13 +23,12 @@
     // double t2 = 1.0 - 2.0 * (pubPosePtr->pose.orientation.y * pubPosePtr->pose.orientation.y + pubPosePtr->pose.orientation.z * pubPosePtr->pose.orientation.z);
     // double yaw = std::atan2(t1, t2);
     // ROS_ERROR("new %lf", yaw);
-
 ```                
 
 
 
 ### x, y, theta 에서 quaternion
-```
+```cpp
 #include <tf2/LinearMath/Quaternion.h>
 
 tf2::Quaternion quat ;
