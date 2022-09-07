@@ -1,6 +1,6 @@
 먼저 현재 깔려있는 정보 확인
 list {package_name}
-```
+[[dns_setup_도메인_셋팅]]```
 sudo dnf list firefox
 ```
 
