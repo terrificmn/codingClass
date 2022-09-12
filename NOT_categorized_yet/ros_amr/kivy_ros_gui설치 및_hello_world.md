@@ -9,6 +9,11 @@ python3 -m pip install --upgrate pip
 https://kivy.org/#download    
 소스로 빌드하려면 다운로드 홈피 확인  
 
+> python2 일 경우에 pip이 없는 경우
+```
+sudo apt install python-pip
+
+```
 
 그리고 kivy 로 만들어져 있는 kivyMD를 다운 
 
@@ -23,6 +28,10 @@ python3 -m pip install kivymd
 ```
 (kivyMD는 kivy 의존성이 필요하므로 kivy를 먼저 설치해줘야 한다 )
 
+역시  python 2 버전일 경우에는  
+```
+python -m pip install kivymd
+```
 
 
 
