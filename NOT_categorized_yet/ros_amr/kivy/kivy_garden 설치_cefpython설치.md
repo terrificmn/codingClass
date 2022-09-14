@@ -27,9 +27,16 @@ https://github.com/kivy-garden/garden.cefpython
 
 근데;;; 위의 garden에 있는 패키지들을 설치할 때랑은 조금 다르다(?);;
 
-아무래도 python3.8 버전에서는 안되는 듯 하다
+원래 cefpython3은 공식적으로 파이썬 3.7까지 지원하고 아직 3.8 은 안됨   
+그래서 kivymd 의 garden.cefpython 도 파이썬 3.8에서는 에러 발생   
 
-3.7 버전 이하  사용이 가능한듯 
+```
+Exception: Python version not supported: 3.8.10  
+```
+
+
+### 3.7 버전 이하  사용이 가능한듯 
+파이썬 3.7 이하
 
 https://github.com/allestuetsmerweh/garden.cefpython
 
