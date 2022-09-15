@@ -3,7 +3,7 @@ kivy 설치 - 파이썬 pip으로 설치하게 됨
 
 ```
 sudo apt install python3-pip   
-python3 -m pip install --upgrate pip
+python3 -m pip install --upgrade pip
 ```
 
 https://kivy.org/#download    
@@ -23,16 +23,19 @@ touch-enabled graphical applications. The project’s goal is
 to approximate Google’s Material Design spec as close as possible   
 without sacrificing ease of use or application performance.
 
+
+> kivyMD는 kivy 의존성이 필요하므로 kivy를 먼저 설치해줘야 한다 
+> 그리고 나서 kivymd도 설치해준다
+
 ```
+python3 -m pip install kivy
 python3 -m pip install kivymd
 ```
-(kivyMD는 kivy 의존성이 필요하므로 kivy를 먼저 설치해줘야 한다 )
 
-역시  python 2 버전일 경우에는  
+혹시  python 2 버전일 경우에는  
 ```
 python -m pip install kivymd
 ```
-
 
 
 ## 튜토리얼 hello world

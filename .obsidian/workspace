@@ -4,7 +4,7 @@
     "type": "split",
     "children": [
       {
-        "id": "504275c878a5920c",
+        "id": "582380e2ee7b6133",
         "type": "leaf",
         "state": {
           "type": "empty",
@@ -36,7 +36,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "무선",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -53,12 +53,11 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 323.5
+    "width": 322.5
   },
   "right": {
     "id": "76a68bdd7b1cdfdf",
@@ -121,17 +120,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "504275c878a5920c",
+  "active": "582380e2ee7b6133",
   "lastOpenFiles": [
+    "NOT_categorized_yet/ros_amr/kivy/kivy_ros_gui설치 및_hello_world.md",
+    "NOT_categorized_yet/ros_amr/py_roslaunch사용.md.md",
+    "NOT_categorized_yet/ros_amr/python_popen_close.md.md",
+    "rosbridge bootstrap vue 사용.md",
+    "NOT_categorized_yet/ros_amr/ROSBridge를 이용 RosBridge Server.md",
     "NOT_categorized_yet/ros_amr/무선조종_활성.md",
     "NOT_categorized_yet/ros_amr/GPS활성_ublox클론_설치.md",
     "ubiquityRobotics_aruco_detect.md",
-    "NOT_categorized_yet/ros_amr/ROSBridge를 이용 RosBridge Server.md",
     "NOT_categorized_yet/ros_amr/kivy/kivy_garden 설치_cefpython설치.md",
-    "NOT_categorized_yet/kivy_ros_gui_tutorial_button.md",
-    "NOT_categorized_yet/ros_amr/kivy_ros_gui설치 및_hello_world.md",
-    "kivy_garden 설치.md",
-    "ros/ros-파이썬3으로 올리기.md",
-    "amd/amd_plaidML.md"
+    "NOT_categorized_yet/kivy_ros_gui_tutorial_button.md"
   ]
 }
