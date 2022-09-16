@@ -47,6 +47,19 @@ source $HOME/catkin_ws_iso/install_isolated/setup.bash
 ```
 
 
+## 데모 실행
+런치파일로 데모 파일을 실행할 때 데모 파일명을 같이 넘겨야 실행이 된다    
+Downloads 디렉토리에 데모 파일이 있다고 하면 아래 처럼 실행 
+
+[다운은 여기에서 받을 수 있음 - Deutsches Museum](https://google-cartographer-ros.readthedocs.io/en/latest/demos.html#deutsches-museum-1)
+
+2D 데모를 받아 준다. 그리고 실행
+
+```
+roslaunch cartographer_ros demo_backpack_2d.launch  bag_filename:=$HOME/Downloads/cartographer_paper_deutsches_museum.bag
+```
+
+
 아마도 런치파일과 lua 파일을 잘 바꿔야지 잘 나올 듯 하다
 
 런치파일을 실행해보면 cartographer_node 가 실행이 되는데

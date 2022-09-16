@@ -7,8 +7,12 @@
         "id": "582380e2ee7b6133",
         "type": "leaf",
         "state": {
-          "type": "empty",
-          "state": {}
+          "type": "markdown",
+          "state": {
+            "file": "NOT_categorized_yet/ros_amr/cartographer/cartographer_pure_localization_demo.md",
+            "mode": "source",
+            "source": false
+          }
         }
       }
     ],
@@ -53,7 +57,8 @@
               "state": {}
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -73,6 +78,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "NOT_categorized_yet/ros_amr/cartographer/cartographer_pure_localization_demo.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -89,6 +95,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "NOT_categorized_yet/ros_amr/cartographer/cartographer_pure_localization_demo.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -110,7 +117,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "NOT_categorized_yet/ros_amr/cartographer/cartographer_pure_localization_demo.md"
+              }
             }
           }
         ]
@@ -120,17 +129,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "582380e2ee7b6133",
+  "active": "6352335d795e52ae",
   "lastOpenFiles": [
+    "ros/LiDAR-cartographer-데모.md",
+    "NOT_categorized_yet/ros_amr/무선조종_usb_활성_dmesg_udevadm.md",
     "NOT_categorized_yet/ros_amr/kivy/kivy_ros_gui설치 및_hello_world.md",
     "NOT_categorized_yet/ros_amr/py_roslaunch사용.md.md",
     "NOT_categorized_yet/ros_amr/python_popen_close.md.md",
     "rosbridge bootstrap vue 사용.md",
     "NOT_categorized_yet/ros_amr/ROSBridge를 이용 RosBridge Server.md",
-    "NOT_categorized_yet/ros_amr/무선조종_활성.md",
     "NOT_categorized_yet/ros_amr/GPS활성_ublox클론_설치.md",
     "ubiquityRobotics_aruco_detect.md",
-    "NOT_categorized_yet/ros_amr/kivy/kivy_garden 설치_cefpython설치.md",
-    "NOT_categorized_yet/kivy_ros_gui_tutorial_button.md"
+    "NOT_categorized_yet/ros_amr/kivy/kivy_garden 설치_cefpython설치.md"
   ]
 }
