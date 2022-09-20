@@ -1,8 +1,15 @@
+# catkin workspace 등록
 먼저 맨 처음으로 Create Project를 눌러서 catkin_ws를 선택해준다  
 
-Create Project -> Other Project -> ROS Workspace를 선택  Next를 누른 후에  
-Name은 catkin_ws 정도로 해주고  
-Workspace Path는 Browse검색이 잘 안되면 직접 타이핑을 해준다 (버그인가?) 
+Create Project 버튼을 눌러서 New Project 만들기에서 template를 골라주는데  
+Other Project 의 ROS Workspace를 선택  Next를 누른 후에  
+Name은 catkin_ws 정도로 해주고    
+Build System은 Catkin Tools 가 설치되어 있으면 선택, 없다면 catkin_make로 선택
+
+~~Workspace Path는 Browse검색이 잘 안되면 직접 타이핑을 해준다 (버그인가?) ~~
+
+
+## New file 만들기 - qt designer form class
 
 새로운 파일을 만들 때에는 
 File -> New File 선택 후  
@@ -28,22 +35,5 @@ Path: /home/sgtubunamr/catkin_ws/src/template_gui_package/include/template_gui_p
 
 https://www.youtube.com/watch?v=Cg1DaNFnZyY&t=24s  
 이후 7:20 부터 
-
-
-  <!-- static global costmap, static map provides size -->
-    <rosparam file="$(find husky_navigation)/config/costmap_global_static.yaml" command="load" ns="global_costmap" unless="$(arg no_static_map)"/>
-    
-    <!-- global costmap with laser, for odom_navigation_demo -->
-    <rosparam file="$(find husky_navigation)/config/costmap_global_laser.yaml" command="load" ns="global_costmap" if="$(arg no_static_map)"/>
-    <param name="global_costmap/width" value="100.0" if="$(arg no_static_map)"/>
-    <param name="global_costmap/height" value="100.0" if="$(arg no_static_map)"/>
-  </node>
-
-
-
-
-
-
-
 
 

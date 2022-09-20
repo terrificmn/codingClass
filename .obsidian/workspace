@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "NOT_categorized_yet/cartographer test 중 costmap.md",
+            "file": "NOT_categorized_yet/QT_ros/qt_creator_kits인식.md",
             "mode": "source",
             "source": false
           }
@@ -61,7 +61,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 322.5
+    "width": 320.5
   },
   "right": {
     "id": "76a68bdd7b1cdfdf",
@@ -77,7 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "NOT_categorized_yet/cartographer test 중 costmap.md",
+                "file": "NOT_categorized_yet/QT_ros/qt_creator_kits인식.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -94,7 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "NOT_categorized_yet/cartographer test 중 costmap.md",
+                "file": "NOT_categorized_yet/QT_ros/qt_creator_kits인식.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -117,7 +117,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "NOT_categorized_yet/cartographer test 중 costmap.md"
+                "file": "NOT_categorized_yet/QT_ros/qt_creator_kits인식.md"
               }
             }
           }
@@ -130,15 +130,15 @@
   },
   "active": "9333784cac6c60c9",
   "lastOpenFiles": [
-    "NOT_categorized_yet/cartographer build 에러.md",
-    "NOT_categorized_yet/QT_ros/qtcreator설치.md",
     "NOT_categorized_yet/QT_ros/qt_사용.md",
+    "NOT_categorized_yet/QT_ros/qt_designer form.md",
+    "NOT_categorized_yet/QT_ros/qt_creator_kits인식.md",
+    "NOT_categorized_yet/QT_ros/qtcreator설치.md",
+    "NOT_categorized_yet/cartographer test 중 costmap.md",
+    "NOT_categorized_yet/cartographer build 에러.md",
     "ros/LiDAR-cartographer-설치.md",
     "ros/LiDAR-cartographer-데모.md",
     "ros2/foxy-devel설치.md",
-    "NOT_categorized_yet/ros_amr/cartographer_basic_launch_파일.md.md",
-    "NOT_categorized_yet/ros_amr/cartographer_imu_사용시_lua.md",
-    "NOT_categorized_yet/ros_amr/cartographer/cartographer_pure_localization_demo.md",
-    "NOT_categorized_yet/ros_amr/cartographer설치할때_custom버전.md"
+    "NOT_categorized_yet/ros_amr/cartographer_basic_launch_파일.md.md"
   ]
 }

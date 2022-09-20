@@ -45,8 +45,9 @@ QtCreator 디렉토리에 가면 MaintenanceTool 파일이 있는데 실행을 �
 
 
 
-## **참고만** snap으로 qtcreator 설치하기 (qtcreator-ros) 
-버전이 안 맞는듯.. 특정 라이브러리 인식을 잘 못함 
+##  snap으로 qtcreator 설치하기 (qtcreator-ros) 
+Kits를 못 찾는 문제가 있지만 처음에 옵션에서 해결할 수 있는 듯 하다  
+qt_creator_kits 인식 참고
 
 snap을 이용해서 설치한다  
 ```
