@@ -4,11 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "abde30f27624e396",
+        "id": "9333784cac6c60c9",
         "type": "leaf",
         "state": {
-          "type": "empty",
-          "state": {}
+          "type": "markdown",
+          "state": {
+            "file": "NOT_categorized_yet/cartographer test 중 costmap.md",
+            "mode": "source",
+            "source": false
+          }
         }
       }
     ],
@@ -73,6 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "NOT_categorized_yet/cartographer test 중 costmap.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -89,6 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "NOT_categorized_yet/cartographer test 중 costmap.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -110,7 +116,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "NOT_categorized_yet/cartographer test 중 costmap.md"
+              }
             }
           }
         ]
@@ -120,17 +128,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "abde30f27624e396",
+  "active": "9333784cac6c60c9",
   "lastOpenFiles": [
-    "NOT_categorized_yet/ros_amr/web_rosbridge/quaternions_참고.md",
-    "NOT_categorized_yet/ros_amr/web_rosbridge/rosbridge_rviz.md",
-    "NOT_categorized_yet/ros_amr/cartographer/cartographer_pure_localization_demo.md",
+    "NOT_categorized_yet/cartographer build 에러.md",
+    "NOT_categorized_yet/QT_ros/qtcreator설치.md",
+    "NOT_categorized_yet/QT_ros/qt_사용.md",
+    "ros/LiDAR-cartographer-설치.md",
     "ros/LiDAR-cartographer-데모.md",
-    "NOT_categorized_yet/ros_amr/무선조종_usb_활성_dmesg_udevadm.md",
-    "NOT_categorized_yet/ros_amr/kivy/kivy_ros_gui설치 및_hello_world.md",
-    "NOT_categorized_yet/ros_amr/py_roslaunch사용.md.md",
-    "NOT_categorized_yet/ros_amr/python_popen_close.md.md",
-    "rosbridge bootstrap vue 사용.md",
-    "NOT_categorized_yet/ros_amr/ROSBridge를 이용 RosBridge Server.md"
+    "ros2/foxy-devel설치.md",
+    "NOT_categorized_yet/ros_amr/cartographer_basic_launch_파일.md.md",
+    "NOT_categorized_yet/ros_amr/cartographer_imu_사용시_lua.md",
+    "NOT_categorized_yet/ros_amr/cartographer/cartographer_pure_localization_demo.md",
+    "NOT_categorized_yet/ros_amr/cartographer설치할때_custom버전.md"
   ]
 }
