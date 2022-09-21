@@ -4,12 +4,12 @@
     "type": "split",
     "children": [
       {
-        "id": "9333784cac6c60c9",
+        "id": "e137852d0fd88b44",
         "type": "leaf",
         "state": {
           "type": "markdown",
           "state": {
-            "file": "NOT_categorized_yet/QT_ros/qt_creator_kits인식.md",
+            "file": "NOT_categorized_yet/movebase-nav/DWAPlannerRos 중에.md",
             "mode": "source",
             "source": false
           }
@@ -77,7 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "NOT_categorized_yet/QT_ros/qt_creator_kits인식.md",
+                "file": "NOT_categorized_yet/movebase-nav/DWAPlannerRos 중에.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -94,7 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "NOT_categorized_yet/QT_ros/qt_creator_kits인식.md",
+                "file": "NOT_categorized_yet/movebase-nav/DWAPlannerRos 중에.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -117,7 +117,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "NOT_categorized_yet/QT_ros/qt_creator_kits인식.md"
+                "file": "NOT_categorized_yet/movebase-nav/DWAPlannerRos 중에.md"
               }
             }
           }
@@ -128,17 +128,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "9333784cac6c60c9",
+  "active": "e137852d0fd88b44",
   "lastOpenFiles": [
-    "NOT_categorized_yet/QT_ros/qt_사용.md",
+    "NOT_categorized_yet/catographer/mapserver사용.md",
+    "NOT_categorized_yet/QT_ros/QDebug 사용.md",
     "NOT_categorized_yet/QT_ros/qt_designer form.md",
     "NOT_categorized_yet/QT_ros/qt_creator_kits인식.md",
+    "NOT_categorized_yet/QT_ros/qt_사용.md",
     "NOT_categorized_yet/QT_ros/qtcreator설치.md",
     "NOT_categorized_yet/cartographer test 중 costmap.md",
     "NOT_categorized_yet/cartographer build 에러.md",
     "ros/LiDAR-cartographer-설치.md",
-    "ros/LiDAR-cartographer-데모.md",
-    "ros2/foxy-devel설치.md",
-    "NOT_categorized_yet/ros_amr/cartographer_basic_launch_파일.md.md"
+    "ros/LiDAR-cartographer-데모.md"
   ]
 }

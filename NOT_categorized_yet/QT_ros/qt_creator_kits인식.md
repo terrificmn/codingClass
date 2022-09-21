@@ -8,11 +8,34 @@ Kits 섹션에서 Kit Selection 에서 인식되는 kits 가 나오는게 없다
 Edit > Preferences 를 누르면 처음 Kits 라는 섹션이 보이고   
 Qt Versions 탭에서 Add를 눌러준다  
 
-그리고 qmake 파일은 연결해줘야하는데  
-/usr/lib64/qt5/bin/qmake  경로에 있다 . 파일을 선택해준다 
+~~그리고 qmake 파일은 연결해줘야하는데  
+/usr/lib64/qt5/bin/qmake  경로에 있다 . 파일을 선택해준다 ~~   
 
-> 아마도 우분투 기준에서는 /usr/lib/x86_64-linux-gnu/qt5/bin/qmake   
-> qmake파일은 컴파일 하는데 사용이 된다
+위 방법도 제대로 된 경로인지는 모르겠다 (처음에는 잘 되는 듯 했지만..)
+! 아이콘이 뜨는 것을 봐서는 확실하게 된 것은 아닌 모양  
+
+일단 Qt creator 에서 정식 홈피에서 다운 받은 버전(?)에서는  
+Qt Versions 가 /home/username/Qt/5.15.2/gcc_64/bin/qmake  (우분투 20.04 기준)
+
+```
+find / -name qmake >  res
+cat res
+```
+위의 결과로 일단 qmake가 어디에 있는지 확인할 수 있다.   
+하나씩 테스트 해봐야할 듯 하다~
+
+(우분투)
+```
+/usr/lib/x86_64-linux-gnu/qt5/bin/qmake   
+/home/username/Qt/5.15.2/gcc_64/bin/qmake
+```
+등 여러 경로에 존재함   
+
+> 먼저 Qt 디렉토리에 있는 것은 공홈에서 다운받았을 때 여기에 생기는 듯하다   
+> 그리고 x86_64-linux-gnu 에 있는 qmake는 심볼릭 링크
+
+그리고 Debugger도 설치가 되어 있고, /usr/bin/gdb   로 되어 있고~ 
+GDB도 알아봐야할 듯   
 
 Apply를 눌러준 후에 처음의 Kits 탭으로 이동  
 Manual에 추가가 되어 있는 Desktop (default)를 클릭 후에   
