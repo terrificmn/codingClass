@@ -4,15 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "e137852d0fd88b44",
+        "id": "1c6b9ba2a1f77138",
         "type": "leaf",
         "state": {
-          "type": "markdown",
-          "state": {
-            "file": "NOT_categorized_yet/movebase-nav/DWAPlannerRos 중에.md",
-            "mode": "source",
-            "source": false
-          }
+          "type": "empty",
+          "state": {}
         }
       }
     ],
@@ -77,7 +73,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "NOT_categorized_yet/movebase-nav/DWAPlannerRos 중에.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -94,7 +89,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "NOT_categorized_yet/movebase-nav/DWAPlannerRos 중에.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -116,9 +110,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "NOT_categorized_yet/movebase-nav/DWAPlannerRos 중에.md"
-              }
+              "state": {}
             }
           }
         ]
@@ -128,17 +120,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "e137852d0fd88b44",
+  "active": "1c6b9ba2a1f77138",
   "lastOpenFiles": [
-    "NOT_categorized_yet/catographer/mapserver사용.md",
-    "NOT_categorized_yet/QT_ros/QDebug 사용.md",
-    "NOT_categorized_yet/QT_ros/qt_designer form.md",
-    "NOT_categorized_yet/QT_ros/qt_creator_kits인식.md",
-    "NOT_categorized_yet/QT_ros/qt_사용.md",
-    "NOT_categorized_yet/QT_ros/qtcreator설치.md",
-    "NOT_categorized_yet/cartographer test 중 costmap.md",
+    "NOT_categorized_yet/catographer/참고 사이트 깃허브등.md",
+    "NOT_categorized_yet/catographer/cartographer-costmap_mapserver.md",
+    "NOT_categorized_yet/footprint.md",
     "NOT_categorized_yet/cartographer build 에러.md",
-    "ros/LiDAR-cartographer-설치.md",
-    "ros/LiDAR-cartographer-데모.md"
+    "NOT_categorized_yet/cartographer test 중 costmap.md",
+    "NOT_categorized_yet/movebase-nav/move_base 노드.md",
+    "NOT_categorized_yet/build_cmake/static과 dynamic.md",
+    "NOT_categorized_yet/build_cmake/cmake 기초 basic.md",
+    "linux-Ubuntu/nvidia 그래픽 driver설치.md",
+    "NOT_categorized_yet/movebase-nav/DWAPlannerRos 중에.md"
   ]
 }
