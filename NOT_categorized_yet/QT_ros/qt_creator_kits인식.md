@@ -4,6 +4,38 @@ Rocky Linux 기준
 Project를 새로 만들려고 할 때
 Kits 섹션에서 Kit Selection 에서 인식되는 kits 가 나오는게 없다. 비활성화되어 있음
 
+새로운 프로젝트를 만들면  
+kit selection에서  
+Desktop Qt 5.15.2 GCC 64bit 이런식으로 까지 나온다 (details)
+
+그리고 세모 버튼을 눌러서 빌드 및 실행을 하면 빈 mainwindow 창이 떠야 잘 설정이 된 것   
+
+--현재 rocky linux에서는 창이 안뜸
+
+아래와 비교해 볼 것!!
+
+ubuntu기준 
+compiler는 c는 GCC(C, x86 64bit at /usr/bin/gcc)
+c++ GCC(++, x86 64bit at /usr/bin/g++)
+
+Debugger는 System GDB at /usr/bin/gdb
+Qt version은 Qt 5.15.2 GCC 64bit
+CMake Tool은 System CMake at /usr/bin/cmake
+CMake generator는 Ninja
+CMake Configuration은  
+-DQT_QMAKE_EXECUTABLE:FILEPATH=%{Qt:qmakeExecutable}
+-DCMAKE_PREFIX_PATH:PATH=%{Qt:QT_INSTALL_PREFIX}
+-DCMAKE_C_COMPILER:FILEPATH=%{Compiler:Executable:C}
+-DCMAKE_CXX_COMPILER:FILEPATH=%{Compiler:Executable:Cxx}
+
+
+그리고 프로젝트를 만들면 프로젝트와 Debug 디렉토리가 같이 만들어진다   
+예를 들어 
+hello_gui 라는 프로젝트를 만들면 build-hello_gui-Desktop_Qt_5_15_2_GCC_64bit-Debug 이렇게 2개의 디렉토리가 생김
+
+혹시 권한 문제일 수도 있으니 시도해 볼 것 
+
+
 
 Edit > Preferences 를 누르면 처음 Kits 라는 섹션이 보이고   
 Qt Versions 탭에서 Add를 눌러준다  

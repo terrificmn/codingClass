@@ -4,7 +4,7 @@
     "type": "split",
     "children": [
       {
-        "id": "1c6b9ba2a1f77138",
+        "id": "2ccc7ce261d59332",
         "type": "leaf",
         "state": {
           "type": "empty",
@@ -120,17 +120,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "1c6b9ba2a1f77138",
+  "active": "2ccc7ce261d59332",
   "lastOpenFiles": [
-    "NOT_categorized_yet/catographer/참고 사이트 깃허브등.md",
+    "ros/LiDAR-intelisense-ROS 설치.md",
     "NOT_categorized_yet/catographer/cartographer-costmap_mapserver.md",
-    "NOT_categorized_yet/footprint.md",
-    "NOT_categorized_yet/cartographer build 에러.md",
-    "NOT_categorized_yet/cartographer test 중 costmap.md",
-    "NOT_categorized_yet/movebase-nav/move_base 노드.md",
-    "NOT_categorized_yet/build_cmake/static과 dynamic.md",
+    "NOT_categorized_yet/catographer/참고 사이트 깃허브등.md",
+    "ros/LiDAR-occupancy-map.md",
+    "ros/LiDAR-cartographer-설치.md",
+    "NOT_categorized_yet/build_cmake/라이브러리 library 만들기.md",
     "NOT_categorized_yet/build_cmake/cmake 기초 basic.md",
-    "linux-Ubuntu/nvidia 그래픽 driver설치.md",
-    "NOT_categorized_yet/movebase-nav/DWAPlannerRos 중에.md"
+    "NOT_categorized_yet/build_cmake/static과 dynamic.md",
+    "NOT_categorized_yet/QT_ros/qt_creator_kits인식.md",
+    "NOT_categorized_yet/QT_ros/rocky_linux_qt_intallation.md"
   ]
 }
