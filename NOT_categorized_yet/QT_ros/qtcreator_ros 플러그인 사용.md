@@ -6,7 +6,9 @@ Other Project 의 ROS Workspace를 선택  Next를 누른 후에
 Name은 catkin_ws 정도로 해주고    
 Build System은 Catkin Tools 가 설치되어 있으면 선택, 없다면 catkin_make로 선택
 
-~~Workspace Path는 Browse검색이 잘 안되면 직접 타이핑을 해준다 (버그인가?) ~~
+~~Workspace Path는 Browse검색이 잘 안되면 직접 타이핑을 해준다 (버그인가?) ~~ 
+
+> qmake 지정이 (qt version이 지정이 안되서 발생)
 
 
 ## New file 만들기 - qt designer form class

@@ -33,6 +33,8 @@ Qt5Widgets 추가해준다
 
 [cmke와 qt5관련 읽어보기](https://www.kdab.com/using-cmake-with-qt-5/)
 
+> 처음에는 cmake로만 해서 발생한 문제 인 듯 하다  qmake를 지정하고 qmake로 컴파일을 진행해도 된다  
+
 
 찾아보면 
 /usr/include/x86_64-linux-gnu/qt5/QtWidgets/QWidget   
@@ -71,21 +73,14 @@ Debug 메뉴에서 Start Debugging을 선택해서 attach to running application
 
 
 
-## New Project - Qt Creator
-Application(Qt) -> Qt Widgets Appliaction을 새로운 프로젝트로 만들 때   
-
-Kits 을 선택하는 부분에서 Desktop Qt 버전이 및 Gcc 가 안나오면 제대로 사용이 안되는 듯 하다
-이래저래 안되면
+## QT 공식 홈에서 다운로드 후 설치하기 
 
 [https://www.qt.io/download 공식 홈에서 다운로드/ 단 회원가입을 해야한다](https://www.qt.io/download)
 
-아예 설치를 해주면 시간이 엄청 오래걸리지만~ 되기는 함
+아예 설치를 해주면 시간이 엄청 오래걸리지만~ 잘 됨   
+
+최소 14GB 용량이 필요하고,  
+
+opensource 버전으로 설치한다 
 
 
-
-
-
-uint8_t alpha_value = alpha.at(i);
-    if (intensity_value == 0 && alpha_value > 0) {
-      alpha_value = 255;
-    }
