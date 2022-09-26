@@ -4,7 +4,7 @@
     "type": "split",
     "children": [
       {
-        "id": "4c38933235c4f1ea",
+        "id": "1d723fe35f664562",
         "type": "leaf",
         "state": {
           "type": "empty",
@@ -36,7 +36,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "rules",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -120,17 +120,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "4c38933235c4f1ea",
+  "active": "1d723fe35f664562",
   "lastOpenFiles": [
+    "NOT_categorized_yet/ros_amr/무선조종_usb_활성_dmesg_udevadm.md",
+    "NOT_categorized_yet/ros_amr/os_usb확인.md",
+    "NOT_categorized_yet/Untitled.md",
+    "NOT_categorized_yet/ros_amr/GPS활성_ublox클론_설치.md",
+    "ros/rs-camera LIDAR-librealsense_SDK2설치.md",
+    "Et cetera/ac_dc.md",
+    "NOT_categorized_yet/costmap_common_params test/param test.md",
+    "NOT_categorized_yet/QT_ros/qt_tutorial/qt style.md",
     "NOT_categorized_yet/turtle tf2 tf1 demo.md",
-    "NOT_categorized_yet/QT_ros/qtcreator설치.md",
-    "NOT_categorized_yet/QT_ros/qtcreator_ros 플러그인 사용.md",
-    "NOT_categorized_yet/QT_ros/QDebug 사용.md",
-    "NOT_categorized_yet/QT_ros/qt_designer form.md",
-    "NOT_categorized_yet/QT_ros/Failed to Start Applicationd에러_build settings.md",
-    "NOT_categorized_yet/QT_ros/qt_creator_kits인식.md",
-    "NOT_categorized_yet/ros_amr/rocky_linux_qt_intallation.md",
-    "ros/LiDAR-intelisense-ROS 설치.md",
-    "NOT_categorized_yet/catographer/cartographer-costmap_mapserver.md"
+    "NOT_categorized_yet/QT_ros/qtcreator설치.md"
   ]
 }
