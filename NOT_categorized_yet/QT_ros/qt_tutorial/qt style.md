@@ -1,4 +1,5 @@
 qt sytle sheets는 CSS와 비슷하다 
+거의 CSS와 같은 방식으로 작동
 
 ```css
 h1 { color: red, background-color: white;}
@@ -38,6 +39,9 @@ QPushButton 을 지정하지 않고 그냥 블럭으로만 해서 지정한다�
 
 버튼을 눌러서 오른쪽 Object, Class 패널을 보면  
 pushButton 은 QPushButton 클래스 인 것을 알 수 있음. style을 클래스 명으로 지정해주면 되는 듯 하다 
+widget의 특정 Object를 클릭하고 QObject의 objectName 찾아서 사용을 하면 된다  
+
+예를 들어 3번째로 만든 pubhButton은 objectName이 pushButton_3
 
 
 
@@ -75,6 +79,18 @@ qt style sheet 에서는 QPushButton에 지정했던 것의 property가 계속 �
 
 
 ### universal selector
-별* 표시로 지정하면 
+별* 표시로 지정하면 위젯 전체에 적용시킬 수 있다  
+color 등을 rgb()로 지정
 
-chapter basic 1- 6
+```
+*
+{
+	background: qradialgradient(cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4, radius: 1.35, stop: 0 #fff, stop: 1 #888);
+	color: rgb(255, 255, 255);
+	border: 1px solid #ffffff;
+}
+```
+
+pushButton에는 이미 스타일을 지정했기 때문에 별 표시로 지정한 것이 적용되지는 않는다 
+
+> 괄호는 붙여서 사용

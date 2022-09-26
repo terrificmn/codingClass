@@ -4,11 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "1d723fe35f664562",
+        "id": "82a9a1179cc7fae9",
         "type": "leaf",
         "state": {
-          "type": "empty",
-          "state": {}
+          "type": "markdown",
+          "state": {
+            "file": "NOT_categorized_yet/QT_ros/qt_tutorial/qt style.md",
+            "mode": "source",
+            "source": false
+          }
         }
       }
     ],
@@ -73,6 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "NOT_categorized_yet/QT_ros/qt_tutorial/qt style.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -89,6 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "NOT_categorized_yet/QT_ros/qt_tutorial/qt style.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -110,7 +116,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "NOT_categorized_yet/QT_ros/qt_tutorial/qt style.md"
+              }
             }
           }
         ]
@@ -120,8 +128,10 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "1d723fe35f664562",
+  "active": "82a9a1179cc7fae9",
   "lastOpenFiles": [
+    "NOT_categorized_yet/QT_ros/catkin_ws의패키지열기.md",
+    "NOT_categorized_yet/QT_ros/Failed to Start Applicationd에러_build settings.md",
     "NOT_categorized_yet/ros_amr/무선조종_usb_활성_dmesg_udevadm.md",
     "NOT_categorized_yet/ros_amr/os_usb확인.md",
     "NOT_categorized_yet/Untitled.md",
@@ -129,8 +139,6 @@
     "ros/rs-camera LIDAR-librealsense_SDK2설치.md",
     "Et cetera/ac_dc.md",
     "NOT_categorized_yet/costmap_common_params test/param test.md",
-    "NOT_categorized_yet/QT_ros/qt_tutorial/qt style.md",
-    "NOT_categorized_yet/turtle tf2 tf1 demo.md",
-    "NOT_categorized_yet/QT_ros/qtcreator설치.md"
+    "NOT_categorized_yet/QT_ros/qt_tutorial/qt style.md"
   ]
 }
