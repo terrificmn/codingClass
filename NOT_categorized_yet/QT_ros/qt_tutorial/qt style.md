@@ -36,6 +36,10 @@ QPushButton {
 ```
 
 QPushButton 을 지정하지 않고 그냥 블럭으로만 해서 지정한다면 전체에 style이 지정 된다   
+QPushButton은 class 이름이고, 이것을 지정하면 된다.  
+
+> 디자인폼에서 Push Button을 추가하게 되면 Object이름은 pushButton 클래스명은 QPushButton이 된다. 이 class를 style sheet에 지정해준다   
+> (오른쪽 화면의 Object/Class 패널을 보면 된다)
 
 버튼을 눌러서 오른쪽 Object, Class 패널을 보면  
 pushButton 은 QPushButton 클래스 인 것을 알 수 있음. style을 클래스 명으로 지정해주면 되는 듯 하다 
