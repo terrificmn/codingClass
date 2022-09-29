@@ -7,8 +7,12 @@
         "id": "6a0018eb215bc415",
         "type": "leaf",
         "state": {
-          "type": "empty",
-          "state": {}
+          "type": "markdown",
+          "state": {
+            "file": "NOT_categorized_yet/QT_ros/qt_version_버전차이.md",
+            "mode": "source",
+            "source": false
+          }
         }
       }
     ],
@@ -73,6 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "NOT_categorized_yet/QT_ros/qt_version_버전차이.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -89,6 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "NOT_categorized_yet/QT_ros/qt_version_버전차이.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -110,7 +116,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "NOT_categorized_yet/QT_ros/qt_version_버전차이.md"
+              }
             }
           }
         ]
@@ -122,6 +130,8 @@
   },
   "active": "6a0018eb215bc415",
   "lastOpenFiles": [
+    "NOT_categorized_yet/QT_ros/qt_tutorial/qt style.md",
+    "NOT_categorized_yet/QT_ros/qt_tutorial/qt_style_layout사용하기.md",
     "NOT_categorized_yet/network관련_iftop.md",
     "NOT_categorized_yet/build_cmake/라이브러리 library 만들기.md",
     "NOT_categorized_yet/ros_amr/include안에_header_files넣기_cmakelists.md",
@@ -129,8 +139,6 @@
     "NOT_categorized_yet/ros_amr/[블업완]vnc_tigervnc관련.md",
     "NOT_categorized_yet/coms-485 usb 드라이버_windows_twin_alarm_on.md",
     "NOT_categorized_yet/ros_amr/ros_sound/ros sound.md",
-    "linux-Rocky/terminal_prompt_프롬프트.md",
-    "NOT_categorized_yet/QT_ros/qt_tutorial/qt style.md",
-    "NOT_categorized_yet/QT_ros/qt_tutorial/Morph_into_QWidget.md"
+    "linux-Rocky/terminal_prompt_프롬프트.md"
   ]
 }

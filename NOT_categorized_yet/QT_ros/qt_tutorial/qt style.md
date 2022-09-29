@@ -42,11 +42,20 @@ QPushButton은 class 이름이고, 이것을 지정하면 된다.
 > (오른쪽 화면의 Object/Class 패널을 보면 된다)
 
 버튼을 눌러서 오른쪽 Object, Class 패널을 보면  
-pushButton 은 QPushButton 클래스 인 것을 알 수 있음. style을 클래스 명으로 지정해주면 되는 듯 하다 
+pushButton 은 QPushButton 클래스 인 것을 알 수 있음.   
+**style을 클래스 명으로 지정해주면 된다**
+
+단, 모든 버튼이나, 라벨이나 모두 같은 클래스를 사용하므로 스타일을 지정할 때 다 같은 값이 지정이 된다  
+
+그래서 특정 object에만 사용을 하려고 한다면  특정 오브젝트의 (버튼 등)  의 property 창에서  
+objectName을 변경해준다. 그러면 그 고유의 이름이 되게 되는데  
+스타일을 지정할 때 # 기호를 붙여서 사용하면 된다   
+
+아래 내용을 참고
+
 widget의 특정 Object를 클릭하고 QObject의 objectName 찾아서 사용을 하면 된다  
 
 예를 들어 3번째로 만든 pubhButton은 objectName이 pushButton_3
-
 
 
 ### 한개의 버튼에만 지정하기 
@@ -75,6 +84,12 @@ QPushButton#pushButton_2 {
 
 > 대소문자 구별하므로 주의!
 
+또는 클래스명은 생략하고 object이름으로만 # 을 넣어서 지정한다  
+```
+#pushButton_2 {
+  ...내용
+}
+```
 
 qt style sheet 에서는 QPushButton에 지정했던 것의 property가 계속 유지가 된다. 다른 버튼에 다른 값을 주지 않으면 버튼에 지정했던 것으로 지정됨  
 
