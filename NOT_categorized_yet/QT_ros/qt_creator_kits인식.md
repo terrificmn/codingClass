@@ -90,3 +90,9 @@ qt에서의 Project는 ros의 패키지와 비슷한 것 같다.
 
 이제 Kits 섹션에서 Desktop를 선택할 수 있다 
 
+
+
+
+___
+
+

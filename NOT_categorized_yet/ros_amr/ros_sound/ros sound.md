@@ -44,13 +44,16 @@ subSound(const std_msgs::String::Constptr &msg) {
 ```
 
 
-현재 딱히 publish & subscribe를 이용해서 할 필요는 없어서 실행만 해보았다   
+#### 현재 딱히 publish & subscribe를 이용해서 할 필요는 없어서 실행만 해보았다   
 
 > publish & subscribe를 해서 할 때에도 결국은 system() 함수로 리눅스 명령어를 실행해준다   
 > 단, 더 좋은 방법이 있다면 당연히 그 방법을 사용을 하도록 하자.  
 
+먼저 재생을 하기 전에 mp3 파일이 필요하므로   
+[TTS로 음성파일만들기- 무료사이트](https://ttsfree.com/ )
 
-system()  함수를 사용해서 cvlc 명령어를 실행해주면 된다  
+이제 다운받은 mp3 파일을 적절한 위치에 복사해 주고   
+**system()**  함수를 사용해서 cvlc 명령어를 실행해주면 된다  
 ```cpp
 std::string sound_file_path = "soundfile경로/sound.mp3 --play-and-exit";
 std::string cmd = "cvlc " + sound_file_path;
