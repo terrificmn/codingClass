@@ -1,6 +1,24 @@
-snap으로도 설치 가능하나 ROS qt creator ubuntu18.04 버전으로도 설치가 가능
+ubuntu에서 qtcreator_ros 버전이 안된느 경우.md 지울
+# qt / qtcreator 설치
 
-현재 우분투 20.04 이나 설치 가능
+우분투 기준 
+- Qt 공홈에서 opensource버전 다운 후 설치
+- qtcreator-ros 버전으로 snap으로 설치
+- qtcreator-ros 버전 깃클론 후 빌드하기
+- apt 패키지를 이용해서 설치
+
+이중에서 가장 추천 방법은 **qtcreator-ros 버전 깃클론 후 빌드하기**  
+아니면 qt 공홈에서 다운 후 설치  
+
+왜냐하면 다른 방법들은 결국 자잘한 문제가 발생해서 잘 안됨 
+
+*Rock Linux에서는 qt공홈에서 받아서 사용(qt_creatro만으로 잘 안되는 듯 하다.)    
+또는 dnf 패키지매니저로 설치한다
+
+
+### ROS qt creator ubuntu18.04 버전으로도 설치가 가능
+
+현재 우분투 20.04 이나 설치 가능 
 
 [https://ros-qtc-plugin.readthedocs.io/en/latest/_source/How-to-Install-Users.html여기에서 다운로드](https://ros-qtc-plugin.readthedocs.io/en/latest/_source/How-to-Install-Users.html)
 
