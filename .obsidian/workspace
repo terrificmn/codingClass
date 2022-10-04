@@ -4,15 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "14d22e1dcef72920",
+        "id": "3933238101dab2e6",
         "type": "leaf",
         "state": {
-          "type": "markdown",
-          "state": {
-            "file": "NOT_categorized_yet/QT_ros/ubuntu에서 qtcreator_ros 버전이 안되는 경우.md",
-            "mode": "source",
-            "source": false
-          }
+          "type": "empty",
+          "state": {}
         }
       }
     ],
@@ -40,7 +36,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "export PATH",
+                "query": "double",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -77,7 +73,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "NOT_categorized_yet/QT_ros/ubuntu에서 qtcreator_ros 버전이 안되는 경우.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -94,7 +89,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "NOT_categorized_yet/QT_ros/ubuntu에서 qtcreator_ros 버전이 안되는 경우.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -116,9 +110,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "NOT_categorized_yet/QT_ros/ubuntu에서 qtcreator_ros 버전이 안되는 경우.md"
-              }
+              "state": {}
             }
           }
         ]
@@ -128,17 +120,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "14d22e1dcef72920",
+  "active": "3933238101dab2e6",
   "lastOpenFiles": [
-    "NOT_categorized_yet/ros_amr/ros_sound/ros sound.md",
-    "NOT_categorized_yet/build_cmake/cmake 기초 basic.md",
+    "NOT_categorized_yet/ros_spin_class_object_scope중요.md",
+    "NOT_categorized_yet/ros_amr/rapidjson/json_array writer()하기.md",
+    "NOT_categorized_yet/ros_amr/cpp에서 char * pointer 리턴.md",
+    "c++_coding/cpp_argc-argv파라미터.md",
+    "c++_coding/double_숫자표시_digits.md",
+    "NOT_categorized_yet/ros_amr/rapidjson/rapidjson_parse사용법.md.md",
+    "NOT_categorized_yet/ros_amr/rapidjson/rapidjson-설치.md",
     "NOT_categorized_yet/build_cmake/라이브러리 library 만들기.md",
-    "NOT_categorized_yet/QT_ros/qt_tutorial/resource.qrc등록하기.md",
     "NOT_categorized_yet/QT_ros/ubuntu에서 qtcreator_ros 버전이 안되는 경우.md",
-    "NOT_categorized_yet/QT_ros/qt_tutorial/Object패널사용하기.md",
-    "NOT_categorized_yet/QT_ros/qt_tutorial/qt signal_slot 알아보기basic.md",
-    "NOT_categorized_yet/QT_ros/qt_tutorial/qt style.md",
-    "NOT_categorized_yet/QT_ros/qt_tutorial/qt_style_layout사용하기.md",
-    "NOT_categorized_yet/QT_ros/qt_creator_kits인식.md"
+    "NOT_categorized_yet/ros_amr/ros_sound/ros sound.md"
   ]
 }
