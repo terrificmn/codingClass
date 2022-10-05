@@ -18,8 +18,12 @@ MyQtTest 로 클래스 명을 만든다면
 > 일단 path에 직접 경로를 입력해준다 
 > 예:) $HOME/catkin_ws/src/my_package/include/my_package
 
-일단 파일들이 만들어지고 design 폼이 열리게 되는데 먼저 cpp파일을 현재 패키지의 src 디렉토리로 이동을 시켜준다   
+그리고 특히 snap 버전은 경로 설정이 잘 안되는 문제가 발생하는 것 같음  
+(kits에서 desktop을 설정하게 되면 잘 되기도 하나 다른 qrc 파일등을 불러올 때 경로 설정이 잘 안됨)
 
+결론: qtcreator설치 를 확인하자
+
+일단 파일들이 만들어지고 design 폼이 열리게 되는데 먼저 cpp파일을 현재 패키지의 src 디렉토리로 이동을 시켜준다   
 
 그리고 scr 디렉토리에 ros cpp 파일을 추가해서 사용하면 된다.  
 

@@ -15,6 +15,6 @@ Qt 6.3.1
 (우분투 기준)
 Qt creator ros 버전
 Qt Creator 8.0.1  
-Qt 6.2.4
+Qt 5.12.8 또는 Qt 6.2.4 (현재 5.12버전 사용)
 
 

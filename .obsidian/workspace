@@ -4,11 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "3933238101dab2e6",
+        "id": "acb311556b70720d",
         "type": "leaf",
         "state": {
-          "type": "empty",
-          "state": {}
+          "type": "markdown",
+          "state": {
+            "file": "NOT_categorized_yet/ros_amr/base64_study/base64_encoding_decoding.md",
+            "mode": "source",
+            "source": false
+          }
         }
       }
     ],
@@ -73,6 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "NOT_categorized_yet/ros_amr/base64_study/base64_encoding_decoding.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -89,6 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "NOT_categorized_yet/ros_amr/base64_study/base64_encoding_decoding.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -110,7 +116,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "NOT_categorized_yet/ros_amr/base64_study/base64_encoding_decoding.md"
+              }
             }
           }
         ]
@@ -120,17 +128,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "3933238101dab2e6",
+  "active": "acb311556b70720d",
   "lastOpenFiles": [
-    "NOT_categorized_yet/ros_spin_class_object_scope중요.md",
-    "NOT_categorized_yet/ros_amr/rapidjson/json_array writer()하기.md",
-    "NOT_categorized_yet/ros_amr/cpp에서 char * pointer 리턴.md",
-    "c++_coding/cpp_argc-argv파라미터.md",
-    "c++_coding/double_숫자표시_digits.md",
-    "NOT_categorized_yet/ros_amr/rapidjson/rapidjson_parse사용법.md.md",
-    "NOT_categorized_yet/ros_amr/rapidjson/rapidjson-설치.md",
-    "NOT_categorized_yet/build_cmake/라이브러리 library 만들기.md",
-    "NOT_categorized_yet/QT_ros/ubuntu에서 qtcreator_ros 버전이 안되는 경우.md",
-    "NOT_categorized_yet/ros_amr/ros_sound/ros sound.md"
+    "NOT_categorized_yet/ros_amr/base64_study/binary.md",
+    "NOT_categorized_yet/ros_amr/base64_study/base64_encoding_decoding.md",
+    "NOT_categorized_yet/QT_ros/ubuntu qtcreator_ros build.md",
+    "NOT_categorized_yet/ros_amr/BehaviorTree/behaviorTree_참고.md",
+    "NOT_categorized_yet/ros_amr/BehaviorTree/BehaviorTree_cpp_설치.md",
+    "NOT_categorized_yet/ros_amr/BehaviorTree/BehaviorTree_build시 gtest못찾을때.md",
+    "NOT_categorized_yet/ros_amr/BehaviorTree/BehaviorTree_cpp_트러블슈팅.md",
+    "NOT_categorized_yet/ros_amr/BehaviorTree/BT- class.md",
+    "NOT_categorized_yet/ros_amr/rapidjson/rapid_json example.md",
+    "NOT_categorized_yet/ros_amr/rapidjson/json_array writer()하기.md"
   ]
 }

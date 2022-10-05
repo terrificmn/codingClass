@@ -108,8 +108,17 @@ qt 5.15 만 설치를 해주고 다른 것은 설치를 안해도 될 듯...
 마지막으로 
 ros_qtc_plugin은 삭제해도 된다
 
+### console application 의 freezing 현상
+처음에 프로젝트를 console application으로 만들고  
+그냥 qDebug() 함수를 이용해서  hello world 를 실행시키는 것 조차 실행이 안된다.  
 
-## 아래는 그냥 참고만 설치와 실행은 되나 버그가 있는 듯하다
+뭔가 버그이거나 필요한 게 설치가 안되어 있는 듯 하다  
+
+> 일단 console application은 사용 안하는 게 좋을 듯 하다 (해결 전 까지)
+
+
+
+## 아래는 그냥 참고만 (snap)설치와 실행은 되나 버그가 있는 듯하다
 
 ubuntu에서 qtcreator_ros 버전이 안되는 경우
 snap으로 설치했을 시에 이런 에러가
