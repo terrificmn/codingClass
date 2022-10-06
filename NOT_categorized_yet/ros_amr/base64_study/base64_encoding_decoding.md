@@ -5,6 +5,7 @@ cpp에는 base64로 변환하는 스탠다드 라이브러리는 없는 듯 하�
 
 [stackoverflow에서 image변환 질문-여기에서hint얻기](https://stackoverflow.com/questions/56955058/convert-image-jpg-to-base64)
 
+[예제로 굉장히 잘 정리되어 있는 곳 살펴보기](https://www.geeksforgeeks.org/encode-ascii-string-base-64-format/)
 
 Base64 encoding은 binary data를 읽을 수 있는형태로 (ASCII characters) 바꾸는 방법
 
@@ -25,8 +26,9 @@ a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,
 
 1. 3 bytes로 나눈다 (3개의 그룹)
 3개의 그룹에서는 
-- 24bits 로 3 bytes를 연결하는데  
-- 24-bits long sequence를 4그룹으로 나누는데 각 6bits씩 이다
+- 24bits 로 3 bytes를 연결하는데 (8비트씩)
+- 24-bits long sequence를 다시 4그룹으로 나누는데 각 6bits씩 이다
+- 그래서 8비트에서 6비트가 되면서 3그룹에서 4그룹이 되게 된다 
 - 각 그룹의 6bits 의 value를 Base64 캐릭터에 해당하는 offset으로 변형
 
 2. 만약 3-byte 그룹이 끝에서 꽉 차지 않거나 남는 byte가 없는 경우
@@ -65,6 +67,11 @@ a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,
 
 
 ## Concatenate
+
+3바이트의 단어를 base64 encoding을 한다고 했을 때
+
+> 어떤 단어 인지 확인필요??/
+
 ```
 {01010101, 01010101, 01010101}
 ```
@@ -76,14 +83,7 @@ a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,
 {010101010101010101010101}
 ```
 이제 하나로 된 24bits 를 다시 6-bits  그룹으로 나눠준다 
-
-| BINARY | DEC | BASE64 |
-| --- | ---| --- | 
-| 010101 | 21 | 
-| 010101 | 21 | 
-| 010101 | 21 | 
-| 010101 | 21 | 
-
+그러면 아래 표 처럼 된다 
 
 이제 Base64로 변환하게되면 V 가 된다 
 
@@ -96,15 +96,3 @@ a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,
 
 > 위의 표를 참고해서 보면  base64 캐릭터와 offset를 참고하면 offset 21에 해당하는 것을 2진수로 바꾸면 (binary) 01010이 된다. 그리고 21에 해당하는 char는 V 가 된다
 
-
-
-
-
-
-
-
-
-
-
-
-자료
