@@ -40,7 +40,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "cpp reg",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -57,8 +57,7 @@
               "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -129,7 +128,7 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "c9e682744725d7ed",
+  "active": "9e1ea64ac7608698",
   "lastOpenFiles": [
     "NOT_categorized_yet/ros_amr/base64_study/base64_encoding_decoding.md",
     "NOT_categorized_yet/ros_amr/base64_study/binary.md",

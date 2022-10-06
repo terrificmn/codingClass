@@ -59,3 +59,36 @@ void openFile(std::string file_path) {
 
 		}
 ```
+
+std::regex reg("[0-9]", std::regex::grep);  에 aruments 로 지정을 할 수가 있다
+기본은 `std::regex::ECMAScript` 로 지정이 되어 있고 값을 넣어주지 않으면 default로 작동함
+
+[ECMAScript문법 보기](https://cplusplus.com/reference/regex/ECMAScript/)
+
+테스트중
+```cpp
+#include <regex>
+#include <string>
+#include <iostream>
+
+int main(int argc, char** argv) {
+
+std::string test_string = "origin: [-28.126819, -27.423724, 0.000000]";
+std::string ph = "010-123-1234";
+// std::regex reg("[01]{3}-(\\d{3,4})-\\d{4}"); /////space is problem
+std::regex reg("[\\d\\.,- ]+"); /////space is problem
+std::smatch mat;
+
+std::cout << "match: " << std::regex_match(test_string, reg) << std::endl;
+
+if (std::regex_search(test_string, mat, reg)) {
+	std::cout << "ok found it" << std::endl;
+	for(auto x: mat) {
+		std::cout << x << " \n";
+	}
+}
+
+return 0;
+}
+```
+
