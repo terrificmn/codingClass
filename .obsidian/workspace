@@ -4,11 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "8c95ba8ea8fbaddd",
+        "id": "87ca91e7a09e7a66",
         "type": "leaf",
         "state": {
-          "type": "empty",
-          "state": {}
+          "type": "markdown",
+          "state": {
+            "file": "NOT_categorized_yet/ros_amr/md_motor/md reset관련.md",
+            "mode": "source",
+            "source": false
+          }
         }
       }
     ],
@@ -73,6 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "NOT_categorized_yet/ros_amr/md_motor/md reset관련.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -89,6 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "NOT_categorized_yet/ros_amr/md_motor/md reset관련.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -110,7 +116,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "NOT_categorized_yet/ros_amr/md_motor/md reset관련.md"
+              }
             }
           }
         ]
@@ -120,17 +128,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "8c95ba8ea8fbaddd",
+  "active": "87ca91e7a09e7a66",
   "lastOpenFiles": [
+    "NOT_categorized_yet/ros_amr/Untitled.md",
+    "NOT_categorized_yet/ros_amr/무선조종_usb_활성_dmesg_udevadm.md",
+    "NOT_categorized_yet/ros_amr/ros custom SIGINT handler.md",
+    "NOT_categorized_yet/ros_amr/ros_node stop restart.md",
+    "NOT_categorized_yet/Untitled.md",
     "NOT_categorized_yet/cpp 출력시 %d, %s true false bool.md",
     "NOT_categorized_yet/Untitled 1.md",
-    "NOT_categorized_yet/Untitled.md",
     "NOT_categorized_yet/ros_amr/base64_study/encoding 관련 파일 연 후 처리.md",
     "NOT_categorized_yet/ros_amr/base64_study/base64_encoding_decoding.md",
-    "NOT_categorized_yet/ros_amr/cpp split관련 정보.md",
-    "NOT_categorized_yet/ros_amr/cpp_regex_정규식.md",
-    "NOT_categorized_yet/ros_amr/base64_study/image 파일_header 관련.md",
-    "c++_coding/double_숫자표시_digits.md",
-    "NOT_categorized_yet/ros_amr/base64_study/binary.md"
+    "NOT_categorized_yet/ros_amr/cpp split관련 정보.md"
   ]
 }

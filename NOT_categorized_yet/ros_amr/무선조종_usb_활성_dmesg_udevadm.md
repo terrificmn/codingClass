@@ -26,6 +26,11 @@ udevadm info /dev/ttyUSB3
 VENDER_ID, ID, PATH 등이 중요하다.  
 usb 허브에 물려있다면 1-1.1, 1-1.3 이런식으로 나오므로 참고한다   
 
+> 만약 usb관련 칩의 vender_id, id_product 의 경우에 같은 제품이 아니라면 다 다르게 나오므로  
+ kernels를 지정할 필요가 없다. 오히려 지정을 안하면 특정 커널 (usb포트번호)에 매칭되는게 아니므로 유연하게 지정이 되게 된다. (usb을 뺏다가 다른 위치로 옮겼을 경우)  
+물론 vender_id, id_product 가 겹치는 같은 경우라면 kernels를 지정을 해주면 된다
+
+
 이제 udev_rules를 만들기 위해서 script파일을 이용   
 아래 내용은 gps usb를 인식할 때 했던 것인데 거의 echo 부분은 출력되는 부분이므로 알맞게 바꾸고   
 else 부분에서의 echo는 udevadm 명령어로 확인했던 내용으로 수정해서 넣어준다  
