@@ -4,11 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "95256b9c6efa1566",
+        "id": "2f59b6be21b9063e",
         "type": "leaf",
         "state": {
-          "type": "empty",
-          "state": {}
+          "type": "markdown",
+          "state": {
+            "file": "NOT_categorized_yet/ros_amr/aruco_marker/aruco_marker cpp 참고.md",
+            "mode": "source",
+            "source": false
+          }
         }
       }
     ],
@@ -73,6 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "NOT_categorized_yet/ros_amr/aruco_marker/aruco_marker cpp 참고.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -89,6 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "NOT_categorized_yet/ros_amr/aruco_marker/aruco_marker cpp 참고.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -110,7 +116,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "NOT_categorized_yet/ros_amr/aruco_marker/aruco_marker cpp 참고.md"
+              }
             }
           }
         ]
@@ -120,17 +128,17 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "95256b9c6efa1566",
+  "active": "2f59b6be21b9063e",
   "lastOpenFiles": [
+    "NOT_categorized_yet/ros_amr/aruco_marker/rotation.md",
+    "NOT_categorized_yet/ros_amr/aruco_marker/aruco_marker cpp 참고.md",
+    "NOT_categorized_yet/ros_amr/BehaviorTree/behaviorTree_참고.md",
+    "NOT_categorized_yet/build_cmake/library로 추가했을 경우 excutable.md",
+    "NOT_categorized_yet/build_cmake/라이브러리 library 만들기.md",
+    "NOT_categorized_yet/build_cmake/cmake 기초 basic.md",
+    "NOT_categorized_yet/build_cmake/static과 dynamic.md",
+    "NOT_categorized_yet/catographer/참고 사이트 깃허브등.md",
     "Untitled.md",
-    "NOT_categorized_yet/ros_amr/ros log 확인.md",
-    "NOT_categorized_yet/coms-485 usb 드라이버_windows_twin_alarm_on.md",
-    "NOT_categorized_yet/ros_amr/md_motor/md reset관련.md",
-    "NOT_categorized_yet/ros_amr/무선조종_usb_활성_dmesg_udevadm.md",
-    "NOT_categorized_yet/ros_amr/catkin_tools설치.md",
-    "NOT_categorized_yet/ros_amr/catkin_tools_사용법.md",
-    "NOT_categorized_yet/ros_amr/cartographer설치할때_custom버전.md",
-    "NOT_categorized_yet/ros_amr/ros custom SIGINT handler.md",
-    "NOT_categorized_yet/ros_amr/ros_node stop restart.md"
+    "NOT_categorized_yet/ros_amr/ros log 확인.md"
   ]
 }
