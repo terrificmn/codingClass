@@ -96,6 +96,12 @@ vi나 에디터로 열어보면 첫 번째로 나온 경로가 설치한 opencv4
 
 이제 빌드를 할 때 경로등을 알 수 있으므로 target_link_libraries에서 OpenCV_LIBS 을 제대로 읽게 됨  
 
+> ROS melodic에서는 v3.2.0 의 opencv를 사용
+> sudo apt install libopencv-dev 로 설치를 할 수 있다고 하는데, 우분투 18.04 기준 (아직 해보지 않음)
+
+
+```
+
 ROS 기준으로 아래 처럼 해주면 됨 (melodic)
 ```c
 cmake_minimum_required(VERSION 3.0.2)
@@ -133,6 +139,7 @@ vi /usr/local/lib/cmake/opencv4/OpenCVConfig.cmake
 ```
 해서 보면 처음에 주석을 설명이 되고 있는데 이 파일이 변수들을 정의하는데  
 여기에보면 그 중에 OpenCV_LIBS 가 처음에 나온다 
+
 
 ```
  Usage from an external project:
@@ -175,6 +182,52 @@ set(OpenCV_DIR /usr/local/lib/cmake/opencv4/)
 >>> print(cv2.__version__)P
 4.2.0
 ```
-cpp 코드에서 opencv를 include만 해주면 잘 실행된다 
+~~cpp 코드에서 opencv를 include만 해주면 잘 실행된다 ~~
+
+Noetic에서 cv_bridge를 할 때만 해도 잘 되었는데 나중에 aruco.hpp 를 할려고 하니 경로를 잘 찾지를 못한다 
+
+현재 Opencv는 파이썬으로 설치를 했고, (따로 빌드 후 설치는 하지 않음)
+
+`#include <opencv2/aruco.hpp>` 일단 include에서 막히는데  
+OpenCvConfig.cmake 파일에서 관련 패키지나 경로를 확인할 수 있는 듯 하다   
+
+```
+find / -name OpenCVConfig.cmake > result
+cat result
+```
+
+이제 보면 경로가 나온다. 
+```
+/usr/lib/x86_64-linux-gnu/cmake/opencv4/OpenCVConfig.cmake
+```
+
+> 우분투 20.04 파이썬으로 설치한 케이스 
+
+CMakeLists.txt 파일에 그 위치를 opencv 위치를 알 수 있게 set()으로 지정을 해주고,   
+include_directories()에서 ${OpenCV_LIBS} 를 넣어준다  
+
+ROS의 패키지 CMakeLists.txt
+```
+set(OpenCV_DIR /usr/lib/x86_64-linux-gnu/cmake/opencv4/)
+
+find_package(catkin REQUIRED COMPONENTS
+	roscpp OpenCV
+)
+
+catkin_package(
+	CATKIN_DEPENDS roscpp
+)
+
+include_directories(
+	${catkin_INCLUDE_DIRS}
+)
+
+add_executable(${PROJECT_NAME} src/test.cpp)
+
+target_link_libraries(${PROJECT_NAME}
+	${catkin_LIBRARIES}
+	${OpenCV_LIBS}
+)
+```
 
 

@@ -6,11 +6,10 @@
 
 [homography aruco marker로 영상 transform하기 augmented-reality-using-aruco-markers-in-opencv-cpp-and-python](https://learnopencv.com/augmented-reality-using-aruco-markers-in-opencv-c-python/)
 
-[좋은 자료--꼭 복습하기cpp aruco marker 보기 및 공부하기 https://www.youtube.com/watch?v=xjWTSmUd7kM](https://www.youtube.com/watch?v=xjWTSmUd7kM)
-
+[cpp aruco marker 기본 https://www.youtube.com/watch?v=xjWTSmUd7kM](https://www.youtube.com/watch?v=xjWTSmUd7kM)
+[이어서 aruco 마커로 영상 합성? 하기 (나중에 보기)https://www.youtube.com/watch?v=J7oUbJPM8WE](https://www.youtube.com/watch?v=J7oUbJPM8WE)
 
 [aruco marker튜토리얼](https://docs.opencv.org/4.x/d9/d6d/tutorial_table_of_content_aruco.html)
-
 
 [배터리 충전스테이션-aruco marker 참고하기](https://automaticaddison.com/automatic-docking-to-a-battery-charging-station-ros-2/)
 
