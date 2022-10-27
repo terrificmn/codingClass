@@ -13,3 +13,7 @@
 
 [배터리 충전스테이션-aruco marker 참고하기](https://automaticaddison.com/automatic-docking-to-a-battery-charging-station-ros-2/)
 
+[깃허브참고-aruco_marker-디텍션,칼리브레이션,pose예측](https://github.com/fdcl-gwu/aruco-markers)
+
+
+
