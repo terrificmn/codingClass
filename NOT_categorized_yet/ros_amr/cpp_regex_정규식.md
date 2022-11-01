@@ -20,6 +20,8 @@ $x 로 한 것은 $x만 잡아낼려고 혹시 x가 있을 수도 있으니 ~~
 c++에서는 두 번을 사용해야한다  
 
 > 운이 좋아서 실행이 되었는지?? ㅋㅋ 잘 못 알고 있었다;;;
+> 인터넷에서 자바스크립트나 php로 작동되는 정규식 테스트 하는 사이트가 있는데,  
+> 그 기준으로는 잘 되는데 cpp에서는 잘 안되는 현상이 발생할 수 있으므로 참고만 하자
 
 다른 언어와 마찬가지로 [ ] 안에서 regex를 사용하면 되겠다  
 
@@ -65,7 +67,7 @@ std::regex reg("[0-9]", std::regex::grep);  에 aruments 로 지정을 할 수�
 
 [ECMAScript문법 보기](https://cplusplus.com/reference/regex/ECMAScript/)
 
-테스트중
+테스트 중: test_string에서 대괄호 안의 내용만 추출하기
 ```cpp
 #include <regex>
 #include <string>
@@ -76,12 +78,12 @@ int main(int argc, char** argv) {
 std::string test_string = "origin: [-28.126819, -27.423724, 0.000000]";
 std::string ph = "010-123-1234";
 // std::regex reg("[01]{3}-(\\d{3,4})-\\d{4}"); /////space is problem
-std::regex reg("[\\d\\.,- ]+"); /////space is problem
+std::string reg_str = "[-\\d\\s.,\\[\\]]+";
 std::smatch mat;
 
 std::cout << "match: " << std::regex_match(test_string, reg) << std::endl;
 
-if (std::regex_search(test_string, mat, reg)) {
+if (std::regex_search(test_string, mat, reg_str)) {
 	std::cout << "ok found it" << std::endl;
 	for(auto x: mat) {
 		std::cout << x << " \n";
