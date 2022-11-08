@@ -29,7 +29,7 @@ V볼트는 12V 를 사용하면 되고, 전원 자체는 A 암페어는 4암페�
 그리고 마지막 전원 커넥터 부분은 외경과, 내경 사이즈를 살펴보고 사용해야하고  
 만약 안 맞는다면 꼭지(?) 부분만 바꿔주는 변환 어댑터도 판매를 하는 듯 하다 
 
-> DC 배럴잭 변환 젠더 라고 검색하면 외경, 내경 사이즈가 다를 때 사용할 수 있는 것도 있다
+> DC 배럴잭 변환 젠더(DC power input jack) 라고 검색하면 외경, 내경 사이즈가 다를 때 사용할 수 있는 것도 있다
 
 
 ## 리눅스 설치
@@ -56,6 +56,8 @@ V볼트는 12V 를 사용하면 되고, 전원 자체는 A 암페어는 4암페�
 결론은 그냥 공식 지원하는 **debian 10 buster**를 설치하고, docker를 설치해서 사용하자!  
 [ISO이미지는 여기에서 다운로드 https://tinker-board.asus.com](https://tinker-board.asus.com/download-list.html?product=tinker-board-2)
 
+버전은 Tinker Board 2 Debian 10 V2.0.14, 용량은 압축을 풀련 4.1GB 
+
 마이크로 SD카드를 컴퓨터에 연결하고 balena Etcher 프로그램을 이용해서 구워준다  
 리눅스 같은 경우에는 Etcher 프로그램이 좋은 것 같다 
 
@@ -73,12 +75,31 @@ docker debian engine을 설치하면 실행이 된다. 설치시에 마지막에
 docker 시작 및 버전 확인에서는 에러가 없었음
 
 
+## 메뉴얼
+
+[tinker board2 메뉴얼 보기-(GPIO)](https://tinker-board.asus.com/doc_tb2.html#user)
 
 
+## 기타
+
+####  패스워드 변경은 터미널에서 
+```
+passwd
+```
+
+그리고 현재 비번은 linaro 를 입력한 후 새로운 비번을 입력하는데, 
+다른 리눅스 배포판과 달리(?) 비번은 단순하고 짧게 하면 변경이 안된다;;;
 
 
+#### vscode 설치
+vscode를 설치하려면 공식 홈피에서 arm64버전 deb으로 다운받는다
 
+[vscode 다운로드](code.visualstudio.com/Download)
 
+리눅스 버전중 .deb 파일 중 ARM64를 받아야한다 
 
+> 보통 .deb 버전이나, 64 bit 버전을 받으면 호환이 안된다
+
+처음 열리는데 시간이 좀 걸리지만, 천천히 사용할려고 하면 사용가능할 듯 하다
 
 
