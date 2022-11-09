@@ -1,0 +1,27 @@
+tinker board2 테스트
+
+noetic branch에
+
+
+## build 부분 추가
+ARG
+
+## user만드는것 추가
+RUN useradd ......
+
+## set user 추가
+USER docker_noetic
+...
+
+## bash파일 추가
+RUN echo ...
+
+
+docker-compose 파일에는 
+volume부분에 두줄
+- ./${WORKSPACE}부분 추가
+
+
+그리고 .env_example 파일 추가 (.env파일은 있음)
+
+그리고 테스트 해보기
