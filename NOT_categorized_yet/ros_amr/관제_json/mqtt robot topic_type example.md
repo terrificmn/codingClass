@@ -389,7 +389,7 @@ Robot -> Server: 주문을 현황을 수시로 전송
 
 
 #### type 203
-Robot -> Server: 주문 완료 시, 주문 현황 전송
+Robot -> Server: 주문 완료 시, 주문 현황 전송 (전체 완료)
 ```js
 {
 	"body":

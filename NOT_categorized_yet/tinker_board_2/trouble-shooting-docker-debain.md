@@ -27,6 +27,24 @@ Dockerfile의 `RUN rosdep init ...` 부분을 주석처리하고 다시 빌드�
 후에 ROS 컨테이너도.. roscore도 잘 켜지고 잘 작동한다. 
 
 
+
+## 빌드 시에 키보드 설정을 물어보는 경우
+
+debain buster 10 에서 docker-compose build를 하는 중에 
+`Country of origin for keyboard` 라고 나오면서 키보드를 지정해달라고 나오면서 
+더 이상 진행이 안 되는 경우 (입력이 안되고 계속 대기 상태에 있게 된다)
+
+Dockerfile 에 변수를 하나 설정해준다. 
+
+```
+FROM=.....
+DEBIAN_FRONTEND=noninteractive
+```
+
+다시 빌드를 해주자. 그러면 막힘없이 잘 진행이 된다
+
+
+
 ## Host의 display 사용
 libGL 관련 error가 발생...   
 도커 컨테이너 안에서 실행 시 다행히 rviz등의 그래픽 툴을 사용하는데 문제는 없다. 잘 실행이 된다.  

@@ -92,14 +92,16 @@ passwd
 
 
 #### vscode 설치
-vscode를 설치하려면 공식 홈피에서 arm64버전 deb으로 다운받는다
+vscode를 설치하려면 공식 홈피에서 arm64버전 deb으로 다운받는다.  
+download에서 other downloads 를 누른후에 .deb arm64 버전으로 다운 받는다 
 
 [vscode 다운로드](code.visualstudio.com/Download)
 
-리눅스 버전중 .deb 파일 중 ARM64를 받아야한다 
-
 > 보통 .deb 버전이나, 64 bit 버전을 받으면 호환이 안된다
 
+다운 후에 설치는 
+```
+sudo dpkg -i code_1.73.1-1667966450_arm64.deb
+```
 처음 열리는데 시간이 좀 걸리지만, 천천히 사용할려고 하면 사용가능할 듯 하다
-
 

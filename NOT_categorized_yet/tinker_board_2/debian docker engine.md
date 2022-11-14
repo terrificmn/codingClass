@@ -41,6 +41,8 @@ sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 ```
 
+설치를 하다가 실패할 수도 있으나, 다시 한번 설치를 시도하면 잘 설치가 됨
+
 
 ### 버전 확인
 ```
@@ -56,7 +58,10 @@ debian engine을 설치하면서 docker-compose 도 설치가 됨
 bash: docker-compose: command not found
 ```
 
-설치는 여기에 되어 있다. 일단 이동해준다
+방법은 2가지가 있다.  
+하나는 환경변수로 만들어 주는 것이고, 두 번째는 심볼릭 링크를 만들어 주는 것
+
+1. 먼저 환경변수 등록하기. 설치는 여기에 되어 있다. 일단 이동해준다
 ```
 cd /usr/libexec/docker/cli-plugins
 ```
@@ -83,3 +88,28 @@ export PATH="$PATH:/usr/libexec/docker/cli-plugins"
 
 이제 `source ~/.bashrc` 를 하거나 새로운 터미널 창을 열어준다
 
+2. 심볼릭 링크를 만들어주기
+이 방법은 docker-compose 파일을 심볼릭 링크를 만들어서 사용할 수 있게 하는 것   
+
+> 환경변수, 심볼릭 링크나 한 개만 수행하면 된다
+
+```
+sudo ln -s /usr/libexec/docker/cli-plugins/docker-compose  /usr/bin/
+```
+
+> 언제나 심볼릭 링크 걸때는 원본이랑 타겟이 헷갈린다. 원본(타겟) 실제링크만들위치
+
+이렇게 하면 /usr/bin/docker-compose 로 심볼릭 링크가 만들어지고 실제 파일을 가리킨다
+
+이제 어디에서나 실행을 하면 된다 
+
+
+### 권한 설정
+sudo 를 안 할 수 있게 설정
+```
+sudo usermod -aG docker $USER
+newgrp docker
+```
+
+
+##
