@@ -1,7 +1,7 @@
 # tinker board 2 에서 한글 키보드 설치하기
 우분투에서 했던 방식처럼 fcitx-hangul을 설치하려고 했는데 실패했다.  
 
-참고로 fcitx-hangul 외에도 패키지가 많이 필요하지만 그냥 참고로만 알아두자.  
+참고로 fcitx-hangul 외에도 패키지가 많이 필요하지만 그냥 참고로만 알아두자.    
 `fcitx fcitx-frontend-gtk2 fcitx-frontend-gtk3 fcitx-hangul` 하지만 다른 패키지가   
 더 필요한 듯하다. 한글 키보드를 찾지를 못한다   
 
@@ -14,7 +14,7 @@
 ## ibus 한글 설치
 터미널창을 열고 
 ```
-sudo apt install ibus-hangul im-config
+sudo apt install ibus-hangul im-config zenity
 ```
 
 처음 실행은 im-config를 해준다
@@ -30,10 +30,11 @@ im-config
 <img src=1>
 <br />
 
-No를 눌러준다. (Yes를 눌러도 크게 상관없다) 
+Yes를 눌러준다.   
+> No가 recommended라고 나오지만, No를 누르면 .xinputrc를 만들어주지 않음  
 
 이제 user configuration을 선택해주는데 default로 하거나 ibus로 선택해준다  
-(이것도 크게 상관은 없는 듯하다 - 마지막으로 어차피 설정을 해야하므로....)
+(크게 상관은 없는 듯하다 - 마지막으로 어차피 설정을 해야하므로....)
 
 <img src=2>
 <br />
@@ -47,6 +48,18 @@ No를 눌러준다. (Yes를 눌러도 크게 상관없다)
 ```
 ibus-setup
 ```
+
+IBUS 데몬이 실행되고 있지 않다면서 실행하겠냐고 물어보면 Yes를 눌러준다.  
+이제 ibus가 실행이 되면 안내문구가 나오는데 만약 ibus을 사용할 수 없다면 .bashrc 파일에 추가를 하라고 한다   
+
+```
+export GTK_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+export QT_IM_MODULE=ibus
+```
+
+ibus가 잘 실행되는 것 같아서 따로 .bashrc 파일에 **추가는 안함**. 참고로 알고 있으면 될 듯...   
+
 
 <img src=3>
 <br />
@@ -71,8 +84,9 @@ English-English 에서 Korean-Hangul 로 바꿔줄 수 있게 된다.
 ### xinputrc 파일 수정하기
 vim 에디터를 사용해도 되지만, tinker board에서는 vim에서 복사 붙여넣기가 잘 안된다.  
 
-> 터미널에서는 Ctrl+Shift+C 이면 복사가 되서 터미널 환경에서도 잘 사용할 수 있는데...  
-여기에서는 안 된다. 
+> 다른 리눅스 리스트로에서는 vim에도 Ctrl+Shift+C 이면 복사가 되서 터미널 환경에서도 잘 사용할 수 있는데...  
+>  업데이트가 안되어 있는지?  암튼 팅커보드 환경에서는 복사가 안됨 ㅠ 
+
 
 그래서 tinker board 데비안에서 제공하는 mousepad를 사용하자.  
 
@@ -84,8 +98,6 @@ mousepad .xinputrc
 
 이제 맨 아래줄에 복사해서 넣어주자
 ```
-export XIM=ibus
-export xmodifiesr="@im=ibus"
 export GTK_IM_MODULE=xim
 export QT_IM_MODULE=xim
 ```
