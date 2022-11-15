@@ -349,16 +349,16 @@ Robot -> Server: 주문을 확인하고 주행 시작
 	{
 		"robot_id": 2,
 		"order_id":  10,
-		"error":
+		"error": 0
 	}
 }
 ```
 
-| 이름        | 타입   |
-| ----------- | ------ |
-| robot_id    | int    |
-| order_id    | int    |
-| error            |        |
+| 이름     | 타입 |
+| -------- | ---- |
+| robot_id | int  |
+| order_id | int  |
+| error    | int  | 
 
 order_state 변경 후 이동
 
@@ -463,6 +463,25 @@ Robot -> Server: 주문 취소 확인 전송
 | error            |        |
 
 order_state 는 "OrderCancelled"로 변경 전송
+
+
+#### type 206
+Robot -> Server: 하나의 스테이션에서 픽킹 완료 
+```js
+{
+	"body":
+	{
+		"robot_id": 3,
+	}
+}
+```
+
+ header의 type과 , body의 robot id
+
+| 이름        | 타입   |
+| ----------- | ------ |
+| robot_id    | int    |
+
 
 
 
