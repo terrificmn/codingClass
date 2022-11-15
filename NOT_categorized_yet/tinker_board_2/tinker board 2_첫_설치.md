@@ -105,3 +105,46 @@ sudo dpkg -i code_1.73.1-1667966450_arm64.deb
 ```
 처음 열리는데 시간이 좀 걸리지만, 천천히 사용할려고 하면 사용가능할 듯 하다
 
+
+
+##  configuration
+
+```
+sudo tinker-config
+```
+위 커맨드를 이용하면 Hostname, Password, Boot Options, Advanced Options 등.. 설정을 할 수 있다
+
+
+
+## wifi 설정
+
+dev만 입력해보면
+```
+nmcli dev
+```
+ 
+ 아래와 같은 결과가 나온다 (데스크탑 결과라 싱글보드컴퓨터와는 다르다)
+```
+DEVICE      TYPE      STATE                   CONNECTION 
+enp3        ethernet  connected                 enp3     
+virbr0      bridge    connected (externally)  virbr0     
+lo          loopback  unmanaged               --         
+virbr0-nic  tun       unmanaged               --      
+```
+
+
+(r을 넣어서 하는 것은 해봐야할 듯.. 잘 모르겠음)
+```
+nmcli r wifi
+nmcli dev wifi
+```
+
+
+이제  ap (access point)가 나오는데 이거에 맞춰서 이름 및 비밀번호를 넣어주면 된다 
+
+```
+nmcli dev wifi connect 와이파이AP이름 password "패스워드"
+```
+
+물론 윈도우의 gui를 이용해서 오른쪽 아래의 화면에서 쉽게 할 수 있다 ㅋㅋ
+
