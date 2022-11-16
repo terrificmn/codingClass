@@ -31,6 +31,11 @@
  Robot -> Server : 주기적으로 로봇 상태 전송 (pose data, status, etc...)
 ```js
 {
+	"header": 
+	{
+		"version": 0,
+		"type": 0
+	},
 	"body":
 	{
 		"robot_id": 1,
@@ -67,6 +72,11 @@
 Server -> Robot : 특정 로봇에 응답 요청
 ```js
 {
+	"header": 
+	{
+		"version": 0,
+		"type": 1
+	},
 	"body":
 	{
 		"robot_id": 1
@@ -83,6 +93,11 @@ Server -> Robot : 특정 로봇에 응답 요청
 Robot -> Server : type1로 받은 로봇이 서버에 응답
 ```js
 {
+	"header": 
+	{
+		"version": 0,
+		"type": 2
+	},
 	"body":
 	{
 		"robot_id": 1,
@@ -101,6 +116,11 @@ Robot -> Server : type1로 받은 로봇이 서버에 응답
 Server -> Robot : 모든(?) 로봇에게 작업 재개 명령
 ```js
 {
+	"header": 
+	{
+		"version": 0,
+		"type": 998
+	},
 	"body":
 	{
 		???
@@ -110,12 +130,19 @@ Server -> Robot : 모든(?) 로봇에게 작업 재개 명령
 
 | 이름   | 타입   |
 | ------ | ------ |
+
+요소 아직 결정 안됨
 
 
 #### type 999
 Server -> Robot : 긴급 상황 시 작업 중지 명령
 ```js
 {
+	"header": 
+	{
+		"version": 0,
+		"type": 999
+	},
 	"body":
 	{
 		???
@@ -123,9 +150,11 @@ Server -> Robot : 긴급 상황 시 작업 중지 명령
 }
 ```
 
-| 이름   | 타입   |
-| ------ | ------ |
+| 이름 | 타입 |
+| ---- | ---- |
+|      |      |
 
+요소 아직 결정 안됨
 
 
 *추가 타입*
@@ -134,6 +163,11 @@ Server -> Robot : 긴급 상황 시 작업 중지 명령
 Server -> Robot : 이동 명령
 ```js
 {
+	"header": 
+	{
+		"version": 0,
+		"type": 3
+	},
 	"body":
 	{
 		"robot_id": 1,
@@ -154,6 +188,11 @@ Server -> Robot : 이동 명령
 Robot -> Server : 이동 명령에 대한 응답  
 ```js
 {
+	"header": 
+	{
+		"version": 0,
+		"type": 4
+	},
 	"body":
 	{
 		"robot_id": 1,
@@ -179,6 +218,11 @@ Robot -> Server : 이동 명령에 대한 응답
 Server -> Robot : 개별 로봇 멈춤 명령
 ```js
 {
+	"header": 
+	{
+		"version": 0,
+		"type": 5
+	},
 	"body":
 	{
 		"robot_id": 1,
@@ -198,6 +242,11 @@ Server -> Robot : 개별 로봇 멈춤 명령
 Robot -> Server : (type5) 에대한 멈춤 명령에 대한 응답  - status 변경 
 ```js
 {
+	"header": 
+	{
+		"version": 0,
+		"type": 6
+	},
 	"body":
 	{
 		"robot_id": 1,
@@ -222,6 +271,11 @@ Robot -> Server : (type5) 에대한 멈춤 명령에 대한 응답  - status 변
 Robot -> Server: 로봇 최초 등록 시 신규 등록 요청
 ```js
 {
+	"header": 
+	{
+		"version": 0,
+		"type": 100
+	},
 	"body":
 	{
 		"mac_address": "99-2E-93E-19E-30-15"
@@ -263,6 +317,11 @@ Server -> Robot : 로봇 등록에 대한 서버쪽의 요청, ID 발급
 Robot -> Server : 로봇쪽에서 로봇 ID 조회
 ```js
 {
+	"header": 
+	{
+		"version": 0,
+		"type": 102
+	},
 	"body":
 	{
 		"mac_address": "99-2E-93E-19E-30-15"
@@ -279,6 +338,11 @@ Robot -> Server : 로봇쪽에서 로봇 ID 조회
 Server -> Robot : 서버에서 로봇 ID 응답
 ```js
 {
+	"header": 
+	{
+		"version": 0,
+		"type": 103
+	},
 	"header": 
 	{
 		"version": 0,
@@ -345,6 +409,11 @@ Server -> Robot: 새로운 주문 할당
 Robot -> Server: 주문을 확인하고 주행 시작 
 ```js
 {
+	"header": 
+	{
+		"version": 0,
+		"type": 201
+	},
 	"body":
 	{
 		"robot_id": 2,
@@ -367,6 +436,11 @@ order_state 변경 후 이동
 Robot -> Server: 주문을 현황을 수시로 전송
 ```js
 {
+	"header": 
+	{
+		"version": 0,
+		"type": 202
+	},
 	"body":
 	{
 		"robot_id": 2,
@@ -392,6 +466,11 @@ Robot -> Server: 주문을 현황을 수시로 전송
 Robot -> Server: 주문 완료 시, 주문 현황 전송 (전체 완료)
 ```js
 {
+	"header": 
+	{
+		"version": 0,
+		"type": 203
+	},
 	"body":
 	{
 		"robot_id": 2,
@@ -419,6 +498,11 @@ res_status는 성공여부
 Sever -> Robot: 주문 취소 시 특정 로봇에게 전송
 ```js
 {
+	"header": 
+	{
+		"version": 0,
+		"type": 204
+	},
 	"body":
 	{
 		"robot_id": 3,
@@ -445,6 +529,11 @@ cancle_cmd는 취소 여부
 Robot -> Server: 주문 취소 확인 전송
 ```js
 {
+	"header": 
+	{
+		"version": 0,
+		"type": 205
+	},
 	"body":
 	{
 		"robot_id": 3,
@@ -469,9 +558,14 @@ order_state 는 "OrderCancelled"로 변경 전송
 Robot -> Server: 하나의 스테이션에서 픽킹 완료 
 ```js
 {
+	"header": 
+	{
+		"version": 0,
+		"type": 206
+	},
 	"body":
 	{
-		"robot_id": 3,
+		"robot_id": 3
 	}
 }
 ```
@@ -481,12 +575,6 @@ Robot -> Server: 하나의 스테이션에서 픽킹 완료
 | 이름        | 타입   |
 | ----------- | ------ |
 | robot_id    | int    |
-
-
-
-
-
-
 
 
 
