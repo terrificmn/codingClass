@@ -376,18 +376,18 @@ Server -> Robot: 새로운 주문 할당
 	},
 	"body":
 	{
-		"robot_id": 2,
+		"robot_id": 3,
 		"order_id":  10,
 		"basket": [
 			{
 				"id": 1,
-				"depository_x": 10.55123,
-				"depository_y": -10.55123
+				"depository_x": -1.029711,
+				"depository_y": -4.020630
 			},
 			{
 				"id": 2,
-				"depository_x": 5.55123,
-				"depository_y": 10.51234 
+				"depository_x": 1.252728,
+				"depository_y": -2.293799
 			}
 		]
 	}
@@ -475,7 +475,6 @@ Robot -> Server: 주문 완료 시, 주문 현황 전송 (전체 완료)
 	{
 		"robot_id": 2,
 		"order_id":  10,
-		"res_status": 0/1,
 		"error": 
 		"order_state": "OrderCompleted"
 	}
@@ -486,7 +485,6 @@ Robot -> Server: 주문 완료 시, 주문 현황 전송 (전체 완료)
 | ----------- | ---- |
 | robot_id    | int  |
 | order_id    | int  |
-| res_status  | int  |
 | error       |      |
 | order_state | string     |
 
