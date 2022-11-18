@@ -23,8 +23,7 @@ c코드는 아직 다 못 보았지만,
 > 참고로 ms 는 밀리 세컨드. 1000 (1 thousand)을 나눠준다 
 
 
-wiringPi build에 대해서 알아보기   
-softServo.h 파일이 없음
+
 
 
 

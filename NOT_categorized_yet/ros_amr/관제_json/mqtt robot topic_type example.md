@@ -475,18 +475,20 @@ Robot -> Server: 주문 완료 시, 주문 현황 전송 (전체 완료)
 	{
 		"robot_id": 2,
 		"order_id":  10,
-		"error": 
+		"res_status": 0/1,
+		"error": 0/1,
 		"order_state": "OrderCompleted"
 	}
 }
 ```
 
-| 이름        | 타입 |
-| ----------- | ---- |
-| robot_id    | int  |
-| order_id    | int  |
-| error       |      |
-| order_state | string     |
+| 이름        | 타입   |
+| ----------- | ------ |
+| robot_id    | int    |
+| order_id    | int    |
+| res_status       | int    |
+|error       | int    |
+| order_state | string |
 
 res_status는 성공여부
 완료시 order_state "OrderCompleted" 변경 전송

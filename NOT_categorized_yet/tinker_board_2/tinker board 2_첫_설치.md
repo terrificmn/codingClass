@@ -4,6 +4,8 @@ Tinker board 2 와  2S 는 같은 사양이고, 다른점이라고 하면 S2는 
 
 SD카드가 저렴하기도 하고,  팅커보드 2 가 더 가성비가 좋은 것 같아서 선택했다. 
 
+[팅커보드2에 대한 많은 것을 알려준다. 리눅스 포함, GPIO 등.. cam 많은 자료가 있다. 좋은 자료! https://www.waveshare.com/wiki/Tinker_Board_2](https://www.waveshare.com/wiki/Tinker_Board_2)
+
 
 ## 전원
 처음에 팅커 보드를 살펴보는데 전원 부분이 5핀 방식으로 안되어 있어서 조금 당황했다. 
