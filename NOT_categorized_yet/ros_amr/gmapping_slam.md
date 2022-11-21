@@ -1,11 +1,23 @@
 터틀봇3의 gmapping.launch 파일을 참고한다   
 
+gmapping 패키지 설치는  (noetic)
+```
+sudo apt install ros-noetic-slam-gmapping
+```
+
 먼저 my_slam_gmapping 패키지의 launch 의 런치파일을 보면   
 arg를 base_frame을 지정해준다. 만약 로봇이 base_link 프레임으로 시작하면 base_link로 바꿔주기  
 base_footprint를 사용한다면 그대로 사용   
 
 그리고 odom, map 프레임 (토픽이 아님에 주의) 확인   
 > 로봇에서 TF를 만들어서 보냄   
+
+라이다 frequency는 30 이상이 되어야 하는 듯하다. 예를 들어 10 이면 gmapping이 작동을 안한다 
+
+rplidar 기준, 
+```xml
+<param name="scan_frequency"      type="double"    value="30.0"/>
+```
 
 이제 launch 파일을 실행하고 rviz를 실행해보자  
 
