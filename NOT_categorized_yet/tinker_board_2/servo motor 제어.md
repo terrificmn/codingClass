@@ -24,6 +24,22 @@ c코드는 아직 다 못 보았지만,
 
 
 
+mg995
+| 종류               | 내용             |     
+| ------------------ | ---------------- |     
+| Limit angle        | 180 +- 5         |     
+| Bearing            | Dual bb          |     
+| Motor              | Dc motor         |     
+| Operating voltage  | 4.8V             |     
+| Pluse with range   | 500-2500 us      |     
+| Rotating direction | Counterclockwise |     
+| Puse Cycle         | 20 ms            |     
+
+
+ Position "0" (1.5ms pulse) is middle, "90" (~2ms pulse) is all the way to the right, "-90" (~1ms pulse) is all the way to the left.   
+ 
+ The default servo pulse widths (usually 1ms to 2ms) may not give you a full 180 degrees of motion. In that case, check if you can set your servo controller to custom pulse lengths and try 0.75ms to 2.25ms. You can try shorter/longer pulses but be aware that if you go too far you could break your servo!
+
 
 
 
