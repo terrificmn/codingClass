@@ -24,11 +24,15 @@ catkin build
 catkin config --merge-devel
 ```
 
-```
-Devel Space Layout:          linked   
-
 Devel Space Layout:          merged
+
+
+linked로 바꾸려면
 ```
+catkin config --link-devel
+```
+Devel Space Layout:          linked   처럼 바뀐다
+
 
 config 로 설정상태 보기
 ```

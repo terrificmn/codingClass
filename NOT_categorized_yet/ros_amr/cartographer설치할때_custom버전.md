@@ -27,31 +27,52 @@ catkin build --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebinfo
 
 
 ## 정리해서 Noetic 버전 설치 정리 버전
-
+```
 sudo apt update  
+sudo apt-get install -y python3-rosdep stow 
+```
+> 사실 ninja-build python3-wstool 은 필요 없을 듯.. 한번 해보고 안되면 설치   
 sudo apt-get install -y python3-wstool python3-rosdep ninja-build stow 
 
 catkin_ws가 이미 만들어져있으므로 이동  
+```
 cd catkin_ws
-
-wools 툴은 사용하지 않는다. 기존에 있는 cartographer 사용함  
+```
+wools 툴은 사용하지 않는다. 기존에 있는 cartographer 사용함   
+> 기존 파일 압축해서 복사하면 됨. 없다면 메뉴얼대로 따르면 되고, 그때는 wools를 써야할 함
 
 catkin_ws 위치에서 실행한다  
+```
 cd ~/catkin_ws  
-
+```
+```
 sudo rosdep init  
+```
 > The command ‘sudo rosdep init’ will print an error if you have already executed it since installing ROS. This error can be ignored.
 
+```
 rosdep update
 
 rosdep install --from-paths src --ignore-src --rosdistro=${ROS_DISTRO} -y
+```
 
-src/cartographer/scripts/install_abseil.sh
+여기에서 이제 catkin build를 실행하면 abseil 패키지를 찾지를 못한다 
+> 여기에서 닌자로 빌드하지 않고 catkin tools로 build 한다   
 
-충돌 가능성이 있을 수 있어서 만약 있다면 삭제
+abseil을 찾지 못하므로 cartographer에 있는 스크립트 파일을 직접 설치해줘야한다
+
+충돌 가능성이 있을 수 있어서 만약 패키지가 이미 설치가 되어 있다면 삭제 한다
+```
 sudo apt-get remove ros-${ROS_DISTRO}-abseil-cpp
+```
 
-여기에서 닌자로 빌드하지 않고 catkin tools로 build
+그리고 cartographer에 있는 scripts 디렉토리에서 sh파일 실행
+```
+cd src/cartographer/scripts
+./install_abseil.sh
+```
+
+여기에서 닌자로 빌드하지 않고 catkin tools로 build 한다   
 
 
 

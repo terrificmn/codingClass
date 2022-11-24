@@ -13,10 +13,22 @@ sudo apt-get install libzmq3-dev libboost-dev
 ```
 > 이미 설치 되어 있음. 그리고 나머지 의존성 패키지는 3rdparty 디렉토리에 포함되어있음
 
-깃 클론 부터
+깃 클론 부터 버전이 4.0 으로 업그레이드가 되어서 예전 버전으로 받으려면 주의한다  
+-b 옵션을 넣어서 받을 것
+
+> 만약 잘못 설치했을 경우 make install까지 해버렸으면 지워야하는데   
+make uninstall을 지원하는 경우도 있는데, BT는 그렇지 아니한 것 같다.    
+build했던 디렉토리에 가보면 install_manifest.txt 파일이 있는데 여기에 인스톨 경로가 다 나와 있다.   
+일일이 다 지워줌;;; 더 좋은 방법이 있기는 할 것 같다    
+그리고 build 디렉토리에서 make clean을 해준다. 이건 build 했던 곳만 정리해준다  (어차피 다 지울;;;)
+
+
 ```
-git clone https://github.com/BehaviorTree/BehaviorTree.CPP.git
+git clone https://github.com/BehaviorTree/BehaviorTree.CPP.git -b v3.8
 ```
+
+> 최신 4.0 은 그냥 -b 옵션 빼고 하면 됨
+
 
 이동 후 build 디렉토리 만들고 cmake 하기
 ```
