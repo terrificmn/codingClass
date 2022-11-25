@@ -555,7 +555,7 @@ order_state 는 "OrderCancelled"로 변경 전송
 
 
 #### type 206
-Robot -> Server: 하나의 스테이션에서 픽킹 완료 
+Server -> Robot: 하나의 스테이션에서 픽킹 완료 (자체, 태블릿에서 전송)
 ```js
 {
 	"header": 
