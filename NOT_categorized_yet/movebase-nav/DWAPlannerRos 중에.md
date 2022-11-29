@@ -33,5 +33,19 @@ occdist_scale: 0.02 는 회피율인데..  0.01로 함 (0.02로 하면 return �
 
 
 
+___
+
+## common_cost_map 관련 
+
+map_type은 따로 지정하지 않는 것이 낫다
+
+
+
+
+
+
+
+
+
 
 
