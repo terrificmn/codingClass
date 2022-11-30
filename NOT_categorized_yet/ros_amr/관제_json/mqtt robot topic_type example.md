@@ -579,3 +579,53 @@ Server -> Robot: 하나의 스테이션에서 픽킹 완료 (자체, 태블릿�
 
 
 
+
+## order 테스트
+
+같은 장소. type 200
+```
+{
+	"header": 
+	{
+		"version": 0,
+		"type": 200
+	},
+	"body":
+	{
+		"robot_id": 4,
+		"order_id":  10,
+		"basket": [
+			{
+				"id": 1,
+				"depository_x": -1.029711,
+				"depository_y": -4.020630
+			},
+			{
+				"id": 2,
+				"depository_x": -1.029711,
+				"depository_y": -4.020630
+			},
+			{
+				"id": 3,
+				"depository_x": -1.029711,
+				"depository_y": -4.020630
+			}
+		]
+	}
+}
+```
+
+픽업 완료 type 206
+```
+{
+	"header": 
+	{
+		"version": 0,
+		"type": 206
+	},
+	"body":
+	{
+		"robot_id": 4
+	}
+}
+```
