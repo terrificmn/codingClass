@@ -592,7 +592,7 @@ Server -> Robot: 하나의 스테이션에서 픽킹 완료 (자체, 태블릿�
 	},
 	"body":
 	{
-		"robot_id": 4,
+		"robot_id": 22,
 		"order_id":  10,
 		"basket": [
 			{
@@ -625,7 +625,26 @@ Server -> Robot: 하나의 스테이션에서 픽킹 완료 (자체, 태블릿�
 	},
 	"body":
 	{
-		"robot_id": 4
+		"robot_id": 22
+	}
+}
+```
+
+
+
+al.common 으로 이동 명령
+```
+{
+	"header": 
+	{
+		"version": 0,
+		"type": 3
+	},
+	"body":
+	{
+		"robot_id": 22,
+		"goal_x": -1.029711,
+		"goal_y": -4.020630
 	}
 }
 ```
