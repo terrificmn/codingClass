@@ -40,4 +40,42 @@ ws가 많이 있더라고 차곡차곡 $CMAKE_PREFIX_PATH 환경 변수에 생�
 위의 절차를 잘 했다면 이상없이 잘 나올 것임
 
 
-그 이후 정리하기   ...
+qtcreator를 실행을 한 후에   
+Projects 탭에서 Build & Run 부분에 해당 Desktop 을 클릭해서 Build Settings 할 수가 있는데   
+(Build)부분을 클릭한다  
+
+Build Steps 부분에서   
+CMake Arguments: 에  
+```
+-DFORCE_DEBUG_BUILD=True
+```
+로 입력해준다   
+
+그 외에 등이 있는데 (아직 사용 안해봄)
+```
+-DCMAKE_BUILD_TYPE:=Debug
+-DCMAKE_BUILD_TYPE:=Release
+```
+
+그리고 화면의 아래쪽을 보면 Build Environment 가 있는데   
+CMAKE_PREFIX_PATH, LD_LIBRARY_PATH... 등의 환경 변수도 확인할 수가 있음
+
+
+이번에는 Run  을 클릭하고 (Build & Run 탭에서 (왼쪽화면) 선택된 Desktop 에 있음 )
+
+여기에서는 executable 에 rosrun 을 넣어주고   
+Command line arguments에 패키지명 노드명 을 넣어주고   
+Run in terminal 을 체크를 해주고, 세모 녹색버튼(디버깅) 을 클릭해서 빌드를 하면   
+디버깅 모드가 시작된다   
+
+### 터미널을 terminator 사용,,,  안되는 경우
+Run in terminal 에 체크를 하고 실행을 하는데 안되는 경우에는   
+터미네이터에서 환경설정을 들어가서 (마우스 오른쪽)  
+
+Global 탭의 Behavior 부분의 DBus server가 기본 체크되어 있는데 체크를 해제해준다  
+
+이제 모든 터미널을 종료하고 다시 실행을 하게 되면 잘 실행이 된다!
+
+
+
+
