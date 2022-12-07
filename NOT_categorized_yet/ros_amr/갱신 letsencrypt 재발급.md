@@ -48,6 +48,13 @@ local에서 개발 할 경우에만 .env파일에서 dev로 사용하게 만들�
 그래도 안되면 아래처럼 다시 재발급?   
 
 
+## 가장 먼저 stop시키자
+백그라운드에서 실행되고 있는 docker를 정지해주자
+```
+docker-compose stop
+```
+> down은 삭제되니 사용 금지
+
 ## 처음 다시 받는 것 처럼 진행 (새로 발급)
 일단은 변경했던 내용을 바탕으로 적었으므로 참고만 하자
 
@@ -70,13 +77,14 @@ CONF_STATUS=dev
 
 상위 디렉토리로 이동한 후에  
 혹시 몰라서 certbot 디렉토리를 백업 (또는 삭제) 후에 진행함.   
-물론 삭제를 안해도 될 것 같다는 생각은 든다.. 한번 스킵 한 후에 그래도 안되면 지워보자
+물론 삭제를 안해도 될 것 같다는 생각은 든다..~~한번 스킵 한 후에 그래도 안되면 지워보자~~   
+> 삭제 안해도 된다  
 ```
 cd docker-laravel-blog
 rm -rf certbot
 ```
 
-그리고 빌드 진행
+그리고 빌드 진행 (아마도 build는 안 해도 될 듯 하다. 테스트 후 업데이트 하자)
 ```
 docker-compose build
 docker-compose up
@@ -112,9 +120,8 @@ control+C로 docker를 종료한 다음에
 CONF_STATUS=prod
 ```
 
-그리고 
-```
-docker-compose build
+그리고 build는 안해도 된다 (도커 버전에 따라 안될 시 build할 것. 상관없이 up만해도 환경변수 잘 읽는 듯 하다)
+``` 
 docker-compose up
 ```
 
