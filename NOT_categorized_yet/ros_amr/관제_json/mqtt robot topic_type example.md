@@ -446,7 +446,8 @@ Robot -> Server: 주문을 현황을 수시로 전송
 		"robot_id": 2,
 		"order_id":  10,
 		"progress_rate": 40.5
-		"order_state": "ReadyToLoad"
+		"order_state": "ReadyToLoad",
+		"sequence": 4
 	}
 }
 ```
@@ -457,6 +458,7 @@ Robot -> Server: 주문을 현황을 수시로 전송
 | order_id      | int    |
 | progress_rate | float  |
 | order_state   | string |
+| sequence      | int    |
 
 해당 스테이션에 도착하게 되면 order_state "ReadyToLoad" 로 변경되어 전송
 바코드 인식 후 order_state "ReadyToMove"
