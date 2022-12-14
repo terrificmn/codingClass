@@ -198,8 +198,7 @@ Robot -> Server : 이동 명령에 대한 응답
 		"robot_id": 1,
 		"status": "Moving",
 		"goal_x": 10.123456,
-		"goal_y": -5.123456,
-		"execute": true
+		"goal_y": -5.123456
 	}
 }
 ```
@@ -210,7 +209,7 @@ Robot -> Server : 이동 명령에 대한 응답
 | status   | string |
 | goal_x   | double | 
 | goal_y   | double |
-| execute  | bool   |
+
 
 
 
