@@ -591,11 +591,11 @@ Server -> Robot: 웨이포인트 순회
 	"header": 
 	{
 		"version": 0,
-		"type": 206
+		"type": 300
 	},
 	"body":
 	{
-		"robot_id": 3,
+		"robot_id": 22,
 		"stations": [
 			{
 				"x": -1.029711,
