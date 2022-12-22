@@ -619,6 +619,25 @@ Server -> Robot: 웨이포인트 순회
 
 
 
+#### type 301
+Server -> Robot: 다음 목적지 출발 명령
+```json
+{
+	"header": 
+	{
+		"version": 0,
+		"type": 301
+	},
+	"body":
+	{
+		"robot_id": 22
+	}
+}
+```
+
+| 이름        | 타입   |
+| ----------- | ------ |
+| robot_id    | int    |
 
 
 
@@ -629,7 +648,7 @@ Server -> Robot: 웨이포인트 순회
 ## order 테스트
 
 같은 장소. type 200
-```
+```json
 {
 	"header": 
 	{
@@ -662,7 +681,7 @@ Server -> Robot: 웨이포인트 순회
 ```
 
 픽업 완료 type 206
-```
+```json
 {
 	"header": 
 	{
@@ -679,7 +698,7 @@ Server -> Robot: 웨이포인트 순회
 
 
 al.common 으로 이동 명령
-```
+```json
 {
 	"header": 
 	{
