@@ -1,7 +1,5 @@
 먼저 간단한 패키지를 만들고 html 파일을 만들어 준다  
 
-파이썬 서버를 이용해서 웹 브라우저에서 사용할 수 있게 한다  
-
 ```
 cd catkin_ws/src
 catkin_create_pkg webpages
@@ -26,6 +24,7 @@ catkin_create_pkg webpages
 </html>
 ```
 
+파이썬 서버를 이용해서 웹 브라우저에서 사용할 수 있게 한다  
 그리고 나서 파이썬3를 이용해서 서버를 실행    
 일단 서버가 실행된 곳에서 index.html 를 읽는 듯 하다
 

@@ -609,13 +609,14 @@ Server -> Robot: 웨이포인트 순회
 	}
 }
 ```
-| 이름        | 타입   |
-| ----------- | ------ |
-| robot_id    | int    |
-| stations    | array  |
-| --- 아래는   | stations 배열 |
-| x			  | double |
-| y			  | double |
+
+| 이름       | 타입          |
+| ---------- | ------------- |
+| robot_id   | int           |
+| stations   | array         |
+| --- 아래는 | stations 배열 |
+| x          | double        |
+| y          | double        |
 
 
 
