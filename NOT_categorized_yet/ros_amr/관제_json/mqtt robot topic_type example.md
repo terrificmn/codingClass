@@ -112,6 +112,53 @@ Robot -> Server : type1로 받은 로봇이 서버에 응답
 | status | string |
 
 
+
+#### Type 10
+Server -> Robot: 주변 로봇 정보를 broadcasting
+```js
+{
+	"header":
+	{
+		"version":0,
+		"type":10
+	},
+	"body":
+	{
+		"robots": 
+		[
+			{
+				"robot_id":1,
+				"x":11.1235,
+				"site_id":2,
+				"y":-11.1235
+			},
+			{
+				"robot_id":2,
+				"x":-0.730176,
+				"site_id":2,
+				"y":0.227345
+			},
+			{
+				"robot_id":3,
+				"x":0.0,
+				"site_id":2,
+				"y":0.0},
+			{
+				"robot_id":4,
+				"x":0.0,
+				"site_id":2,
+				"y":0.0
+			}
+		]
+	}
+}
+```
+
+
+
+
+
+
 #### type 998
 Server -> Robot : 모든(?) 로봇에게 작업 재개 명령
 ```js
@@ -337,11 +384,6 @@ Robot -> Server : 로봇쪽에서 로봇 ID 조회
 Server -> Robot : 서버에서 로봇 ID 응답
 ```js
 {
-	"header": 
-	{
-		"version": 0,
-		"type": 103
-	},
 	"header": 
 	{
 		"version": 0,
@@ -581,7 +623,7 @@ Server -> Robot: 하나의 스테이션에서 픽킹 완료 (자체, 태블릿�
 
 
 
-### 4. topic | 웨이포인트 | al.station
+### 4. topic | 웨이포인트 | al.stations
 
 #### type 300
 Server -> Robot: 웨이포인트 순회
@@ -598,10 +640,12 @@ Server -> Robot: 웨이포인트 순회
 		"robot_id": 22,
 		"stations": [
 			{
+				"id": 1,
 				"x": -1.029711,
 				"y": -4.020630
 			},
 			{
+				"id": 2,
 				"x": 1.252728,
 				"y": -2.293799
 			}
@@ -615,6 +659,7 @@ Server -> Robot: 웨이포인트 순회
 | robot_id   | int           |
 | stations   | array         |
 | --- 아래는 | stations 배열 |
+| id         | int              |
 | x          | double        |
 | y          | double        |
 
@@ -631,14 +676,16 @@ Server -> Robot: 다음 목적지 출발 명령
 	},
 	"body":
 	{
-		"robot_id": 22
+		"robot_id": 22,
+		"sequence": 3
 	}
 }
 ```
 
-| 이름        | 타입   |
-| ----------- | ------ |
-| robot_id    | int    |
+| 이름     | 타입 |
+| -------- | ---- |
+| robot_id | int  |
+| sequence         | int      |
 
 
 
@@ -714,3 +761,8 @@ al.common 으로 이동 명령
 	}
 }
 ```
+
+
+
+
+
