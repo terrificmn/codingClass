@@ -36,3 +36,8 @@ git merge --no-ff develop
 git push origin main
 ```
 
+
+conflicts가 있을 경우에는 
+```
+git merge --abort
+```
