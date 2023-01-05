@@ -148,7 +148,6 @@ fatal: the remote end hung up unexpectedly
 그래서 git log를 확인한 후에 git reset으로 취소시킨다
 아래를 보자
 
-
 ```
 (base) [sgtOcta@localhost src]$ git log
 commit e4ec9a3702c28d4ab1c4a879c387edecd5326d64 (HEAD -> main)
@@ -172,6 +171,13 @@ Date:   Tue Apr 27 14:13:55 2021 +0900
 ```
 그리고 다시 git log를 확인해보면
 마지막에 했던 커밋이 취소되어 있다 
+
+```
+git reset --soft HEAD~1
+```
+가장 마지막으로(최신) commit 했던 것을 add, 즉 staged 된 상태 (커밋 전)로 만들어 준다   
+
+
 
 커밋은 취소되었지만.. 이그노어가 제대로 반영이 안된다..
 
