@@ -72,6 +72,9 @@ https://github.com/ros-planning/navigation/tree/melodic-devel
 
 git clone -b melodic-devel 주소
 
+또는 noetic일 경우에는 기본 default를 사용하면 된다 
+
+
 워크스페이스에서 아무래도 catkin build 해봤자 의존성 때문에 에러나므로 rosdep을 해주자 
 ```
 rosdep install --from-paths src --ignore-src -r -y -i
