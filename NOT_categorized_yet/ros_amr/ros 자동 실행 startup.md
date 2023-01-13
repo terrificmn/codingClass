@@ -57,5 +57,15 @@ sudo systemctl enable test_start.service
 
 
 
+하지만 이대로 하면 잘 되지는 않는 듯 하다.. 서비스는 잘 등록되는데 재부팅시 자동으로실행이 되지는 않는다.  
+
+참고할 것들...  
 
 
+
+
+https://github.com/magazino/systemd_ros
+
+https://github.com/LucidOne/robot_systemd/blob/master/user/roslaunch%40.service
+
+https://discourse.ros.org/t/automatic-launch-on-os-startup/23462
