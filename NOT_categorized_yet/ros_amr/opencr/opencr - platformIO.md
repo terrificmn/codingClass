@@ -3,6 +3,8 @@
 > OpenCR1.0 (Open-source Control module for ROS) 는 아두이노 같은 MCU 이며  
 오픈소스이고, ARM Cortex-M7 line-up의 강력한 MCU로 로봇 컨트롤러에 사용된다
 
+opencr의 r은 ros를 의미! 
+
 arduino IDE인  sketch 프로그램을 사용해도 되지만,  vscode의 platformIO 확장팩이 사용하기 좋다   
 하지만 opencr이 바로 인식이 되지 않으므로 깃허브에서 깃클론을 해줘야한다  
 
