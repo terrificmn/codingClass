@@ -83,7 +83,7 @@ _wiringPiSetup()_ then it work with 26.
 int main() {
 
 	wiringPiSetupGpio();
-	pinMode(18, PMM_OUTPUT);
+	pinMode(146, PMM_OUTPUT);
 	pwmSetMode(PWM_MODE_MS);
 	pwmSetRange(2000);
 	pwmSetClock(192);
