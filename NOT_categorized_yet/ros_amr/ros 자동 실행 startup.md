@@ -62,6 +62,11 @@ sudo systemctl enable test_start.service
 참고할 것들...  
 
 
+서비스 disable은  
+```
+sudo systemctl stop test_start.service
+sudo systemctl disable test_start.service
+```
 
 
 https://github.com/magazino/systemd_ros
@@ -69,3 +74,7 @@ https://github.com/magazino/systemd_ros
 https://github.com/LucidOne/robot_systemd/blob/master/user/roslaunch%40.service
 
 https://discourse.ros.org/t/automatic-launch-on-os-startup/23462
+
+
+[여기 블로그 내용이 조금 더 도움이 되는 듯 하기도...](https://mshields.name/blog/2022-03-16-running-ros-nodes-on-boot/)
+
