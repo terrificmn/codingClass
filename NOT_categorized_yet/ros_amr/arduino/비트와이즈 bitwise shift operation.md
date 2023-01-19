@@ -28,7 +28,7 @@ bit shift 연산자를 override해서 input/output 출력 기능으로 쓰이기
 각 AND, OR, NOR이지만. 비트 이므로 
 &는 모두 True이어야 1이 된다   
 | 는 하나라도 True이면 1이 된다 
-
+^ XOR 연산자, OR의 반대로 작동
 
 [ 비트와이즈 연산자 보기 bitwise-operators](https://www.programiz.com/cpp-programming/bitwise-operators)
 
@@ -37,3 +37,5 @@ bit shift 연산자를 override해서 input/output 출력 기능으로 쓰이기
 의 의미!
 
 어렵지만 정리해야함
+
+

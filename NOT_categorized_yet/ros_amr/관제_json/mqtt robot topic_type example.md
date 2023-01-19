@@ -167,18 +167,15 @@ Server -> Robot : 모든(?) 로봇에게 작업 재개 명령
 	{
 		"version": 0,
 		"type": 998
-	},
-	"body":
-	{
-		???
 	}
+
 }
 ```
 
 | 이름   | 타입   |
 | ------ | ------ |
 
-요소 아직 결정 안됨
+바디 없음
 
 
 #### type 999
@@ -189,11 +186,8 @@ Server -> Robot : 긴급 상황 시 작업 중지 명령
 	{
 		"version": 0,
 		"type": 999
-	},
-	"body":
-	{
-		???
 	}
+	
 }
 ```
 
@@ -201,7 +195,7 @@ Server -> Robot : 긴급 상황 시 작업 중지 명령
 | ---- | ---- |
 |      |      |
 
-요소 아직 결정 안됨
+바디 없음
 
 
 *추가 타입*
@@ -550,8 +544,7 @@ Sever -> Robot: 주문 취소 시 특정 로봇에게 전송
 	{
 		"robot_id": 3,
 		"order_id":  10,
-		"cancle_cmd": 0/1,
-		"error": 
+		"cancle_cmd": 0/1
 	}
 }
 ```
@@ -561,8 +554,6 @@ Sever -> Robot: 주문 취소 시 특정 로봇에게 전송
 | robot_id    | int  |
 | order_id    | int  |
 | cancle_cmd  | int  |
-| error       |      |
-| order_state | string     |
 
 cancle_cmd는 취소 여부
 
