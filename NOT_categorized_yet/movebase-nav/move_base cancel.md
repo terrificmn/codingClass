@@ -17,3 +17,11 @@ rostopic pub -1 /move_base/cancel actionlib_msgs/GoalID {}
 - /move_base/result 토픽을 통해 도착여부를 알 수 있다. 단, subscribe 하고 있는 상태에서 도착을 하면 알려준다 
 
 
+그 외에 topic을 subscripiton하려면  move_base_msgs::MoveBaseActionResult 메세지 타입을 사용  
+
+구독 후에 msg 변수에서 
+ msg->status.status == actionlib_msgs::GoalStatus::SUCCEEDED,  
+ msg->status.status == actionlib_msgs::GoalStatus::PREEMPTED
+
+등으로 구분 지을 수 있다 
+

@@ -156,48 +156,6 @@ Server -> Robot: 주변 로봇 정보를 broadcasting
 
 
 
-
-
-
-#### type 998
-Server -> Robot : 모든(?) 로봇에게 작업 재개 명령
-```js
-{
-	"header": 
-	{
-		"version": 0,
-		"type": 998
-	}
-
-}
-```
-
-| 이름   | 타입   |
-| ------ | ------ |
-
-바디 없음
-
-
-#### type 999
-Server -> Robot : 긴급 상황 시 작업 중지 명령
-```js
-{
-	"header": 
-	{
-		"version": 0,
-		"type": 999
-	}
-	
-}
-```
-
-| 이름 | 타입 |
-| ---- | ---- |
-|      |      |
-
-바디 없음
-
-
 *추가 타입*
 
 #### type 3
@@ -265,8 +223,7 @@ Server -> Robot : 개별 로봇 멈춤 명령
 	},
 	"body":
 	{
-		"robot_id": 1,
-		"stop_cmd": 1
+		"robot_id": 1
 	}
 }
 ```
@@ -274,12 +231,17 @@ Server -> Robot : 개별 로봇 멈춤 명령
 | 이름     | 타입   |
 | -------- | ------ |
 | robot_id | int    |
-| stop_cmd   | int |
+
+
 
 
 
 #### type 6
-Robot -> Server : (type5) 에대한 멈춤 명령에 대한 응답  - status 변경 
+~~Robot -> Server : (type5) 에대한 멈춤 명령에 대한 응답  - status 변경 ~~
+**응답 안하기로 함**
+
+대신 type6번은 resume 으로 사용
+Server -> Robot : (type5) 이후 재개 명령
 ```js
 {
 	"header": 
@@ -289,9 +251,7 @@ Robot -> Server : (type5) 에대한 멈춤 명령에 대한 응답  - status 변
 	},
 	"body":
 	{
-		"robot_id": 1,
-		"status": "Stopped",
-		"ack": 1
+		"robot_id": 1
 	}
 }
 ```
@@ -299,8 +259,48 @@ Robot -> Server : (type5) 에대한 멈춤 명령에 대한 응답  - status 변
 | 이름     | 타입   |
 | -------- | ------ |
 | robot_id | int    |
-| status   | string |
-| ack   | int | 
+
+~~| status   | string |
+| ack   | int | ~~
+
+
+#### type 998
+Server -> Robot : 긴급 상황 시 작업 중지 명령
+```js
+{
+	"header": 
+	{
+		"version": 0,
+		"type": 998
+	}
+	
+}
+```
+
+| 이름 | 타입 |
+| ---- | ---- |
+|      |      |
+
+바디 없음
+
+
+#### type 999
+Server -> Robot : 모든(?) 로봇에게 작업 재개 명령
+```js
+{
+	"header": 
+	{
+		"version": 0,
+		"type": 999
+	}
+
+}
+```
+
+| 이름   | 타입   |
+| ------ | ------ |
+
+바디 없음
 
 
 
@@ -543,8 +543,7 @@ Sever -> Robot: 주문 취소 시 특정 로봇에게 전송
 	"body":
 	{
 		"robot_id": 3,
-		"order_id":  10,
-		"cancle_cmd": 0/1
+		"order_id":  10
 	}
 }
 ```
@@ -553,9 +552,6 @@ Sever -> Robot: 주문 취소 시 특정 로봇에게 전송
 | ----------- | ---- |
 | robot_id    | int  |
 | order_id    | int  |
-| cancle_cmd  | int  |
-
-cancle_cmd는 취소 여부
 
 
 
