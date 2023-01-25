@@ -26,6 +26,8 @@ control word 는 각 quick stop, clear fault, stop, enable 이 있다
 20 0E 00 07 stop
 20 0E 00 08 enable
 
+> 위의 4가지 경우에만 20 0E 로 시작한다 
+
 control mode 는 3 은 velocity mode
 20 0D 00 03 velocity mode
 
