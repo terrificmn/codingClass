@@ -26,6 +26,8 @@ export PATH=$PATH:여기에라이브러리실경로
 set(WIRINGPI_LIB "/path")
 ```
 
+> 다른 라이브러리는 파일까지는 안하고 디렉토리까지만 하면 되는 듯 하나, wiringPi 는  
+실제 h파일의 경로까지 지정했더니 컴파일이 됨
 
 
 ## target_link 하기
@@ -57,6 +59,50 @@ find_path(FOO_LIB foo "/path/헤더파일")
 위의 FOO_LIB을 이용해서 
 ```cmake
 target_include_directories(myProject PUBLIC ${FOO_LIB})
+```
+
+## wiringPi 라이브러리는 find_library()와 헤더파일로 인쿠르드!!
+위의 find_library()와 target_link_libraries() 로 컴파일 성공했다  
+
+> 참고로 라즈베리파이와 tinker board 2 의 wiringPi 위치는 다를 것이라고 생각됨   
+라즈베리파이의 경로는 확인 못함  
+
+먼저 set() 이용해서 변수를 만들어주고 경로를 지정해주는데, 보통 라이브러리의 디렉토리만 지정했으나  
+tinker board의 wiringPi는 헤더파일까지 지정했다   
+
+그리고 find_library()를 이용해서 찾아준다   
+
+```cmake
+set(WIRINGPI_LIBRARIES /usr/local/share/gpio_lib_c_rk3399/wiringPi.h)
+find_library(WIRINGPI_LIBRARIES NAMES wiringPi)
+
+```
+
+> catkin 패키지를 찾을 때 사용하는 find_package() 말고 find_library()를 사용   
+
+그리고 마지막으로 target_link_libraries()를 해줄 때   wiringPi로 해주면 된다   
+
+```cmake
+target_link_libraries(${PROJECT_NAME}_node
+  ${catkin_LIBRARIES}
+  wiringPi
+)
+```
+
+이렇게 하니 라이브러리를 잘 인식해서 컴파일 해준다   
+
+이제 cpp 파일내에서 사용하면 된다 
+```cpp
+#include <ros/ros.h>
+#include <wiringPi.h>
+```
+
+> ros를 사용하기 위해서 CMakeLists를 함. 
+만약 g++ 등으로 빌드할 때에는 -l 으로 지정만 해주면 된다 
+
+이런식으로... 
+```
+g++ main.cpp -o test_run -l wiringPi
 ```
 
 

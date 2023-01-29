@@ -21,7 +21,10 @@ target_link_libraries(foo bar)
 
 add_library에서 SHARED (.so) 대신에 STATIC으로 할 수도 있다 (.a파일)
 
-wiringPI를 예를 들면
+~~wiringPI를 예를 들면~~   
+실제로는 wiringPi는 so 파일이 없고, h 헤더파일만 있어서 아래 방법으로 성공하지 못함   
+
+어쨋든 아래 방식은 안되지만, 이런식으로 한다는 느낌만 가져가자 ㅋㅋ
 ```cmake
 add_library(wiringPi SHARED IMPORTED) 
 set_target_properties(wiringPi PROPERTIES
