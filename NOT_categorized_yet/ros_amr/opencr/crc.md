@@ -25,6 +25,8 @@ crc << 1
 총 8개의 bit이므로 left shift를 8번하게 되면 끝이 나게 된다.   
 
 
+libcrc.org/download   
+오픈소스를 참고해보자  
 
 여기도 참고 오제이 튜브   
 https://www.youtube.com/watch?v=_KnqwGczUjE

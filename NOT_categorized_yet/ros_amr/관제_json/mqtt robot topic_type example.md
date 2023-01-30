@@ -680,6 +680,58 @@ Server -> Robot: 다음 목적지 출발 명령
 
 
 
+### 5. topic | 서버 | al.server
+
+#### type 400
+Server -> Robot: 다른 로봇들의 pose 정보 제공
+
+```js
+{
+	"header": 
+	{
+		"version": 0,
+		"type": 400
+	},
+	"body":
+	{
+		"tick-count": 1111,
+		"locations": [
+			{
+				"id": 1,
+				"locationX": -1.029711,
+				"locationY": -4.020630,
+				"yaw": 0.0,
+				"status: "LOST",
+				"site_id": 2
+			},
+			{
+				"id": 2,
+				"locationX": 10.029711,
+				"locationY": 5.020630,
+				"yaw": 0.0,
+				"status: "LOST",
+				"site_id": 2
+			}
+		]
+	}
+}
+```
+
+| 이름       | 타입           |
+| ---------- | -------------- |
+| tick-count | int            |
+| locations  | array          |
+| --- 아래는 | locations 배열 |
+| id         | int            |
+| locationX  | double         |
+| locationY  | double         |
+| yaw        | double         |
+| status     | string         |
+| site_id    | int            |
+
+
+
+
 
 
 
