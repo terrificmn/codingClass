@@ -58,5 +58,15 @@ roslaunch cartographer offline_lidarodom_2d.launch bag_filenames:=/home/username
 
 이렇게 실행을 하게 되면 맵 최적화를 해주고나서, pbstream 으로 만들어 준다 (bag파일과 같은 이름으로 만들어준다)
 
+또는 런치파일의 arg를 이용해서 파일 경로를 지정해줘도 된다   
+```xml
+<launch>
+  <arg name="bag_filenames" default="/home/username/boxbag.bag" />
+  <arg name="no_rviz" default="false"/>
+  ... 생략
+```
+이제 런치파일만 실행해주면 됨
+
+
 
 
