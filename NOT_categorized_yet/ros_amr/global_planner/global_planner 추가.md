@@ -139,3 +139,69 @@ base_local_planner /home/sgtubunamr/catkin_ws/src/navigation/base_local_planner/
 [이후 wiki.ros 테스트 해보기](http://wiki.ros.org/navigation/Tutorials/Writing%20A%20Global%20Path%20Planner%20As%20Plugin%20in%20ROS/)
 
 
+
+
+## 다른 방식
+거의 같으나 조금 다름 패키지에 plugins 디렉토리를 만들어서 거기에서 .cpp .h  파일을 넣고   
+빌드하는 방식   
+
+위의 방식으로 해도 빌드 및 인식은 되는데 지금 이 방식이 더 나을 지도 모르겠다 
+
+원래 global_planner pkg가 navigation 안에 있는데 그 컨벤션을 따라서 하는 듯 하다   
+
+어쨋든 global_planner가 있어서 global_planner_plugin 으로 패키지 이름을 하고  클래스 이름도 동일하게 함   
+
+
+위의 global_planner 추가 방법과 거의 동일 함     
+
+CMakeLists.txt 파일에서는   
+find_package(), catkin_package() 추가, add_library()
+
+다른 것들은 필요 없는 듯 하다. 예를 들어 위에서 했던 방식들... add_dependencies()
+target_link_libraries() 등은 필요없다  
+
+그리고 빌드하면 빌드가 잘 된다   
+
+> global_planner_plugin 패키지 참고 (CMakeLists.txt 파일 및 소스)
+
+순서는 패키지 만들고 catkin_create_pkg   
+그리고 plugins 디렉토리 만들고 그 안에 .h파일 .cpp 파일 만든다.  
+내용 및 상속은 거의 같다 .. 
+
+실제로 makePlan() 메소드가 작동할 수 있게 해보며, 실제 global path가 작동한다   
+
+
+package.xml 에서 nav_core plugin을 등록시켜주며, global_planner_plugin.xml 파일을 export 태그로 등록    
+물론 build_depend, exec_depend의 nav_core를 해줘야한다 
+
+
+rospack으로 plugin 인식시켜줄 필요는 없다   
+
+
+마지막으로 move_base의 파라미터에 
+```
+<param name="base_global_planner" value="global_planner/GlobalPlannerPlugin"/>
+```
+넣어주고 시뮬레이션 돌리기 쉬운 터블봇3 가제보 및, navigation 패키지를 해준다.  
+가제보는 house로 하면 좋고, slam이 되어서 map 있어야 한다   
+
+
+global_planner_plugin.cpp 파일에서 makePlan() 메소드가 중요한데   
+Goal을 지정해주면 지그재그로 global path가 생성이 되는데.. 
+시작점과 마지막(goal) 지점을 받아서 그 중간의 패스를 만드는 코드이고  
+
+std::vector<geometry_msgs::PoseStamped>인 plan으로 받아서  
+계속 push_back() 로 만들어 주면서 
+
+현재 클래스에서 publish를 하지는 않지만 msg 즉, plan 벡터 변수에 차곡차곡 담아주는 것  그러면 
+최종적으로 return을 하게 되면 nav_msgs/Path 로 퍼블리쉬가 됨  
+
+
+> 실제 global path로 생성이 되어도 그 경로로만 가지는 않는데, 이유는 local planner가 계속 path를 조정하기 때문이다   
+
+
+
+
+
+
+
