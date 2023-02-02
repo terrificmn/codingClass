@@ -66,3 +66,8 @@ move_base를 사용하는 런치파일에서 local_planner를 등록하자
 
 [ros wiki](http://wiki.ros.org/navigation/Tutorials/Writing%20a%20Local%20Path%20Planner%20As%20Plugin%20in%20ROS)
 
+
+[참고 local planner AgriBot-Local-Planner 좋은 소스인듯 하다](https://github.com/alirezaahmadi/AgriBot-Local-Planner)
+
+[튜토리얼 깃허브 - ros-nav-5days LOCAL PLANNER](https://github.com/rwbot/ros-nav-5days/blob/master/LOCAL%20PLANNER.md)
+
