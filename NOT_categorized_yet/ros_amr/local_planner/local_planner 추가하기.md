@@ -69,5 +69,8 @@ move_base를 사용하는 런치파일에서 local_planner를 등록하자
 
 [참고 local planner AgriBot-Local-Planner 좋은 소스인듯 하다](https://github.com/alirezaahmadi/AgriBot-Local-Planner)
 
-[튜토리얼 깃허브 - ros-nav-5days LOCAL PLANNER](https://github.com/rwbot/ros-nav-5days/blob/master/LOCAL%20PLANNER.md)
+[튜토리얼 깃허브 - ros-nav-5days LOCAL PLANNER](https://github.com/rwbot/ros-nav-5days/blob/master/LOCAL%20PLANNER.md)   
+
+[위의 깃허브 pdf 자료](https://github.com/rwbot/ros-nav-5days/tree/master/Lessons)
+
 

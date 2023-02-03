@@ -28,6 +28,9 @@ catkin_create_pkg webpages
 그리고 나서 파이썬3를 이용해서 서버를 실행    
 일단 서버가 실행된 곳에서 index.html 를 읽는 듯 하다
 
+> index.html 소스파일이 있는 디렉토리에서 실행을 시켜야 한다.    
+> 상위에서 실행을 시키면 상위 디렉토리가 노출됨에 주의!
+
 먼저 실행은 
 ```
 cd webpages
