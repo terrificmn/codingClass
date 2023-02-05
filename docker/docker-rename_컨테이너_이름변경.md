@@ -17,3 +17,7 @@ docker rename 81fc ros
 ```
 
 > 컨테이너 이름은 다 안 적어도 된다 
+
+
+## docker-compose.yaml 수정
+

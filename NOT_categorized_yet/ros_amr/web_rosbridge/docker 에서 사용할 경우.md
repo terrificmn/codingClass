@@ -29,7 +29,7 @@ services:
 host 컴의 8000과 도커 컨테이너의 8000으로 해주면 된다 
 
 > 저장 후 (요새는 다시 docker-compose up) 으로 실행만 다시 시켜줘도 바로 적용되는 듯 하다    
-docker-compose build 안해도 됨   
+> docker-compose build 안해도 되지만, 컨테이너안에 추가로 설치된 패키지 등은 초기화가 된다 
 
 이제  컨테이너에서 실행을 시키고 (docker exec -it 컨테이너이름 bash)  로 들어가서 직접 실행  
 
