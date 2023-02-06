@@ -150,3 +150,10 @@ Console 탭을 보면 메세지가 나오는 것을 알 수 있다
 그리고 연결이 되고 Publishing cmd_vel... 메세지가 나오고   
 가제보 시뮬레이션을 보면 cmd_vel topic을 받아서 움직이는 모습을 볼 수가 있다   
 
+
+
+local에서만 하면 localhost로 쉽게 알 수 있지만 다른 주소로 되어 있다면 address를 확인할 수 있다 
+```
+rosbridge_address
+```
+
