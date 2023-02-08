@@ -12,10 +12,10 @@ cd docker-tfod
 
 2. git 클론하기
 ```
-git clone 
+git clone https://github.com/terrificmn/tensorflow-od.git
 ```
 
-3. 이제 클론이 되었음 tensorflow-od 디렉토리가 생겼을 것이고 src로 디렉토리명을 변경해준다
+3. tensorflow-od 디렉토리가 생겼을 것이고 src로 디렉토리명을 변경해준다.
 ```
 mv tensorflow-od src
 ```
@@ -36,14 +36,11 @@ mv tensorflow-od src
 ```
 각 디렉토리를 src 디렉토리로 복사시켜준다. 
 
-> 아 이 data 파일을 어디다 뒀더라??;;
-
 어쨋든 data 디렉토리 안에 coco_classes.txt 파일과, yolo.h5 파일이 위치해야한다   
 
 그리고 yolo_model 디렉토리 안에는 yolo_model.py, darknet53.py 가 위치해야한다   
 
-**data파일 다시 정리해두고 업데이트 하기**
-
+ > data파일은 google드라이브 확인 
 
 5. docker-compose.yml, Dockerfile, requirements.txt 을 상위 디렉토리로(docker-tfod) 복사 시켜준다   
 ```
@@ -75,7 +72,9 @@ tensorflow-text 2.9.0 requires tensorflow<2.10,>=2.9.0; platform_machine != "arm
 
 
 또한 이런 에러 일 경우에는 
+```
 module 'tensorflow.compat.v2.__internal__' has no attribute
+```
 
 requirement.txt 파일에서   
 tensorflow==2.2.0   
