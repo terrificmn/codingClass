@@ -39,6 +39,9 @@ BMJUA_otf.otf 로 설치한 폰트인데..파일명은 BMJUA_otf
 BM JUA_OTF 라는 폰트가 나오고 , 폰트의 info 버튼을 눌러보면 이름이 나온다.   
 처음에 설치한 폰트명 파일명과는 다소 다르다. 스페이스 차이?   
 
+> 참고로 DaddyTime 글자체는 'DaddyTimeMono Nerd Font Mono' 
+길다; 이렇게 해야 인식된다 
+
 이제 이 이름을 가지고 vscode에 입력을 해주면 된다.  
 끝!
 

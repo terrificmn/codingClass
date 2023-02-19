@@ -65,6 +65,9 @@ preference를 열면 거의 바로 보이는데 font famliy가 보이는데
 
 'Droid Sans Fallback' 요놈만 지워주면 바로 적용된다.  
 
+>Droid Sans Fallback 이 없는 경우에도 이런 경우가 발생했다.   
+vscode 의 settings에서 font family를 다 지운 다음에 폰트 초기화 된 것 확인한 후에  
+다시 원래 사용하던 폰트로 다시 복귀 했더니 괜찮아 졌다.  
 
 
 ## dependencies 에러 관련 error: Failed dependencies: libXss.so.1()(64bit)

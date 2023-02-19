@@ -2,7 +2,7 @@
 안에 위치를 시켜줘야하는데 원본 파일에서 복사를 해야한다   
 
 ```
-cp -r /usr/share/doc/mpv/mpv.conf ~/.config/
+cp -r /usr/share/doc/mpv/mpv.conf ~/.config/mpv/
 ```
 input.conf 파일도 있는데 key 바인딩에 관한 파일임  
 

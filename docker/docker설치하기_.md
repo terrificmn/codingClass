@@ -47,8 +47,6 @@ https://download.docker.com/linux/centos/docker-ce.repo
 sudo apt-get install docker-ce docker-ce-cli containerd.io
 ```
 
-
-
 docker engine 설치
 ```
 $sudo yum install docker-ce docker-ce-cli containerd.io
@@ -80,6 +78,7 @@ docker-compose를 설치하기   (여기는 centos/ubuntu 같은 듯)
 예전 방법
 ~~sudo curl -L "https://github.com/docker/compose/releases/download/1.28.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose~~
 
+> 현재는 plugin으로 설치를 하면 되기 때문에 매뉴얼로 복잡하게 할 필요는 없다  (2022년 이후?)
 
 Docker Compose binary 을 깃허브어서 다운 받은 후에 $HOME/.docker/cli-plugins 에 docker-compose로 카피하게 된다고 한다
 

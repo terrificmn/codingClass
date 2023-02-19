@@ -69,6 +69,8 @@ PATH 환경변수에 위의 경로를 등록해주거나, 심볼릭 링크를 �
 ln -s $HOME/Qt/Tools/QtCreator/bin/qtcreator ~/Qt/qtcreator
 ```
 
+> 항상 헤깔림. 원본파일~ 그다음이 심볼릭만들Path
+
 그 다음에 PATH 변수에 등록 하고 테스트 
 ```
 export $PATH=$PATH:$HOME/Qt
