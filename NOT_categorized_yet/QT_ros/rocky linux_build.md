@@ -70,15 +70,14 @@ New Project를 했을 때 Other Project에서 ROS Workspace를 볼 수가 있다
 
 
 ## 의존성 패키지 
-~~Could NOT find XKB  XKB 위치를 찾지 못하고, (설치는 되어 있는 듯)~~   
+~~Could NOT find XKB  XKB 위치를 찾지 못하고, (설치는 되어 있는 듯)~~     
+~~Could NOT find WrapVulkanHeaders~~
 
-Could NOT find WrapVulkanHeaders
-
-등의 문제가 있지만 위의 프로그램들 설치하는 것에 해결됨
+등의 문제가 있지만 위의 프로그램들 설치하는 것에 해결됨. 만약 추가로 
 
 
 ## dnf 로 설치를 하고 그냥 사용하면 이상 5.15 버전 정도도 호환이 잘 안된다 
-dnf 버전이 조금 낮기 때문에 qtcreator 4 버전이다  
+dnf 버전이 조금 낮기 때문에 qtcreator 4 버전이다. (Rocky linux 8.5)
 
 ```
 sudo dnf install qtcreator
@@ -89,10 +88,12 @@ sudo dnf install qtcreator
 qt-creator는 7.0 버전 설치되는 듯 하다  
  
  qt 6이상에서 작성한 것은 사용이 안될 수도 있어서 qt5 버전을 사용할 것이면 
- dnf로 설치해도 되지만 호환성이 걱정되서 빌드 버전으로 설치함  
-
+ dnf로 설치해도 되지만 호환성이 걱정되서 빌드 버전으로 설치함 (호환성 생각하면 하위 버전이어야겠지만...)   
+ 따로 우분투에서 사용하고 있는 것은 참고로 qt creator 버전은 8.0.1, QT는 6.3.1 버전이어서   
+ Rocky Linux에서도 빌드로 설치를 함
+ 
 > snap버전은 파일 경로를 설정거나 할 때 에러가 발생하며 제대로 실행이 안된다  
-> 이것은 ubuntu 버전도 같음   
+> 이것은 ubuntu 에서 snap으로 설치할 때에도 같은 현상..;;;
 
 
 
