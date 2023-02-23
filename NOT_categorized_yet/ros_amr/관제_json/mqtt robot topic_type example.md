@@ -43,6 +43,8 @@
 		"y": -5.123456,
 		"yaw": 1.123456,
 		"status": "active",
+		"recipe": 2,
+		"sequence": 1,
 		"battery": 85.5,
 		"order_state": "readyToLoad",
 		"basket_state": "empty"
@@ -55,8 +57,10 @@
 | robot_id | int    |
 | x        | double |
 | y        | double |
-| yaw          | double |
-| status       | string |
+| yaw      | double |
+| status   | string |
+| recipe   | int    |
+| sequence | int       |
 | battery      | double |
 | order_state  | string |
 | basket_state | string |
@@ -932,4 +936,50 @@ al.common 으로 이동 명령
   }
 }
 
+```
+
+
+
+stations 테스트 - gazebo경로  type 300
+```
+{
+  "header" : 
+  {
+    "version": 0, "type": 300 
+  },
+  "body" :
+  {
+    "robot_id": 3,
+    "recipe": 2,
+    "stations": [
+        {
+          "id": 2,
+          "x": 4.507804,
+          "y": -1.926179
+        },
+        {
+          "id": 3,
+          "x": 0.209795,
+          "y": -1.019812
+        }
+      ]
+  }
+}
+```
+
+
+
+stations 테스트 - type 301
+```
+{
+  "header" : 
+  {
+    "version": 0, "type": 301 
+  },
+  "body" :
+  {
+    "robot_id": 3,
+    "sequence": 1
+  }
+}
 ```
