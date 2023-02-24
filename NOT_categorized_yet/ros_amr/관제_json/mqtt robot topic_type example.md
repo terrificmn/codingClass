@@ -941,7 +941,7 @@ al.common 으로 이동 명령
 
 
 stations 테스트 - gazebo경로  type 300
-```
+```json
 {
   "header" : 
   {
@@ -970,7 +970,7 @@ stations 테스트 - gazebo경로  type 300
 
 
 stations 테스트 - type 301
-```
+```json
 {
   "header" : 
   {
@@ -980,6 +980,59 @@ stations 테스트 - type 301
   {
     "robot_id": 3,
     "sequence": 1
+  }
+}
+```
+
+
+stations 테스트 sorting 테스트 (for office)
+```json
+{
+  "header" : 
+  {
+    "version": 0, "type": 300 
+  },
+  "body" :
+  {
+    "robot_id": 2,
+    "recipe": 10,
+    "stations": [
+        {
+          "id": 2,
+          "x": 3.0446906,
+          "y": 0.1253185
+        },
+        {
+          "id": 3,
+          "x": 6.151103,
+          "y": -0.896063
+        },
+        {
+          "id": 4,
+          "x": 3.33870,
+          "y": -2.63941
+        },
+        {
+          "id": 5,
+          "x": 2.0804343,
+          "y": 0.079382
+        },
+        {
+          "id": 6,
+          "x": 3.996640,
+          "y": 1.749974
+        },
+        {
+          "id": 7,
+          "x": 4.952727,
+          "y": -1.173892
+        },
+        {
+          "id": 8,
+          "x": -0.956039,
+          "y": 1.633952
+        }
+      ]
   }
 }
 ```
