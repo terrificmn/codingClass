@@ -1,5 +1,6 @@
-qtcreator-ros를 빌드를 설치하기 위한 dependenceis 이지만..
+qtcreator-ros를 빌드를 설치하기 위한 dependencies 이지만..
 
+## dependencies 설치
 ```
 sudo dnf install mesa-libGL-devel ninja-build yaml-cpp-devel utf8proc-devel 
 ```
@@ -8,24 +9,36 @@ Rocky Linux 9.0 이상에서 설치할 경우
 
 ```
 sudo dnf install mesa-libGL-devel yaml-cpp-devel
-dnf --enablerepo=crb install ninja-build
-dnf --enablerepo=crb install utf8proc-devel
-dnf install libxkbcommon-devel
+sudo dnf --enablerepo=crb install ninja-build
+sudo dnf --enablerepo=crb install utf8proc-devel
+sudo dnf install libxkbcommon-devel
 sudo dnf install cmake g++
 sudo dnf install vulkan-loader-devel
 sudo dnf install python3-pip
 python3 -m pip install pyyaml requests py7zr
 ```
 
+## 이제 깃클론   
+클론
+```
+git clone https://github.com/ros-industrial/ros_qtc_plugin.git -b devel
+```
 
-setup.py를 실행하면  
+생성된 ros_qtc_plugin 이동 후 setup.py를 실행하면  
+```
+cd ~/ros_qtc_plugin
+./setup.py
+```
+
+이제 다운로드되는데 시간이 조금 걸림 
 /tmp/qtc_sdk 에 다운 받은 것들이 압축이풀린다 
 
-
+이제 현재 경로인 ros_qtc_plugin 에서 아래 실행   
+> 단 버전 다운받은 것이 다를 경우 아래 명령어 중 경로나 버전이 다를 수 있다.  
+setup.py 실행 후에 마지막에 나오는 프린트 되는 결과 확인하기   
 ```
 cmake -B build -GNinja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PREFIX_PATH="/tmp/qtc_sdk/Tools/QtCreator;/tmp/qtc_sdk/6.4.0/gcc_64"
 	cmake --build build --target package
-
 ```
 
 호환성 문제로 여러번 빌드하다보면 
@@ -49,6 +62,9 @@ CPack: Create package
 CPack: - package: /home/sgtocta/ros_qtc_plugin/build/ROSProjectManager-9.1-Linux-x86_64.zip generated.
 ```
 
+> sdk를 통해서 (/tmp생성) ros플러그인을 만들어준다.   
+빌드가 끝나고 만들어진 ROSProjectManager-9.1-Linux-x86_64.zip 파일을 플러그인으로 추가할 수 있게 된다    
+
 이제 /tmp에 생성된 skd를 전체를 이동시켜준다  
 
 ```
@@ -56,9 +72,14 @@ cd /tmp
 mv qtc_sdk/ ~/
 ```
 
-qtcreator는 qtc_sdk/Qt/Tool/Qtcreator 에 있음
+qtcreator는 qtc_sdk/Tools/Qtcreator/ 에 있음
 
 > PATH 환경 변수를 등록하거나 심볼릭링크를 /usr/bin/ 에 만들어 주면 편하게 사용할 수가 있다
+
+이런식으로 한다 
+```
+sudo ln -s ~/qtc_sdk/Tools/QtCreator/bin/qtcreator /usr/bin/
+```
 
 ## Ros plugin 등록
 Qt creator를 실행을 해서  Help -> About Plugins -> Install Plugin 을 해서 zip파일 통째로 선택해주면 된다 import를 해준다  
@@ -77,7 +98,9 @@ New Project를 했을 때 Other Project에서 ROS Workspace를 볼 수가 있다
 
 
 ## dnf 로 설치를 하고 그냥 사용하면 이상 5.15 버전 정도도 호환이 잘 안된다 
-dnf 버전이 조금 낮기 때문에 qtcreator 4 버전이다. (Rocky linux 8.5)
+조금 번거로워도 위의 빌드 버전 사용하자   
+
+dnf 버전이 조금 낮기 때문에 qtcreator 4 버전이다. (Rocky linux 8.5기준)
 
 ```
 sudo dnf install qtcreator
