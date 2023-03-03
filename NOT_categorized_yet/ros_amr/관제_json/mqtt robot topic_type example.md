@@ -45,6 +45,7 @@
 		"status": "active",
 		"recipe": 2,
 		"sequence": 1,
+		"task": "none",
 		"battery": 85.5,
 		"order_state": "readyToLoad",
 		"basket_state": "empty"
@@ -60,7 +61,8 @@
 | yaw      | double |
 | status   | string |
 | recipe   | int    |
-| sequence | int       |
+| sequence | int    |
+| task     | string       |
 | battery      | double |
 | order_state  | string |
 | basket_state | string |
@@ -70,6 +72,7 @@
 - status : "Charging", "Standby", "Active", "Stuck",  or "Lost"
 - order_state : "ReadyToOrder", "ReadyToLoad", or "ReadyToUnload"
 - basket_state : "Empty", or "InUse" 
+- task : "move_to_goal", order", "stations", "none"
 
 
 #### type 1
@@ -938,6 +941,44 @@ al.common 으로 이동 명령
 
 ```
 
+
+order 테스트 -gazebo경로 type 200
+```json
+{
+  "header": {
+    "version": 0,
+    "type": 200
+  },
+  "body": {
+    "robot_id": 3,
+    "order_id": 1,
+    "basket": [
+      {
+        "id": 1,
+        "depository": 1,
+        "code": "98271",
+        "name": "orange",
+        "quantity": 1,
+        "description": "",
+        "depository_x": 4.507804,
+        "depository_y": -1.926179
+      },
+      {
+        "id": 2,
+        "depository": 2,
+        "code": "98272",
+        "name": "apple",
+        "quantity": 1,
+        "description": "",
+        "depository_x": 0.209795,
+        "depository_y": -1.019812
+      }
+      
+    ]
+  }
+}
+
+```
 
 
 stations 테스트 - gazebo경로  type 300
