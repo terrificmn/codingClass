@@ -15,12 +15,28 @@
 
 일단 vscode를 실행해서 remote 기능을 활성화..
 
-먼저 extension을 설치를 한 후
+먼저 extensions 탭에서 Remote Development 검색/설치를 한 후  
+왼쪽에 Remote Explorer 가 생기는데 여기에서 클릭 후 검색되는 container에서 
+예를 들어 docker-ros 컨테이너가 보인다면 + 아이콘을 눌러서 Attach to Container를 눌러준다   
+그러면 vscode가 열리면 컨테이너에 접속하면서 새로 열린다   
+
+include 정도만 손 봐주면 ros/ros.h 정도는 잘 불러와준다  
+
+> attach to container를 하기전에 docker container를 실행을 해줘야 한다   
+
+
+## ctrl+shift+p 로 검색
+attach로 검색하면  
+`Dev Container: Attach to Running Container` 가 나오는데 클릭 후   
+실행되고 있는 docker container를 선택해주면 된다   
+
+
+
 
 스샷
 스샷 필요
 
-다음에 수정하기!!!!
+
 
 
 
