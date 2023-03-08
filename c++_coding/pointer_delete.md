@@ -141,6 +141,13 @@ Segmentation fault (core dumped)
 첫번째 testCout()는 주소를 알기에 출력되지만(delete 이후)    
 두번째 testCout()은 nullptr이 되기 때문에 치명적인 core dumped가 이러나면서 프로그램 종료가 됨   
 
+> 정확한 것은 delete 이후에는 다른 object가 new키워드로 해당 메모리에 만들어 질 수도 있게 되는 상태가 되는데  
+새롭게 할당 받기 전에는 그전 value를 가지고 있을 수 있다고 한다.  
+하지만 프로그램이 계속 실행되면 그 delete 한 메모리의 자리에 다른 값들이 써질 수 있게 되는 것이고   
+delete 이후에 오브젝트에 접근을 해서 사용한다면 당장은 실행이 되지만 결국은 문제가 발생할 수 있게 된다고 한다  
+즉 운이 좋게 아직 delete된 객체(오브젝트)에 새로 overwrite가 안 되었다 정도 인 듯 하다 ㅋㅋ   
+delete 이후에 nullptr을 해주고, 포인터가 있는지를 확인하려면 `if(!myObject)` 처럼 사용하면 될 듯 하다
+
 
 ## 정확한 방법인지는 모르겠으나... 
 포인터를 delete를 했기 때문에 **nullptr**를 넣어줘서 확실하게 실행이 안되게 해야하는 것 같다
