@@ -1,7 +1,8 @@
 
 업데이트 필요!!!!!!!!!
 
-실패 시
+실패할 경우 아래 처럼 나오게 됨
+```
 Certbot failed to authenticate some domains (authenticator: webroot). The Certificate Authority reported these problems:
   Domain: qs**log.com
   Type:   unauthorized
@@ -18,36 +19,36 @@ All renewals failed. The following certificates could not be renewed:
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 1 renew failure(s), 0 parse failure(s)
 Ask for help or search for solutions at https://community.letsencrypt.org. See the logfile /var/log/letsencrypt/letsencrypt.log or re-run Certbot with -v for more details.
+```
 
+이는 docker 컨테이너가 실행되고 있을 때 http로 응답을 해야하는데 응답을 못해줘서? 그럴 것임  
+먼저 docker를 내리고 설정파일을 바꾼다
 
+```
+docker-compose stop
+```
+> 아마도 docker-compose file이 있는 곳으로 이동을 먼저 해야할 수도 있음
 
-성공
-
-$ docker-compose stop
-[+] Running 8/8
- ⠿ Container phpmyadmin  Stopped                                           1.5s
- ⠿ Container certbot     Stopped                                           0.0s
- ⠿ Container npm         Stopped                                           0.0s
- ⠿ Container composer    Stopped                                           0.0s
- ⠿ Container nginx       Stopped                                           0.8s
- ⠿ Container artisan     Stopped                                           0.0s
- ⠿ Container php         Stopped                                           0.6s
- ⠿ Container mysql       Stopped                                           1.4s
-
-
+환경 설정파일을 열어 변경
+```
 $ vi .env
-$ docker-compose up -d
-[+] Running 8/8
- ⠿ Container phpmyadmin  Started                                           5.8s
- ⠿ Container certbot     Started                                           5.8s
- ⠿ Container php         Started                                           3.8s
- ⠿ Container composer    Started                                           6.0s
- ⠿ Container npm         Started                                           5.1s
- ⠿ Container mysql       Started                                           5.9s
- ⠿ Container nginx       Started                                           9.3s
- ⠿ Container artisan     Started                                           8.9s
+```
+prod 에서 dev로 바꿔준다
 
-$ docker-compose run --rm certbot renew -v
+그리고 다시 docker 실행. 이번에는 detach 모드로 실행해서 background에서 돌아가게 해준다   
+```
+docker-compose up -d
+```
+
+certbot 컨테이너를 실행해줘야 하게 때문이고, run 명령으로 실행시켜준 후에   
+종료 후 컨테이너 자동 삭제하게 해준다
+
+```
+docker-compose run --rm certbot renew -v
+```
+
+그러면 아래처럼 나오면 성공
+```
 Saving debug log to /var/log/letsencrypt/letsencrypt.log
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -66,3 +67,7 @@ Cleaning up challenges
 Congratulations, all renewals succeeded: 
   /etc/letsencrypt/live/qs****g.com/fullchain.pem (success)
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+```
+
+만약 기간내에 재발급을 하지 못했다면, 좀 더 복잡하게 된다.   
+새로 발급을 받아야한다.  다른 md파일 참고하기
