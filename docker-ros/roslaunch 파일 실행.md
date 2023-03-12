@@ -2,6 +2,13 @@
 melodic 버전에서는 docker-compose.yml 파일에서 command 설정으로 안 되었던 것 같은데   
 noetic 버전에서는 잘된다.
 
+이 부분도 확인해봐야하는 것이..
+데비안, rocky linux에서는 일단 compose에서의 command가 안됨   
+이유는 setup.bash가 source가 안되어서 패키지를 못 참음   
+
+**일단 방법은 docker-ros -- tinker보드 관련 브랜치나 noetic-radeon 참고하기**
+추후 업데이트하기
+
 > 아마도 melodic 버전에서는 뭔가 실수가 있었을 수도 있다  
 
 이것도 그것의 차원에서 계속 roslaunch 가 안되서 Dockerfile에서 ENTRYPOINT로 실행을 하면서   
