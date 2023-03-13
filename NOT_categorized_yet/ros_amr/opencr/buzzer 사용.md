@@ -4,6 +4,8 @@
 
 [깃허브 examples](https://github.com/arduino/arduino-examples/tree/main/examples/02.Digital/toneMelody)
 
+> pitches.h 파일의 내용을 복사해서 include 디렉토리에 만들어준다
+
 ```cpp
 #include "pitches.h"
 
@@ -35,7 +37,13 @@ void setup() {
     noTone(BDPIN_BUZZER);
   }
 }
+
+void loop() {
+  // no need to repeat the melody.
+}
 ```
 
-아주 간단한 소리를 내는데 훌륭할 듯 하다 
+아주 간단한 소리를 내는데 훌륭할 듯 하다. 위의 코드는 setup() 안에 넣어주면 한 번 하고 끝나고  
+loop() 에 넣어주면 무한 멜로디 반복하게 된다
 
+> loop() 에는 내용이 없더라도 함수 자체는 존재해야한다

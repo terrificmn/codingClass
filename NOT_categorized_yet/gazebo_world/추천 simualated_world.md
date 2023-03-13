@@ -6,6 +6,7 @@ https://github.com/aws-robotics/aws-robomaker-small-house-world.git
 
 https://github.com/aws-robotics/aws-robomaker-bookstore-world.git
 
+https://github.com/leonhartyao/gazebo_models_worlds_collection
 
 ### 3d model 만들기
 블렌더 등으로 매쉬를 만들어야 하는 듯 하다?? (잘모름;;;)   

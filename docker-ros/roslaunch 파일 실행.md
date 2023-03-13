@@ -1,15 +1,33 @@
+# docker에서 roscore, rosrun,roslaunch 실행
+방법이 많으므로 크게 정리하자면
+1. Dockerfile에서 ENTRYPOINT나 CMD를 활용. sh스크립트가 필요하며, **빌드 역시 필요**하다   
+2. docker-compose.yml 파일에서 command를 활용, setup.bash도 source해주는 명령어 필요, 대신 **빌드는 필요없다**(최초 빌드 제외)   
+3. 1번 방법을 사용 안하면 docker 실행 시 컨테이너 정상 작동, 2번에서 command로 roscore까지는 실행 된다.   
+이후 `docker exec -it ros bash` 로 컨테이너 접근해서 사용가능 (roslaunch등은 불가)
+
+
 ## yaml파일에서 roslaunch
 melodic 버전에서는 docker-compose.yml 파일에서 command 설정으로 안 되었던 것 같은데   
-noetic 버전에서는 잘된다.
+noetic 버전에서는 잘 된다.
 
 이 부분도 확인해봐야하는 것이..
 데비안, rocky linux에서는 일단 compose에서의 command가 안됨   
-이유는 setup.bash가 source가 안되어서 패키지를 못 참음   
+이유는 setup.bash가 source가 안되어서 패키지를 못 찾음: roscore는 작동함
 
-**일단 방법은 docker-ros -- tinker보드 관련 브랜치나 noetic-radeon 참고하기**
-추후 업데이트하기
+### 일단 melodic (nvidia 이미지)버전
+- melodic 버전에서는 docker-compose.yml 에서 command로 roscore 가 안된다  
+> 정확히는 melodic 이미지로는 확인을 못해봤음. 그래서 nvidia 이미지에서는 기본적으로 생성되는 entrypoint.sh 파일이   
+없는 것으로 봐서는 그래서 command의 roscore가 안되는 것일 수도 있음
 
-> 아마도 melodic 버전에서는 뭔가 실수가 있었을 수도 있다  
+```
+Error response from daemon: failed to create shim task: OCI runtime create failed: runc create failed: unable to start container process: exec: "roscore": executable file not found in $PATH: unknown
+```
+단, 아예yml 파일에서 command를 빼고 사용하면 ros실행은 잘 됨. 이후 `docker exec ...` 통해서 접근 가능
+
+- 물론 Dockerfile에서 entrypoint를 사용해서 sh스크립트를 실행하는 것은 작동함  
+- sh스크립트 실행 없이 docker-compose.yml 파일에서 bash로 실행 한후 setup.bash 읽은 후 roslaunch 실행 가능   
+(아래에서 참고)
+
 
 이것도 그것의 차원에서 계속 roslaunch 가 안되서 Dockerfile에서 ENTRYPOINT로 실행을 하면서   
 sh script를 실행하게 했는데 $ROS_DISTRO 변수가 실행이 안되서 그런것 이였음
@@ -24,8 +42,8 @@ RUN echo "source ${HOME}/docker_ws/devel/setup.bash" >> ${HOME}/.bashrc
 ```
 
 #### 장점은 docker-compose.yml command 명령을 적고, 빌드가 필요없다
-Dockerfile의 ENTRYPOINT를 사용하게 되면 런치파일 내용이 바뀌게 되면 재 빌드를 해야하는데  
-docker-compose 파일을 사용할 경우는 한번 빌드 후에 roslaunch 내용을 바꿀 수 있다
+Dockerfile의 ENTRYPOINT를 사용하게 되면 런치파일 내용이 바뀌게 되면 재 빌드를 해야하는데   
+~~docker-compose 파일을 사용할 경우는 한번 빌드 후에 roslaunch 내용을 바꿀 수 있다~~
 
 ```yml
 services:
@@ -36,10 +54,24 @@ services:
 ```
 > 디버깅 할 때는 command: - roscore 가 편하다
 
+어찌 된 일인지 분명히 위의 command로 roslaunch 하듯이 하면 되었는데 다시 확인을 하니 작동을 안 함   
+위의 **명령 처럼 하면 안 되고**
+
+방법은 roslaunch 하기전에 bash 명령어로 setup.bash 파일을 source를 해준다음에 roslaunch를 하면 된다   
+
+**일단 방법은 docker-ros 깃허브 tinker보드 관련 브랜치나 noetic-radeon 참고하기**
+
+yml파일의 command 부분에   
+```yaml
+command:
+    ["bash", "-c", "source /home/자신의-ws-경로/devel/setup.bash && roslaunch pkg launch파일.launch"]
+```
 
 
 ## Dockerfile에서 ENTRYPOINT를 지정하기
 ~~Dockerfile, docker-compose.yml에서 roslaunch 파일을 실행하려고 했지만 잘 안됨~~
+
+docker-comopse에서 command을 작성하지 않고, Dockerfile에서 ENTRYPOINT를 입력해서 직접 빌드 후 실행하게 됨
 
 먼저 sh스크립트를 만든다  
 

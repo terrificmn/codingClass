@@ -18,7 +18,7 @@ pkg1
  
 ```
 
-패키안에 CMakeLists.txt 예
+패키지안에 CMakeLists.txt 예
 ```
 cmake_minimum_required(VERSION 2.8.3)
 project(my_examle_world)
