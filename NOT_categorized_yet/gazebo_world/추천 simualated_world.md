@@ -8,6 +8,8 @@ https://github.com/aws-robotics/aws-robomaker-bookstore-world.git
 
 https://github.com/leonhartyao/gazebo_models_worlds_collection
 
+https://github.com/osrf/gazebo_models
+
 ### 3d model 만들기
 블렌더 등으로 매쉬를 만들어야 하는 듯 하다?? (잘모름;;;)   
 
@@ -25,3 +27,8 @@ https://github.com/leonhartyao/gazebo_models_worlds_collection
 
 
 조금씩 공부해봐야할 듯..
+
+[mesh를 sdf로 변환..github 참고..](https://github.com/osrf/mesh_to_sdf)
+
+[가제보 모델들. 공식 gazebosim.org 사이트](https://app.gazebosim.org/)
+
