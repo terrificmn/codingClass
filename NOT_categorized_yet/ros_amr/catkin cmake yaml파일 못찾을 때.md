@@ -62,8 +62,8 @@ cat result
 /usr/lib/x86_64-linux-gnu/cmake/yaml-cpp/yaml-cpp-config.cmake
 ```
 
-> ubuntu 20.04 기준에는 위의 경로에 설치가 되어 있었음
-
+> ubuntu 20.04 기준에는 위의 경로에 설치가 되어 있었음   
+Rocky linux 기준에는 `/usr/lib64/cmake/yaml-cpp/yaml-cpp-config.cmake`   
 
 위 cmake 파일을 열어보면 
 ```
@@ -74,6 +74,7 @@ set(YAML_CPP_LIBRARIES "yaml-cpp")
 이렇게 되어 있는데, 이제 yaml-cpp_DIR를  경로를 제대로 설정을 해주게 되면  
 위의 YAML_CPP_INCLUDE_DIR, YAML_CPP_LIBRARIES 변수들을 사용할 수 있게 된다  
 
+실제로는 yaml-cpp 경로까지만 SET으로 지정해준다
 
 이제 최종 정리를 하면 아래와 같다 
 ```
@@ -97,6 +98,13 @@ target_link_libraries(${PROJECT_NAME}
 	${YAML_CPP_LIBRARIES}
 )
 ```
+
+### qt cmake에서도 비슷하다
+- set을 해주고   `set(yaml-cpp_DIR ....)`
+- find_package 추가 `find_package(yaml-cpp REQUIRED)`
+- 마지막으로 target_link_librearies에 추가해준다    
+`target_link_libraries(appmyapp PRIVATE Qt6::Quick ${YAML_CPP_LIBRARIES})`
+- include_directories까지는 안해도 작동하는 듯 하다
 
 
 이제 파일에서 인쿠드를 하고 사용하면 됨
