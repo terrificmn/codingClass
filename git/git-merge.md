@@ -41,3 +41,42 @@ conflicts가 있을 경우에는
 ```
 git merge --abort
 ```
+
+
+## remote 에서 PR 하기
+
+다른 branch에서 작업을 해서 push를 하게 되면 PR Pull Request를 할 수가 있다   
+github에서 해당 리포지터리의 main 브랜치에서 PR을 하게 되면   
+특정 브랜치에서 main으로 PR을 하게 되고  
+몇번의 Pull Request 버튼 및 Merge 승인을 누르게 되면  
+자동으로 병합이 된다.  물론 문제가 없을 경우   
+
+main에서 갈라져 나온 브랜치에서 작업을 하고 main은 작업을 안했을 경우에는 거의 문제 없이  
+Merge pull request가 완료된다   
+
+이후 해당 브랜치를 삭제하겠냐고 나오는데, 삭제해도 되고 안해도 되는 듯 하다   
+
+
+## local에서 PR이후 main 브랜치 pull 받기
+이제 로컬에서는 main으로 이동 후에 
+```
+git checkout main
+git pull origin main
+```
+pull 을 받으면 되고, local에서 작업하던 브랜치.. 예를 들면 devel 브랜치라고 하면   
+지울 수도 있다 
+
+
+#### 브랜치 삭제
+```
+git branch 
+```
+로 확인 한 후 * 표시로 다른 브랜치에 현재 상태를 확인 한 후에    
+(지우려면) 삭제한다  
+
+```
+git branch -d devel
+```
+
+
+
