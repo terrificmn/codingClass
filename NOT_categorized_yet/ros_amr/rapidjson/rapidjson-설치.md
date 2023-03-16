@@ -46,3 +46,13 @@ https://github.com/Tencent/rapidjson/
 튜토리얼은  여기  
 https://rapidjson.org/md_doc_tutorial.html
 
+
+필요할 경우에는 넣지만, include만 넣어준 것이기 때문에 필요 없겠지만 혹시라도...참고로
+흠.. 잘 되던 것인데, 아마도 다른 방식으로 설치를 하던가 했었나보다..  
+find_package를 하게 되면 찾지를 못한다  흠.. 결론은 필요는 없다 
+```c
+#rapidjson
+# find_package(RapidJSON REQUIRED)
+# target_include_directories(${PROJECT_NAME} SYSTEM PUBLIC
+#   "${RapidJSON_INCLUDE_DIR}")
+```

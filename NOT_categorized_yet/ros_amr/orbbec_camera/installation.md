@@ -56,7 +56,25 @@ sudo udevadm control --reload && sudo  udevadm trigger
 기본 런치파일을 실행을 하게되면 그냥 color의 image_raw 가 퍼블리쉬가 안되고   
 No color sensor found, depth align will be disabled 없다고 나온다   
 
-그래서 패키지 내의 params 디렉토리에서 use_uvc_camera를 true로 변경해주면 보통 카메라 이미지도 퍼블리싱 된다  
+또는 Stream color is disabled
+
+
+~~그래서 패키지 내의 params 디렉토리에서 use_uvc_camera를 true로 변경해주면 보통 카메라 이미지도 퍼블리싱 된다~~
+
+astra_camera 깃허브가 최신화 되면서 아예 파라미터 디렉토리 자체가 없어졌다;;
+
+
+main.cpp에서 OBCameraNodeFactory를 생성하면서 시작하는데...   
+src 디렉토리의 ob_camera_node_factory.cpp 파일에 보면
+
+init 메소드에서 use_uvc_camera 변수를 설정해주는데 파라미터를 받게 되어 있는데, 기본값이 false로 되어 있다   
+**true**로 고쳐서 catkin build를 다시 하거나,   
+```cpp
+  use_uvc_camera_ = nh_private_.param<bool>("use_uvc_camera", false);
+```
+
+아니면, 로스런치파일에 파라미터를 추가해준다. 이게 더 편할지도.;; 추후 테스트를 해봐야겠다 
+
 
 ```
 roslaunch astra_camera astra.launch
