@@ -1,7 +1,10 @@
+# astra_camera orbbec_camera
+
+## 설치
+의존성 설치
 ```
 sudo apt install libgflags-dev  ros-$ROS_DISTRO-image-geometry ros-$ROS_DISTRO-camera-info-manager ros-$ROS_DISTRO-image-transport ros-$ROS_DISTRO-image-publisher libgoogle-glog-dev libusb-1.0-0-dev libeigen3-dev
 ```
-
 
 libuvc 클론 후 빌드 설치
 ```
@@ -15,7 +18,6 @@ cmake .. && make -j4
 sudo make install
 sudo ldconfig
 ```
-
 
 ros_astra_camera 패키지 설치
 ```
@@ -51,7 +53,11 @@ sudo udevadm control --reload && sudo  udevadm trigger
 
 그러면 /etc/udev/rules.d 디렉토리에 56-orbbec-usb.rules 파일이 생김
 
-실행
+
+
+## troubleshooting
+[일단 여기는 참고만 하고 이미 패키지 update가 되어 있으므로 업데이트 된 tar파일 사용하자-스킵하고 다음보기](#실행)   
+
 
 기본 런치파일을 실행을 하게되면 그냥 color의 image_raw 가 퍼블리쉬가 안되고   
 No color sensor found, depth align will be disabled 없다고 나온다   
@@ -61,11 +67,10 @@ No color sensor found, depth align will be disabled 없다고 나온다
 
 ~~그래서 패키지 내의 params 디렉토리에서 use_uvc_camera를 true로 변경해주면 보통 카메라 이미지도 퍼블리싱 된다~~
 
-astra_camera 깃허브가 최신화 되면서 아예 파라미터 디렉토리 자체가 없어졌다;;
-
+> astra_camera 깃허브가 최신화 되면서 아예 파라미터 디렉토리 자체가 없어졌다;; 그리고 런치파일에도 파라미터가 없다.  
 
 main.cpp에서 OBCameraNodeFactory를 생성하면서 시작하는데...   
-src 디렉토리의 ob_camera_node_factory.cpp 파일에 보면
+src 디렉토리의 ob_camera_node_factory.cpp 파일의 OBCameraNodeFactory 클래스의 init 메소드를 살펴보자
 
 init 메소드에서 use_uvc_camera 변수를 설정해주는데 파라미터를 받게 되어 있는데, 기본값이 false로 되어 있다   
 **true**로 고쳐서 catkin build를 다시 하거나,   
@@ -73,8 +78,24 @@ init 메소드에서 use_uvc_camera 변수를 설정해주는데 파라미터를
   use_uvc_camera_ = nh_private_.param<bool>("use_uvc_camera", false);
 ```
 
-아니면, 로스런치파일에 파라미터를 추가해준다. 이게 더 편할지도.;; 추후 테스트를 해봐야겠다 
+아니면, 로스런치파일에 파라미터를 추가해준다. 그냥 파라미터 추가해주는 것이 좋겠다;;
+```xml
+<launch>
+...생략
+    <arg name="use_uvc_camera" default="true"/>
+    ..생략...
+    <node name="cmera" pkg="astra_camera" .. 생략.. >
+        ..생략..
+        <param name="use_uvc_camera" value="$(arg use_uvc_camera)"/>
+        ...생략...
+    </node>
+</launch>
+```
 
+런치파일만 추가해줘도 훨 낫다. 괜히 값 바뀔때마다 빌드 할 필요없고..
+
+
+## 실행
 
 ```
 roslaunch astra_camera astra.launch
