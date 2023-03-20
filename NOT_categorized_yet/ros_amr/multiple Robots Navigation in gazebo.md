@@ -123,8 +123,13 @@ spawn_robots_prefix.launch 파일 중에
 
 </launch>
 ```
+위의 방법은 ros 노드에 namespace를 붙여줌과 동시에 모든 토픽에도 group ns로 지정한 이름이 들어가게 된다.  
+tf_prefix는 include 전에 줘서 파라미터를 확실하게 주고,   
+include 되는 one_robot.launch 파일 등에서는 직접 파라미터를 적용하지 않음 (tf_prefix) - 잘 안됨
+
 
 2. 다른 방법으로는 파라미터를 사용 안하고 각기 다른 런치파일을 실행을 시킨다   
+(추천하지 않음. 공통의 런치파일을 사용하는 것이 아니고 별개로 계속 만들어줘야 하기 때문)
 ```xml
     
     <group ns="tb3_1">

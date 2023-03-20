@@ -1,0 +1,21 @@
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <param name="base_global_planner" value="navfn/NavfnROS"/>
+    <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
+
+    <param name="controller_frequency" value="10.0" />
+    <param name="controller_patience" value="15.0" />
+    <param name="planner_frequency" value="5.0" />
+    <param name="planner_patience" value="5.0" />
+    <param name="oscillation_timeout" value="10.0" />
+    <param name="oscillation_distance" value="0.5" /> 
+    
+    <rosparam file="$(find v100_move_base)/config/new_try/common_costmap_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find v100_move_base)/config/new_try/common_costmap_params.yaml" command="load" ns="local_costmap" />
+
+    <rosparam file="$(find v100_move_base)/config/new_try/global_costmap_params.yaml" command="load"/>
+    <rosparam file="$(find v100_move_base)/config/new_try/local_costmap_params.yaml" command="load"/>
+        
+    <rosparam file="$(find v100_move_base)/config/new_try/global_costmap_static_params.yaml" command="load" ns="global_costmap/static_layer"/>
+        
+    <rosparam file="$(find v100_move_base)/config/new_try/navfn_global_planner_params.yaml" command="load" />
+    <rosparam file="$(find v100_move_base)/config/new_try/dwa_local_planner_params.yaml" command="load" />
