@@ -21,8 +21,11 @@ ros::param::get("/publish_frame_to", paramStr);
 // "문자열" 부분인 "/publish_frame_to"가 파라미터 (런치파일에서 설정한 param name이 된다)
 ```
 
-여기에서 주의할 점은 파라미터 이름인 publish_frame_to 가 반드시 /로 시작을 해야하는 것 같다   
-/를 빼고 빌드를 하니 파라미터 값을 받지를 못한다  
+여기에서 주의할 점은 파라미터 이름인 publish_frame_to 가 ~~반드시 /로 시작을 해야하는 것 같다   
+/를 빼고 빌드를 하니 파라미터 값을 받지를 못한다~~
+
+아마 착오가 있었을 듯.. `/'를 넣는다는 것은 토픽이나 파라미터가 가장 상위단인 root 경로가 된다는 의미이다   
+그러므로 namespace등을 적용할 경우에는 무조건 / 경로에 맞춰저서 적용이 안될 수 있다 
 
 그리고 물론 string 말고도 , int, double 등으로 타입으로 보낼 수 있다.    
 런치파일에서
@@ -40,6 +43,8 @@ ros::param::param<std::string>("/param1", paramStr, "odom"); //default set
 <arg name="publish_frame_to" default="" /> 
 ```
 이렇게 비워두면 위에서 지정한 (cpp)에서 odom을 기본값으로 가져간다 
+
+> std::string 식으로 타입을 지정해도 변수는 선언해줘야한다. (위에서)
 
 
 ## ros 클래스 말고 nh 노드 핸들러에서도 가능하다
