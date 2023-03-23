@@ -31,8 +31,11 @@ cd doc && install -p -m 0644 lua.1 luac.1 /usr/local/man/man1
 ## g++ 로 빌드 하기
 c++ 프로그램 내에서 include 는 extern 으로 해준다 
 ```cpp
-
-
+extern "C" {
+    #include <lua.h>
+    #include <lualib.h>
+    #include <lauxlib.h>
+}
 ```
 
 빌드는 `-llua -ㅣdl` 을 포함시켜주면 된다
