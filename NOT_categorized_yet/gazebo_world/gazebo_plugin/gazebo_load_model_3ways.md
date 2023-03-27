@@ -262,5 +262,5 @@ export GAEBO_PLUGIN_PATH=`pwd`/build:$GAZEBO_PLUGIN_PATH
 gazebo world/factory.world 
 ```
 
-> `pwd` 현재 위치를 출력해서 그 값을 사용 (` 가 필요)
-
+> `pwd` 현재 위치를 출력해서 그 값을 사용 (` 가 필요),    
+pwd 를 사용하려면 실제 디렉토리로 이동을 해야하는 단점이 있다

@@ -15,7 +15,10 @@ Rocky linux 기준
 sudo dnf install wayland-devel
 ```
 
-우분투는 확인해보지 않았으나, libwayland-dev 일 수도 있음
+우분투는 확인해보지 않았으나, libwayland-dev 일 수도 있음.확인 : 우분투에서는 
+```
+sudo apt install libwayland-dev
+```
 
 > 어쨋든 linux, BSD 시스템, Mac OS 및 GNU Hurd를 지원한다고 하니 꼭 필요한 dependency는  
 wayland-client 라고 함
@@ -56,4 +59,14 @@ sudo ninja install
 wl-clipboard 유틸에서는 `meson build` 라는 명령어와 만들어진 meson.build 파일을 사용하는 듯 하다. 
 
 [CMake는 가라! Meson과 함께하는 차세대 C++ 빌드 시스템 구축](https://int-i.github.io/cpp/2021-06-26/cpp-meson/)  
+
+
+
+## 우분투 wayland가 안되는 경우  
+그래픽 카드 혹은 시스템 설정 때문에 wayland가 막혀있을 경우가 있음   
+그러면 설정에서 풀어줘야하는데, Nvidia의 그래픽 카드는 지원을 안하는 경우도 있다고 한다   
+
+gdm설정-wayland.md 파일을 참고하자 
+
+> wayland가 안되면 프로그램을 구동 시 `Failed to connect to a Wayland server` 라고 나온다   
 
