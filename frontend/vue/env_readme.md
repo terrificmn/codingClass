@@ -48,3 +48,6 @@ https://github.com/motdotla/dotenv
 > vue3. 이후부터는? 정확하지 않다  
 VUE_APP_ 으로 prefix를 붙여서 만들어야하는듯한데.? 일단 상관은 없는듯 하다
 
+
+단독으로 할 경우에는 잘 되지만, php와 연동을 하면 전혀 안됨   
+좀더 찾아보자
