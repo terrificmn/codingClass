@@ -8,6 +8,11 @@ wsl --list --online
 를 하면 distro를 고를 수 있다   
 
 ```
+wsl --install Ubuntu-20.04
+```
+
+또는 기본 ubuntu로 설치
+```
 wsl --install
 ```
 
@@ -19,3 +24,16 @@ wsl --install
 [windows-docker install 여기에서 다운로드](https://docs.docker.com/desktop/install/windows-install/)
 
 설치가 다 되면 로그아웃을 해주게 된다  
+
+
+## trouble shooting
+```
+WslRegisterDistribution failed with error: 0x800700e1
+```
+
+wsl --install을 할 때 계속 실패해서 실행도 안되고 docker desktop도 실행이 안된다면  
+바이러스 프로그램을 의심해보자  
+
+윈도우 백신 프로그램에서 계속 프로세서를 격리(?)시키고 있었다.   
+일단 백신을 사용안하도록 했더니 docker desktop 및 wsl-install이 잘 된다  
+

@@ -2,6 +2,11 @@ powershell 설치 (현재 7버전, 버전6 이상 추천)
 https://github.com/PowerShell/PowerShell/releases?WT.mc_id=-blog-scottha
 windows -64로 선택 후 다운받고 powershell 설치!
 
+> tar, zip 버전은 소스파일(또는 리눅스용)이므로 windows에서 사용할 경우에는    
+PowerShell-7.3.3-win-x86.msi 같은 파일로 받아준다  
+preview 버전 보다는 그 바로 아래 하위 버전으로 다운 받음   
+
+
 그 다음 필요한 모듈 설치 (posh-git and oh-my-posh)
 아래처럼 입력하면 됨
 	Install-Module posh-git -Scope CurrentUser
@@ -12,6 +17,11 @@ windows -64로 선택 후 다운받고 powershell 설치!
 https://github.com/JanDeDobbeleer/oh-my-posh?WT.mc_id=-blog-scottha
 
 
+[ohmyposh 위젯 설치-및 사용법-Document](https://ohmyposh.dev/docs/installation/windows)
+
+oh-my-posh init pwsh --config "C:/Users/jihyo/AppData/Local/Programs/oh-my-posh/themes/jandedobbeleer.omp.json"
+
+ 
 Enable the prompt:
 
 # Start the default settings
