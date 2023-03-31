@@ -62,3 +62,15 @@ CDN으로 include? 하는 것은 암튼 CDN 을 이용해서 하는 것과는 �
 npm install -g @vue/cli
 ```
 
+
+
+Error: Cannot find module '/var/www/html/vue'
+    at Function.Module._resolveFilename (node:internal/modules/cjs/loader:933:15)
+    at Function.Module._load (node:internal/modules/cjs/loader:778:27)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)
+    at node:internal/main/run_main_module:17:47 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+
+
+[여기튜토리얼 따라해보기](https://likiipedia.com/getting-started-with-vue/)

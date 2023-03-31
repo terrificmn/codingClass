@@ -3,7 +3,8 @@
 먼저 로봇의 컴퓨터가 마스터가 된다면 
 환경변수 ROS_MASTER_URI 설정해주면 된다
 
-로봇컴의 ~/.bashrc 파일을 열어준다
+### master 설정
+*로봇컴*의 ~/.bashrc 파일을 열어준다
 ```
 export ROS_MASTER_URI=http://192.168.0.9:11311/
 export ROS_HOSTNAME=192.168.0.9
@@ -12,13 +13,15 @@ export ROS_HOSTNAME=192.168.0.9
 그리고 ifconfig로 확인한 아이피주소를 넣어준다
 ROS_HOSTNAME 에도 자기의 아이피 (로봇컴)
 
-그리고 보통 pc에 넘어와서 ~/.bashrc 파일을 열어준다
+
+### client쪽 설정
+그리고 *보통(remote pc) pc*에 넘어와서 ~/.bashrc 파일을 열어준다
 ```
 export ROS_MASTER_URI=http://192.168.0.9:11311/
 export ROS_HOSTNAME=192.168.0.98
 ```
 
-마스터를 사용할 로봇컴의 아이피를 넣어준다
+마스터로 사용할 로봇컴의 아이피를 넣어준다
 그리고 ROS_HOSTNAME 에는 pc의 아이피를 적어주고 저장 후 빠져나오기
 
 그리고 
