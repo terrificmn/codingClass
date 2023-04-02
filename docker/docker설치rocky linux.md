@@ -21,7 +21,7 @@ sudo systemctl start docker
 ```
 
 ## 버전 확인
-설치가 잘 도ㅓ이써으므로 확인  
+설치가 잘 되었는지 확인  
 ```
 docker version
 ```
