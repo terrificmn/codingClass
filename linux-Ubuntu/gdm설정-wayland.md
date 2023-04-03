@@ -69,3 +69,19 @@ DRIVER=="nvidia", RUN+="/usr/lib/gdm3/gdm-disable-wayland"
 
 그래픽 카드가.. *GEFORCE RTX 3060* 임
 
+
+## desktop 변경 하려면
+공식 지원해주는 
+```
+sudo apt install ubuntu-gnome-desktop
+```
+또는 
+```
+sudo apt install vanilla-gnome-desktop 
+```
+
+원하는 desktop을 설치한 후에 (검색하면 더 많이 있음)
+
+
+로그아웃을 한 다음에 다시 로그인을 할 때 톱니바퀴를 골라서 해당 desktop으로 들어가 주면 된다   
+xor가 붙은 것은 x11,
