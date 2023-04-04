@@ -59,3 +59,18 @@ sudo docker run --rm --gpus all nvidia/cuda:11.0.3-base-ubuntu20.04 nvidia-smi
 CentOS 관련은 위 링크로 참고할 것
 
 
+## `apt update`를 해도 (ubuntu 20)
+```
+E: Unable to locate package nvidia-docker2
+```
+이런 에러 발생시에는 위의 repository GPG key setup을 하고 나서 다시 하면 설치가 된다   
+ubuntu 18.04 어쩌구 하는데..  모르겠다 일단 설치가 목적 ㅋㅋ  20.04에서도 된다   
+
+
+
+### 
+no protocal 이라고 나올 경우
+를 해줘야한다 
+```
+xhost + local:docker
+```

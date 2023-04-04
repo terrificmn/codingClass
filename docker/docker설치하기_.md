@@ -44,8 +44,10 @@ https://download.docker.com/linux/centos/docker-ce.repo
 다시한번 apt-get update 를 해준다
 안 그러면 도커 패키지를 못 찾음
 ```
-sudo apt-get install docker-ce docker-ce-cli containerd.io
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
+> 요즘은 docker-compose도 따로 설치할 필요없이 그냥 plugin형태로 설치하는 듯 
+
 
 docker engine 설치
 ```
@@ -66,6 +68,7 @@ sudo systemctl start docker
 ```
 
 ## Docker compose 설치
+**예전 자료~~ 참고하지 말것! plugin 형태로 설치한다. 더이상 따로 설치할 필요가 없음**   
 
 [도커컴포즈 설치~ docs확인하기](https://docs.docker.com/compose/install/)
 
@@ -110,9 +113,13 @@ sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 ```
 
 
-버전확인
+~~버전확인~~
 ```
 docker-compose --version
+```
+
+```
+docker compose version
 ```
 
 버전 1.28.5 이런식으로 나오면 OK!
