@@ -37,6 +37,7 @@ extern "C" {
     #include <lauxlib.h>
 }
 ```
+> cpp 이기 때문에 C 라고 알려주는 기능이라고 함
 
 빌드는 `-llua -ㅣdl` 을 포함시켜주면 된다
 ```
