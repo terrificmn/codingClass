@@ -26,7 +26,7 @@ catkin build --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebinfo
 
 
 
-## 정리해서 Noetic 버전 설치 정리 버전
+## ubuntu 20.04 - Noetic 버전
 ```
 sudo apt update  
 sudo apt-get install -y python3-rosdep stow 
@@ -59,8 +59,14 @@ rosdep install --from-paths src --ignore-src --rosdistro=${ROS_DISTRO} -y
 여기에서 이제 catkin build를 실행하면 abseil 패키지를 찾지를 못한다 
 > 여기에서 닌자로 빌드하지 않고 catkin tools로 build 한다   
 
-abseil을 찾지 못하므로 cartographer에 있는 스크립트 파일을 직접 설치해줘야한다
+```
+Reading state information... Done
+E: Unable to locate package libceres-dev
+ERROR: the following rosdeps failed to install
+```
+위와 같은 에러 발생함
 
+abseil을 찾지 못하므로 cartographer에 있는 스크립트 파일을 직접 설치해줘야한다  
 충돌 가능성이 있을 수 있어서 만약 패키지가 이미 설치가 되어 있다면 삭제 한다
 ```
 sudo apt-get remove ros-${ROS_DISTRO}-abseil-cpp
@@ -72,9 +78,32 @@ cd src/cartographer/scripts
 ./install_abseil.sh
 ```
 
+쉘 스크립트를 진행하려고 하는 abseil-cpp가 디렉토리가 있다고 하는 경우가 있다 (실패했다가 다시 진행하는 경우)   
+scripts 디렉토리에 생긴 abseil-cpp 를 지우고 다시 실행
+```
+rm -rf abseil-cpp  
+./install_abseil.sh
+```
+
+이렇게 되면 깃클론을 받으면서 바로 빌드를 해준다  (물론 git도 설치 되어있어야 함)
+```
+cd /usr/local/stow
+sudo stow absl
+```
+요렇게 나오면 끝
+
+이제 다시 워크 스페이스로 돌아가서 rosdep으로 설치를 다시 해준다   
+```
+cd catkin_ws  ## or cd catkin_fund_ws
+rosdep install --from-paths src --ignore-src --rosdistro=${ROS_DISTRO} -y
+```
+관련 패키지가 설치가 되고 나서  `#All required rosdeps installed successfully` 끝나게 되면
+
+
 여기에서 닌자로 빌드하지 않고 catkin tools로 build 한다   
-
-
+```
+catkin build
+```
 
 
 ## ROS 관련 환경 변수 확인
