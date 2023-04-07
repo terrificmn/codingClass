@@ -10,7 +10,6 @@ https://www.mathsisfun.com/geometry/radians.html
 그래서 pi Radians가 된다 = 180도   
 1 radian을 파이로 나누면 180/pi  57.2958도가 나오게 된다  
 
-
 radian 공식 관련  
 degrees to radians (muliply by pi(3.14), divide by 180)  
 각도(theta) * pi / 180   
@@ -23,3 +22,5 @@ radians to degrees (multiply by 180, divide by pi)
 ```
 
 ```
+
+이미 완료된 yaw 값일 경우에는 바로 쿼터니언으로 변경 가능... 업데이트하기
