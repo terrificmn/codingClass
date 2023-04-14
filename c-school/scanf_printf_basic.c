@@ -1,44 +1,44 @@
 #include <stdio.h>
-#include <string.h>  // <string.h> ¶óÀÌºê·¯¸®´Â ¹®ÀÚ¿­ ¹è¿­·Î ¼±¾ðµÈ ¹®ÀÚ¿­À» ¹Ù²ãÁÙ ¶§ »ç¿ë
+#include <string.h>  // <string.h> ë¼ì´ë¸ŒëŸ¬ë¦¬ëŠ” ë¬¸ìžì—´ ë°°ì—´ë¡œ ì„ ì–¸ëœ ë¬¸ìžì—´ì„ ë°”ê¿”ì¤„ ë•Œ ì‚¬ìš©
 
 int main() {
-	char fruit[20] = "strawberry"; //char ¹®ÀÚ¿­ º¯¼ö¿¡ °ªÀ» ³ÖÀ¸·Á¸é º¯¼ö[¹è¿­]À» Àû¾îÁà¾ßÇÏ°í ÀÎµ¦½º´Â ¹®ÀÚ¿­Å©±â +1 µÇ¾î¾ßÇÑ´Ù 
-    //ÀÚµ¿À¸·Î ¸¶Áö¸·¿¡ \0ÀÎ null¹®ÀÚ°¡ µé¾î°£´Ù
-	printf("µþ±â: %s\n", fruit);
-	printf("µþ±âÂ´: %s %s\n", fruit, "jam");
+	char fruit[20] = "strawberry"; //char ë¬¸ìžì—´ ë³€ìˆ˜ì— ê°’ì„ ë„£ìœ¼ë ¤ë©´ ë³€ìˆ˜[ë°°ì—´]ì„ ì ì–´ì¤˜ì•¼í•˜ê³  ì¸ë±ìŠ¤ëŠ” ë¬¸ìžì—´í¬ê¸° +1 ë˜ì–´ì•¼í•œë‹¤ 
+    //ìžë™ìœ¼ë¡œ ë§ˆì§€ë§‰ì— \0ì¸ nullë¬¸ìžê°€ ë“¤ì–´ê°„ë‹¤
+	printf("ë”¸ê¸°: %s\n", fruit);
+	printf("ë”¸ê¸°ì¨ˆ: %s %s\n", fruit, "jam");
 	
-	//fruit = "banana"; //! ¹®ÀÚ¿­ ¹è¿­¿¡´Â Á÷Á¢ ÇÒ´çÇÒ ¼ö°¡ ¾ø´Ù. Ã³À½¿¡ ¼±¾ðÇÒ ¶§¸¸ °¡´É(c¾ð¾î Æ¯Â¡) 
-	//¿¡·¯ ¹ß»ýÇÔ
-	// ¹®ÀÚ¿­ »ó¼ö¸¦ Á÷Á¢ ÀÔ·ÂÀº ¾ÈµÇÁö¸¸ strcpy()ÇÔ¼ö¸¦ ÀÌ¿ëÇÏ¸é º¹»çÇØ¼­ ¸¸µå´Â °ÍÀÌ °¡´É
-    //include <string.h> ¸¦ ºÒ·¯¿Í¼­ strcpy()ÇÔ¼ö¸¦ »ç¿ëÇÏ¸é º¯¼ö¿¡ ¹®ÀÚ¿­À» ÇÒ´ç°¡´É
-	//strcpy(fruit, "banana");  //strcpy()ÇÔ¼ö·Î »õ·Î¿î °ªÀ» ³Ö¾îÁÙ ¼ö ÀÖÀ½
+	//fruit = "banana"; //! ë¬¸ìžì—´ ë°°ì—´ì—ëŠ” ì§ì ‘ í• ë‹¹í•  ìˆ˜ê°€ ì—†ë‹¤. ì²˜ìŒì— ì„ ì–¸í•  ë•Œë§Œ ê°€ëŠ¥(cì–¸ì–´ íŠ¹ì§•) 
+	//ì—ëŸ¬ ë°œìƒí•¨
+	// ë¬¸ìžì—´ ìƒìˆ˜ë¥¼ ì§ì ‘ ìž…ë ¥ì€ ì•ˆë˜ì§€ë§Œ strcpy()í•¨ìˆ˜ë¥¼ ì´ìš©í•˜ë©´ ë³µì‚¬í•´ì„œ ë§Œë“œëŠ” ê²ƒì´ ê°€ëŠ¥
+    //include <string.h> ë¥¼ ë¶ˆëŸ¬ì™€ì„œ strcpy()í•¨ìˆ˜ë¥¼ ì‚¬ìš©í•˜ë©´ ë³€ìˆ˜ì— ë¬¸ìžì—´ì„ í• ë‹¹ê°€ëŠ¥
+	//strcpy(fruit, "banana");  //strcpy()í•¨ìˆ˜ë¡œ ìƒˆë¡œìš´ ê°’ì„ ë„£ì–´ì¤„ ìˆ˜ ìžˆìŒ
 	printf("%s\n", fruit);
-	printf("°úÀÏ");
+	printf("ê³¼ì¼");
 
-//»ó¼ö¿Í µ¥ÀÌÅÍ ÀÔ·Â
-    printf("%dÀ» %d·Î ³ª´©¸é %lfÀÔ´Ï´Ù.", 1, 2, 0.5);
+//ìƒìˆ˜ì™€ ë°ì´í„° ìž…ë ¥
+    printf("%dì„ %dë¡œ ë‚˜ëˆ„ë©´ %lfìž…ë‹ˆë‹¤.", 1, 2, 0.5);
     
     printf("\n");
     
     printf("Be\rHappy!\nBaby");
 
-	//Á¤¼ö´Â  %d, ¹®ÀÚ¿­ %s, ¹®ÀÚ(Ä³¸¯ÅÍ) %c·Î Æ÷¸ËÆÃÇØ¼­ Ãâ·Â
-    printf("ÇÐ¹ø: %d\n", 32165);
-    printf("ÀÌ¸§: %s\n", "È«±æµ¿"); // ¹®ÀÚ¿­
-    printf("ÇÐÁ¡: %c", 'A');  // ´Ü¾î ÇÑ Ä³¸¯ÅÍ(ÇÑ°³) 
+	//ì •ìˆ˜ëŠ”  %d, ë¬¸ìžì—´ %s, ë¬¸ìž(ìºë¦­í„°) %cë¡œ í¬ë§·íŒ…í•´ì„œ ì¶œë ¥
+    printf("í•™ë²ˆ: %d\n", 32165);
+    printf("ì´ë¦„: %s\n", "í™ê¸¸ë™"); // ë¬¸ìžì—´
+    printf("í•™ì : %c", 'A');  // ë‹¨ì–´ í•œ ìºë¦­í„°(í•œê°œ) 
 
     int age;
     double height;
-    char name[20];  //¿ø·¡ Å©±â º¸´Ù +1ÇØ¼­ ¹è¿­À» ¼±¾ðÇÑ´Ù. ¸¶Áö¸·´Â ¹®ÀÚÀÇ ³¡À» Ç¥½ÃÇÏ´Â \0ÀÌ µé¾î°¡¹Ç·Î +1 Å©°Ô Àâ¾ÆÁà¾ßÇÔ
+    char name[20];  //ì›ëž˜ í¬ê¸° ë³´ë‹¤ +1í•´ì„œ ë°°ì—´ì„ ì„ ì–¸í•œë‹¤. ë§ˆì§€ë§‰ëŠ” ë¬¸ìžì˜ ëì„ í‘œì‹œí•˜ëŠ” \0ì´ ë“¤ì–´ê°€ë¯€ë¡œ +1 í¬ê²Œ ìž¡ì•„ì¤˜ì•¼í•¨
 
-    printf("³ªÀÌ¿Í Å°¸¦ ÀÔ·ÂÇÏ¼¼¿ä: ");
-    scanf("%d%lf", &age, &height); //* scanf·Î ÀÔ·ÂÀ» ¹ÞÀ» ¶§´Â %d%lf¸¦ ºÙ¿©¼­ »ç¿ëÇØ¾ßÇÔ. º¯¼ö ¿¬°áÀº &º¯¼ö
-    // scanf´Â ½ºÆäÀÌ½º¹Ù ¿£ÅÍ·Î ±¸ºÐÀ» ÁöÀ» ¼ö ÀÖ´Ù. ´Ü, À§ÀÇÄÚµåÃ³·³ %d%d%lf ½ÄÀ¸·Î »ç¿ë 
-    printf("³ªÀÌ´Â %d»ì, Å°´Â %.1lfcmÀÔ´Ï´Ù.\n", age, height);
+    printf("ë‚˜ì´ì™€ í‚¤ë¥¼ ìž…ë ¥í•˜ì„¸ìš”: ");
+    scanf("%d%lf", &age, &height); //* scanfë¡œ ìž…ë ¥ì„ ë°›ì„ ë•ŒëŠ” %d%lfë¥¼ ë¶™ì—¬ì„œ ì‚¬ìš©í•´ì•¼í•¨. ë³€ìˆ˜ ì—°ê²°ì€ &ë³€ìˆ˜
+    // scanfëŠ” ìŠ¤íŽ˜ì´ìŠ¤ë°” ì—”í„°ë¡œ êµ¬ë¶„ì„ ì§€ì„ ìˆ˜ ìžˆë‹¤. ë‹¨, ìœ„ì˜ì½”ë“œì²˜ëŸ¼ %d%d%lf ì‹ìœ¼ë¡œ ì‚¬ìš© 
+    printf("ë‚˜ì´ëŠ” %dì‚´, í‚¤ëŠ” %.1lfcmìž…ë‹ˆë‹¤.\n", age, height);
 
-    printf("ÀÌ¸§ ÀÔ·Â: ");
-    scanf("%s", name);  //* ¿ø·¡ scanf()¿¡¼­´Â º¯¼ö¸¦ ÇÒ´çÇÒ ¶§ &¸¦ ½á¾ßÇÏ´Âµ¥ ¹®ÀÚ¿­ ¹è¿­ ÀÔ·ÂÀ» ¹ÞÀ» ¶§´Â &¸¦ ºÙÀÌÁö ¾Ê´Â´Ù.
-    printf("%s ÀÔ´Ï´Ù.\n", name);
+    printf("ì´ë¦„ ìž…ë ¥: ");
+    scanf("%s", name);  //* ì›ëž˜ scanf()ì—ì„œëŠ” ë³€ìˆ˜ë¥¼ í• ë‹¹í•  ë•Œ &ë¥¼ ì¨ì•¼í•˜ëŠ”ë° ë¬¸ìžì—´ ë°°ì—´ ìž…ë ¥ì„ ë°›ì„ ë•ŒëŠ” &ë¥¼ ë¶™ì´ì§€ ì•ŠëŠ”ë‹¤.
+    printf("%s ìž…ë‹ˆë‹¤.\n", name);
 
     return 0;
 }

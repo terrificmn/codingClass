@@ -1,28 +1,28 @@
 #include <stdio.h>
 /*
-    struct student {   //struct Á¤ÀÇÇÏ±â
+    struct student {   //struct ì •ì˜í•˜ê¸°
         int num;
         double grade;
     };
-    // structÀ¸·Î Á¤ÀÇµÈ °ÍÀ» ´Ù½Ã ÀçÁ¤ÀÇ 
-    typedef struct student Student;  //struct·Î Á¤ÀÇµÈ student¸¦ Student·Î ´Ù½Ã ÀçÁ¤ÀÇ : typedef-type define
+    // structìœ¼ë¡œ ì •ì˜ëœ ê²ƒì„ ë‹¤ì‹œ ìž¬ì •ì˜ 
+    typedef struct student Student;  //structë¡œ ì •ì˜ëœ studentë¥¼ Studentë¡œ ë‹¤ì‹œ ìž¬ì •ì˜ : typedef-type define
 */
 
-// À§ÀÇ ÄÚµå¸¦ ¾Æ·¡ Ã³·³ Á¤ÀÇÇÒ ¼öµµ ÀÖ´Ù
-// ÀçÁ¤ÀÇÇÏ±â ÀüÀÇ ÀÚ·áÇüÀ» ±»ÀÌ »ç¿ëÇÒ ÇÊ¿ä°¡ ¾øÀ» ¶§ Çü ¼±¾ð°ú µ¿½Ã¿¡ ÀçÁ¤ÀÇ ÇÏ´Â ¹æ¹ý
+// ìœ„ì˜ ì½”ë“œë¥¼ ì•„ëž˜ ì²˜ëŸ¼ ì •ì˜í•  ìˆ˜ë„ ìžˆë‹¤
+// ìž¬ì •ì˜í•˜ê¸° ì „ì˜ ìžë£Œí˜•ì„ êµ³ì´ ì‚¬ìš©í•  í•„ìš”ê°€ ì—†ì„ ë•Œ í˜• ì„ ì–¸ê³¼ ë™ì‹œì— ìž¬ì •ì˜ í•˜ëŠ” ë°©ë²•
 typedef struct {
     int num;
     double grade;
-} Student;  // ÀÏ¹Ý º¯¼ö¸í°ú ±¸º°ÇÏ±â À§ÇØ ´ë¹®ÀÚ·Î ½ÃÀÛÇÏ´Â°Ô ÁÁ´Ù
+} Student;  // ì¼ë°˜ ë³€ìˆ˜ëª…ê³¼ êµ¬ë³„í•˜ê¸° ìœ„í•´ ëŒ€ë¬¸ìžë¡œ ì‹œìž‘í•˜ëŠ”ê²Œ ì¢‹ë‹¤
 
 void print_data(Student *ps); 
 
 int main() {
-    Student s1 = { 315, 4.2 };  //typedef·Î Á¤ÀÇµÈ Student¸¦ s1º¯¼ö·Î Á¤ÀÇ
+    Student s1 = { 315, 4.2 };  //typedefë¡œ ì •ì˜ëœ Studentë¥¼ s1ë³€ìˆ˜ë¡œ ì •ì˜
     print_data(&s1);
     return 0;
 }
 void print_data(Student *ps) {
-    printf("ÇÐ¹ø: %d\n", ps->num);
-    printf("ÇÐÁ¡: %.1lf\n", ps->grade);
+    printf("í•™ë²ˆ: %d\n", ps->num);
+    printf("í•™ì : %.1lf\n", ps->grade);
 }

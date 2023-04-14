@@ -1,29 +1,29 @@
 #include <stdio.h>
-void fruit (int count); //void ÇÔ¼ö (¸®ÅÏ°ªÀÌ ¾øÀ» ¶§) 
+void fruit (int count); //void í•¨ìˆ˜ (ë¦¬í„´ê°’ì´ ì—†ì„ ë•Œ) 
 int rec_func (int n);
 int fac(int num);
 
 
 int main() {
 
-    //fruit(1);  //appleÃâ·ÂÇÏ´Â ±âº» Àç±ÍÇÔ¼ö
-    printf("%d\n", rec_func (10)); //³Ñ¾î°£ ÀÎÀÚÀÇ ¹üÀ§¾È¿¡¼­ °³º°·Î ´õÇÏ±â 
-    printf("%d", fac (5)); //ÀÎ¼ö ¸¸Å­ °öÇÏ±â
+    //fruit(1);  //appleì¶œë ¥í•˜ëŠ” ê¸°ë³¸ ìž¬ê·€í•¨ìˆ˜
+    printf("%d\n", rec_func (10)); //ë„˜ì–´ê°„ ì¸ìžì˜ ë²”ìœ„ì•ˆì—ì„œ ê°œë³„ë¡œ ë”í•˜ê¸° 
+    printf("%d", fac (5)); //ì¸ìˆ˜ ë§Œí¼ ê³±í•˜ê¸°
     
     return 0;
 }
 
-//Àç±ÍÈ£Ãâ 
+//ìž¬ê·€í˜¸ì¶œ 
 void fruit (int count) {
     printf("apple\n");
-    if (count == 3) return; //! returnÀ¸·Î ÇÔ¼ö°¡ Á¾·á´Â µÇÁö¸¸ ¹Ù·Î ÇÔ¼ö¸¦ È£ÃâÇß´ø ±× ÀüÀ¸·Î µ¹¾Æ°£´Ù. ¸®ÅÏÇß´Ù°í ¹Ù·Î Á¾·áµÇ´Â °ÍÀÌ ¾Æ´Ï´Ù!
+    if (count == 3) return; //! returnìœ¼ë¡œ í•¨ìˆ˜ê°€ ì¢…ë£ŒëŠ” ë˜ì§€ë§Œ ë°”ë¡œ í•¨ìˆ˜ë¥¼ í˜¸ì¶œí–ˆë˜ ê·¸ ì „ìœ¼ë¡œ ëŒì•„ê°„ë‹¤. ë¦¬í„´í–ˆë‹¤ê³  ë°”ë¡œ ì¢…ë£Œë˜ëŠ” ê²ƒì´ ì•„ë‹ˆë‹¤!
     fruit(count +1); 
     printf("jam\n");
-    //*Âü°í: ¸®ÅÏÀÌ ÇÑ¹ø µÇ¸é ±× ¾Æ·¡ ÄÚµå´Â ½ÇÇàÇÏÁö ¾Ê°í, ´Ù½Ã ÇÔ¼ö¸¦ È£ÃâÇÑ °÷À¸·Î µ¹¾Æ°¡´Âµ¥, ÇÔ¼ö°¡ ½ÇÇàÇÑ ¸¸Å­ ÇÔ¼ö°¡ º¹»çµÇ¾ú´Ù°í »ý°¢ÇÏ¸é ÁÁ´Ù
-    //ÇöÀç ÇÔ¼ö´Â 3¹øÀ» ¹Ýº¹ÇßÀ¸¹Ç·Î 2¹øÂ° ÇÔ¼ö¸¦ È£ÃâÇÑ ºÎºÐÀ» ´Ù½Ã µ¹¾Æ°¡¼­ ¾Æ·¡ÄÚµå°¡ ³²¾ÆÀÖ¾î¼­ printf("jam")À» ÇÏ°ÔµÇ°í (¹°·Ð ÇÔ¼ö´Â È£ÃâÇÏÁö ¾Ê´Â´Ù)
-    //ÇÔ¼ö2¹øÂ°°¡ }¸¦ ¸¸³ª¼­ ³¡³ª¸é ´Ù½Ã ÇÔ¼ö¸¦ È£ÃâÇß´ø 1¹øÂ° ÇÔ¼ö·Î µ¹¾Æ°¡°Ô µÇ¼­ ´Ù½ÃÇÑ¹ø printf("jam")¸¸³ª°Ô µÇ°í ¶Ç Ãâ·Â 
-    // }¸¦ ¸¸³ª ÇÔ¼ö°¡ ³¡³ª¸é ¿ø·¡ Ã³À½ mainÇÔ¼ö¿¡¼­ È£ÃâÇß´ø ºÎºÐÀ¸·Î µ¹¾Æ°¡°Ô ±× ´ÙÀ½¿¡ ´õ ÀÌ»óÀÇ ÄÚµå°¡ ¾ø°í, return 0¸¦ ¸¸³ª¸é¼­ ÇÁ·Î±×·¥ÀÌ Á¾·á
-    // ±×·¡¼­ Àç±ÍÇÔ¼ö¸¦ È£ÃâÇß°í ³¡³µÀ½¿¡µµ ³ª¸ÓÁö ÄÚµåÀÎ printf("jam")ºÎºÐÀÌ Ãâ·ÂµÇ°Ô µÇ´Â °ÍÀÓ
+    //*ì°¸ê³ : ë¦¬í„´ì´ í•œë²ˆ ë˜ë©´ ê·¸ ì•„ëž˜ ì½”ë“œëŠ” ì‹¤í–‰í•˜ì§€ ì•Šê³ , ë‹¤ì‹œ í•¨ìˆ˜ë¥¼ í˜¸ì¶œí•œ ê³³ìœ¼ë¡œ ëŒì•„ê°€ëŠ”ë°, í•¨ìˆ˜ê°€ ì‹¤í–‰í•œ ë§Œí¼ í•¨ìˆ˜ê°€ ë³µì‚¬ë˜ì—ˆë‹¤ê³  ìƒê°í•˜ë©´ ì¢‹ë‹¤
+    //í˜„ìž¬ í•¨ìˆ˜ëŠ” 3ë²ˆì„ ë°˜ë³µí–ˆìœ¼ë¯€ë¡œ 2ë²ˆì§¸ í•¨ìˆ˜ë¥¼ í˜¸ì¶œí•œ ë¶€ë¶„ì„ ë‹¤ì‹œ ëŒì•„ê°€ì„œ ì•„ëž˜ì½”ë“œê°€ ë‚¨ì•„ìžˆì–´ì„œ printf("jam")ì„ í•˜ê²Œë˜ê³  (ë¬¼ë¡  í•¨ìˆ˜ëŠ” í˜¸ì¶œí•˜ì§€ ì•ŠëŠ”ë‹¤)
+    //í•¨ìˆ˜2ë²ˆì§¸ê°€ }ë¥¼ ë§Œë‚˜ì„œ ëë‚˜ë©´ ë‹¤ì‹œ í•¨ìˆ˜ë¥¼ í˜¸ì¶œí–ˆë˜ 1ë²ˆì§¸ í•¨ìˆ˜ë¡œ ëŒì•„ê°€ê²Œ ë˜ì„œ ë‹¤ì‹œí•œë²ˆ printf("jam")ë§Œë‚˜ê²Œ ë˜ê³  ë˜ ì¶œë ¥ 
+    // }ë¥¼ ë§Œë‚˜ í•¨ìˆ˜ê°€ ëë‚˜ë©´ ì›ëž˜ ì²˜ìŒ mainí•¨ìˆ˜ì—ì„œ í˜¸ì¶œí–ˆë˜ ë¶€ë¶„ìœ¼ë¡œ ëŒì•„ê°€ê²Œ ê·¸ ë‹¤ìŒì— ë” ì´ìƒì˜ ì½”ë“œê°€ ì—†ê³ , return 0ë¥¼ ë§Œë‚˜ë©´ì„œ í”„ë¡œê·¸ëž¨ì´ ì¢…ë£Œ
+    // ê·¸ëž˜ì„œ ìž¬ê·€í•¨ìˆ˜ë¥¼ í˜¸ì¶œí–ˆê³  ëë‚¬ìŒì—ë„ ë‚˜ë¨¸ì§€ ì½”ë“œì¸ printf("jam")ë¶€ë¶„ì´ ì¶œë ¥ë˜ê²Œ ë˜ëŠ” ê²ƒìž„
 }
 
 int rec_func (int n){
@@ -32,13 +32,13 @@ int rec_func (int n){
     if (n == 0) {
         return 0;
     }
-    //-1°¨¼Ò½ÃÄÑ¼­ ÇÔ¼ö È£Ãâ ±×¸®°í ¹ÞÀº +n °ªÀ» ´õÇØ¼­ ¸®ÅÏÇÔ
-    // ÃÖÁ¾ÀûÀ¸·Î À§ÀÇ if¹®¿¡¼­ 0ÀÌ µÇ¾î 0À» ¸®ÅÏ¹ÞÀ¸¸é ´Ù½Ã ±× ÀüÀÇ ÇÔ¼ö¸¦ È£ÃâÇÑ ºÎºÐÀ¸·Î µ¹¾Æ°¡¼­ 
-    // ¸®ÅÏ°ª°ú(-1) + ¿ø·¡n°ªÀÌ ´õÇØÁø °ÍÀÌ ¸®ÅÏ
-    //todo: Á¤¸®°¡ Á» ÇÊ¿ä // ½ºÅÃ±¸Á¶ ÇØ¼­ ´Ù½Ã ÇÑ¹ø º¹½ÀÇØº¼ °Í
+    //-1ê°ì†Œì‹œì¼œì„œ í•¨ìˆ˜ í˜¸ì¶œ ê·¸ë¦¬ê³  ë°›ì€ +n ê°’ì„ ë”í•´ì„œ ë¦¬í„´í•¨
+    // ìµœì¢…ì ìœ¼ë¡œ ìœ„ì˜ ifë¬¸ì—ì„œ 0ì´ ë˜ì–´ 0ì„ ë¦¬í„´ë°›ìœ¼ë©´ ë‹¤ì‹œ ê·¸ ì „ì˜ í•¨ìˆ˜ë¥¼ í˜¸ì¶œí•œ ë¶€ë¶„ìœ¼ë¡œ ëŒì•„ê°€ì„œ 
+    // ë¦¬í„´ê°’ê³¼(-1) + ì›ëž˜nê°’ì´ ë”í•´ì§„ ê²ƒì´ ë¦¬í„´
+    //todo: ì •ë¦¬ê°€ ì¢€ í•„ìš” // ìŠ¤íƒêµ¬ì¡° í•´ì„œ ë‹¤ì‹œ í•œë²ˆ ë³µìŠµí•´ë³¼ ê²ƒ
     return rec_func(n -1) + n;  
 
-    /* À§ÀÇ ÄÚµå¸¦ Ç®À¸¸é ÀÌ·±½ÄÀÎµí..
+    /* ìœ„ì˜ ì½”ë“œë¥¼ í’€ìœ¼ë©´ ì´ëŸ°ì‹ì¸ë“¯..
     count = rec_func(n -1);
     count += n;
     return count;
@@ -55,7 +55,7 @@ int fac(int num) {
     return num * fac(num - 1);
 
 }
-//todo: º¹½À!
-//Âü°í »çÀÌÆ®:
+//todo: ë³µìŠµ!
+//ì°¸ê³  ì‚¬ì´íŠ¸:
 //https://dojang.io/mod/page/view.php?id=585 
 

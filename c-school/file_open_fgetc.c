@@ -1,35 +1,35 @@
 #include <stdio.h>
 int main() {
-//file open ±âº»
+//file open ê¸°ë³¸
 /*
-    FILE *fp; //FILE ¶óÀÌºê·¯¸®¸¦ ÀÌ¿ëÇØ¼­ Æ÷ÀÎÅÍ ¼±¾ð
+    FILE *fp; //FILE ë¼ì´ë¸ŒëŸ¬ë¦¬ë¥¼ ì´ìš©í•´ì„œ í¬ì¸í„° ì„ ì–¸
     fp = fopen("a.txt", "r");
     if (fp == NULL) {
-        printf("ÆÄÀÏÀÌ ¿­¸®Áö ¾Ê¾Ò½À´Ï´Ù.\n");
-        return 1;  //¸®ÅÏÇÏ°í ³¡³¿
+        printf("íŒŒì¼ì´ ì—´ë¦¬ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.\n");
+        return 1;  //ë¦¬í„´í•˜ê³  ëëƒ„
     }
-    printf("ÆÄÀÏÀÌ ¿­·È½À´Ï´Ù.\n");
+    printf("íŒŒì¼ì´ ì—´ë ¸ìŠµë‹ˆë‹¤.\n");
     fclose(fp);
 */
 
-    FILE *fp1; //´Ù½Ã Á¤ÀÇ
+    FILE *fp1; //ë‹¤ì‹œ ì •ì˜
     int ch;
 
-    fp1 = fopen("C:\\Users\\5-20\\Desktop\\a.txt", "r");  // µð·ºÅä¸® ±¸ºÐÀº \\ ¿ª½½·¡½¬¸¦ 2¹ø¾¿ »ç¿ë
+    fp1 = fopen("C:\\Users\\5-20\\Desktop\\a.txt", "r");  // ë””ë ‰í† ë¦¬ êµ¬ë¶„ì€ \\ ì—­ìŠ¬ëž˜ì‰¬ë¥¼ 2ë²ˆì”© ì‚¬ìš©
     if (fp1 == NULL) { 
-        printf("ÆÄÀÏÀÌ ¿­¸®Áö ¾Ê¾Ò½À´Ï´Ù.");
+        printf("íŒŒì¼ì´ ì—´ë¦¬ì§€ ì•Šì•˜ìŠµë‹ˆë‹¤.");
         return 1;
     }
 
     while (1) {
-        ch = fgetc(fp1);  //fp1 Æ÷ÀÎÅÍ·Î ¿¬°áµÈ ÆÄÀÏ¿¡ ÀÐ¾î¿Í¼­ ¹ÝÈ¯ÇØ¼­ chº¯¼ö¿¡ ÇÒ´ç //** ´õ ÀÌ»ó ÀÐÀ»°ÍÀÌ ¾øÀº EOF ¹ÝÈ¯
-        // *Âü°í: -1À» Á÷Á¢ »ç¿ëÇÒ ¼öµµ ÀÖÁö¸¸ ½Ã½ºÅÛ¿¡ µû¶ó EOFÁ¤ÀÇ°¡ ´Ù¸¦ ¼ö ÀÖ¾î¼­ È£È¯¼ºÀ» À§ÇØ EOF »ó¼ö¸¦ »ç¿ëÇÏ´Â°Ô ÁÁÀ½
-        if (ch == EOF) {  //EOF End Of File·Î »ó¼ö°ª -1ÀÌ ¹Ì¸® Á¤ÀÇµÇ¾î ÀÖ´Ù. ÆÄÀÏÀÇ ³¡¿¡ µµ´ÞÇÏ¸é -1À» ¹ÝÈ¯ÇÑ´Ù°í ÇÔ
+        ch = fgetc(fp1);  //fp1 í¬ì¸í„°ë¡œ ì—°ê²°ëœ íŒŒì¼ì— ì½ì–´ì™€ì„œ ë°˜í™˜í•´ì„œ chë³€ìˆ˜ì— í• ë‹¹ //** ë” ì´ìƒ ì½ì„ê²ƒì´ ì—†ì€ EOF ë°˜í™˜
+        // *ì°¸ê³ : -1ì„ ì§ì ‘ ì‚¬ìš©í•  ìˆ˜ë„ ìžˆì§€ë§Œ ì‹œìŠ¤í…œì— ë”°ë¼ EOFì •ì˜ê°€ ë‹¤ë¥¼ ìˆ˜ ìžˆì–´ì„œ í˜¸í™˜ì„±ì„ ìœ„í•´ EOF ìƒìˆ˜ë¥¼ ì‚¬ìš©í•˜ëŠ”ê²Œ ì¢‹ìŒ
+        if (ch == EOF) {  //EOF End Of Fileë¡œ ìƒìˆ˜ê°’ -1ì´ ë¯¸ë¦¬ ì •ì˜ë˜ì–´ ìžˆë‹¤. íŒŒì¼ì˜ ëì— ë„ë‹¬í•˜ë©´ -1ì„ ë°˜í™˜í•œë‹¤ê³  í•¨
             break;  
         }
-        putchar(ch);  //¹ÞÀº °ª Ãâ·Â
+        putchar(ch);  //ë°›ì€ ê°’ ì¶œë ¥
     }
-    fclose(fp1);  //ÆÄÀÏÀ» ¿ÀÇÂ ÈÄ¿¡´Â ²À fclose¸¦ ÇØ¾ßÇÑ´Ù. ¸Þ¸ð¸®¿¡¼­ Á¦°Å
+    fclose(fp1);  //íŒŒì¼ì„ ì˜¤í”ˆ í›„ì—ëŠ” ê¼­ fcloseë¥¼ í•´ì•¼í•œë‹¤. ë©”ëª¨ë¦¬ì—ì„œ ì œê±°
 
     return 0;
 }

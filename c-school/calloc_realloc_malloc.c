@@ -5,24 +5,24 @@ int main() {
     int size = 5, count = 0;
     int num, i;
 
-    pi = (int *)calloc(size, sizeof(int));  //size¸¸Å­ (5)  int 4byte ¸Ş¸ğ¸®¿¡ ÇÒ´ç. Áï, 20¸¸Å­ ÇÒ´ç
+    pi = (int *)calloc(size, sizeof(int));  //sizeë§Œí¼ (5)  int 4byte ë©”ëª¨ë¦¬ì— í• ë‹¹. ì¦‰, 20ë§Œí¼ í• ë‹¹
     while (1) {
-        printf("¾ç¼ö¸¸ ÀÔ·ÂÇÏ¼¼¿ä :");
+        printf("ì–‘ìˆ˜ë§Œ ì…ë ¥í•˜ì„¸ìš” :");
         scanf("%d", &num);
-        if (num <= 0) break; // ÀÔ·ÂµÈ °ªÀÌ ¾øÀ¸¸é ºüÁ®³ª¿È break
-        if (count == size) { // ÀÔ·ÂµÈ °ªÀÌ ÀÖÀ» ¶§ ¸¶´Ù count++  µÇ¸é¼­ size¿Í °°À¸¸é
+        if (num <= 0) break; // ì…ë ¥ëœ ê°’ì´ ì—†ìœ¼ë©´ ë¹ ì ¸ë‚˜ì˜´ break
+        if (count == size) { // ì…ë ¥ëœ ê°’ì´ ìˆì„ ë•Œ ë§ˆë‹¤ count++  ë˜ë©´ì„œ sizeì™€ ê°™ìœ¼ë©´
             size += 5;
-            pi = (int *)realloc(pi, size * sizeof(int));  //realloc(±âÁ¸*pi, Ãß°¡ÇÒ Å©±â (size * sizeof(int)) )
+            pi = (int *)realloc(pi, size * sizeof(int));  //realloc(ê¸°ì¡´*pi, ì¶”ê°€í•  í¬ê¸° (size * sizeof(int)) )
         }
-        pi[count++] = num;  //piÆ÷ÀÎÅÍ´Â ¸Ş¸ğ¸® ÇÒ´çÀÌ µÇ¾úÀ¸¹Ç·Î ¹è¿­Ã³·³ »ç¿ë°¡´É  
-        // count++ °è¼Ó +1 ½ÃÄÑÁÖ¸é¼­ µ¿½Ã¿¡ ¹è¿­ÀÇ ÀÎµ¦½º¸¦ °¡¸®Å´ -----> num ÀÔ·ÂµÈ °ª ³Ö¾îÁÖ±â 
-        //? count++ ÀÏ´Ü 0¿¡¼­ numÀ» ÇÒ´ç, ±× ÈÄ¿¡ +1 µÇ¾î count°¡ 1ÀÌ µÊ
+        pi[count++] = num;  //pií¬ì¸í„°ëŠ” ë©”ëª¨ë¦¬ í• ë‹¹ì´ ë˜ì—ˆìœ¼ë¯€ë¡œ ë°°ì—´ì²˜ëŸ¼ ì‚¬ìš©ê°€ëŠ¥  
+        // count++ ê³„ì† +1 ì‹œì¼œì£¼ë©´ì„œ ë™ì‹œì— ë°°ì—´ì˜ ì¸ë±ìŠ¤ë¥¼ ê°€ë¦¬í‚´ -----> num ì…ë ¥ëœ ê°’ ë„£ì–´ì£¼ê¸° 
+        //? count++ ì¼ë‹¨ 0ì—ì„œ numì„ í• ë‹¹, ê·¸ í›„ì— +1 ë˜ì–´ countê°€ 1ì´ ë¨
     }
     
     for (i=0; i < count; i++) {
         printf("%5d", pi[i]);
     }
     free(pi);
-    printf("ÃÑ Ä«¿îÆ®: %d", count);
+    printf("ì´ ì¹´ìš´íŠ¸: %d", count);
     return 0;
 }

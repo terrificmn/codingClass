@@ -2,14 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-//struct Á¤ÀÇ // ±¸Á¶Ã¼
-//±¸Á¶Ã¼ ±âº»
+//struct ì •ì˜ // êµ¬ì¡°ì²´
+//êµ¬ì¡°ì²´ ê¸°ë³¸
 struct student {   
     int num;
     double grade;
 };
 
-// ±¸Á¶Ã¼ È°¿ë
+// êµ¬ì¡°ì²´ í™œìš©
 struct profile {
     char name[20];
     int age;
@@ -18,34 +18,34 @@ struct profile {
 };
 
 int main() {
-    //±¸Á¶Ã¼ ±âº»
-    struct student s1; //s1À» º¯¼ö·Î struct studentÇüÀ¸·Î ¼±¾ğ, 
-    //ÀÌÁ¦ s1ÀÌ¶ó´Â ÀÌ¸§À¸·Î »ç¿ëÇÒ ¼ö ÀÖÀ½ (¾à°£ Å¬·¡½º ¶Ç´Â ¸ğµâ °°À¸ ´À³¦)
+    //êµ¬ì¡°ì²´ ê¸°ë³¸
+    struct student s1; //s1ì„ ë³€ìˆ˜ë¡œ struct studentí˜•ìœ¼ë¡œ ì„ ì–¸, 
+    //ì´ì œ s1ì´ë¼ëŠ” ì´ë¦„ìœ¼ë¡œ ì‚¬ìš©í•  ìˆ˜ ìˆìŒ (ì•½ê°„ í´ë˜ìŠ¤ ë˜ëŠ” ëª¨ë“ˆ ê°™ìœ¼ ëŠë‚Œ)
     s1.num = 2;
     s1.grade = 2.7;
-    printf("ÇĞ¹ø: %d\n", s1.num); // (.)À¸·Î Á¢±Ù
-    printf("ÇĞÁ¡: %.1lf\n", s1.grade);
+    printf("í•™ë²ˆ: %d\n", s1.num); // (.)ìœ¼ë¡œ ì ‘ê·¼
+    printf("í•™ì : %.1lf\n", s1.grade);
     printf("\n\n");
 
-    // ±¸Á¶Ã¼ È°¿ë
+    // êµ¬ì¡°ì²´ í™œìš©
     struct profile yun;
-    strcpy(yun.name, "¼­ÇÏÀ±"); //¹®ÀÚ¿­À» ¹è¿­¿¡ Á÷Á¢ ³ÖÀ» ¼ö ¾øÀ¸¹Ç·Î strcpy¸¦ ÀÌ¿ë
+    strcpy(yun.name, "ì„œí•˜ìœ¤"); //ë¬¸ìì—´ì„ ë°°ì—´ì— ì§ì ‘ ë„£ì„ ìˆ˜ ì—†ìœ¼ë¯€ë¡œ strcpyë¥¼ ì´ìš©
     yun.age = 17;
     yun.height = 164.5;
 
-    yun.intro = (char *)malloc(80); //**Æ÷ÀÎÅÍº¯¼ö¿¡ (profile ±¸Á¶Ã¼¿¡ Á¤ÀÇÇÑ Æ÷ÀÎÅÍ intro) ¹®ÀÚ¿­À» ³Ö¾îÁÙ ¼ö ¾øÀ¸¹Ç·Î 
-    //** ¸Ş¸ğ¸®¿¡ µ¿Àû ÇÒ´çÀ» ¸ÕÀú ÇØÁà¾ß ÇÔ, ¶Ç´Â ÃÊ±âÈ­½Ã¿¡ µ¿ÀûÇÒ´ç
-    printf("ÀÚ±â¼Ò°³: ");
+    yun.intro = (char *)malloc(80); //**í¬ì¸í„°ë³€ìˆ˜ì— (profile êµ¬ì¡°ì²´ì— ì •ì˜í•œ í¬ì¸í„° intro) ë¬¸ìì—´ì„ ë„£ì–´ì¤„ ìˆ˜ ì—†ìœ¼ë¯€ë¡œ 
+    //** ë©”ëª¨ë¦¬ì— ë™ì  í• ë‹¹ì„ ë¨¼ì € í•´ì¤˜ì•¼ í•¨, ë˜ëŠ” ì´ˆê¸°í™”ì‹œì— ë™ì í• ë‹¹
+    printf("ìê¸°ì†Œê°œ: ");
     gets(yun.intro);
 
-    printf("ÀÌ¸§: %s\n", yun.name);
-    printf("³ªÀÌ: %d\n", yun.age);
-    printf("Å°: %.1lf\n", yun.height);
-    printf("ÀÚ±â¼Ò°³: %s\n", yun.intro);
-    free(yun.intro); //µ¿ÀûÀ¸·Î ÇÒ´çÇÑ ¸Ş¸ğ¸® ¿µ¿ª ¹İÈ¯
+    printf("ì´ë¦„: %s\n", yun.name);
+    printf("ë‚˜ì´: %d\n", yun.age);
+    printf("í‚¤: %.1lf\n", yun.height);
+    printf("ìê¸°ì†Œê°œ: %s\n", yun.intro);
+    free(yun.intro); //ë™ì ìœ¼ë¡œ í• ë‹¹í•œ ë©”ëª¨ë¦¬ ì˜ì—­ ë°˜í™˜
 
     return 0;
 
-    //TODO: 499p Á¤¸®ÇØº¸±â, ±¸Á¶Ã¼ ¹è¿­ Ã³¸®ÇÏ´Â ÇÔ¼ö
+    //TODO: 499p ì •ë¦¬í•´ë³´ê¸°, êµ¬ì¡°ì²´ ë°°ì—´ ì²˜ë¦¬í•˜ëŠ” í•¨ìˆ˜
 }
 

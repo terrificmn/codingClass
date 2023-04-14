@@ -26,5 +26,7 @@ int main()
         }
         printf("\n");
     }
-    char a[][6]  = {"apple","pear","banana"} 
-}
+    char a[][6]  = {"apple","pear","banana"};
+
+    return 0;
+} 

@@ -5,10 +5,10 @@
     int main() {
         double max, mid, min;
 
-        printf("½Ç¼ö°ª 3°³ ÀÔ·Â: ");
+        printf("ì‹¤ìˆ˜ê°’ 3ê°œ ì…ë ¥: ");
         scanf("%lf%lf%lf", &max, &mid, &min);
         line_up(&max, &mid, &min);
-        printf("Á¤·ÄµÈ °ª Ãâ·Â: %.1lf, %.1lf, %.1lf\n", max, mid, min);
+        printf("ì •ë ¬ëœ ê°’ ì¶œë ¥: %.1lf, %.1lf, %.1lf\n", max, mid, min);
 
         return 0;
     }
@@ -22,7 +22,7 @@
     }
 
     void line_up(double *maxp, double *midp, double *minp) {
-        // 3°¡Áö °æ¿ìÀÇ ¼ö¸¦ µûÁ®º½ max vs min, max vs mid, mid vs min
+        // 3ê°€ì§€ ê²½ìš°ì˜ ìˆ˜ë¥¼ ë”°ì ¸ë´„ max vs min, max vs mid, mid vs min
         if (*maxp < *midp) {
             swap(maxp, midp);
         } 

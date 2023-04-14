@@ -1,52 +1,52 @@
 #include <stdio.h>
 #include <stdlib.h>
-//** malloc ÇÔ¼ö¸¦ »ç¿ëÇÏ·Á¸é <stdlib.h> À» ÀÎÄí¸£µå ÇØ¾ßÇÔ
+//** malloc í•¨ìˆ˜ë¥¼ ì‚¬ìš©í•˜ë ¤ë©´ <stdlib.h> ì„ ì¸ì¿ ë¥´ë“œ í•´ì•¼í•¨
 
 int main () {
-    int *numPtr = malloc(sizeof(int) *10); //µ¿Àû ¸Ş¸ğ¸® ÇÒ´ç, int »çÀÌÁîÀÇ 10°³ ¸¸Å­
-    // int numArr[10] °ú °°Àº È¿°ú
+    int *numPtr = malloc(sizeof(int) *10); //ë™ì  ë©”ëª¨ë¦¬ í• ë‹¹, int ì‚¬ì´ì¦ˆì˜ 10ê°œ ë§Œí¼
+    // int numArr[10] ê³¼ ê°™ì€ íš¨ê³¼
     int i, size;
 
-    // ¸Ş¸ğ¸® ÇÒ´ç ¹ŞÀº Æ÷ÀÎÅÍ¸¦ ¹è¿­ Ã³·³ »ç¿ë°¡´É
+    // ë©”ëª¨ë¦¬ í• ë‹¹ ë°›ì€ í¬ì¸í„°ë¥¼ ë°°ì—´ ì²˜ëŸ¼ ì‚¬ìš©ê°€ëŠ¥
     numPtr[0] = 10;
     numPtr[9] = 20;
     
-    // size = sizeof(numPtr)/ sizeof(numPtr[0]); ¸Ş·Î¸®¿¡ ÇÒ´çµÇ¾î ÀÖ°í ½ÇÁ¦ numPtr¿¡ µé¾î°¡ ÀÖ´Â °ÍÀº 0¹øÂ°¿Í 9¹øÂ° »ÓÀÓ
-    //numPtr »çÀÌÁî´Â 8, ¹è¿­ÇÏ³ª´Â 4 (int)
+    // size = sizeof(numPtr)/ sizeof(numPtr[0]); ë©”ë¡œë¦¬ì— í• ë‹¹ë˜ì–´ ìˆê³  ì‹¤ì œ numPtrì— ë“¤ì–´ê°€ ìˆëŠ” ê²ƒì€ 0ë²ˆì§¸ì™€ 9ë²ˆì§¸ ë¿ì„
+    //numPtr ì‚¬ì´ì¦ˆëŠ” 8, ë°°ì—´í•˜ë‚˜ëŠ” 4 (int)
 
-    // printf("%d\n", sizeof(numPtr[0]));  //»çÀÌÁî ,fail
+    // printf("%d\n", sizeof(numPtr[0]));  //ì‚¬ì´ì¦ˆ ,fail
     // printf("%d\n", sizeof(numPtr));
     size = 10;
     for (i=0; i< size; i++) {
         numPtr[i] = i + 10;
-        printf("¸Ş¸ğ¸®ÇÒ´ç%d %d\n", i, numPtr[i]);
+        printf("ë©”ëª¨ë¦¬í• ë‹¹%d %d\n", i, numPtr[i]);
     }
 
     // printf("%d\n", numPtr[0]); 
     // printf("%d\n", numPtr[9]);
 
-    free(numPtr); //¸Ş¸ğ¸® ÇØÁ¦
+    free(numPtr); //ë©”ëª¨ë¦¬ í•´ì œ
 
-//------------µÎ¹øÂ° ¿¹Á¦------
+//------------ë‘ë²ˆì§¸ ì˜ˆì œ------
     printf("\n\n");
     int *pi;
     double *pd;
     
-    pi = (int *) malloc(sizeof(int)); //(int *) mallocÀ¸·Î º¯È¯µÇ´Â °ÍÀ» intº¯È¯  
-    //int type¿¡´Â 4byte ¸¸Å­ ¸Ş¸ğ¸®¿¡ ÇÒ´ç 
+    pi = (int *) malloc(sizeof(int)); //(int *) mallocìœ¼ë¡œ ë³€í™˜ë˜ëŠ” ê²ƒì„ intë³€í™˜  
+    //int typeì—ëŠ” 4byte ë§Œí¼ ë©”ëª¨ë¦¬ì— í• ë‹¹ 
     
     if (pi == NULL) {
-        printf("# ¸Ş¸ğ¸®°¡ ºÎÁ·ÇÕ´Ï´Ù.\n");
+        printf("# ë©”ëª¨ë¦¬ê°€ ë¶€ì¡±í•©ë‹ˆë‹¤.\n");
         exit(1);
     }
-    pd = (double *) malloc(sizeof(double)); //(double *) ¹İÈ¯µÇ´Â ÁÖ¼Ò¸¦ double typeÀ¸·Î º¯È¯    
-    //double type¿¡´Â 8byte ¸¸Å­ ¸Ş¸ğ¸®¿¡ ÇÒ´ç 
+    pd = (double *) malloc(sizeof(double)); //(double *) ë°˜í™˜ë˜ëŠ” ì£¼ì†Œë¥¼ double typeìœ¼ë¡œ ë³€í™˜    
+    //double typeì—ëŠ” 8byte ë§Œí¼ ë©”ëª¨ë¦¬ì— í• ë‹¹ 
 
     *pi = 10;
     *pd = 3.4;
 
-    printf("Á¤¼öÇüÀ¸·Î »ç¿ë: %d\n", *pi);
-    printf("½Ç¼öÇüÀ¸·Î »ç¿ë: %.1lf\n", *pd);
+    printf("ì •ìˆ˜í˜•ìœ¼ë¡œ ì‚¬ìš©: %d\n", *pi);
+    printf("ì‹¤ìˆ˜í˜•ìœ¼ë¡œ ì‚¬ìš©: %.1lf\n", *pd);
 
     free(pi);
     free(pd);
