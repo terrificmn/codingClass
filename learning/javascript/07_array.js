@@ -128,7 +128,37 @@ console.log(fruits);  // 지워진 1번 인덱스가 지워지고 거기에 레�
 // splice는 join, connect (ropes) by interweaving the strands (weave 해서 이어주는 뜻)
 
 
-// combinea two arrays; 차례
-25:01
+// combinea two arrays;
+const fruits2 = ['🍓', '🍒'];
+const new_fruits = fruits.concat(fruits2);
+console.log(new_fruits);
+
+
+///searching
+// find the index
+console.clear();
+console.log(fruits);
+
+// 🍎🍋🍌🍒🍓🍑🍉🍋
+
+// indexOf : 몇번째 인덱스인지 리턴해준다 - 겹치는게 있다면 첫 번째 찾은 것을 리턴
+console.log(fruits.indexOf('🍎'));
+console.log(fruits.indexOf('🍑'));
+// indexOf도 없으면 -1이 반환된다
+console.log(fruits.indexOf("🍌"))
+
+// includes() 함수는 array안에 특정 요소가 있는지 확인하여 true/false를 리턴한다 
+console.log(fruits.includes("🍋"));
+console.log(fruits.includes('🍌'));
+
+
+// lastIndexOf
+fruits2.push('🍌', '🍓');
+console.log(fruits2);
+// 같은 값이 있을 경우 마지막에 있는 인덱스를 리턴
+console.log(fruits2.lastIndexOf('🍓')); 
+
+
+
 
 
