@@ -37,5 +37,5 @@ AL lib: (EE) ALCplaybackAlsa_open: Could not open playback device 'default': Dev
 일단 nvidia를 사용하면 nvidia-docker2는 설치를 해야한다
 
 
-
+-
 
