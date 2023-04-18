@@ -138,13 +138,46 @@ const students = [
 /// reduce 배열의 모든 값을 누적해서 리턴하게 되는 함수
 {
     // 첫 번째 파라미터에는 current로 넘어간 값이 prev 값으로 들어가지게 된다
-    const result = students.reduce( (prev, current) => {
+    // 두 번째 파라미터의 값이 배열에 한번씩 넘어가고, 그 결과로 리턴하게 되면 prev 파라미터 (첫번째)에 들어간다
+    const result = students.reduce( (previous, current) => {
         console.log('----------');
-        console.log(prev);
+        console.log(previous);
         console.log(current);
         // return current;
-        return prev + current.socre;
-    })
+        return previous + current.score; // 리턴하는 값이 previous 파라미터로 넘어감
+    }, 0); // intial value (아직 reduce 함수의 두 번째 파라미터)
+
+    console.log(result / students.length);
 }
 
-31;04  reduce 함수 다시 한번 보기
+// reduceRight() 이라는 함수는 마지막 배열부터 순차적으로 수행 -- reduce는 배열 순차적으로 진행함
+
+/// make a string containing all the scores
+/// 여러개의 함수를 사용해서 사용할 수가 있다
+{
+    const result = students.map( (student) => student.score)
+                            .filter( (score) => score >= 50)
+                            .join();
+    console.log(result);
+}
+
+
+// do sorted in ascending order
+{
+    let result = students.map( (student) => {
+        return student.score;
+    }).sort( (a,b) => {
+        return a - b;
+    }).join();
+
+    console.log(result);
+
+    // sort()함수를 - 값을 넘겨주면 작은 값부터 큰 값으로 정렬 (오름차순) ascending order
+                    // + 값을 넘겨주면 큰 값부터 작은 값으로 정렬 (내림차순) descending order
+    //위를 간편하게 하면
+    result = students.map( (student) => student.score)
+                    .sort( (a, b) => a - b )
+                    .join();
+
+    console.log(result);
+}
