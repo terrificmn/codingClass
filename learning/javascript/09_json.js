@@ -95,7 +95,17 @@ console.log(rabbit.birth_date.getDate());
 // console.log(obj.birth_date.getDate()); // 위와 마찬가지로 Uncaught TypeError 발생
 
 
-19:00 이 스트링으로 바뀐 것을 다시 할 수 있게 하는 방법이 있다 
+/// 스트링으로 바뀐 것을 다시 할 수 있게 하는 방법이 있다 
+/// 스트링 이지만, 특정 key를 찾아서 Date()를 만들어서 현재 값을 넣어줄 수가 있다
+const obj_1 = JSON.parse(json, (key, value) => {
+    console.log(`key: ${key}, value: ${value}`);
+    return key === "birth_date" ? new Date(value) : value;
+});
+
+console.log(obj_1.birth_date);
+console.log(obj_1.birth_date.getDate()); // 이제는 getDate() 메소드를 사용할 수가 있다 
+
+
 
 
 
