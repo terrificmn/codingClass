@@ -14,3 +14,18 @@ $ update-locale LANG=en_US.UTF-8
 $ reboot
 ```
 
+## gazebo - ros2 humble
+humble에서  gazebo 실행 중에 아래와 같은 에러가 발생하는 경우
+```
+Original error: could not create subscription: rcl node’s context is invalid, 
+```
+
+gazebo setup.bash를 해준다
+```
+source /usr/share/gazebo/setup.bash
+```
+
+> 상황을 봐서 .bashrc 에 넣어도 될 듯
+
+위의 source를 하게 되면  gazebo 실행이 잘 된다
+
