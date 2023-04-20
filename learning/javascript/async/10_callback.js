@@ -80,7 +80,10 @@ userStorage.loginUser(
     // 동기적으로 user 넘겨주는 파라미터의 콜백함수는 나중에 실행이 되고, loginUser()의 함수가 먼저 실행되게 된다 
     user => {
         // getRoles() 함수에서는 onSuccess가 필요한데, 이미 longinUser()에서 id를 체크해서 onSuccess가 설정이 된다 
-        // 그리고 setTimeout에 설정한 2초로 지연이 됨
+        // loginUser() 메소드에는 4개의 아규먼트가 필요한데, 로그인이 성공적으로 되었는지를 확인하는  
+        // onSuccess, onError 파라미터에 대응하기 위한 콜백함수를 사용했다  
+        // onSuccess부분: 콜백함수가 사용되었는데 getRoles() 메소드를 호출해서 그 결과를 리턴하는데 또 그안에 콜백함수들이 계속 있는 경우임 
+        // 그리고 각각의 메소드는 setTimeout에 설정한 2초로 지연이 되어 수행
         userStorage.getRoles(
             user,
             userWithRole => {
