@@ -83,14 +83,15 @@ const getHen = () => {
 const getEgg = hen =>
     new Promise( (resolve, reject) => {
         return setTimeout( () => {
-            return resolve(`${hen} ==> egg`)
+            // return resolve(`${hen} ==> egg`) // 정상 
+            return  reject(new Error(`error ${hen} ==> egg`))
         }, 1000);
     })
 
 const cook = egg => 
     new Promise( (resolve, reject) => {
-        // setTimeout( () => resolve(`${egg} ==> 'fried egg`), 1000); // 정상 케이스 resolve() 
-        setTimeout( () => reject(new Error(`${egg} ==> 'fried egg`)), 1000);
+        setTimeout( () => resolve(`${egg} ==> 'fried egg`), 1000); // 정상 케이스 resolve() 
+        // setTimeout( () => reject(new Error(`${egg} ==> 'fried egg`)), 1000);
     });
 
 getHen()
@@ -105,11 +106,12 @@ getHen()
 // 받아온 value를 다른 함수로 다시 호출해서 그 함수의 인자로 넘기는 경우에는 (같은 경우) 생략 가능
 getHen()
 .then(getEgg)
+// 만약 에러가 발생한다면 catch를 이용해서 다른 값으로 대체될 수 있게 할 수가 있다
+.catch(error => {
+    return 'bread';
+})
 .then(cook)
 .then(console.log) // 심지어 콘솔 로그에도 받아온 값이 또 들어가므로 생략가능
 // 위에서 reject()를 해서 오류를 발생시킬 경우 catch가 없으면 Uncaught Error가 발생한다 
-// 즉, 여기에서는 error 핸들링이 없네 라는 뜻이 된다
+// 즉, 여기에서는 error 핸들링이 없어서 에러를 처리 못하게 됨
 
-
-
-21:30 오류처리
