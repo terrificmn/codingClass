@@ -36,6 +36,11 @@ AL lib: (EE) ALCplaybackAlsa_open: Could not open playback device 'default': Dev
 
 일단 nvidia를 사용하면 nvidia-docker2는 설치를 해야한다
 
+확실한 것은 nivia 이미지는 사용을 안해도 되는 듯 하고, nvidia-docker2가 설치되어 있으면 gui 프로그램 화면은 띄울 수 있다   
+도커 이미지 파일용량도 훨씬 적다. 약 4GB 정도 차이가 난다   
+cuda를 사용하거나 할 때 사용하는 것 같은데   
+처음에 nvidia 그래픽 카드를 사용할 때  
+GUI로 창을 띄우지 못하는 현상 때문에 사용을 했는데, nvidia-docker2가 있으면 nvidia일 경우에도   
+화면에 띄우는데 문제 없는 듯 하다. 오히려 잘 된 듯 
 
--
 

@@ -42,4 +42,85 @@ console.log(user_async);
 
 
 /// await 
-await 7:40
+function delay(ms) {
+    // setTimeout()에서 지정한 시간뒤에 실행하게 해주는 promise를 만들어서 리턴되게 된다
+    return new Promise( (resolve, reject) => {
+        setTimeout( resolve, ms) 
+    });
+}
+
+async function getApple() {
+    await delay(2000);  // await은 async 가 붙은 함수에서만 사용할 수가 있다 
+    // await이 붙으면 동기적으로 기다려주게 된다
+    return 'apple';
+}
+
+async function getBanana() {
+    await delay(1000);
+    return "banana";
+}
+
+// 이런식으로 promise를 사용하면 then을 활용해서 시간이 지나고 나서 바나나를 리턴하게 해줄 수가 있다
+// async 코드를 풀어서 사용하면 이런 형태가 된다
+// function getBanana() {
+//     return delay(3000)
+//     .then( () => 'banana');   // 이렇게 계속 다른 함수 등으로 (ex. then()) 처럼 이어지는 것을 chaining 이라고 한다
+// }
+
+
+// 이런 식으로 해도 계속 체인닝이 되면서 계속 복잡해지게 된다. 마치 callback 지옥처럼 된다 
+function pickFruits() {
+    return getApple()
+        .then(apple => {
+            return getBanana().then(banana => `${apple} + ${banana}`);
+        });
+}
+
+pickFruits().then(result => console.log(result));  // 이는 생략하면 바로 (then(console.log)) 가 된다
+
+/// 바로 위의 코드를 async 와 awit를 사용하면 더 편하고 쉬운 코드가 된다
+async function pickFruitsAsync() {
+    const apple = await getApple(); // 호출하고 기다린다.. 이후 블락 block
+    const banana = await getBanana(); // 호출하고 기다려 준다 이후 블락된다
+    
+    return `${apple} + ${banana}`;
+}
+
+// async로 만들어진 function이므로 then()을 사용할 수 있다
+pickFruitsAsync().then(console.log);
+
+//  async를 사용하면 동기적으로 사용하는 방식으로 할 수 있어서 좋다
+
+
+/// await의 병렬 처리// 병렬로 실행이 된다
+async function pickFruitsAsyncPromise() {
+    // async로 await은 코드는 단순해지지만, 결국은 기다리는 것 때문에 문제가 발생할 수가 있다. 그래서 promise를 만들어준다
+    const applePromise = getApple();
+    const bananaPromise = getBanana(); // 위의 두개의 함수는 async로 되어 있어서 변수에 할당해주면 promise가 만들어진다
+    // promise가 만들어지는 순간 벌써 함수로 이동하게 되고 
+
+    // 이후 promise를 await에 넘겨 주게 되면 
+    const apple = await applePromise; // 호출하고 여기에 promise 된 변수를 넣어주면 
+    const banana = await bananaPromise; 
+    
+    return `${apple} + ${banana}`;
+}
+
+// async로 만들어진 function이므로 then()을 사용할 수 있다
+pickFruitsAsyncPromise().then(console.log);
+
+
+/// useful Promise APIs
+// Promise의 all method에 리스트 형식으로 넘겨주면 한꺼번에 수행할 수가 있다. 
+function pickAllFruits() {
+    return Promise.all( [getApple(), getBanana()])  // 배열로 넘겨주면 다 실행
+        .then(fruits => fruits.join(" + "));  // 문자열로 만들어 주기
+}
+pickAllFruits().then(console.log);
+
+function pickOnlyOne() {
+    return Promise.race( [getApple(), getBanana()] ); // 배열로 넘겨주면, 그 중에 빨리 리턴하는 값을 전달(반환한다)
+}
+
+// 가장 빨리 수행된 (리턴된 값을)을 사용
+pickOnlyOne().then(console.log);
