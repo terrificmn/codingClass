@@ -3,104 +3,51 @@
 ```
 sudo apt install codeblocks
 ```
-무난하게 잘 설치가 된다 
+무난하게 잘 설치가 된다 , debian에서도 잘 설치된다. 
 
 
-## cbp, layout 파일 만들기   
+## 기존 프로젝트 열기 - New 프로젝트
+주로 vscode를 사용하지만 싱글보드컴퓨터에서 사용할려고 하면 메모리를 많이 사용한다. 
+vscode를 사용하면 편하지만 총 2G 짜리의 메모리에 약 400~500Mb는 사용하는 것 같다. 이게 엄청 크다.   
+그래서 catkin build까지 사용해서 빌드를 하면 싱글보드컴이 뻗어 버리기도 한다
+
+code::block IDE 같은 경우는 약 100mb 정도 메모리를 사용하고, 빠르므로 간단한 수정에는 좋을 듯해서 
+사용하기로 결정했다. 물론 단점은 C/C++ 위주로 지원이 된다는 것?
+
+### New 프로젝트 
 프로젝트 통째로 열기가 참 힘들다. 프로젝트를 새로 만들때는 상관이 없겠지만   
-주로 vscode를 사용하고 싱글보드컴퓨터에서 사용할 예정인데, 기존의 패키지에서 열어야 하는데   
-그게 안된다.;;;
+기존에 존재하는 프로젝트를 열려면(Code::blocks로 작업했던 것이 아니라면)  
+vscode 처럼 디렉토리 째 열 수 있는 것은 아니다.  
 
-그래서 파일 2개를 일단 만들어서 해당 프로젝트 안에 넣어준다   
+그래서 new 프로젝트를 해야한다. 메뉴 New -> Project 를 누르고, Empty 프로젝트로 선택/ 만들어준다   
+start 화면에서 Create a new project를 클릭  
 
+기존의 프로젝트 이름과 동일하게 Project title을 지정. 그리고 해당 디렉토리를 지정해준다  
+이제 *마지막칸의 Resulting filename*에서 보면 해당 프로젝트안에 또 같은 이름으로 디렉토리가 생기므로  
+최종 경로를 확인하여 하위로 다시 또 생성되는 않게 해줘야한다 (하나 지워준다)
+
+예, servo_ros 라는 패키지를 열려고 했던 것인데 그 안에 경로를 또 생성한다. 그래서 **기존 프로젝트의 root에 생성**이 되게 해주자
 ```
-cd ~/my_pkg
-touch my_pkg.cbp my_pkg.layout
-```
-
-> 파일명은 디렉토리, 또는 패키지(프로젝트) 명으로 해주고, 확장자는 cbp 로 해준다 `{패키지}.cbp`
-
-그리고 나서 하나씩 열어서 수정해준다   
-먼저 cbp 파일  
-```xml
-<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<CodeBlocks_project_file>
-	<FileVersion major="1" minor="6" />
-	<Project>
-		<Option title="c++_socket" />
-		<Option pch_mode="2" />
-		<Option compiler="gcc" />
-		<Build>
-			<Target title="Debug">
-				<Option output="bin/Debug/c++_socket" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj/Debug/" />
-				<Option type="1" />
-				<Option compiler="gcc" />
-				<Compiler>
-					<Add option="-g" />
-				</Compiler>
-			</Target>
-			<Target title="Release">
-				<Option output="bin/Release/c++_socket" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj/Release/" />
-				<Option type="1" />
-				<Option compiler="gcc" />
-				<Compiler>
-					<Add option="-O2" />
-				</Compiler>
-				<Linker>
-					<Add option="-s" />
-				</Linker>
-			</Target>
-		</Build>
-		<Compiler>
-			<Add option="-Wall" />
-		</Compiler>
-		<Extensions />
-	</Project>
-</CodeBlocks_project_file>
+/my_work/servo_ros/servo_ros/servo_ros.cbp
+# 이것을 아래 처럼
+/my_work/servo_ros/servo_ros.cbp
 ```
 
-아래의 태그들만 수정해주면 된다  
-```xml
-<Project>
-    <Option title="my_pkg" />
-..생략
-    <Build>
-        <Option output="bin/Debug/my_pkg" prefix_auto="1" extension_auto="1" />
+그 다음 컴파일러를 선택해주는데, Debug, Release 관련해서 2개의 디렉토리가 생기는데 이거는 그냥 감안하고  
+만들어준다. 최소 1개는 선택해야한다  
 
-    ... 생략...
-        <Option output="bin/Release/my_pkg" prefix_auto="1" extension_auto="1" />
-```
+> 어차피 catkin을 사용할 것이기 때문에 여기서 빌드는 안 할 것이기 때문에 최소 Debug만 선택해줌   
+> 그리고 혹시 프로젝트에 생기는  bin/Debug, obj/Debug 는 gitignore 시켜버린다  
 
-Project 의 Option title 태그 부분을 기존에 있는 패키지로 수정하고   
-예를 들어 `my_pkg` 로 수정해준다    
+### file 추가
+완료가 되면 프로젝트가 만들어지는데.. 파일이 하나도 안 보인다   
+Project 메뉴를 누르고 *Add file recursively* 를 눌러준다.   
+그러면 해당 디렉토리가 뜨는데 Open으로 열어준 뒤에 Select All을 눌러서 다 인식할 수 있게 해주자
 
+이제 왼쪽 Projects 패널에서 해당 프로젝트를 누르면 Sources, Headers 등에서 볼 수가 있다
 
-
-
-`{패키지}.layout` 예를 들어 my_pkg.layout 으로 만들어 진 파일을 열어서 복사해준다 
-따로 수정할 부분은 없다
-```xml
-<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<CodeBlocks_layout_file>
-	<FileVersion major="1" minor="0" />
-	<ActiveTarget name="Debug" />
-</CodeBlocks_layout_file>
-```
-
-그 다음에 open 아이콘 (파랑색)으로 해당 디렉토리로 이동해서 열어주는데 위에 만든 cbp 파일을 선택해주면 된다     
-(또는 메인화면의 Open an existing project를 눌러준다)
-
-
-## 파일 추가하기
-파일을 추가해줘야 한다. Project 메뉴-> Add file recursively 를 눌러서 해당 패키지 디렉토리를 선택해준다  
-여기에서 체크 박스로 추가해야할 파일들을 선택해주면 된다   
-
-> 조금 불편하지만 워낙 램을 적게 잡아먹어서 싱글보드 컴퓨터에 딱 일 듯 하다   
-
-
-
-
+> IDE 특성상, 카테고리화 되서 보여지는데, vscode 처럼 그냥 직관적으로 모든 파일이 보이는 형태는 아니지만   
+> IDE 들이 좀 그런 것 같다. 암튼 새로운 Sources, Headers 같은 디렉토리가 실제 생긴 것은 아니므로   
+> 실제로는 cbp 파일이 한개 만들어진다. 고로 프로젝트에 영향을 미치지는 않는다  
 
 

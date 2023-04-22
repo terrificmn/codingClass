@@ -28,8 +28,10 @@ sudo apt install libsdl2-dev
 
 
 ## ROcky 
-`sudo dnf install SDL2-devel` 
-
+rocky linux 에서 SDL2 설치
+```
+sudo dnf install SDL2-devel
+``` 
 
 
 ## include SDL
