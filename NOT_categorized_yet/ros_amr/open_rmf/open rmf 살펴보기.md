@@ -1,13 +1,20 @@
-osrf 에서 만든 open source, robot 
+# Open RMF
+- osrf 에서 만든 open source, robot   
+- Robot Middleware 프로그램   
+- 서로 다른 회사의 로봇, 각기 다른 종류의 로봇을 Open-rmf 프로그램으로 계획 및 제어
 
-1. open-rmf 깃허브로 해보기  (demo 많음)
-2.  docker ros2 로 만들어보기
+> fleet_adapter 라는 개념으로 각기 다른 회사들의 로봇들을 제어하는 fleet_adapter가 된다. 
+
+1. open-rmf 깃허브로 해보기  (demo 많음)  
+2. ~~docker ros2 로 만들어보기~~ : docker-ros: humble branch 참고
 
 mapping을 하면 pgm파일이 만들어지는 png 파일로 변환해서 사용한다   
+> pgm 파일 말고 png 파일 지원함
 
 다운받은 rosject를 참고(structure를 참고)
 
-traffic-editor 를 터미널에서 실행함  
+## traffic-editor 
+터미널에서 traffic-editor 를 실행할 수가 있다. 주행 경로, 벽 등을 만들 수 있는 프로그램  
 
 building->new 로 새로운 파일을 만들고   
 오른쪽 패널에서 add를 눌러서 map파일인 png 파일을 넣어준다   
