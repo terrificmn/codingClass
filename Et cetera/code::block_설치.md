@@ -51,3 +51,15 @@ Project 메뉴를 누르고 *Add file recursively* 를 눌러준다.
 > 실제로는 cbp 파일이 한개 만들어진다. 고로 프로젝트에 영향을 미치지는 않는다  
 
 
+## 파일 추가
+New -> file 파일로 선택하면 Empty file을 cpp로 만들 수 있다   
+해당 파일은 src 디렉토리에 만들어 주는 것이 좋다.  
+
+파일명 변경 등은 파일이 열려있는 상태에서는 안됨. 
+
+## 빌드 
+cpp파일은 src 디렉토리에 만들어서 넣어주는 것이 좋다.   
+아니라면 Project 메뉴의 -> Properties 을 설정을 열어서   
+Build targets 에서 Build target files를 선택해줄 수 있는데 변경하기 조금 까다로운 듯 하다   
+
+> 그래서 애초에 cpp 파일은 src 디렉토리에 만들어주고, header 파일은 include 디렉토리에 넣어주는 것 좋다
