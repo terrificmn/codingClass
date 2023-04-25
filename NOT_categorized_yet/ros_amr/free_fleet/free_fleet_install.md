@@ -1,6 +1,6 @@
-# free fleet
+# free fleet 설치 ROS1
 
-ROS 에서는 오직 client 버전만 설치할 수 있는 듯 하다  
+ROS 에서는 오직 client 버전만 설치할 수 있는 듯 하다 (설치가 가능하다)  
 
 그래서 ws 스테이션도 새로 만들고, ros2 빌드 시스템인 colcon으로 빌드를 하게 된다   
 
@@ -75,13 +75,38 @@ source devel/setup.bash
 roslaunch ff_examples_ros1 fake_client.launch
 ```
 
-터틀봇3 시뮬레이션
+터틀봇3 시뮬레이션  single용
 ```
 export TURTLEBOT3_MODEL=burger; roslaunch ff_examples_ros1 turtlebot3_world_ff.launch
 ```
+싱글용은 그냥 시뮬레이션 용 인듯하다..;;
+
+
+**멀티용 실행**
+```
+roslaunch ff_examples_ros1 multi_turtlebot3_ff.launch 
+
+```
+사용방법
+rviz에서 Robot Selection에 Fleet 에는 *turtlebot3*, Robot에는 *tb3_0*, *tb3_1*, or *tb3_2* 로 입력을 한다   
+그리고 2D Nav Goal 을 이용해서 목적지를 지정해주고 나서   
+Send Nav Goal 을 눌러주면 터틀봇3가 움직이게 된다   
+
+> 하나씩 Robot의 이름을 바꿔가면서 (namespace인 듯 하다) 2D Nav Goal을 따로 지정해줘야 한다
 
 
 이제 여기에 서버를 켜야하는데. 일단 ros2 만 가능하기 때문에  
 ros2를 설치하고 나서 다시 정리해야겠다
+
+> ROS2 에서 서버가 가능하나  ROS1 과는 브릿지 형태로 통신을 해야하는데.. 아직까지는 성공 못함 
+
+
+## ros2 는
+docker-ros 깃허브, 브랜치 humble  을 참고하고,  scripts 쉘 스크립트 파일을 참고해서 설치할 수가 있다.   
+
+현재는 도커로 설치 및 실행만 해 본 상태 Apr 2023   
+
+> turtlbot3 을 이용한 가제보 및 rviz2를 띄울 수는 있으나... 딱히 navigation만 되는 상태인 것 같고   
+정확히 free_fleet를 어떤식으로 활용해야하는지는 잘 모르겠다;
 
 

@@ -1,0 +1,15 @@
+<?xml version='1.0' ?>
+
+<launch>
+  <arg name="failover_mode" default="false"/>
+  <!-- set to false if using real robots -->
+  <arg name="use_sim_time" default="false"/> 
+
+  <!-- Common launch -->
+  <include file="$(find-pkg-share gazebo_simulation)/launch/rmf_schedule_common.launch.xml">
+    <arg name="use_sim_time" value="$(var use_sim_time)"/>
+    <arg name="failover_mode" value="$(var failover_mode)"/>
+    <arg name="map_name" value="my_gazebo_world" />
+  </include>
+
+</launch>

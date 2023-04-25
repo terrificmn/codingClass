@@ -1,0 +1,34 @@
+<?xml version='1.0' ?>
+
+<launch>
+  <!-- set to false if using real robots   -->
+  <arg name="use_sim_time" default="false"/>
+  <arg name="failover_mode" default="false"/>
+  <arg name="map_name" description="Name of the rmf_demos map to simulate" />
+
+  <!-- Common launch -->
+  <include file="$(find-pkg-share rmf_demos)/common.launch.xml">
+    <arg name="use_sim_time" value="$(var use_sim_time)"/>
+    <arg name="viz_config_file" value ="$(find-pkg-share gazebo_simulation)/rviz_config/$(var map_name).rviz"/>
+    <arg name="config_file" value="$(find-pkg-share gazebo_simulation)/maps/$(var map_name).building.yaml"/>
+    <!-- <arg name="dashboard_config_file" value="$(find-pkg-share gazebo_simulation)/dashboard_config/$(var map_name)/dashboard_config.json"/> -->
+  </include>
+
+  <!-- Barista fleet adapter, and robot state aggregator. These should comunicate with the barista fleet server of FF -->
+  <group>
+    <let name="fleet_name" value="amr"/>
+    <include file="$(find-pkg-share gazebo_simulation)/adapter_config/my_adapter.launch.xml">
+      <arg name="fleet_name" value="$(var fleet_name)"/>
+      <arg name="use_sim_time" value="$(var use_sim_time)"/>
+      <arg name="nav_graph_file" value="$(find-pkg-share gazebo_simulation)/maps/$(var map_name)/nav_graphs/0.yaml" />
+      <!-- <arg name="config_file" value="$(find-pkg-share gazebo_simulation)/adapter_config/barista_config.yaml" /> -->
+    </include>
+    <include file="$(find-pkg-share rmf_fleet_adapter)/robot_state_aggregator.launch.xml">
+      <arg name="robot_prefix" value="$(var fleet_name)"/>
+      <arg name="fleet_name" value="$(var fleet_name)"/>
+      <arg name="use_sim_time" value="$(var use_sim_time)"/>
+      <arg name="failover_mode" value="$(var failover_mode)"/>
+    </include>
+  </group>
+
+</launch>
