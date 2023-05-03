@@ -10,6 +10,7 @@ git clone https://github.com/KDAB/GammaRay.git
 
 build
 ```
+cd ~/GammaRay
 cmake -G Ninja -DCMAKE_PREFIX_PATH=$HOME/Qt/6.3.0/gcc_64 -DCMAKE_INSTALL_PREFIX=$HOME/qt_ws/gammaray
 ```
 
@@ -29,7 +30,7 @@ GAMMARAY_QT6_BUILD:BOOL=ON
 
 > CMAKE_INSTALL_PREFIX 시 해당 경로가 없다고 하는지는 정확하지 않다. 없다고 하면 만들어준다  
 마지막 설치되는 **경로가 꽤 중요!**. 실행 파일을 다른 곳으로 옮기면 실행에 필요한 shared libraries를 찾지 못할 수가 있다   
-sub directory가 많이 생성 되므로, 처음에 gammayray가 설치될 디렉토리를 꼭 확인하자  
+sub directory가 많이 생성 되므로, 처음에 gammayray가 설치될 디렉토리를 꼭 확인하자 (깃 클론한 곳이랑 다른 경로)
 
 
 
