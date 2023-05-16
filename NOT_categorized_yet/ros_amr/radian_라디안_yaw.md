@@ -1,3 +1,5 @@
+## radian
+
 https://www.mathsisfun.com/geometry/radians.html   
 참고 하기: 그림으로도 볼 수 있다   
 
@@ -24,3 +26,28 @@ radians to degrees (multiply by 180, divide by pi)
 ```
 
 이미 완료된 yaw 값일 경우에는 바로 쿼터니언으로 변경 가능... 업데이트하기
+
+
+## radius, diameter
+
+- 중점은 Midpoint
+
+- Radius (of a Circle)   
+중점 부터 바깥쪽 끝까지의 길이, 소문자 **r** 로 표시
+
+- Diameter (of a Circle)  
+는 서클(원)을 가로지르는 full length 가 되고, 중점을 통과한다. **d** 문자로 표시   
+
+- Circumference (of a Circle)   
+는 서클을 둘러쌓는 바깥쪽의 거리(전체). 대문자 **C** 로 표시
+
+
+
+## Formula
+
+Radius: r = d/2
+
+Diameter: 반대로 d = 2r
+
+Circumference: C = π x d  또는 C = 2 x π x r
+
