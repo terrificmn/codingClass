@@ -6,6 +6,19 @@ Holonomic: omniwheels 또는 mecanum wheels 가 있다. 옆으로 이동이 가�
 
 Nonholonomic: 자동차, 전통적 방식의 휠 등이 있고, 옆으로 움직일 수가 없다
 
+## chassis의 속도
+먼저 로봇의 x axis, y axis, 헤딩방향인 angular z axis가 있는데 (중심에서 z축)   
+이를 통해서 chassis의 속도를 구하게 된다. **휠의 속도는 아니다**
+
+![로봇의 x,y,z축](./img/mpo500.png)
+
+위의 coordinate를 통해서 q = (알파, x, y) 가 되게 된다. (샤시의 속도(twist를 𝑣b) 로 식으로 표시하면..)   
+𝑣b = (ωbz, 𝑣bx, 𝑣by) 
+
+> 𝑣는 vee 로 발음, (v와 비슷) vector를 의미할 경우 많이 사용   
+ω 는 오메가, 그리스소문자, angular velocity를 지칭할 때 많이 사용
+
+
 
 ## Kinematic model
 4바퀴의 mecanum 의 모바일 로봇 kinematic model  
@@ -15,8 +28,12 @@ Nonholonomic: 자동차, 전통적 방식의 휠 등이 있고, 옆으로 움직
 𝑢 는 휠의 driving 속도의 대한 vector  
 𝑟 은 휠의 radius   
 𝑙 과 𝑤 은 샷시 (chassis)의 dimensions   
-𝑙 은 휠베이스라고 생각하면 되고, front휠의 중점에서 rear휠의 중점까지 거리   
-𝑤 정면에서 봤을 때 휠과 휠 사이의 거리    
+𝑙 은 휠의 중점에서 x axis 로 로봇 샤시 중심까지의 거리 
+--(휠베이스라고 생각할 수 있는 휠(front) 중점과 휠(rear)의 거리의 반절이 됨)    
+
+𝑤 휠의 중점에서 y axis로 로봇 샤시 중심까지 거리   
+--(front나, rear를 y axis기준으로 휠(left)의 중점에서 휠(right) 중점까지 거리의 반절)
+
 𝛾 는 슬라이딩을(free sliding occurs) 하는 각도   
 free sliding은 diagonal 움직임. 즉, 대각선으로 움직이는 것을 의미하는 듯 하다   
 
@@ -90,6 +107,37 @@ twist 2차원 배열의 요소[0], [1], [2] 이 각각 H [0], [1], [2]에 곱해
 
 리턴 값으로 4개 바퀴의 속도인 u가 나오게 된다. (4개 요소 값)   
 
+## teleop을 사용할 경우
+ros 의 Twsit 메세지를 사용할 경우 , linear 값과 angular 값을 사용하게 되는데  
+
+늘 하던 방식처럼, differential drive 방식에에서 2개의 바퀴로 굴리는 것을 생각하고  
+단지, differential drive 방식인 2바퀴 굴림에서는 linear.y를 이용해서 y축으로 이동을 할 수 없고  
+단지 회전 움직임인 angular.z 방향을 움직이는 것이 있을 뿐인데   
+
+옆으로 이동하는 것을 z로 착각을 하게 되었다. 물론 작동에는 우연히 문제는 없었지만   
+개념 자체가 틀렸다는 것을 알게됨  
+
+mecanum에서는 y축으로도 이동이 가능하기 때문에 kinematic model에 적용을 할 때 linear.y 값을 주면 모터의 값을 계산 해주니  
+y의 값만 넘길 수 있게 하고   
+회전 움직임이 필요할 경우에는 x, z가 둘다 있어야 하고, z값이 조금 더 커야할 듯 하고    
+탱크 회전 같이 회전을 하는 경우에는 z 방향만 값을 줘서 이동할 수 있게 한다
+
+
+## 모터 정렬
+실제 kinematic model 에서 정의된 모터의 순서는   
+위의 u = [ u1, u2, u3, u4 ]  하는 부분에서 실제 모터의 순서는    
+위의 그림을 참고해보면 알겠지만  
+
+아래의 순서로 되어 있다 (clockwise)
+    [m1]    [m2]   
+        센터   
+    [m4]    [m3]   
+
+그래서 u 에 관련해서 array를 만들 때 m1, m2, m3, m4 순으로 만들어 줘야지 맞는 결과가 된다 
+
+하지만 실제 모터가 이런 이렇게 되어 있지 않다면 위의 수식과 다른 결과가 나오므로   
+예를 들어 모터위 위치에 따라서 서로 다른 모터가 원하지 않는 방향으로 이동해버리므로   
+실제 모터를 확인한 후에 모터 위치를 바꾸기 어려다면 array의 순서를 바꿔주면 된다   
 
 
 ## 파이썬 interpreter 사용
