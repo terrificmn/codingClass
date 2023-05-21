@@ -44,7 +44,7 @@ Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
     각각 `NEO_GRB + NEO_KHZ800`, `NEO_GRBW + NEO_KHZ800` 
 
 > 네오픽셀을 사용 시 제어에 실패한다면, GRB, GRBW 를 확인해본다.  
-
+> led를 ws2812b 가 아닌 we2811을 사용할 때에는 NEO_KHZ400 으로 사용한다
 
 그 이후 `setup()` 에서는 그 인스턴스 변수를 이용해서 `begin()` 함수사용  
 : 디지털 핀을 out 으로 설정해주고, low로 출력이 될 수 있게 해주는 함수
