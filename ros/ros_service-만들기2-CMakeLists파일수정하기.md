@@ -75,7 +75,7 @@ catkin_package(
 ```
 를 찾아서 노드이름을 을 지정해준다. 
 
-${PROJECT_NAME}_node 부분을 노드 이름을 써주고 이하는 파일.cpp로 적어준다
+`${PROJECT_NAME}_node` 부분을 노드 이름을 써주고 이하는 파일.cpp로 적어준다
 아래처럼
 ```
 add_executable(srv_server src/srv_server.cpp)
