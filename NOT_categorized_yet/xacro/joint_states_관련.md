@@ -41,3 +41,12 @@ my_controller:
 
 
 [joint controller 유투부 좀 더 참고하기](https://www.youtube.com/watch?v=K09E-_2M-vQ)
+
+
+## joint state 에는 
+position, velocity, effort가 있는데   
+이 중 effort value로는 (urdf에서 설정) 마치 힘이 센 모터를 설정하듯이 설정할 수 있다고 함   
+
+> 뭔가 물건을 잡을 때 넘거가거나 휘거나 할 경우에는 PID 가 계산이 잘 안되서 그럴 수 있다고 한다   
+그래서 position 을 지탱할 수 있게 된다   
+

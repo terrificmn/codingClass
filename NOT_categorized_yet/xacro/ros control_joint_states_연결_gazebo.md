@@ -213,3 +213,59 @@ front_joint_1_controller:
   > gazebo_plugin 이 잘 지정되어 있는지도 확인해야함 (libgazebo_ros_control.so)
 
   
+
+## position 이용할 경우
+위의 경우 처럼 hardwareInterface를 EffortJointInterface 대신에 positionInterface 를 사용할 경우
+
+xml 상에서 transmission 에서는   
+```xml
+생략...
+<transmission name="tran1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="joint1">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor1">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+</transmission>
+```
+
+이제 이를 yaml에서 지정할 때에는  JointPositionController 라고 지정을 하면 된다
+
+```yaml
+joint1_position_controller:
+    type: position_controllers/JointPositionController
+    joint: joint1
+```    
+
+> PositionJointInterface는 pid 는 생략가능 하다 (단, pid 가 없으면 자연스러운 컨트롤은 안됨)   
+하지만 position이 아닌 `hardware_interface/EffortJointInterface` 를 사용한 경우에 pid 파라미터를 안 주게 되면  
+컨트롤러 실행에 실패하게 된다. 
+
+
+```
+ No p gain specified for pid.  Namespace: /my_robot/wheel_joint_controller/pid
+[ERROR] [1685949934.990322342, 0.320000000]: Failed to initialize the controller
+[ERROR] [1685949934.990343272, 0.320000000]: Initializing controller 'wheel_joint_controller' failed
+```
+
+
+## trajectory 방식과의 차이점
+여태껏 joint는 각 controller에서 해당 joint를 담당하는 방식    
+
+그래서 하나의 컨트롤러 마다 command를 넣을 수 있게 토픽이 생기고,   
+예를 들어  
+```
+/my_robot/joint1_controller/command
+/my_robot/joint2_controller/command
+/my_robot/joint3_controller/command
+/my_robot/joint4_controller/command
+```
+
+trajectory joint를 만들어서 사용할 경우에는 하나의 controller에서 여러 joint를 담당하게 할 수 됨   
+`my_robot/my_controller/command`
+
+type자체도 trajectory_msgs/JointTrajectory  를 사용함
+
