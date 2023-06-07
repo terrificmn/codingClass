@@ -37,3 +37,5 @@ teleop_twist_keyboard, 및 arm_controller 가 없어서 워닝, 에러가 발생
 그냥 무시하고 사용하거나 런치파일 수정
 
 
+## 그 외 참조 
+[linorobot 깃허브-wiki](https://github.com/linorobot/linorobot/wiki/1.-Getting-Started)

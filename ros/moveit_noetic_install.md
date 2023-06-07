@@ -53,12 +53,15 @@ rosdep install -y --from-paths . --ignore-src --rosdistro noetic
 빌드 전에 Release 빌드로 config 설정
 ```
 cd ~/moveit_ws
-catkin config --extend /opt/ros/${ROS_DISTRO} --cmake-args -DCMAKE_BUILD_TYPE=Release
+catkin --cmake-args -DCMAKE_BUILD_TYPE=Release
 catkin build
 ```
+> 다른 워크 스페이스를 다 사용하려면 위 처럼 Release만 설정해준다   
+참고로 --extend를 넣어서 설정할 수도 있는데  
+`catkin config --extend /opt/ros/${ROS_DISTRO} -DCMAKE_BUILD_TYPE=Release` 로 추가해준다  
+이제 [explicit] 으로 /opt/ros/noetic 이 붙는데   
+다른 워크 스페이스를 extending를 못해서 다른 워크 스페이스의 패키지를 찾지 못하게 된다 
 
-> 위의 config 설정에서 --extend 를 설정하면 [explicit] 으로 /opt/ros/noetic 이 붙는데   
-다른 워크 스페이스를 extending를 못하는 것 같기도 하다. 빼고 테스트를 해봐야겠다
 
 
 ## 트러블 슈팅
