@@ -74,7 +74,10 @@ sudo apt install ros-noetic-rqt-joint-trajectory-controller
 이제 터미널에 `rqt` 를 실행한 후에   
 Plugins->Robot Tools->Joint trajectory controller를 선택해주면 된다   
 
+또는 rosrun 으로 rqt_joint_trajecotry_controller를 실행할 수도 있다 
 
-
+```
+ rosrun rqt_joint_trajectory_controller rqt_joint_trajectory_controller 
+```
 
 
