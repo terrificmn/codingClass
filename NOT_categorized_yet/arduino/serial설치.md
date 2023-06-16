@@ -23,6 +23,12 @@ find_package(catkin REQUIRED COMPONENTS
 )
 ```
 
+ros serial이 또 따로 있는데 아래처럼 설치
+```
+sudo apt install ros-noetic-rosserial
+```
+
+
 ## 아두이노
 참고로 아두이노에서는 Serial 로 대문자 시작하는 놈으로 사용한다   
 
@@ -33,8 +39,4 @@ find_package(catkin REQUIRED COMPONENTS
 sudo apt install ros-noetic-rosserial-arduino
 ```
 파이썬으로 되어 있는 패키지   
-
-
-
-
 
