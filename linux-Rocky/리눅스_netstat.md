@@ -1,4 +1,13 @@
+# netstat
+
 포트를 listen하고 있는지 확인하는 명령어 netstat
+
+설치는 
+우분투에서는 net-tools 
+```
+sudo apt install net-tools
+```
+
 
 22번 포트가 정상적으로 실행되고 있는지 확인해보자
 ```

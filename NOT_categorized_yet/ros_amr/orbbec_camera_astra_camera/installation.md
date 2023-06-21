@@ -32,9 +32,11 @@ mv ros_astra_camera/ astra_camera
 
 > catkin build 할 때 패키지 이름을 인식을 못한다. CMakeLists.txt, package.xml의 패키지명을 바꾸거나 그냥 귀찮으니 디렉토리명만 변경하자
 
+아스트라 카메라가 업데이트 됨. (버전은 몇인지 모르겠지만, git log 기준으로 Apr23, 2023)
+
 빌드 
 ```
-catkin build
+catkin build astra_camera
 ```
 
 
@@ -51,11 +53,17 @@ cd astra_camera/scripts
 sudo udevadm control --reload && sudo  udevadm trigger
 ```
 
+**[중요]** astra 버전 업데이트로 카메라 변경 후 다시 할 때, 위의 스크립트를 다시 한번 실행해주자   
+
+> 스크립트 자체가 변경된 것은 없으나, 다시 한번 udevadm reload 및 trigger 를 작동시켜야 하는 듯    
+
 그러면 /etc/udev/rules.d 디렉토리에 56-orbbec-usb.rules 파일이 생김
 
 
-
 ## troubleshooting
+이미 업데이트가 되어 변경 되었으므로 참고만 하고, (볼 필요도 없음)   
+
+중요한 것은 *use_uvc_camera* 파라미터만 *true* 로 사용하면 된다    
 [일단 여기는 참고만 하고 이미 패키지 update가 되어 있으므로 업데이트 된 tar파일 사용하자-스킵하고 다음보기](#실행)   
 
 
@@ -98,7 +106,7 @@ init 메소드에서 use_uvc_camera 변수를 설정해주는데 파라미터를
 ## 실행
 
 ```
-roslaunch astra_camera astra.launch
+roslaunch astra_camera astra_pro.launch
 ```
 
 rqt_image_view나 rviz를 실행한 후 토픽을 color의 image_raw를 선택해준다. 

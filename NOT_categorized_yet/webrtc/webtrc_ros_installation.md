@@ -106,27 +106,50 @@ cmake 할 때 `-DBUILD_STATIC_LIBS=ON -DBUILD_SHARED_LIBS=OFF` 이 부분임
 /usr/bin/ld: final link failed: bad value
 ```
 
-> ROS2에서는 아닐 수도 있음. 왜냐하면 
+> ROS2에서는 아닐 수도 있음. 테스트 안 해봄
+
 
 ## webrtc_ws 로 새로 만들기
-기존의 워크스페이스를 사용해도 되나, 따로 만들어서 사용함  
+기존의 워크스페이스를 사용해도 되나, 따로 만들어서 사용했다   
 
 ```
 cd
 mkdir webrtc_ws/src -p
 ```
 
+### catkin_make_isolated 로 진행할 경우 참고
+이 경우도 참고한다. 차이를 알아보기 위해서 테스트를 했지만 꼭 이 빌드로 해야할 필요가 없으므로 **스킵/참고만** 하자   
+
+만약 catkin_make 로 해서 isolated 환경으로 만들려고 하면  
+catkin build 빌드 말고 catkin_make로 진행한다.. 
+
+```
+cd ~/webrtc_ws
+catkin_make_isolated --install
+```
+
+하지만 이게 문제는 아닌 듯 하다. 아마도 CPU나 환경에 따라서 상황이 달라지는 듯 한데,   
+데스크탑 성능이 좋아서 그런지 빌드자체에 별로 안걸렸는데  
+Nuc PC 환경에서는 꽤 오래 걸리는 듯 하다. *엄청 오래 걸린다*    
+
+> catkin build 를 하려면 일단 catkin_make_isolated 로 해줘야 필요한 것들을 추가로 다운 (cloning)을 하고   
+빌드하게 되는 듯 하다. webrtc/build 안에 다운들이 되는 듯 하다   
+
+
+## 본격 클론 및 빌드 
+catkin 으로 빌드할 수 있는 ros 패키지를 하나 받아준다  
 의존성 async_web_server_cpp 클론 및 최초 빌드
 ```
 cd ~/webrtc_ws/src
 git clone https://github.com/GT-RAIL/async_web_server_cpp.git
+cd ..
+catkin build async_web_server_cpp
 ```
-~~이건 그냥 catkin build~~ catkin 빌드 말고 catkin_make로 진행   
-일단 클론으로 패키지만 받자   
 
 ## webrtc_ros 설치
 ~~noetic 버전은 없는 듯 하다~~  의존성 패키지만 잘 설치를 해주면 ROS1에서도 작동한다   
-단, 크로미엄 Chromium 크롬 기반이어서인지 firefox에서는 안됨   ㅠㅠ    
+
+> 단, 크로미엄 Chromium 크롬 기반이어서인지 firefox에서는 안됨   ㅠㅠ    
 
 물론 의존성 부분에서 잘 설치가 안되면   
 ```
@@ -134,80 +157,62 @@ cannot prepare WebRTC build system
 ```
 에러와 함께 빌드 실패한다   
 
+위의 의존성을 모두 설치를 했다면 그리고 빌드할 경우에 바로 에러가 발생하지 않는다면 ok 인 듯 하다   
+
 먼저 ROS noetic에서는 webrtc_ros 클론 
 ```
 cd ~/webrtc_ws/src
 git clone https://github.com/RobotWebTools/webrtc_ros
 ```
 
-catkin build 말고
+드디어 webrtc 빌드
 ```
 cd ~/webrtc_ws
+catkin build
 ```
 
-`catkin_make_isolated --install` 로 해준다    
-
-먼저 catkin build 말고  catkin_make_isolated 빌드를 해주자   
-depot_tools 등, Ninja build tool, WebRtc source code 등을 fetching을 해주기 때문에   
-catkin build 를 하려면 일단 catkin_make_isolated 로 해줘야 필요한 것들을 추가로 다운 (cloning)을 하고   
-빌드하게 되는 듯 하다   
-다행히 빌드는 webrtc/build 안에 다운들이 되는 듯 하다   
-
-이것도 엄청 오래 걸리는데 문제가 있는 듯 하다 
-
-```
-[0:06:37] Still working on:
-[0:06:37]   src/third_party
-[0:06:37]   src/tools
-[0:06:47] Still working on:
-[0:06:47]   src/third_party
-```
-이렇게 계속 된다.. 대충 tool 관련해서는 다운이 된 듯 해서 
-
-catkin build로 가능을 할 듯 한데, 일단 webrtc 부터 먼저 진행을 해주자   
-```
-catkin build webrtc
-```
 메세지는 안 나오지만, webrtc의 CMakeLists.txt 파일이 거의다가 install 관련된 내용들이다    
 이래서 오래 걸리는 듯 하다.. 뭔가 잘 설치가 안되거나, 추정은 그렇고,, 한번 빌드 하다 실패하거나  
 취소한 후 다시 할려고 하면 안됨  
 
-> Desktop에서 catkin build로 성공을 했는데, 아마도 catkin_make를 한 이후 실패해서 삭제를 한 후에   
-그 동안 필요한 패키지가 다운이 되서??? 잘 모르겠다.. 업데이트 필요   
+> Desktop에서 catkin build로 성공을 했는데, 데스크탑에서는 빌드가 굉장히 빨랐고, 아무리 그래도  
+미스테리??
 
+다음과 같은 에러 발생 시에는  
 ```
 /home/user/webrtc_ws/src/webrtc_ros/webrtc/build/webrtc/.gclient_entries missing, .gclient file in parent directory /home/user/webrtc_ws/src/webrtc_ros/webrtc/build/webrtc might not be the file you want to use.
 ```
-이런 메세지가 나오면 빌드 쪽을 지워줘야 한다  
+중간에 빌드를 중단하고 다시 하는 경우에 에러가 발생하는 듯 하다
+이런 메세지가 나오면 패키지를 지우고 아예 다시 webrtc_ros를 다시 클론 해주자   
 
 ~/webrtc_ws/src/webrtc_ros/webrtc/build  디렉토리안의 depot_tools 등을 사용하는 듯 함  
-뭔가 꼬이면 지우고 다시 클론해준다  
+> 뭔가 꼬이면 지우고 다시 클론해준다  
+
+다시 한번 말하지만 몇번 테스트가 더 필요하지만 데스크탑에서는 빌드가 오래 안 걸렸는데 이유는 아직 잘 모르겠다   
+
+어쨋든 빌드가 굉장히 오래걸려도 일단 다른 일 하면서 기다리자   
+참고로 **55분 걸렸음**  일단 중간에 끄지 말고 계속 빌드하게 나둬야 할 듯   
 
 
-다시 업데이트 하자!!!!!
+## 실행
+```
+roslaunch webrtc_ros webrtc_ros.launch 
+```
+
+카메라 노드도 하나 실행을 해서 `image/raw`가 퍼블리쉬 되게 해준다   
+
+`localhost:9090` 으로 웹브라우저에 접속을 해서 크롬 브라우저여야 한다.  
+
+> 아놔 파이어폭스는 안됨 ㅠㅠ
+
+웹 페이지에서 보여지는 부분을 수정하려면 web 디렉토리리의 html과 js을 수정하면 된다   
 
 
-
-
-
-
-
-> ROS 브랜치 및 깃허브   
+## ROS 브랜치 및 깃허브   
 ROS2로 설치하려면 아래 깃 허브를 참고 (아마도 develop-ros2 브랜치에서 포크된 후 개발되었을 듯 하다)    
 ```
 git clone https://github.com/polyhobbyist/webrtc_ros/tree/ros2
 ```
-
-
-
-시간이 엄청 걸리기도 하는데 이것은 지켜봐야할 듯   
-데스크탑에서는 문제가 있을 때는 오래걸렸지만, 의존성 해결 후 약 몇 분 안걸려서 빌드가 완료 됨   
-
-5분 이상 빌드를 하고, cpu를 거의 사용하지 않는다. 빌드 문제가 있는 듯 하다 
-'
-
-
-
 
 ## 에러 트러블 슈팅
 
@@ -253,7 +258,7 @@ sudo apt install libgtk-3-dev
 이제 libgtk-3가 설치가 될 것임
 
 
-### 다운 그레이드는 할 수 있다  참고만 할 것
+#### 다운 그레이드는 할 수 있다  참고만 할 것
 처음에 libgtk-3를 설치하려고 하면 의존성 패키지들의 버전이 맞지 않는다면서 설치가 되지 않음   
 그래서 해당 의존성 패키지들을 강제로 다운그레이드를 할 수는 있다   
 예를 들어   
@@ -272,7 +277,4 @@ sudo apt install gir1.2-gtk-3.0=3.24.18-1ubuntu1
 라고 나오면 설치가 다운그레이드가 됨    
 
 위의 apt list를 업데이트를 해서 맞는 버전을 설치하자!
-
-
-
 
