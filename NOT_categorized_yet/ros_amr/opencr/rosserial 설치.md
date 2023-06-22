@@ -37,7 +37,14 @@ rosserial로 검색 후 install하면 되고
 
 
 ### 이제 컴퓨터 쪽에서는 
-rosserial 설치
+Arduino에서는 rosserial 패키지를 이용해서 ros_lib 디렉토리에 해당 파일들을 만들어 줘서   
+libraries 디렉토리에 넣어주거나,  
+
+ESP32도 ros_lib 을 만들어서 ros.h 헤더파일을 인식할 수 있게 해줘야 하는데   
+
+OpenCR 의 장점 R이 robot이다. **ros관련해서 이미 설치가 되어 있다!**
+
+desktop에 rosserial 없다면 설치
 ```
 sudo apt install ros-noetic-rosserial-arduino
 ```

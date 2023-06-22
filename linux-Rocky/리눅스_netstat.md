@@ -20,3 +20,12 @@ tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      
 
 현재 LISTEN 으로 잘 되어 있고
 외부에서 접속을 하니, 상태가 ESTABLISHED로 나오는 것을 알 수 있음
+
+
+### 옵션
+-n -- numeric   
+-a -- all : display all sockets   
+-p -- programs : show PID/Program name for sockets
+-t : tcp 만 보여준다
+-u : udp 만 보여준다  
+
