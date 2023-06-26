@@ -25,6 +25,12 @@ ros.h, 나 std_msgs, geometry_msgs 등과 같은 type 등을 만들어준다
 **esp32에서는 ros serial이 잘 작동을 안하는 것 같다. 좀 더 테스트를 해봐야 할 듯**
 
 
+## platformIO 
+플랫폼 IO 에서는 platformio.ini 파일에   
+```
+lib_deps = ros_lib
+```
+로 추가해준다  
 
 ## eps32 에서 트러블 슈팅
 ros_lib 이 만들어진 이후에 ros_lib/ros.h 파일을 열어서   
