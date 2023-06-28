@@ -1,3 +1,4 @@
+## String , std::string, 그리고 char
 아두이노에서는 std::string을 사용할 수 가 없다.  자세한 내용은 아래 내용을 보자
 
 `String` and `std::string` both dynamically allocate memory, and will both cause heap fragmentation.
@@ -35,4 +36,59 @@ Converting an int to a cString could be done with [itoa() 680](http://www.cplusp
 
 
 [출처: 더 참고... ](https://forum.arduino.cc/t/how-to-convert-a-int-number-to-a-string-text/573255/5)
+
+
+## char를 넘겨줄 때
+함수를 만들어서 char를 넘겨주려고 하면 참 힘든것 같다... 아직까지 정확하게 정리가 안됨 ㅠ   
+
+일단 String으로 만들어서 넘겨주는 방식이 편한듯 하다   
+
+String으로 바로 넘겨주거나 아니면, 포인터로 넘겨주는 방식
+
+```cpp
+void myFuntion(String *str_ptr);
+
+/// 생략
+void loop() {
+
+    char data_chars[4] = "abc";
+    String str = data_chars;
+
+    myFuntion(&str);
+}
+
+void myFuntion(String *str_ptr) {
+    ///생략
+    // str_ptr을 가지고 뭔가 처리
+}
+```
+
+char 배열이 만들어져 있어서 뭔가 처리해야할 때 char 형태로 함수에 넘겨주고 싶은데   
+이게 배열의 크기가 달라지는 경우도 있고   
+그냥 char로 넘겨주면 * 관련 에러가 발생   
+
+그래서 그냥 String으로 처리했지만   
+위의 방법도 잘 통하지만, 뭐가 char로도 잘 정리를 해봐야겠다.  
+
+언제나 char 배열이 어려운 듯 싶다 ㅠ
+
+
+
+### const char 로 변환
+String을 char 방식 c style로 사용하는 것에는 
+
+const char 포인터를 사용해서 만들어 줄 수가 있다 
+
+```cpp
+String my_str = "hello";
+const char* my_char = my_str.c_str();
+```
+
+`char *` , `const char`, `const *char[]`, `char []` 이런 걸로는 String 을 변환해서 넣어줄 수가 없고,  
+**contst char*\** 이어야만 하는 듯 하다
+
+물론 바로 `my_str.c_str();` 처럼 바로 사용해서 어떤 값으로 넘겨줄 수도 있지만   
+
+
+이유를 좀 더 학습해봐야겠다   
 

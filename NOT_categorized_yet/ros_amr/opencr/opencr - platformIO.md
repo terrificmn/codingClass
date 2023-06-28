@@ -73,6 +73,8 @@ vscode 왼쪽 탭에서 PIO home을 클릭해서 New Project를 만들어 준다
 프로젝트 이름은 아무거나 설정하고, 중요한 Board 칸에서 opencr 이라고 검색을 하면   
 OpenCr 1.0(ROBOTIS) 라고 board가 나온다. 이제 선택 후  Finish를 눌러서 프로젝트를 만들어준다   
 
+> 안 나온다면 vscode를 종료 후 다시 시도, 또는 로그오프
+
 자신의 프로젝트가 만들어졌다면, 예를 들어 프로젝트가 new_opencr 이라면  
 new_opencr 이라는 디렉토리가 생기고 그 안에 보면   
 platformio.ini 이라는 파일도 있다. 이 파일에 내용을 추가해주자   
@@ -113,3 +115,41 @@ void loop() {
 [참고 블로그 ](https://zenoh.io/blog/2022-02-08-dragonbot/)
 
 [opencr1.0 로보티즈 메뉴얼](https://emanual.robotis.com/docs/en/parts/controller/opencr10/)
+
+
+
+## 아두이노 ide에서 복사시켜서 업데이트   
+또 다른 방법으로는  
+arduino IDE와 같게 맞춰주는 방법이 있다  
+
+아두이노 IDE로 opencr 보드를 추가시킨다음에 보면  
+
+다음 경로에  
+`/home/myuser/.arduino15/packages/OpenCR/hardware/OpenCR/1.5.2`
+
+부트로더, cores, libraries, variant, 나머지 txt 파일이 있는데   
+
+즉 전체 디렉토리 1.5.2 디렉토리의 내용을 복사해서   
+`/home/sgtubunamr/.platformio/packages/framework-arduinoststm32-opencr` 에 복사 덮어쓰기를 해준다   
+
+모두 파일을 merge를 해주면 된다   
+
+
+
+## opencr core 업데이트?
+> 위에 아두이노IDE에서 동일하게 복사했다면 구지 할 필요 없다
+
+platformio의 opencr 보드는 ROBOTIS-GIT/OpenCR 에서 fork를 해온 것이므로 참고를 할 수 있으나   
+현재 업데이트된 내용은 별로 없어보이고 라이브러리 정도만 업데이트가 된 듯 하다   
+
+[opencr 깃허브](https://github.com/ROBOTIS-GIT/OpenCR)   
+
+여기에서 다시 클론을 해준다음에  
+
+`https://github.com/ROBOTIS-GIT/OpenCR/tree/master/arduino/opencr_arduino/opencr/libraries` 여기 경로를 보면   
+
+라이브러리에서 OLLO, turtlebot3, turtlebot3_ros2, OpenCR (example 코드 등) 업데이트 됨  
+
+이 디렉토리들을 복사 후  아래의 경로에 복사해준다  
+`/home/myuser/.platformio/packages/framework-arduinoststm32-opencr/libraries`
+

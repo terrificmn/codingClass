@@ -40,6 +40,7 @@ CSN핀은 --- D8
 
 다른 MCU 보드로 연결을 할 때에는 해당 보드의 핀 맵을 보면서 참고해서 연결하면 되겠다
 
+![nrf 핀 -arduino uno / nano](img/nrf.jpg)
 
 
 ## 아두이노 uno
