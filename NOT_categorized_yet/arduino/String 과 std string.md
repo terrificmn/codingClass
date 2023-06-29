@@ -92,3 +92,13 @@ const char* my_char = my_str.c_str();
 
 이유를 좀 더 학습해봐야겠다   
 
+
+### 아예 char 가 아닌 int로 보내기
+보낼 때 char[] 배열이 아닌, int로 보내준다  
+
+```cpp
+uint8_t data[] = "hello world!";   
+```
+
+받는 쪽에서는 (char)로 형변환 해주거나, 숫자 (아스키코드)로 받아서 비교 할 수 있을 듯 하다   
+> 형변환시 (char*) received_data; 가 될 수도 있다   
