@@ -1,4 +1,5 @@
 ## usb serial 예제
+ROS를 사용하면서 std::vector를 사용해서 serial 패키지를 사용하는 경우  
 
 ```cpp
 void setup() {
@@ -32,7 +33,7 @@ void loop() {
 }
 ```
 
-Serial, Serail1을 이용해서 양쪽 데이터를 번갈아 테스트 
+Serial, Serial1을 이용해서 양쪽 데이터를 번갈아 테스트 
 
 ## 시리얼 통신시 문자열은 ascii로
 
