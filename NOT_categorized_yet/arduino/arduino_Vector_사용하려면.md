@@ -34,6 +34,19 @@ main.cpp 파일에서는 `#include "Vector.h"` 로 해주면 된다
 Vector<char> my_vector
 ```
 
+std::vector 와 비슷하지만, 크게 다른 점은 Dynamically 메모리 할당이 아니라는 점이다.   
+컨테이너는 external, statically array로 (c style) 할당한다   
+그래서 array와 비슷하지만, 배열은 컨테이너에 내부적(internally) 로 할당,
+
+
+사용 예제
+```cpp
+const int ELEMENT_COUNT_MAX = 5;
+int storage_array[ELEMENT_COUNT_MAX];
+Vector<int> vector(storage_array);
+vector.push_back(77);
+```
+
 
 
 ### STL 를 arduino에서 사용하게 해주는 라이브러리 
