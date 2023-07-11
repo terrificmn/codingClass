@@ -30,6 +30,14 @@ sudo rm -i ./sources.list
 그리고 나서 모니터 왼쪽 상단의 Activities를 누르거나 키보드 superkey를 눌러서 검색   
 software and updates (soft까지만 치면 된다)
 
+이를 터미널로 입력하면  
+```
+sudo add-apt-repository universe 
+sudo add-apt-repository restricted
+```
+정도가 되겠다  
+
+
 새로 열리 창의 Ubuntu Software 탭 부분을 보면  
 다 비활성화 되어 있다   main, universe만 선택할 수 도 있지만 다 선택해준다  
 

@@ -39,8 +39,15 @@ sudo apt install libncurses-dev libncurses5
 ```
 
 명령어 잘 되는 지 확인 
-````
+```
 arm-none-eabi-gcc --version
 ```
+
+
+## 삭제
+/usr/bin 에 걸어준 심링크를 삭제   
+/usr/share 에 복사한 gcc-arm-none-eabi-10.3-2021.10 디렉토리 삭제  
+
+> 직접 쓸 일은 없는 듯 해서 지움
 
 
