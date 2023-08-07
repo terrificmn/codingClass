@@ -51,6 +51,8 @@ digitalWrite(84, LOW);
 ```
 
 송신이 잘 안된다면 digitalWrite() 후에 delay(10) 정도 필요할 수 있다   
+통신하는 모듈과도 관련이 있겠지만..(예: 모터 드라이브 등..)   
+digitalWrite(핀, HIGH/LOW) 는 반드시 필요하고, delay()를 5 또는 10 정도가 필요할 수가 있다. HIGH, LOW 처리 후 사용
 
 > flush() 정말 중요. 끝까지 잘 보내게 된다 (기다림)  
 
