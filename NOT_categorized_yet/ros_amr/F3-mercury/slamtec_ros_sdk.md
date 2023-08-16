@@ -58,10 +58,8 @@ TF를 잡지 못한다면
 ## 문제점
 rviz 화면으로 관련 토픽 내용을 볼 수가 있지만  
 
-API 요청이 전혀 안되고, rviz에서 맵, 레이저, 오도메트리등은 잘 나오나 
-movebase/simplegoal 을 통한 goal 지정은 작동하지 않는다.(토픽은 발행된다)   
+~~API 요청이 전혀 안되고, rviz에서 맵, 레이저, 오도메트리등은 잘 나오나~~   
+~~movebase/simplegoal 을 통한 goal 지정은 작동하지 않는다.(토픽은 발행된다)~~   
 뭔가 enable 등을 먼저 해주고 시작이 되어야 하는지는 모르겠다   
 
-
-cmd_vel을 보내도 반응이 없고 Can't set velocity:: 에러 발생
-
+slam부분의 mapping, localization을 enable 시켜야하는데 api를 통해서 제공한다
