@@ -4,7 +4,7 @@
 
 <!-- Load robot description and start state publisher-->
 
-<param name="robot_description" textfile="$(find gbot_core)/urdf/head_2d.urdf" />
+   <param name="robot_description" textfile="$(find gbot_core)/urdf/head_2d.urdf" />
 
 <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
 
