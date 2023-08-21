@@ -37,3 +37,7 @@ WARNING: Failed to communicate with the flash chip, read/write operations will f
 이번 경우에는 5v 로 출력이 나갔는데 이를 빼고 업로드하니 성공했다
 
 
+> 알고 보니 5V Vin 에는 아마도 외부에서 배터리 등에서 5v를 입력을 받아서 사용할 때 쓰는 것 같다   
+USB 전원으로 입력 받고 5v VIN 으로 1.5v 정도 밖에 안나옴   
+따로 5v를 외부에서 받는 경우가 아니면 쓸 필요 없을 듯 하다..
+
