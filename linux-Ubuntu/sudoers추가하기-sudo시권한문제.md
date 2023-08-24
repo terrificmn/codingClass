@@ -22,6 +22,18 @@ $su -
 ```
 (root) 비밀번호를 입력해준다
 
+## root 비번이 안되어 있을 경우
+`su -`을 했을 경우에 su: Authentication failure 로 나오는 경우   
+
+먼저 sudo 를 이용해서 root의 비번을 정해준다 
+```
+sudo passwd
+```
+
+> 자신의 비번을 바꾸때에는 passwd 해주지만, sudo passwd는 관리자 비번을 바꿀 수 있게 된다   
+까먹으면 안되니 잘 기억, 메모? 
+
+
 파일 열기 
 ```
 #vi /etc/sudoers
