@@ -79,8 +79,34 @@ sudo sh -c "echo `date '+%s' -d '+ 3 minutes'` > /sys/class/rtc/rtc0/wakealarm"
 
 > 자세한 스크립트는 rtc패키지 만들어 놓은 것 참고하기  
 
+
+## 스크립트로 rtc 
+먼저 sh 스크립트를 만들어준다. cpp를 통해서 만들 수도 있으나, sh 스크립트가 편한 것 같다   
+
+```sh
+sudo sh -c "echo 0 > /sys/class/rtc/rtc0/wakealarm"
+sudo sh -c "echo `date '+%s' -d '+ 720 minutes'` > /sys/class/rtc/rtc0/wakealarm"
+echo "if UTC time (below the line) is displayed, then wake_alarm set ok"
+cat /sys/class/rtc/rtc0/wakealarm
+sudo sh -c "shutdown -h 1"
+```
+
+위의 셀 스크립트 파일명을 shutdown_test.sh 라고 만들었다면  
+```sh
+sh shutdown_test.sh
+```   
+로 실행을 하면 된다   
+
+첫줄은 /sys/class/rtc/rtc0/wakealarm 파일을 만들기 위해서 시작  0 으로 만들어준다   
+그리고 두 번째에는 몇 분 후에 다시 켜질 지를 설정한다. 마지막줄에서는 시스템을 종료하게 된다. 3분 뒤에 꺼진다  
+
+> 4번째는 사실 출력되는 것을 보기 위한 것인데, 테스트 할 때에는 2~3분 정도로 테스트 하고 출력이 잘 되는지 확인   
+0 이 아닌 utc 타임이 나오면 설정은 잘 된 것이다. 시스템을 1분 후에 종료하게 했으므로 출력 확인 후   
+1 분뒤에 종료되는 것 확인 후 이어 3분(꺼진 뒤 2분)에 시스템이 다시 켜지는 지 확인하면 된다   
+
+
 ### crontab 정리
-위의 crontab -e 이후 확인 명령
+이제 잘 되는 것을 확인 했으면 위의 sh 스크립트를 자동으로 실행 해주게 만들어주면 된다   
 
 `cat /etc/crontab`
 
@@ -102,8 +128,8 @@ MAILTO=root
 # *  *  *  *  * user-name  command to be executed
 ```
 
-
-# m h  dom mon dow   command
+위의 맨 아래에 나와 있는 `# *  *  *  *  * user-name  command to be executed` 이 부분을 보면 
+이런 형식이 된다  m h dom mon dow command   
 예 
 ```
 # For example, you can run a backup of all your user accounts
@@ -111,23 +137,27 @@ MAILTO=root
 # 0 5 * * 1 tar -zcf /var/backups/home.tgz /home/
 ```
 
-0 21 * * * /usr/local/bin/wakeresv_shutdown.sh
+시스템을 종료하기 위한 sh 스크립트 실행 시키기(rtc 포함)    
+아래와 같은 형식을 만든다면   
+```
+0 21 * * * myuser /usr/local/bin/shutdown_test.sh
+```
+매일 21:00 에 실행을 하게 된다.
+
+이제 셀트크립 파일을 /usr/local/bin/ 에 복사 또는 심링크를 해준다   
+```
+sudo ln -s /usr/local/bin/shutdown_test.sh ~/Documents/shutdown_test.sh
+```
+
+이제 crontab -e 명령을 사용해서 명령을 등록한다   
+
+
 
 
 crontab -e  >>> register
 crontab -l   >>> view the list
 
-즉 sh 스크립트 파일을 하나 만들고   
-```sh
-sudo sh -c "echo 0 > /sys/class/rtc/rtc0/wakealarm"
-sudo sh -c "echo `date '+%s' -d '+ 720 minutes'` > /sys/class/rtc/rtc0/wakealarm"
-echo "if UTC time (below the line) is displayed, then wake_alarm set ok"
-cat /sys/class/rtc/rtc0/wakealarm
-sudo sh -c "shutdown -h 3"
-```
 
-이제 이 파일을 /usr/local/bin/ 에 복사  또는 심링크를 해준다   
-/usr/local/bin/example_shutdown.sh 
 
 그리고 이 파일이 매 시간에 실행될 수 있게 crontab 으로 등록해준다  
 그러면 rtc로 예약을 한 이후에 시스템 종료를 한다
