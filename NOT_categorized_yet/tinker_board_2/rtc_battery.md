@@ -79,3 +79,70 @@ sudo sh -c "echo `date '+%s' -d '+ 3 minutes'` > /sys/class/rtc/rtc0/wakealarm"
 
 > 자세한 스크립트는 rtc패키지 만들어 놓은 것 참고하기  
 
+### crontab 정리
+위의 crontab -e 이후 확인 명령
+
+`cat /etc/crontab`
+
+맨 아래 있는 형식에 주목
+```
+SHELL=/bin/bash
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+MAILTO=root
+
+# For details see man 4 crontabs
+
+# Example of job definition:
+# .---------------- minute (0 - 59)
+# |  .------------- hour (0 - 23)
+# |  |  .---------- day of month (1 - 31)
+# |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...
+# |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
+# |  |  |  |  |
+# *  *  *  *  * user-name  command to be executed
+```
+
+
+# m h  dom mon dow   command
+예 
+```
+# For example, you can run a backup of all your user accounts
+# at 5 a.m every week with:
+# 0 5 * * 1 tar -zcf /var/backups/home.tgz /home/
+```
+
+0 21 * * * /usr/local/bin/wakeresv_shutdown.sh
+
+
+crontab -e  >>> register
+crontab -l   >>> view the list
+
+즉 sh 스크립트 파일을 하나 만들고   
+```sh
+sudo sh -c "echo 0 > /sys/class/rtc/rtc0/wakealarm"
+sudo sh -c "echo `date '+%s' -d '+ 720 minutes'` > /sys/class/rtc/rtc0/wakealarm"
+echo "if UTC time (below the line) is displayed, then wake_alarm set ok"
+cat /sys/class/rtc/rtc0/wakealarm
+sudo sh -c "shutdown -h 3"
+```
+
+이제 이 파일을 /usr/local/bin/ 에 복사  또는 심링크를 해준다   
+/usr/local/bin/example_shutdown.sh 
+
+그리고 이 파일이 매 시간에 실행될 수 있게 crontab 으로 등록해준다  
+그러면 rtc로 예약을 한 이후에 시스템 종료를 한다
+
+이후 정리 다시 업데이트하기!!!!
+
+
+
+
+
+
+
+crontab 정리하기 - 참고 
+
+ssl_설치_셋팅_일반(도커아닌경우).md 여기도 참고
+
+
+
