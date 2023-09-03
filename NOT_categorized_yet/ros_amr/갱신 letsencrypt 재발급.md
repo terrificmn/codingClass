@@ -41,6 +41,20 @@ local에서 개발 할 경우에만 .env파일에서 dev로 사용하게 만들�
 4. 발급 성공 후 다시 .env 파일 CONF_STATUS=prod 로 변경
 6. docker-compose build && docker-compose up
 
+커맨드 정리
+```
+##먼저 디렉토리 이동 후에 
+docker compose stop
+vi ./.env
+## dev 로 변경
+
+docker compose up -d
+docker-compose run --rm certbot certonly --webroot --webroot-path /var/www/certbot/ -d 내blog주소.com
+docker compose stop
+vi ./.env
+## 다시 prod 으로 변경
+docker compose up -d
+```
 
 다음에는 새로 발급 받는 일이 없게 renew로 진행해보자   
 키포인트는 아무래도 default_prod.conf 상태에서도 발급이 되는지 이다.   
@@ -48,6 +62,7 @@ local에서 개발 할 경우에만 .env파일에서 dev로 사용하게 만들�
 그래도 안되면 아래처럼 다시 재발급?   
 
 
+## 이후는 사용법만 참고하자~~  
 ## 가장 먼저 stop시키자
 백그라운드에서 실행되고 있는 docker를 정지해주자
 ```
@@ -84,19 +99,19 @@ cd docker-laravel-blog
 rm -rf certbot
 ```
 
-그리고 빌드 진행 (아마도 build는 안 해도 될 듯 하다. 테스트 후 업데이트 하자)
+그리고 빌드 진행 (build는 안 해도 된다)
 ```
-docker-compose build
-docker-compose up
+docker-compose up -d
 ```
 
-이 상태에서 다른 터미널로 로그인하고  
+~이 상태에서 다른 터미널로 로그인하고  ~ 다른 터미널로 할 필요 없이 위에서 -d 옵션으로 백그라운드에서 돌아가게 해준다
+
 ```
 cd docker-laravel-blog
 
 docker-compose run --rm certbot certonly --webroot --webroot-path /var/www/certbot/ -d example.com
 ```
-
+**중요**   
 > 역시 example.com 부분은 내 도메인으로 수정  
 > 그리고 중요한 부분은 **http에서 letsencrypt.org 쪽에서 요청이 들어오므로**  
 > http에서 응답 할 수 있어야 한다
@@ -113,7 +128,11 @@ These files will be updated when the certificate renews.
 
 다행히 다시 재발급을 받음
 
-control+C로 docker를 종료한 다음에  
+-d 모드로 실행했다면 `docker compose stop` 으로 종료 시킨 후에 
+```
+vi .env
+```
+
 다시 prod_default.conf 파일을 읽을 수 있게 변경.  
 .env 파일을 열어서 다시 CONF_STATUS를 바꾸고 build 진행
 ```
