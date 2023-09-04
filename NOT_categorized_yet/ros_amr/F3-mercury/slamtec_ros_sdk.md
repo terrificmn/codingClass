@@ -31,12 +31,14 @@ find_path(slamware_sdk_LIBRARY librpos_framework.a ${PROJECT_SOURCE_DIR}/lib)
 이렇게 해주면 target_link, install 등을 잘 찾아서 연결해주게 된다   
 
 > 참고로 패키지 명은 그대로 사용하자, include로 사용을 많이 하고 있기 때문에 일만 복잡해진다   
+> slamware_sdk 의 include와 lib의 static 라이브러리를 포함하고 있음   
 
-이후 
+이후 빌드를 해준다
 ```
 cd ~/catkin_ws
-catkin build
+catkin build slamware_rosk_sdk
 ```
+
 
 ## 런치파일 실행
 먼저 무선 wifi를 이용해서 F3 로봇 같은 경우에는 태블릿의 핫스팟을 켜주고 (최초 로봇과 태블릿은 wifi로 연결이 먼저 되어 있어야 함)   
@@ -63,3 +65,15 @@ rviz 화면으로 관련 토픽 내용을 볼 수가 있지만
 뭔가 enable 등을 먼저 해주고 시작이 되어야 하는지는 모르겠다   
 
 slam부분의 mapping, localization을 enable 시켜야하는데 api를 통해서 제공한다
+
+
+## 아직까지 문제점
+런치파일에서 토픽들은 절대경로로 되어 있다면 `/` 를 빼주면 TF가 잘 발행 됨
+
+예
+```xml
+  <param name = "/cmd_vel"                 value = "cmd_vel"/>
+  <param name = "/move_base_simple/goal"   value = "move_base_simple/goal"/>
+```
+
+

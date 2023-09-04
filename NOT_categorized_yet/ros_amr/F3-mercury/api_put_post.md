@@ -1,4 +1,6 @@
 # api
+[slamtec API 주소 여기 클릭](https://docs.slamtec.com/#/)   
+
 postman, insomnia 등의 테스트 프로그램으로 api를 request해볼 수가 있다   
 
 > Postman 프로그램에서는 PUT, POST 방식으로 할 경우에   
