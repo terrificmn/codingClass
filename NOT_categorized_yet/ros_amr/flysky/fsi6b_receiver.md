@@ -34,8 +34,10 @@ Failsafe 메뉴를 on을 시켜준다
 
 ## binding 하기
 처음에 receiver와 transmiter를 연결할 경우에는   
-1. fs-i6b 의 수신기 단말에 오른쪽에 신호 단자(top)와 ground 단자 (bottom) 를 연결 해주면 된다    
-2. receiver에 전원을 연결해준다. 5v, GND 를 연결해준다  (하단이 GND, 중간이 +)   
+1. fs-i6b 의 수신기 단말에 오른쪽에 신호 단자(top)와 ground 단자 (bottom) 를 연결 해주면 된다  
+(보통 점프선으로 맨아래와 맨위를 연결해주면 된다(female용으로만) 중간의 +는 연결하지 않는다)    
+2. receiver에 전원을 연결해준다. GND, 5v 를 연결해준다  (하단이 GND, 중간이 +)   
+(맨 왼쪽 채널쪽에 연결해주면 된다)   
 3. 무선 조종기(transmiter)의 왼쪽 하단의 동그란 binding 버튼을 눌러준다   
 4. binding 버튼을 누르고 있는 상태에서 조종기의 전원을 켜주면 거의 바로 binding이 완료가 된다   
 
