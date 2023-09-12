@@ -21,7 +21,7 @@ cd ~/.platformio
 
 먼저 platforms로 이동후 깃 클론을 한다 (opencr-support 브랜치를 클론)
 ```
-cd platforms
+mkdir platforms; cd platforms
 git clone https://github.com/cguimaraes/platform-ststm32.git -b opencr-support
 ```
 
