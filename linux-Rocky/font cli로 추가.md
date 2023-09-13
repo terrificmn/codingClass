@@ -20,6 +20,9 @@ $mv example_fontfile_name.ttf /home/$user/.fonts/
 $fc-cache -v
 $fc-cache-64 -v
 ```
+
+>fc-cache -v 만 해줘도 충분
+
 succeeded 라고 나오면 완료!  
 
 vscode에 적용시키려면 일단,  vscode를 종료했다가 다시 켜준다.    
@@ -39,7 +42,8 @@ BMJUA_otf.otf 로 설치한 폰트인데..파일명은 BMJUA_otf
 BM JUA_OTF 라는 폰트가 나오고 , 폰트의 info 버튼을 눌러보면 이름이 나온다.   
 처음에 설치한 폰트명 파일명과는 다소 다르다. 스페이스 차이?   
 
-> 참고로 DaddyTime 글자체는 'DaddyTimeMono Nerd Font Mono' 
+> 참고로 DaddyTime 글자체는 'DaddyTimeMono Nerd Font Mono' ('싱글 쿼테이션 포함')   
+실제 font 파일명이 아닌, 폰트를 더블 클릭했을 때 나오는 font 정보창에서 나오는 이름으로 해준다   
 길다; 이렇게 해야 인식된다 
 
 이제 이 이름을 가지고 vscode에 입력을 해주면 된다.  
