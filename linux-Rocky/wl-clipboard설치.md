@@ -30,6 +30,27 @@ wayland-client 라고 함
 sudo python3 -m pip install meson
 ```
 
+참고로 sudo 로 설치할 시에는 아래와 같은 워닝이 발생하지만   
+```
+  WARNING: The script meson is installed in '/usr/local/bin' which is not on PATH.
+  Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
+Successfully installed meson-1.2.1
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+```
+sudo로 설치를 안 하면 아래와 같은 에러 발생   
+```
+Traceback (most recent call last):
+  File "/home/sgtraphael/.local/bin/meson", line 5, in <module>
+    from mesonbuild.mesonmain import main
+ModuleNotFoundError: No module named 'mesonbuild'
+```
+
+그래서 sudo로 설치를 해준다.   
+이유는 일반 유저로 설치를 하면 home디렉토리에 설치가 되어서 root가 사용할 수가 없다.  
+그래서 root 가 사용할 수 있게 설치를 하거나, 시스템 폴더에 설치를 해준다.(모든 유저 사용가능-sudo 사용시)   
+그래서 '/usr/local/bin'에 설치가 되는 듯 하다..  
+
+
 [나머지 옵션 의존성 패키지도 있으나 필요할 시 깃허브확인-wl-clipboard](https://github.com/bugaevc/wl-clipboard)
 
 

@@ -65,6 +65,7 @@ CPack: - package: /home/sgtocta/ros_qtc_plugin/build/ROSProjectManager-9.1-Linux
 > sdk를 통해서 (/tmp생성) ros플러그인을 만들어준다.   
 빌드가 끝나고 만들어진 ROSProjectManager-9.1-Linux-x86_64.zip 파일을 플러그인으로 추가할 수 있게 된다    
 
+(onSep17,2023에는 ROSProjectManager-11 로 업데이트 된 모양 )  
 이제 /tmp에 생성된 skd를 전체를 이동시켜준다  
 
 ```
