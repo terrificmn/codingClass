@@ -4,9 +4,17 @@
 ```
 sudo apt install libpangocairo-1.0-0
 ```
-설치를 해준다. 그리고 나서 다운받은 패키지를 설치
+
+만약 호환이 안된다며 설치가 안된다면..  
+```
+sudo apt --fix-broken install
+```
+
+다시 의존성 패키지를 설치를 해준다.  
+
+
+그리고 다시 anydesk 설치를 해준다. 그리고 나서 다운받은 패키지를 설치
 ```
 sudo dpkg -i anydesk....파일명
 ```
-
 
