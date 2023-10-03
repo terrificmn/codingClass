@@ -30,8 +30,10 @@ cd ~/ros_qtc_plugin
 ./setup.py
 ```
 
-이제 다운로드되는데 시간이 조금 걸림 
-/tmp/qtc_sdk 에 다운 받은 것들이 압축이풀린다 
+이제 다운로드되는데 시간이 조금 걸림  (공식 사이트 다운로드 사이트가 조금 느린편;;)   
+[qt official_releases 버전을 여기에서 다운 받을 수 있다](https://download.qt.io/official_releases/qtcreator/11.0/11.0.0/installer_source/)   
+
+/tmp/qtc_sdk 에 다운 받은 것들이 압축이 풀린다. 이때 컴퓨터를 껏다가 키면 /tmp에서 저장된 것이 지워질 수 있으니 주의  
 
 이제 현재 경로인 ros_qtc_plugin 에서 아래 실행   
 > 단 버전 다운받은 것이 다를 경우 아래 명령어 중 경로나 버전이 다를 수 있다.  
@@ -73,7 +75,7 @@ cd /tmp
 mv qtc_sdk/ ~/
 ```
 
-qtcreator는 qtc_sdk/Tools/Qtcreator/ 에 있음
+qtcreator는 qtc_sdk/Tools/Qtcreator/bin 에 있음
 
 > PATH 환경 변수를 등록하거나 심볼릭링크를 /usr/bin/ 에 만들어 주면 편하게 사용할 수가 있다
 
@@ -89,13 +91,23 @@ New Project를 했을 때 Other Project에서 ROS Workspace를 볼 수가 있다
 
 완료가 되면 Qt Creator9.0 에 Qt는 6.4 버전이다  
 
+> Sep24,2023 이미 Qt creator는 11.0 버전으로 업데이트 됨   
 
 
 ## 의존성 패키지 
 ~~Could NOT find XKB  XKB 위치를 찾지 못하고, (설치는 되어 있는 듯)~~     
 ~~Could NOT find WrapVulkanHeaders~~
 
-등의 문제가 있지만 위의 프로그램들 설치하는 것에 해결됨. 만약 추가로 
+등의 문제가 있지만 위의 (의존성 프로그램들) 설치하는 것에 해결됨.    
+
+
+___
+
+아래 내용은 그냥 참고만 하고 구지 필요 없을 듯 하다.   
+dnf 말고 snap 패키지 버전으로 설치하는 하는 방법이 있다.  단, snap버전도 약간의 버그가 있는 듯 하다.  
+그래서 조금 시간은 걸리지만 빌드 버전을 추천!
+
+> 일단, ubuntu, rocky , fedora 빌드는 모두 문제 없다. (문제는 다운로드 속도가 너무 느림;;;)    
 
 
 ## dnf 로 설치를 하고 그냥 사용하면 이상 5.15 버전 정도도 호환이 잘 안된다 
