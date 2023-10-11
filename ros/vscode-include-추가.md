@@ -26,3 +26,8 @@ c_cpp_properties.json 파일에
 ```
 위의 형식에 맞춰서 넣어주면 된다. 그러면 include 의 헤더파일을 잘 인식해준다.
 
+> ROS 패키지 특성상 include 디렉토리 이하에 다시 프로젝트 명으로 되어 있어서 바로 인식이 안될 수가 있으므로..   
+예) myPackage/inlcude/myPackage/myClass.h  이런식으로 구성이 되어 있음..
+
+그래도 잘 인식이 안 될 경우에는 .vscode의 c_cpp_properties.json 파일을 지운 후에 vscode를 다시 실행해주면 인식이 될 수 있음
+
