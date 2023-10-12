@@ -1,6 +1,9 @@
 srv, msg 만들 때에는 
 message_generation 이 포함되어야 한다 
 
+find_package에서 message_generation을 해주지 않으면  
+`Unknown CMake command "add_service_files"` 으로 나오면 빌드를 진행할 수가 없다  
+
 CMakeLists.txt 에     
 generate_messages() 도 주석 제거가 되어야 한다 
 ```

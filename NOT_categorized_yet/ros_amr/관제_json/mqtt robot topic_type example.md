@@ -393,7 +393,9 @@ Server -> Robot : 서버에서 로봇 ID 응답
 	"body":
 	{
 		"robot_id": 3,
-		"mac_address": "02:7c:15:03:e9:25"
+		"mac_address": "02:7c:15:03:e9:25",
+        "site_id" : 7,
+        "status" : 0
 	}
 }
 ```
@@ -402,6 +404,8 @@ Server -> Robot : 서버에서 로봇 ID 응답
 | ------ | ------- |
 | robot_id     | int     |
 | mac_address  | string |
+| site_id     | int     |
+| status     | int     |
 
 
 
