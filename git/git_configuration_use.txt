@@ -393,6 +393,44 @@ Add 취소하기
 git reset HEAD file명으로 add한 file을 취소할 수 있고 file명을 쓰지 않으면 전체 파일 취소가 된다!
 (HEAD는 지금 현재 최신상태)
 
+취소 할 경우
+ $ git commit ...
+               $ git reset --soft HEAD^      (1)
+               $ edit                        (2)
+               $ git commit -a -c ORIG_HEAD  (3)
+
+
+`git log`로 확인했을 경우에   
+
+```
+(커밋내용1)  gitignore updated
+
+commit d92ecf61c5ad63189ce56962ddf2a742ec72499a
+Author: Me <me@gmail.com>
+Date:   Fri Oct 13 10:51:44 2023 +0900
+
+(커밋내용2)    class removed.
+
+commit ee714af6258f98153d91d5c6016e39dc011c47a3 (origin/devel_branch, origin/devel_branch)
+Author: John <John@gmail.com>
+Date:   Wed Oct 11 15:38:38 2023 +0900
+```
+
+이렇게 되었을 경우에 맨 위에 있는 것이 로컬에서 commit 한 내용이다. 
+두 번째 아래에 있는 것이 origin/devel_branch, origin/devel_branch) 가 깃허브에 올라가 있는 commit임
+
+여기에서 git reset --soft HEAD^ 를 하거나
+```
+git reset --soft HEAD^
+```
+
+```
+git reset --hard HEAD^
+```
+를 할 수 있는데 이것은 local의 커밋을 취소하고, soft는 수정된 내용은 남겨둔다.  
+hard는 아예 수정된 내용도 남기지 않고, 최신 local 커밋을 취소 시켜준다.   
+
+
 
 push 하기
 로컬에서 commit이 되었고 remote repository에 업로드 하려면 push 명령어를 사용
