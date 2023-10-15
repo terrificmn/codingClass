@@ -116,6 +116,12 @@ sudo tinker-config
 ```
 위 커맨드를 이용하면 Hostname, Password, Boot Options, Advanced Options 등.. 설정을 할 수 있다
 
+tinker board 2 initial settings 으로 로그인 할 수 있게하거나 자동 로그인 하거나 골라준다  
+기본은 자동 로그인으로 되어 있다  
+
+`sudo tinker-config`  
+
+3. Boot Options -> B1 Desktop / CLI -> B3 Desktop or B4 Desktop Autologin (login with 'linaro' automatically)
 
 
 ## wifi 설정
