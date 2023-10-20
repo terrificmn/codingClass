@@ -624,10 +624,70 @@ sequence는 수행하고 있는 order의 순서 (wp), miss match 확인
 
 
 
-### 4. topic | 웨이포인트 | al.stations
+### ~~4. topic | 웨이포인트 | al.stations~~
+
+### 4. topic | 웨이포인트 | al.position 으로 변경
+기존의 common topic 에서 퍼블리쉬 하던 것을 al.position 에서 pub 할 예정   
+body의 publish element 들이 조금씩 변경 됨
+
+#### type 0 --- common과 겹치? 확인 필요!
+Robot -> Server: 주기적으로 로봇 상태 전송
+```json
+{
+	"header": 
+	{
+		"version": 0,
+		"type": 0
+	},
+	"body":
+	{
+		"robot_id": 22,
+        "x": 2.251542,
+        "y": -15.32454,
+        "yaw": -1.52432,
+        "status": "SLEEP",
+        "task": "PLAN",
+        "battery": 90.5,
+        "order_state": "ARRIVED",
+        "order_id": 1,
+        "step_state": "INPROGRESS",
+        "plan_id": 4,
+        "step_id": 3,
+        "nodes": [
+            31,
+            22,
+            10
+        ],
+        "timestamp": "1970-01-01T13:42:58.075000"
+	}
+}
+```
+
+| 이름     | 타입 |
+| -------- | ---- |
+| robot_id | int  |
+| x |  double |
+| y |  double |
+| yaw |  double |
+| status | string |
+| task | string |
+| battery |  double |
+| order_state | string |
+| order_id | int |
+| step_state | string |
+| plan_id |  int |
+| step_id |  int |
+| nodes | array - int |
+| timestamp | "string" |
+
+
+
+
+### 5. topic |  플랜 | al.plan/{robot_id}
+플랜용 topic 추가됨
 
 #### type 300
-Server -> Robot: 웨이포인트 순회
+~~Server -> Robot: 웨이포인트 순회~~
 
 ```js
 {
@@ -667,7 +727,7 @@ Server -> Robot: 웨이포인트 순회
 
 
 #### type 301
-Server -> Robot: 다음 목적지 출발 명령
+~~Server -> Robot: 다음 목적지 출발 명령~~
 ```json
 {
 	"header": 
@@ -688,6 +748,63 @@ Server -> Robot: 다음 목적지 출발 명령
 | robot_id | int  |
 | sequence         | int      |
 
+
+#### type 310
+Server -> Robot: 다음 스텝 실행
+```json
+{
+	"header": 
+	{
+		"version": 0,
+		"type": 310
+	},
+	"body":
+	{
+		"robot_id": 22,
+		"action": "MOVE",
+        "goal_x": 0.127,
+        "goal_y": -0.245,
+        "seconds": 10,
+        "angle": 90,
+        "plan_id": 4,
+        "step_id": 3
+	}
+}
+```
+
+| 이름     | 타입 |
+| -------- | ---- |
+| robot_id | int  |
+| action | string |
+| goal_x |  double |
+| goal_y |  double |
+| seconds |  int |
+| angle |  int |
+| plan_id |  int |
+| step_id |  int |
+
+
+#### type 311
+Server -> Robot: 플랜 취소
+```json
+{
+	"header": 
+	{
+		"version": 0,
+		"type": 311
+	},
+	"body":
+	{
+		"robot_id": 22,
+        "plan_id": 4,
+	}
+}
+```
+
+| 이름     | 타입 |
+| -------- | ---- |
+| robot_id | int  |
+| plan_id |  int |
 
 
 
