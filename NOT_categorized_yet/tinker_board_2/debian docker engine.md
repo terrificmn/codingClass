@@ -58,6 +58,10 @@ debian engine을 설치하면서 docker-compose 도 설치가 됨
 bash: docker-compose: command not found
 ```
 
+> 아래 내용은 참고만 하기! docker-compose 는 예전 버전이므로 아래 방법으로 하면 사용가능하나  
+그럴 필요 없이 `docker compose` 로 사용하면 된다.(새로운 명령어 한칸 띄움)
+
+**아래는 그냥 참고사항..**   
 방법은 2가지가 있다.  
 하나는 환경변수로 만들어 주는 것이고, 두 번째는 심볼릭 링크를 만들어 주는 것
 
@@ -112,4 +116,37 @@ newgrp docker
 ```
 
 
-##
+## Debian Buster 10 과 Debian Bullseye 11 의 docker
+
+**기존 사용하던 Debian Buster 10** 에서는 docker가 전혀 문제가 없었는데  
+
+Debian Bullseye 11이 나왔길래 OS를 업데이트를 했는데, 다 좋은데 docker가 안 된다. 
+
+docker-ce 를 설치가 마무리 되서 docker service를 시작하려고 하면서 에러가 발생하고  
+이후 `systemctl start docker` 를 하게 되면 오류 때문에 시작을 할 수가 없다.  
+
+```
+docker.service - Docker Application Container Engine
+     Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
+     Active: failed (Result: exit-code) since Sat 2023-10-21 05:11:43 UTC; 47s ago
+TriggeredBy: ?? docker.socket
+       Docs: https://docs.docker.com
+    Process: 2476 ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.soc>
+   Main PID: 2476 (code=exited, status=1/FAILURE)
+        CPU: 387ms
+
+Oct 21 05:11:43 linaro-alip systemd[1]: docker.service: Start request repeated too quickly.
+Oct 21 05:11:43 linaro-alip systemd[1]: docker.service: Failed with result 'exit-code'.
+Oct 21 05:11:43 linaro-alip systemd[1]: Failed to start Docker Application Container Engine.
+Oct 21 05:12:06 linaro-alip systemd[1]: docker.service: Start request repeated too quickly.
+Oct 21 05:12:06 linaro-alip systemd[1]: docker.service: Failed with result 'exit-code'.
+Oct 21 05:12:06 linaro-alip systemd[1]: Failed to start Docker Application Container Engine.
+```
+
+뭐, 이후 한 두어 시간 문제를 찾아 볼려고 했는데, 버전을 낮춰보거나, 설정 관련 json 등.. 
+인터넷에서 나온 조언들로 시도를 했지만 실패했다.  
+
+> 그래서 그냥 Debian 10 버전으로 다시 돌아가게 되었다. 시간도 없고,  
+싱글보드 컴퓨터에서 카메라 프로그램 실행되는 것 하는것인데, Debian 11를 쓸 이유가 없기 때문이다.  
+다시 docker는 Debian 10 Buster에서 잘 된다.
+
