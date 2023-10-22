@@ -142,6 +142,14 @@ tinker board 2 initial settings 으로 로그인 할 수 있게하거나 자동 
 3. Boot Options -> B1 Desktop / CLI -> B3 Desktop or B4 Desktop Autologin (login with 'linaro' automatically)
 
 
+Internationalisation Options -> I2 Change Timezone  
+에서 시간대 변경 가능  
+
+> 중요한 이유가 GUI 에서 메뉴에서 Preferences에서 메뉴가 Time and Date 있는데   
+락이 풀리지 않아서 설정이 불가능 (root로 해봤지만 안됨)  
+다른 cli 에서 설정하는 것이 아니라면 위의 tinker-config로 쉽게 설정 변경 가능함
+
+
 ## wifi 설정
 
 dev만 입력해보면

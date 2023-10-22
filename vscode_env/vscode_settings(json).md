@@ -35,3 +35,38 @@ tab.activeBackground 만 지정해 주면 된다. 대충 tab 까지만 치고 sh
 그리고 맨 아래의 window.titleBarStyle 을 커스텀으로 바꾸면 아예 흰 색깔 리눅스 형태의 타이틀 바에서  
 vscode 원래 테마 등과 심플하면서 일체성 있게 바뀌게 된다.   
 
+
+
+## 그냥 example 
+시간 줄이기 위해서 대충 이런식으로 사용하면 될 듯  
+
+- 보라색 테마   
+- Noctis Uva
+```json
+"workbench.colorCustomizations": {
+    "titleBar.activeForeground": "#ac6edf",
+    "tab.activeBackground": "#4e1564"
+},
+"window.titleBarStyle": "custom"
+```
+
+
+- 녹색 테마 
+- Noctis, Noctis Minimus
+```json
+"workbench.colorCustomizations": {
+    "titleBar.activeForeground": "#44b460",
+    "tab.activeBackground": "#1d6137"
+},
+"window.titleBarStyle": "custom"
+```
+
+- 빨간색 테마  
+- Noctis Bordo
+```json
+"workbench.colorCustomizations": {
+    "titleBar.activeForeground": "#9b2246",
+    "tab.activeBackground": "#52172a"
+},
+"window.titleBarStyle": "custom"
+```

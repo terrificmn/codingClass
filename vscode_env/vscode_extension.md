@@ -15,8 +15,8 @@ PlatformIO IDE
 Pylance  
 Python   
 QML  
-Remote Development    
-Remote Explorer  
+DevContainers  
+(Remote Development, Remote Explorer - DevContainers (Microsoft) 면 충분)
 ROS  
 vscode-icons  
 
