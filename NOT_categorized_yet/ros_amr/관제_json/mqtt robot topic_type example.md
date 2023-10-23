@@ -796,7 +796,7 @@ Server -> Robot: 플랜 취소
 	"body":
 	{
 		"robot_id": 22,
-        "plan_id": 4,
+        "plan_id": 4
 	}
 }
 ```
