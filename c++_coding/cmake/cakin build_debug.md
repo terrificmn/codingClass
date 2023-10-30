@@ -22,4 +22,14 @@ catkin build --cmake-args -DCMAKE_BUILD_TYPE=Debug
 실제 파일이 있다. 위에 devel에 있는 파일을 심링크.
 
 
+예: 해당 경로로 먼저 이동 후에
+```
+gdb myfilename
+```
+
+물론 vscode로 하면 좀 더 쉽게 할 수 있고, 특히  ROS 같은 경우에는  ROS 확장팩을 설치한 후에 
+Run and Debug 에서 조금만 설정을 하면 특히 런치파일로도 설정할 수가 있다.   
+
+설정 후 F5를 눌르면 Debuging을 할 수가 있다. 
+
 
