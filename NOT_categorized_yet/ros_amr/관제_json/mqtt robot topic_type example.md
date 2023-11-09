@@ -178,7 +178,8 @@ Server -> Robot : 이동 명령
 	{
 		"robot_id": 1,
 		"goal_x": 10.123456,
-		"goal_y": -5.123456
+		"goal_y": -5.123456,
+        "charge": true
 	}
 }
 ```
@@ -188,6 +189,7 @@ Server -> Robot : 이동 명령
 | robot_id | int    |
 | goal_x   | double |
 | goal_y   | double |
+| charge   | bool |
 
 
 #### type 4
