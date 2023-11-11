@@ -21,7 +21,14 @@ vsftpd.conf에서 경로를 잘 설정해주면 됨 (사실 또 에러날까봐 
 
 
 ## 트러블슈팅 
-키 생성할 때   
+#### 우분투 18버전에서는 위의 커맨드가 잘 작동했는데, 데비안 버스터10 에서는 문제가 있었다.  
+ssl_enable 만 해도 vsftpd 가 안되는 경우에는 아래 커맨드를 참고 (경로를 ssl 쪽으로 변경)
+
+```
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/vsftpd.key -out /etc/ssl/certs/vsftpd.pem
+```
+
+### 키 생성할 때 에러 발생하는 경우
 ```
 Can't load /home/ubun/.rnd into RNG
 140121868997056:error:2406F079:random number generator:RAND_load_file:Cannot open
@@ -69,12 +76,13 @@ ssl_sslv2=NO
 ssl_sslv3=NO
 ssl_tlsv1_2=YES
 rsa_cert_file=/etc/vsftpd/vsftpd.pem
-rsa_private_key_file=/etc/vsftpd/vsftpd.keyof
+rsa_private_key_file=/etc/vsftpd/vsftpd.key
 allow_anon_ssl=NO
 force_local_data_ssl=YES
 force_local_logins_ssl=YES
 require_ssl_reuse=NO
-ssl_ciphers=HIGHmin_port=30000
+ssl_ciphers=HIGH
+pasv_min_port=30000
 pasv_max_port=31000
 debug_ssl=YES
 ```
@@ -201,9 +209,11 @@ lftp ftpuser@127.0.0.1:/> put ~/Downloads/image.jpg
 ## 로그인 못하게 막기 nologin
 이제 테스트는 끝났으니.. nologin으로 바꾸기. 이렇게 되면 셀에 접속할 수 없게 된다   
 ```
-$sudo usermod /sbin/nologin ftpuser
+$sudo usermod -s /sbin/nologin ftpuser
 ```
-혹시 안되면 -s 옵션을 붙인다. (인자)   
+
+> 예전에는 ftp유저 등록만 하고 bash shell 은 접속못하게 해도 문제 없었던 거 같은데..   
+데비안 버스터10 에서 다시 vsftp를 하려고 했더니, 로그인 못하게 하면 ftp접속도 안됨(참고하자)
 
 아무튼 이렇게 되면 유저는 그대로 남아있지만 로그인은 할 수 없는 상태가 된다     
 (로그인화면도 안나옴)

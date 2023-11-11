@@ -1,9 +1,12 @@
 ## vsftp 설치
 ftp (vsftp) 설치 :요새는 보안 때문에 ~~비추천!!~~이라고 생각했었는데 ㅋㅋ    
-예전에는 비추천이라고 잘못 알았지만 sftp기능을 이용해서 사용하면 더 안전하게 사용할 수 있다고 함  
+예전에는 비추천이라고 잘못 알았지만 ~~sftp기능을~~ 이용해서 사용하면 더 안전하게 사용할 수 있다고 함  
 그리고 vsftp 이름자체가 very secured ftp라고 함   
 
-업데이트된 기록 (29MAR 2021)
+> sftp 는 22번 (ssh포트)를 사용하는 것을 의미, 딱히 ftp가 필요없이, ssh로 접속하듯이 ftp도 사용할 수가 있다.
+
+~~업데이트된 기록 (29MAR 2021)~~   
+업데이트 (Nov11 2023)
 
 먼저 vsftpd 설치   
 ```
@@ -25,6 +28,8 @@ $ sudo apt install vsftpd
 ```
 
 이제 vsftpd.conf 파일을 열어서 환경설정 파일을 수정하는데, 사실 바꿀 부분은 딱히 없다.
+
+기본파일에서 `write_enable=YES`, `chroot_local_user=YES` 정도를 주석해제 해주는데   
 
 아래는 환경설정 설명
 ```
@@ -109,6 +114,27 @@ userlist_deny=NO
 centos에서는 userlist 파일이 있어서 등록이 되는 거 같은데 우분투는 따로 없으므로 
 userlist_file에 해당경로를 써준다. 
 
+예제 파일 복사해서 사용해도 무방..  
+아래 주석에서 설명이 되어 있는 것 처럼, userlist_deny를 어떻게 설정하냐에 따라서 쓰임이 달라진다.  
+
+먼저 NO로 설정하면 deny모드가 아닌, allow 모드가 되어서 특정 user만 넣어주면 다른 유저는 들어올 수가 없다.  
+반대로 YES로 설정하면 deny모드가 되어서, 아래 리스트에 있는 유저는 모두 접속할 수가 없다.
+
+아무래도 NO 로 설정하고 사용하면 더 좋은 듯 하다.
+
+*NO 로 설정한 예 : 리스트에 있는 유저만 접속할 수가 있다.*
+```
+# vsftpd userlist
+# If userlist_deny=NO, only allow users in this file
+# If userlist_deny=YES (default), never allow users in this file, and
+# do not even prompt for a password.
+# Note that the default vsftpd pam config also checks /etc/vsftpd/ftpusers
+# for users that are denied.
+ftpuser
+```
+
+
+*YES 로 설정한 예 : 리스트 외에는 모두 접속할 수가 있다.*
 ```
 # vsftpd userlist
 # If userlist_deny=NO, only allow users in this file
@@ -193,6 +219,8 @@ allow_writeable_chroot=YES
 이 둘다 되어 있는지 확인해야함   
 allow_writeable_chroot을 빼먹어서 에러가 난것임;;   
 이것저것 하다보니 빼먹음 ;; 정신없음
+
+> 500 OOPS: vsftpd: refusing to run with writable root inside chroot()
 
 2개다 넣어주니 ftp 접속 및 명령어 성공   
 
