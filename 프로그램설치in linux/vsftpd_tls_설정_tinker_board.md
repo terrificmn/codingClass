@@ -86,11 +86,13 @@ SSL/TLS 인증서를 이용해서 key, pem 파일을 만들어서 data 전송의
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/vsftpd.key -out /etc/ssl/certs/vsftpd.pem
 ```
 
-> -days 는 더 늘려도 될 듯 하다. 여기에서 경로는   
-각각, /etc/ssl/private/vsftpd.key, /etc/ssl/certs/vsftpd.pem 으로 생성  
-key, pem 자체가 디렉토리 자체가 달라진다. (보안이 강화된 걸지도??)
+> -days 는 더 늘려도 될 듯 하다.  
+또한 여기에서 파일 경로는 각각, /etc/ssl/private/vsftpd.key, /etc/ssl/certs/vsftpd.pem 으로 생성  
+key, pem 자체가 디렉토리 자체가 달라진다.  
+그 전에는 /etc 디렉토리 안에 만들어서 지정해도 문제가 없었지만 (ubuntu 20이후에서는 확인 못해봄)   
+어쨋든 위의 커맨드로 해당 디렉토리에 만들고 지정하면 문제 없이 잘 된다. (보안 때문에 해당 디렉토리 허용되는지는 잘 모르겠지만...)   
 
-이제 위의 vsftpd.conf 파일에 ssl 관련해서 내용이 더 추가가 된다.
+이제 위의 vsftpd.conf 파일에(without ssl 내용) ssl 관련해서 파라미터가 더 추가 된다 
 
 테스트완료된 파일 내용은 아래
 ```
@@ -160,7 +162,8 @@ sudo ufw status
 
 보통 웹브라우저에 192.168.10.1 로 접속해서 공유기 설정 화면으로 들어간다  
 
-회사 마다 다르겠지만 보통 중요한 내용은 거의 다 같다.  
+공유기 제품(회사) 마다 추가 방법은 다르겠지만 추가할 포트는, 즉 최소한으로 필요한 포트는   
+**21**, **990**, **30000~31000(범위)** 포트이다   
 
 먼저 ftp로 사용할 pc/sigle board pc 등의 아이피를 예약을 해주면 계속 해당 ip를 사용할 수가 있다.  
 이때에는 mac address로 매칭을 시켜주므로 mac address로 특정 아이피를 예약(고정) 하면 된다. 
@@ -168,17 +171,18 @@ sudo ufw status
 이후 포트 포워딩을 찾아서 추가해준다.  
 외부 포트 (임의의 포트), 내부 포트, 아이피 등을 지정해준다.
 
-추가할 포트는 즉 최소한으로 필요한 포트는 21, 990, 30000~31000 포트이다 
-예: 
+예를 들면.. (외부포트도 내부 포트와 같은 값을 지정해도 상관 없다. )
 ```
 외부포트 10021, 내부포트 21, 아이피 192.168.10.100
 ```
 
-포트가 시작포트 부터 마지마 포트까지 다 포트포워딩을 해야하는 경우에는  
-tplink 공유기 같은 경우에는 외부 포트에서만 30000-31000 로 지정해주고 내부 포트는 빈칸으로 지정
+tplink 공유기 같은 경우에는 외부 포트에서만 30000-31000 로 지정해주고    
+내부 포트는 빈칸으로 지정하면 외부 포트와 같은 번호 내부포트를 지정해줘서 사용할 수가 있다.   
+(30000, 31000 따로 지정이 아닌 범위로 지정해줘야한다. min/max로 설정했으므로..)  
 
-> 외부 포트를 임의의 다른 번호로 지정할 수는 없을 듯 하다. 왜냐하면 외부포트를 범위로 지정하면   
-내부포트로 같은 범위의 포트번호로 지정되기 때문
+> 단, 외부 포트를 임의의 다른 번호로 지정할 수는 없을 듯 하다. 왜냐하면 외부포트를 범위로 지정하면   
+내부포트로 같은 범위의 포트번호로 지정되기 때문  
+물론 다른 iptime 등의 다른 회사의 공유기들은 설정이 조금 다를 수 있다.
 
 여기까지 하면 이제 외부에서 연결이 잘 되게 된다.  
 
@@ -191,7 +195,83 @@ Encryption 방식을 *Require explicit FTP over TLS* 로 지정 후 사용하고
 포트 번호는 포트포워딩한 포트 (예를 들어 10021)
 
 예전에는 ftp가 잘 되는 것을 확인한 후에 /bin/bash도 로그인을 못하게 막았는데   
-로그인을 못하게 했더니 **ftp 로그인도 안되서** 다시  로그인 가능하게 변경 함
+보안상 ftp만 가능하게 하고 실제 쉘 로그인은 막는 것인데,  
+로그인을 못하게 했더니 **ftp 로그인도 안 되는 현상이 발생**  
+그래서 다시 로그인 가능하게 변경해서 사용하는 중..  
 
 이제 TLS 방식을 사용하므로 server의 certicate 를 신뢰하냐는 창이 뜨게 된다. ok   
 
+## lftp 설정 (클라이언트 쪽 설정)
+lftp 프로그램을 이용해서 사용하려고 할 때 
+```
+sudo dnf install lftp
+```
+
+우분투/데비안
+```
+sudo apt install lftp
+```
+
+plain ftp로 접속을 할 경우에는 문제가 없으나,   
+
+SSL/TLS 인증을 해서 접속하는 경우에는 문제가 생긴다. 물론 ftp에 제대로 접근이 안되서  
+다운로드 및 파일 목록 조차 볼 수 없다.
+```
+Fatal error: Certificate verification: Not trusted 
+```
+
+전에는 `set ssl:verify-certificate no` 로 설정해서 사용했는데,   
+꼭 추천 방법은 아니다. 
+물론 no 로 설정 후 사용해도 ftp가 되어서 이전에는 그렇게 사용을 했었다. (본인)  
+
+하지만 인증서 관련 certificates의 내용으로 인증을 진행 한 후 사용할 수있다.  
+
+openssl 명령을 이용해서 그 내용을 crt 파일로 만든 후에 사용하는 방법을 사용한다.  
+먼저 디렉토리 및 파일들을 만들어 준다.
+```
+mkdir ~/.lftp
+cd ~/.lftp
+touch my-certificate.crt rc
+```
+
+이후 openssl 명령어로 certicate 내용을 출력할 수가 있다.
+```
+openssl s_client -connect 43.12.122.35:10021 -starttls ftp -showcerts
+```
+> 아이피 또는 도메인 이름, 포트는 21 또는 포트포워딩한 포트번호
+
+이제 꽤 긴 내용이 출력이 되는데, 이 중 필요한 것은 
+*-----BEGIN CERTIFICATE-----* 부터 *-----END CERTIFICATE-----* 이다.  
+나머지는 필요가 없다.  
+
+예를 들어서 
+```
+-----BEGIN CERTIFICATE-----
+CCAegAwIBAgUOofKE+1M8mZ4aQP8rwpCC5Sv0wDQYJKoZIhvcNAQEL
+BQAwTELMAGA1UEBhMCS1IHhcNMjMxMTxMTExNTI2WhNMjQxMTEwMExNTI2
+WjAQswQYDVQEwJLUjCASIwDQYJKoIhvcNAQEBQADggEPCCAQoCggEB
+....생략...
+-----END CERTIFICATE-----
+```
+이 부분만 my-certificate.crt 파일에 복사 후 저장.  
+
+그리고 rc 파일을 열어준다. 이는 lftp 환경설정 파일이 된다. 
+아래 내용을 복사 후 파일 경로를 잘 지정해준다.   
+```
+set ssl:check-hostname no
+set ssl:ca-file "/home/myuser/.lftp/my-certificate.crt"
+```
+
+> .lftp/rc 파일까지는 기본으로 설정된 파일들 경로 인 듯하고, crt 파일명은 바뀌어도 괜찮다.  
+즉 .lftp 디렉토리 및 rc 파일까지는 같아야 한다.    
+> 또한 시스템 전역으로 설정을 하려면 rc 파일이 아닌, /etc/lftp.conf 로 파일을 만들고   
+위의 설정 내용을 넣어주면 된다.  
+
+이제 lftp 로 접속을 하면 잘 에러 없이 잘 실행이 된다. 파일 전송 / 다운로드 ok!
+
+그리고 추가로 `set ssl:check-hostname no` 를 안해주면 hostname을 체크를 해서  
+아래와 같은 오류가 발생하게 된다. 참고
+
+```
+Fatal error: Certificate verification: certificate common name doesn't match requested host name ‘43.23.21.33’ 
+```
