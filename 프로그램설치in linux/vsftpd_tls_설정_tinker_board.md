@@ -46,14 +46,81 @@ local_root=/home/$USER
 ```
 
 - write_enable 쓰기 가능하게 해줌   
-- conect_from_port_20 은 필요 없을 듯 하기도 하다   
-- userlist_enable 관련해서는, 파일을 따로 만들어 준다. (userlist_file)  
+- conect_from_port_20 은 필요 없을 듯 하기도 하다(일단 사용함)   
+- userlist_enable 관련해서는, 파일을 따로 만들어 준다. (userlist file)  
+아래에서 추가 설명  
+
 - user_sub_token은 해당 접속하는 유저의 환경변수를 사용해서 루트를 고정해주는 것 인데   
-글쎄.. 고정이 되지 않고 상위 디렉토리로 이동을 할 수가 있다.   
-- 결국 chroot_local_user와 같이 사용해야함.  
+실제 고정이 되지 않고 상위 디렉토리로 이동을 할 수가 있다.  
+결국 chroot_local_user와 같이 사용해야함.  
+
 - local_root 는 홈 유저의 디렉토리를 다 사용하거나, 아니면 특정 디렉토리를 만들어 고정  
 - chroot_local_user 와 같이 사용하면 해당 유저 디렉토리를 ftp상에서 /로 고정할 수가 있다.  
 - allow_writeable_chroot가 없다면 접속 시 에러가 난다.(chroot_local_user와 세트)   
+즉 ftp유저의 디렉토리를 고정 시키려면 위의 설정 처럼 해주면 되고 local_root 만 따로 잘 지정하면 된다.  
+
+
+### userlist 추가하기  
+위의 설정에서 `userlist_enable=YES` 로 지정했다면  
+userlist 파일을 만들고 유저 목록을 만들어 준다.  
+예제 파일 
+```
+# vsftpd userlist
+# If userlist_deny=NO, only allow users in this file
+# If userlist_deny=YES (default), never allow users in this file, and
+# do not even prompt for a password.
+# Note that the default vsftpd pam config also checks /etc/vsftpd/ftpusers
+# for users that are denied.
+root
+bin
+daemon
+adm
+lp
+sync
+shutdown
+halt
+mail
+news
+uucp
+operator
+games
+nobody
+```
+이 파일을 /etc/vsftpd.userlist 만든 후에 위의 내용을 복사 해준다.
+```
+vi /etc/vsftpd.userlist
+```
+> 참고로 userlist 파일은 기본적으로 생기지 않음. 따로 만들어야 함 (파일명 변경)
+
+여기에서 중요한 포인트는 위의 주석에도 나와 있지만 userlist_deny=YES / NO 에 따라 내용이 달라진다.   
+userlist_deny가 YES (default 설정) 이면 vsftpd.userlist 에 있는 유저들의 ftp 접속을 제한한다.  
+즉, 위의 root 같은 유저들은 접속할 수 없게 된다. 그리고 추가로 접속을 불허할 유저들을 등록해준다.
+
+다른 방법은 NO로 설정해서 사용하는 방법.   
+일단 ftp관련 유저를 만들었고, 그 유저만 ftp 접속을 가능하게 해 줄 것이므로 NO 로 설정하고 사용하는 방법을 사용했다.  
+
+`userlist_deny=NO` 로 지정하고 반대로 이제 vsftpd.userlist에 등록된 유저만 접속할 수 있게 된다.  
+여기에 새로 만들 ftp 관련 유저를 넣어준다. 예를 들어 ftpuser
+그래서 *vsftpd.userlist* 내용은 단순히 
+```
+# vsftpd userlist
+# If userlist_deny=NO, only allow users in this file
+# If userlist_deny=YES (default), never allow users in this file, and
+# do not even prompt for a password.
+# Note that the default vsftpd pam config also checks /etc/vsftpd/ftpusers
+# for users that are denied.
+ftpuser
+```
+위 처럼 달랑 유저 아이디만 있으면 된다. 
+
+이제 저장을 하고 사용을 하게 된다.   
+테스트를 했더니 ftpuser 외에 다른 유저로는 ftp 접근이 안되는 것 확인!
+
+> 또한 예를 들어서 ftpuser로 했지만, 유저를 ftp 로 하는 것은 피하는 것이 좋다.  
+왜냐햐면 root, ftp 이런 아이디는 이미 알려져 있는 아이디들이며 어떤 목적인지가 명확하기 때문에   
+외부에서 접근 시도를 충분히 해볼 수 있기 때문이다.  
+실제로 외부에서는 web서버 또는 ftp서버에 무수한 접근 시도가 일어난다. 그러므로 기본 아이디는 피하는 것이 좋다.   
+
 
 ### 방화벽 포트 허용
 ufw 를 사용해서 허용해준다
