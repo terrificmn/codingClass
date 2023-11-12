@@ -15,12 +15,12 @@
 먼저 21번 포트를 사용하는 기본 방식이다. 아무런 보안이 되지 않는 방식   
 *Plain FTP (insecure)*   
 
-설치를 안 후에 /etc/vsftpd 가 생기고 , 우분투와 마찬가지로 따로 디렉토리가 생기지 않는다...  
+설치 후에 설정 파일은 /etc/vsftpd.conf 이다.   
+우분투와 마찬가지로 따로 디렉토리가 생기지 않는다... (RHEL 계열은 vsftpd 디렉토리가 생김)
 
 vsftpd.conf 을 열어서 수정한다(없으면 만들어 준다.)
-
 ```
-sudo vi /etc/vsftpd.ocnf
+sudo vi /etc/vsftpd.conf
 ```
 
 아래는 확인이 된 버전. 그냥 다 지우고 아래 내용으로 만들어도 된다. (테스트완료)
@@ -66,6 +66,30 @@ sudo ufw allow OpenSSH
 sudo ufw allow 21/tcp 
 ```
 `sudo ufw allow 20/tcp`도 할 수 있으나 사용 안 할 것 같아서 안함.
+
+
+### vsftpd 재실행
+설정 파일 및 파이어월 설정 이후  
+```
+systemctl restart vsftpd
+```
+그리고 status check를 해보면 
+```
+systemctl status vsftpd
+```
+에러 없이 잘 실행이 되어야 한다. 
+
+예를 들어 녹색으로 active 표시가 되면 ok
+```
+Loaded: loaded (/lib/systemd/system/vsftpd.service; enabled; 
+Active: active (running)
+```
+
+만약 active 상태가 아니라면 설정 파일에서 오타나, 띄어쓰기 등을 확인해본다.  
+
+> vsftpd가 조금 불편한게 뭔가 틀리면 기본 설정 파일로 사용하게 하면 좋을 듯 하지만,  
+엄격하게 조금이라도 틀리면 아예 실행이 안된다. 안될 경우 잘 체크해보자
+
 
 #### filezile 로 접속할 경우
 해당 ip와 포트 21, Encryption 에서는 plain ftp 모드로 접속한다.  
@@ -156,6 +180,10 @@ sudo ufw allow 30000:31000/tcp
 ```
 sudo ufw status
 ```
+
+이제 다시 vsftpd 를 재 실행한다.   
+[위의 내용을 vsftpd-재실행 부분을 참고](#vsftpd-재실행)  
+
 
 ## 포트 포워딩
 내부 private 망을 외부에서 접속할 수 있게 하려면 포트포워딩을 해줘야 한다.  
