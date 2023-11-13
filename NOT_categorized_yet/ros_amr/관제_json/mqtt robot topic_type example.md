@@ -246,11 +246,10 @@ Server -> Robot : 개별 로봇 멈춤 명령
 
 
 #### type 6
+Server -> Robot : Resume 명령 (type5 번 이후에 resume)
+type5 번에 대한 응답은 없음   
 ~~Robot -> Server : (type5) 에대한 멈춤 명령에 대한 응답  - status 변경 ~~
-**응답 안하기로 함**
 
-대신 type6번은 resume 으로 사용
-Server -> Robot : (type5) 이후 재개 명령
 ```js
 {
 	"header": 
@@ -270,7 +269,30 @@ Server -> Robot : (type5) 이후 재개 명령
 | robot_id | int    |
 
 ~~| status   | string |
-| ack   | int | ~~
+| ack   | int |~~
+
+
+#### type 7
+Server -> Robot : 타입 변경, CHARGING 에서 SLEEP 만 지원 (현재 Nov13, 2023)
+```js
+{
+	"header": 
+	{
+		"version": 0,
+		"type": 7
+	},
+	"body":
+	{
+		"robot_id": 1,
+        "status": "SLEEP"
+	}
+}
+```
+
+| 이름     | 타입   |
+| -------- | ------ |
+| robot_id | int    |
+| status   | string |
 
 
 #### type 998
