@@ -109,10 +109,12 @@ debug_ssl=YES      # Dump OpenSSL diagnostics in vsftpd log file
 ## 클라이언트에서 사용할 lftp 설치하기
 근데 vsftp를 이용해서 자체TLS를 만든것이기 때문에 실행을 하면 Not trusted라고 에러가 발생   
 그래서 lftp 설정파일을 수정해준다   
-```
-$ echo "set ssl:verify-certificate no" >> /etc/lftp.conf
-```
+
+~~`echo "set ssl:verify-certificate no" >> /etc/lftp.conf`~~   
 이것역시 안되면 vi편집기로 입력해준다
+
+물론 위의 방법도 잘 되지만, 아예 certificate를  no로 하는 것 보다는 새로운 방법을 추천!    
+(vsftpd_tls_설정_tinker_board.md 를 참고하기)  
 
 그리고 나서 접속 테스트   
 ```

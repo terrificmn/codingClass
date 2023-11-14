@@ -45,3 +45,42 @@ $ git checkout resources/views/blog/create.blade.php
 
 깃 하나의 브랜치에서만 클론하기
 git clone -b occupancy-mapping --single-branch https://github.com/IntelRealSense/realsense-ros
+
+
+깃 git fetch 를 하게 되면 origin (remote)에 있는 브랜치를 정보를  가지고 올 수가 있다.  
+예
+
+```
+git branch
+```
+
+현재 로컬에 2개 밖에 없다고 할 때
+```
+  battery_sub_mqtt
+* devel
+```
+
+`git fetch`를 하면 브랜치 정보를 받아온다. 
+
+이후 origin(remote)에 있는 로컬에는 없었던 mqtt-status-fix 로 checkout 를 해보면. 바로 이동이 가능하다. (로컬에서 이미 pull 된 상태가 된다.)  
+```
+git checkout mqtt-status-fix 
+```
+Branch 'mqtt-status-fix' set up to track remote branch 'mqtt-status-fix' from 'origin'.
+Switched to a new branch 'mqtt-status-fix'
+
+
+`git status`로 확인을 해보면..   
+```
+On branch mqtt-status-fix
+Your branch is up to date with 'origin/mqtt-status-fix'.
+
+nothing to commit, working tree clean
+```
+
+로컬에도 `git branch` 를 해보면 브랜치가 추가가 되어 있다.
+```
+  battery_sub_mqtt
+  devel
+* mqtt-status-fix
+```
