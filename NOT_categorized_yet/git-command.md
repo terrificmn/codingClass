@@ -25,6 +25,14 @@ git 지우려면
 (alias.단축으로쓸별칭 실제명령어)
   $git config --global alias.st status
 
+alias 삭제
+```
+git config --global --unset alias.status 
+```
+> 항상 받대로 사용해서;;; 삭제할 때에는 unset으로 사용  
+(볼 때에는 `git conifg --list` 로 확인)   
+
+
 깃 사용하다가 수정된 부분 버리기 
 (add 하기전에 working directory에서 작업 중인 내용
 즉, modified상태일 떄 반영하기 싫고 예전으로 돌아갈 떄)
