@@ -10,6 +10,13 @@
 근데   
 python3-venv 를 설치를 해줘야 하는데 의존성에 달려있는 python3.8-venv 버전이 맞지가 않아서 설치가 안된다  
 
+원래는 
+```
+sudo apt install python3-venv
+```
+정도만 해주면 되는데, 이렇게 설치가 되면 바로 넘어가면 된다.  
+하지만 의존성 문제가 발생하는 경우에는.. 조금 복잡해진다. 
+
 ```
 python3.8-venv : Depends: python3.8 (= 3.8.2-1ubuntu1) but 3.8.10-0ubuntu1~20.04.7 is to be installed
 
