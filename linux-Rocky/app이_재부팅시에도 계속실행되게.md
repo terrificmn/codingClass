@@ -38,6 +38,9 @@ $sudo chmod +x /etc/rc.local
 /etc/rc.d/rc.local 파일안에 등록해주면 된다.
 역시 실행가능하게 해줄 것!
 
+> 예전 기록이라 테스트가 정확히 되었는지 모르겠다. centOS8 이면.. 꽤 지났는데..  
+Rocky Linux 에서 안된다면 우분투의 /etc/rc.local 및 rc-local 서비스 등록하는 것을 참고하자
+
 
 # 방법 2
 다른 방법은 /etc/init.d 디렉토리 안에 파일을 넣어주는 것이다.   
