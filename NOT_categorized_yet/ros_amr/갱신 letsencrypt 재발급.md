@@ -3,16 +3,42 @@
 이메일도 와서 알고 있었는데... 귀찮니즘에.. 망했다. ㅋㅋ
 
 처음에 갱신을 하려고 했는데 실패했다  
-원래는 renew 한방이면 되는 줄 알았는데.. 에러 발생해서 유효기간 만료라서 안되는 줄 알고  
-결국은 지우고 다시 발급 받음. 다음에 다시 발급 받는다면 아래 명령어로 다시 도전 해보자..   
-그리고 update 하기 ㅋ   
+원래는 renew 한방이면 되는 줄 알았는데.. ~~에러 발생해서 유효기간 만료라서 안되는 줄 알고~~    
+결국은 지우고 다시 발급 받음. 
+
+~~다음에 다시 발급 받는다면 아래 명령어로 다시 도전 해보자..~~
 
 재발급
 ```
 docker-compose run --rm certbot renew
 ```
 
-아예 새로 발급
+> ㅋㅋ 이런;; 다시 유효기간을 넘겨버렸다;; on Dec2 2023  
+
+아예 새로 발급 받을 필요없이 새로 renew 명령어가 통한다.  
+먼저 `docker-compose stop` 을 이용해서 서비스를 중단 시킨다음에  
+
+설정파일에서 dev로 변경한 후에 다시 `docker-compose up` 해 주고  
+위의 명령어를 실행해주면 된다.  
+
+이후 
+```
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Congratulations, all renewals succeeded: 
+  /etc/letsencrypt/live/qsp****.com/fullchain.pem (success)
+```
+
+이렇게 나오면 성공!
+
+다시 서비스 중단 해준다음에 환경 설정을 prod 로 변경 후에   
+다시 docker up (옵션 -d 와 함께) 해주자. 그럼 끝
+
+
+## 아예 새로 발급 받는 방법
+위의 방법이 안될 경우 아예 처음 부터 새로 발급 받는 과정   
+
+> renew 명령어가 작동할 것이므로 아래 내용은 참고만 하자..   
+
 ```
 docker-compose run --rm certbot certonly --webroot --webroot-path /var/www/certbot/ -d example.com
 ```
