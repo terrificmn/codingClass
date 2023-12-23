@@ -32,6 +32,12 @@ fedora 경우에는 docker 설치 이후 **/etc/docker/daemon.json** 파일을 �
 
 docker_rocky_linux_memory_increasing.md 파일을 참고하자
 
+우분투의 경우에는 마찬가지로 apt 로 설치할 수가 있는데 ..
+
+[여기 다큐먼트 사이트를 참고하자](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html#installing-with-yum-or-dnf)
+
+아마 마찬가지로 nvidia-docker2는 설치를 안해도 될 듯하지만 (테스트는 안해봄 - 우분투)
+
 
 ## 참고 nvidia-docker2 fedora에서 설치
 위의 방법만 해도 충분히 될 것이라고 생각되나,   
