@@ -92,3 +92,19 @@ Deleting module rtl8192eu-1.0 completely from the DKMS tree.
 cd /usr/scr
 sudo rm -rf rtl8192eu-1.0/
 ```
+
+## Rocky Linux 9.2 버전
+*5.14.0-284.30.1.el9_2.x86_64* 에서는 설치가 잘 된다.
+
+## Rocky Linux 9.3 에서는 설치가 안 됨
+```
+Module rtl8192eu 1.0 is not installed for kernel 5.14.0-362.13.1.el9_3.x86_64 (x86_64). Skipping...
+Module rtl8192eu 1.0 is not built for kernel 5.14.0-362.13.1.el9_3.x86_64 (x86_64). Skipping...
+```
+
+9.3 버전으로 업되면서 커널도 업데이트가 되었는데 버전 차이로 rtl모듈이 설치가 안되는 듯 하다.  
+일단 와이파이가 필요할 경우에는 Rocky Linux 9.2 버전으로 사용..;;
+
+> 리눅스에서 호환이 잘 되는 와이파이를 찾아야겠다..;;
+
+[usb linux 가능한 제품군들..정리되어 있는 link](https://github.com/morrownr/USB-WiFi/blob/main/home/USB_WiFi_Adapters_that_are_supported_with_Linux_in-kernel_drivers.md)
