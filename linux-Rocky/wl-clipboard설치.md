@@ -12,7 +12,7 @@
 먼저 의존성 설치가 필요
 Rocky linux 기준 
 ```
-sudo dnf install wayland-devel
+sudo dnf install wayland-devel ninja-build pip
 ```
 
 우분투는 확인해보지 않았으나, libwayland-dev 일 수도 있음.확인 : 우분투에서는 
