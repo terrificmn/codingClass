@@ -19,6 +19,9 @@ sudo apt install python3-pip
 python3 -m pip install pyyaml requests py7zr
 ```
 
+> Rocky Linux 또는 Fedora 에서는  
+rocky linux 에서 직접 build.md 파일 확인하기
+
 깃클론
 ```
 git clone https://github.com/ros-industrial/ros_qtc_plugin.git -b devel

@@ -18,11 +18,26 @@ sudo dnf install python3-pip
 python3 -m pip install pyyaml requests py7zr
 ```
 
+Fedora 에서는 
+```
+sudo dnf install mesa-libGL-devel ninja-build utf8proc-devel
+```
+로 설치 가능했음, (다른 enablerepo 할 필요없었음)
+
 ## 이제 깃클론   
 클론
 ```
 git clone https://github.com/ros-industrial/ros_qtc_plugin.git -b devel
 ```
+
+devel 브랜치에 따라서 빌드가 잘 안되는 경우도 발생하는 듯 하다.  
+일단 로그 참고   
+> commit 8e81cefcd3a8c2cab038b8a8821bc233d29869a3 (HEAD -> devel, tag: 11.0, origin/devel, origin/HEAD, origin/11.0)
+Author: Christian Rauch <Rauch.Christian@gmx.de>
+Date:   Sat Jun 10 23:25:13 2023 +0200
+그래서 이미 준비된 압축파일을 그냥 받아서 실행하는게 더 쉬울 수도 있다.  
+압축파일을 ftp 참고  
+
 
 생성된 ros_qtc_plugin 이동 후 setup.py를 실행하면  
 ```

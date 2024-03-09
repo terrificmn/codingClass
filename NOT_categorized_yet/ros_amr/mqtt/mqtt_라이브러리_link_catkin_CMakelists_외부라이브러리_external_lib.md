@@ -77,3 +77,33 @@ ROS에서 계속 빌드 실패할 때에는 ${PAHO_CPP_LIB} 변수를 계속 사
 
 
 
+## target mqtt 못 찾을 경우
+전혀 문제가 없었는데 docker에서 관련 paho 라이브러리를 못 찾는다..  catkin build를 하려고 할 때 에러 발생  
+paho c, cpp 관련 패키지는 모두 설치가 되었는데 흠.. 조금 이상하지만.. 
+
+기존에 CMakeLists.txt 파일에서는 
+```c
+#pahoMQTT
+find_package(PahoMqttCpp REQUIRED)
+target_link_libraries(${PROJECT_NAME} PUBLIC
+    PahoMqttCpp::paho-mqttpp3
+)
+```
+
+위 처럼 사용하고 있었는데, 실제 잘 작동했지만, find_package()와 관련이 있어보이지만 잘 되던 것이라..   
+잘 된다면 그대로 쓰면 되고,
+
+만약 catkin build를 하려고 할 때  
+```
+  Target links to target "eclipse-paho-mqtt-c::paho-mqtt3as" but
+  the target was not found.  Perhaps a find_package() call is missing for an
+  IMPORTED target, or an ALIAS target is missing?
+```
+이런 에러가 발생한다면.. 
+
+이때 타켓 링크 라이브러리를 아래 처럼 바꿔줘도 잘 인식해준다.  
+```c
+target_link_libraries(${PROJECT_NAME} PUBLIC
+    paho-mqttpp3 paho-mqtt3as
+)
+```
