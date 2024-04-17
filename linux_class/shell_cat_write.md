@@ -41,6 +41,47 @@ EOF
 > 끝낼 때에는 EOF (따옴표 없이) 사용하면 됨,   
 위의 경우 처럼 아예 따옴표를 안 사용하는 경우에는 변수에 들어가 있는 값을 사용하게 된다
 
+> 리다이렉션으로 ..   
+또한 cat 으로 열때 *>* , *>>* 사용하는 것에 따라서 아예 파일 덮어쓰기, 또는 이이서 라인별로 저장이 가능해진다.
+
+
+### EOF 사용 시 주의
+처음 EOF까지 사용한다고 한 다음 줄 부터는  띄어쓰기까지 모두 포함하게 된다.  
+
+그리고 마지막줄에 EOF 로 끝낼 때에는 반드시 첫 째줄 라인에 맞춰서 끝내주고  
+예를 들어서 if 문 등에서 들여쓰기로 사용을 했다면 오류가 발생한다.
+
+EOF 를 못찾는 경우
+```shell
+#!/bin/bash
+
+abc = 1
+if [ $abc -eq 1 ]; then
+    cat > /home/myuser/myfile << EOF
+    "hello world"
+    EOF
+fi
+```
+> 마지막 fi 를 vim이나 code에서 인식 못한다.
+
+이렇게 하면 EOF 를 찾지 못하는 워닝이 발생되며, 잘 저장이 안된다.
+```
+line 34: warning: here-document at line 23 delimited by end-of-file (wanted `EOF')
+```
+
+제대로 사용하기. (올바른 예)
+```shell
+#!/bin/bash
+
+abc = 1
+if [ $abc -eq 1 ]; then
+    cat > /home/myuser/myfile << EOF
+"hello world"
+EOF
+fi
+```
+> vim이나 code에서 마지막 fi를 잘 인식 해준다.  
+EOF 전까지는 tab, 스페이스 모두 인식해서 넣어준다.
 
 
 ## 단순하게 echo 를 사용하기

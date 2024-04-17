@@ -121,3 +121,17 @@ fi
 
 > 또는 간단한 것은 숫자로 0, 1 식으로 비교해도 될 듯 하다, True, False가 작동이 되는지 모르겠다
 
+
+
+## or 조건
+
+예
+
+```shell
+if [ $protocol = "ftp" ] || [ $protocol = "http" ]; then
+    echo "protocol is right."
+else 
+    echo "Protocol is wrong."
+    exit
+fi
+```
