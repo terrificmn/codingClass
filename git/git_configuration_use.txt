@@ -75,6 +75,17 @@ configuration 확인
 뭐.. 그렇다고 함......
 
 
+git config 관련 unset 하기   
+alias 기능을 사용해서 단축키를 지정할 때 항상 실수로 거꾸로 만들어서   
+예를 들어서 st.alias, status.alias 이런식으로 만든 적이 많다;;;
+
+이럴 때 이런 관련 내용을 지워줄 수가 있다. 
+git config --global --unset st.alias 
+
+> 참고로 단축키 지정의 올바른 명령어는 alias.st status  이다  
+
+
+
 remote (원격 저장소) 연결하기
   $git remote add origin https://github.com/(본인계정or계정)/(repository_name)coding.git
 
