@@ -56,6 +56,17 @@ new.mov파일이 랜더링으로 생성됨
 No video with supported format and MIME type fund.
 ```
 
+## mp4 to wav
+mp4 파일을 wav 파일로 변경하기   
+> wav 파일로 변경 후에 mp3 파일로 변경할 수가 있다.(프로그램 이용: 예 audacity 로 mp3로 export 가능)   
+
+```
+ffmpeg -i my_OST.mp4 my_OST.wav
+```
+
+단, 파일 크기가 꽤 커질 수 있다.  
+참고 a PCM-encoded WAV file with 44,100 Hz sample rate and 16 bits per sample.
+
 
 ## 다시 mp4로 재생가능하게 convert해주기
 웹브라우저에서는 재생이 안되므로 다시 또 convert를 해줘야한다 ㅋㅋㅋㅋ ;;;;
