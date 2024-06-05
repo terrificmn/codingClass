@@ -18,6 +18,17 @@ sudo apt install libgl1-mesa-dev ninja-build libyaml-cpp-dev libqtermwidget5-0-d
 sudo apt install python3-pip
 python3 -m pip install pyyaml requests py7zr
 ```
+*추가  
+qtcreator 13.0 버전에서는 *tqdm_loggable* 을 필요로 한다.  
+없다고 하는 경우
+```
+ModuleNotFoundError: No module named 'tqdm_loggable'
+```
+설치
+```
+python3 -m pip install tqdm-loggable
+```
+
 
 > Rocky Linux 또는 Fedora 에서는  
 rocky linux 에서 직접 build.md 파일 확인하기
@@ -33,9 +44,23 @@ cd ros_qtc_plugin
 ./setup.py
 ```
 
-그러면 qt base 포함, qt creator등 패키지등을 다운을 받는다.   
+그러면 qt base 포함, qt creator등 패키지등을 다운을 받는다.  
+>참고로 다운로드 시간이 꽤 걸리는 듯 하다...   
 
-컴파일을 함 (ros_qtc_plugin 의 root에서 실행)
+의존성이 더 늘어남. 
+```
+sudo apt install libxcb-cursor-dev libxkbcommon-dev
+```
+
+컴파일을 함 (ros_qtc_plugin 의 root에서 실행).  
+6.6버전 일 경우
+```
+cmake -B build -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="/tmp/qtc_sdk/Tools/QtCreator;/tmp/qtc_sdk/6.6.0/gcc_64"
+cmake --build build --target package
+```
+
+
+예전 버전, 5.15
 ```
 cmake -B build -GNinja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PREFIX_PATH="/tmp/qtc_sdk/Tools/QtCreator;/tmp/qtc_sdk/5.15.0/gcc_64"
 cmake --build build --target package

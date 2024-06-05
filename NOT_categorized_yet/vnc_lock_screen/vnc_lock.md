@@ -5,9 +5,8 @@ settings 에서 Power 부분에서
 Dim Screen When Inactive 를 꺼주고   
 Blank Screen 도 Never 로 설정   
 
-테스트 진행....
-
-
+> Blank Screen 은 Never로 설정하지 않으면 일정 시간 후에 blank screen이 되어   
+vncviewer 에서는 다시 로그인이 안되는 현상이 발생한다.
 
 
 

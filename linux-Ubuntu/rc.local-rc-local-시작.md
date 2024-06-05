@@ -3,6 +3,12 @@
 먼저 리눅스에서 /etc/rc.local 파일을 만들어서 (쉘 스크립트 파일)을 만들고   
 systemctl을 등록해서 시작프로그램을 등록할 수가 있는데, 기본적으로는 disable 되어 있다.
 
+systecmctl status  rc.servcice
+rc.service
+  Loaded: masked (Reason: Unit rc.service is masked.)
+  Active: inative (dead)
+
+
 먼저 /etc/rc.local 파일을 만들어준다. (없으면 만들어 준다)
 
 ```shell
@@ -39,6 +45,9 @@ Possible reasons for having this kind of units are:
 
 > 인스톨 관련 config가 없다고 나온다면..
 
+또는 status 를 확인했을 때에   
+Active: inactive (dead)  
+일 경우에는 start를 먼저 시켜준다.
 
 ```
 sudo vi /etc/systemd/system/rc-local.service
