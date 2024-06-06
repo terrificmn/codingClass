@@ -60,6 +60,16 @@ sudo yum --enablerepo=elrepo* install kernel-ml
 
 이제 wifi 인식하면 잘 된다.
 
+### 부작용
+6.7 버전에서 하드 디스크 마운트 후 파일 복사하려고 할 때 input/output 에러가 발생하면서 실패하게된다.  
+아직 해결방법은 알 수 없어서,  복사가 필요할 경우...  
+기존의 boot 로더에서 5.점대 버전으로 부팅을 하고 복사를 시도하면 문제 없이 잘 된다.
+
+> docker 문제는 아님, 테스트 결과 정식 커널 버전에서는 하드 디스크 마운트 및 파일 복사 문제 없으나,   
+6.7버전의 커널에서는 마운트는 잘 되나, 하드 디스크로 파일 복사 시 실패   
+Erro while copying "파일명".
+Error opening file "/run/media/myuser/하드디스크.../파일명": input/output error
+
 
 #### 참고 
 https://github.com/morrownr/USB-WiFi/blob/main/home/How_to_Install_Firmware_for_Mediatek_based_USB_WiFi_adapters.md
