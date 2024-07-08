@@ -1,7 +1,12 @@
 # rosserial로 ros 관련 패키지 설치
 rosrun 을 해서 필요한 ros 패키지를 ros_lib 형태로 설치해 줄 수가 있다   
 
-먼저 `sudo apt install ros-noetic-rosserial-arduino` rosserial-arduino가 설치되어 있어야 한다  
+아두이노, 나노, esp32 등에서는 라이브러리 rosserial 검색해서 다운 및 추가해준다.
+
+패키지 설치
+```
+sudo apt install ros-noetic-rosserial-arduino ros-noetic-rosserial-python
+```
 
 rosserial_arduino 패키지를 이용해서 make_libraries.py 실행 한다. 파라미터로  아두이노/esp32등의 패키지 디렉토리를 지정해준다   
 ```
@@ -21,6 +26,24 @@ PlatformIO (vscode)를 사용할 경우에는 프로젝트(패키지)의 lib 까
 아두이노 같은 경우에는 프로젝트(패키지) 안에 libraries 에 넣어주면 될 듯하다   
 
 ros.h, 나 std_msgs, geometry_msgs 등과 같은 type 등을 만들어준다 
+
+
+### ros msg 사용 
+만들어진 커스텀 메세지는 MCU 에서도 사용할 수가 있는데 이를 하려면 rosserial_arduino 패키지를 사용한다. 
+위의 rosserial_arduino make_libraries.py 를 해주면 ros_lib을 만들어주는데 여기에는 기본적인 ros 메세지가 다 들어있음.  
+
+특정 메세지만 헤더파일로 만들려면 아래처럼 수행
+rosrun rosserial_arduino make_libraries.py [저장디렉토리] [msg패키지]
+```
+mkdir -p ~/test-roslib
+rosrun rosserial_arduino make_libraries.py /home/myuser/test-roslib rosserial_test
+```
+
+현재 rosserial_test 에 있는 msg를 추가해주는데 ros메세지를 다 가지고 오는 듯 하다.
+이제 test-roslib/roslib 에 복사된 메세지를 아두이노 쪽으로 복사해준다.  
+
+platformIO 기준으로 .pio/libdeps/Rosserial Arduino Library/src 이하에 넣어준다. 
+
 
 **esp32에서는 ros serial이 잘 작동을 안하는 것 같다. 좀 더 테스트를 해봐야 할 듯**
 
