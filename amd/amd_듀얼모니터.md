@@ -63,7 +63,16 @@ GRUB_CMDLINE_LINUX="crashkernel=auto ...생략.. rhgb quiet amdgpu.dc=0"
 
 다음은 새로운 grub.cfg 파일을 생성하기  
 ```
-$sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+sudo grub2-mkconfig -o /etc/grub2.cfg
+```
+또는 
+```
+sudo grub2-mkconfig -o /etc/grub2-efi.cfg
+```
+
+기존에 사용하던 자주 사용하던 커맨드인 아래 방식은 legacy boot method 이다.
+```
+sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 ```
 
 그러면 뭔가 진행이 되고 done이라고 끝남   
