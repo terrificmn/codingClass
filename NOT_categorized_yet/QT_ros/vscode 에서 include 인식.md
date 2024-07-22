@@ -38,3 +38,16 @@ C/C++ Edit Configurations (Json) 선택
 
 
 참고로 위의 include 경로에는 QtCore QtQuick 등등 라이브러리가 다 들어있음
+
+
+`/usr/local/include` 등에 있는 include 파일을 추가할 때도 사용이 가능하고  
+/** 없이, 또는 sub디렉토리 이름 없이 넣어주면 잘 작동한다.  
+> 오히려 sub directory 이름까지 넣으면 intellisense가 못 찾는 듯 하다.
+
+```json
+..생략..
+"includePath": [
+	"/usr/local/include"
+],
+```
+
