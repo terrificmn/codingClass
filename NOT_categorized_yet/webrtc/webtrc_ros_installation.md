@@ -67,10 +67,13 @@ gtk3 설치
 sudo apt install libgtk-3-dev
 ```
 
+그 외에 의존성 패키지 - 거의 설치가 되어 있음
+```
+sudo apt install libjpeg-turbo8 libjpeg-turbo8-dev python2 gir1.2-gmodule-2.0 libglib2.0-dev pulseaudio libasound2-dev libpulse-dev ninja-build stow
+```
 
-sudo apt install libjpeg-turbo8 libjpeg-turbo8-dev
+> python2 가 사용이 된다고 함.
 
-python2 gir1.2-gmodule-2.0 libglib2.0-dev pulseaudio libasound2-dev libpulse-dev ninja-build stow
 
 ## 중요한 3rd party 프로그램 설치
 중요 **의존성 jsoncpp 설치**
@@ -164,13 +167,23 @@ cannot prepare WebRTC build system
 cd ~/webrtc_ws/src
 git clone https://github.com/RobotWebTools/webrtc_ros
 ```
+이제 빌드를 해준다.
 
-드디어 webrtc 빌드
+## 추천 빌드 순서 
+만약 빌드 시에 계속 에러가 발생한다면, 위의 의존성 문제가 아니라면  
+빌드를 async_web_server_cpp, webrtc, webrtc_ros 순서로 빌드를 해본다.
 ```
-cd ~/webrtc_ws
-catkin build
+catkin build async_web_server_cpp
+catkin build webrtc
+catkin build webrtc_ros
 ```
 
+> catkin build 으로 한꺼번에 할 수도 있겠으나, 차례차례 했더니 문제 없이 빌드가 완료 되었다.  
+물론 webrtc 빌드에 약 25분 소요됨, 다른 패키지는 그렇게 오래 걸리지 않았다.   
+오히려 한번에 `catkin build` 로 전체 패키지를 빌드하는 것 보다 한번에 성공했다.
+
+
+## 빌드 에러 발생 시
 메세지는 안 나오지만, webrtc의 CMakeLists.txt 파일이 거의다가 install 관련된 내용들이다    
 이래서 오래 걸리는 듯 하다.. 뭔가 잘 설치가 안되거나, 추정은 그렇고,, 한번 빌드 하다 실패하거나  
 취소한 후 다시 할려고 하면 안됨  
