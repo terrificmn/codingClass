@@ -65,36 +65,6 @@ mv laravelBlog/ src
 실제 blog는 포함되지 않음 (mysqldata 디렉토리도 포함되어 있음)   
 서버에서는 LaravelBlog project 디렉토리 안에서 git을 사용하면 될 듯하다
 
-그 다음에는 src 디렉토리를 권한을 docker가 사용할 수 있게 해준다   
-일단 도커 컨테이너 nginx(웹서버) 에서 해당 디렉토리를 사용할 수 있게 권한을 줘야한다   
-이게 우분투에서는 www-data user, group으로 되어 있다.
-현재 도커 이미지가 Debian/Ubuntu 계열 이미지 이므로   
-
-centos는 apache라고 알고 있는데 (확인 필요)
-
-```
-$ sudo chown -R $USER:33 src
-```
-
-| user : group | Debian/Ubuntu (uid:gid) | Alpine (uid:gid) |
-| --- | --- | --- |
-| www-data : www-data | 33 : 33 | 82 : 82 |
-| xfs : xfs | - | 33 : 33 |
-
-> 약간의 트릭으로 host 컴에서 원활히 수정할 수 있게 userid는 본인 $USER로 하고  
-나머지는 그룹은 웹서버 권한으로 주기  
-Rocky 에서는 (centos계열)에서는 33번이 tape 이므로 그냥 그러려니 하자
-
-혹시 이렇게 까지 했는데도 코드를 수정하다가 수정이 안된다고 할 시에는 권한을 보자  
-만약 그룹에 rw- r-- r--  644 이라면 그룹에도 쓰기 권한이 없어서 안되므로 바꿔주자
-```
-sudo chmod 644 특정파일
-```
-
-`ls -l`을 해보면 rw- rw- r-- 로 바뀌고 저장도 잘 된다
-
-<br/>
-
 ## build 하기전, 더블 체크!
 이제  build를 하기 전에 docker-compose의 DB등의 비번을 다시 한번 확인한다   
 (.env 파일에서 변경한다 - laravel의 .env 파일 아님)   
@@ -148,12 +118,17 @@ src 디렉토리를 들어가서 보면 vendor, node_modules 같은 디렉토리
 
 이 부분을 위해서 필요한 부분을 받아줘야한다. 도커 컨테이너를 활용한다
 
-위치는 docker-laraavel-blog로 이동
+위치는 docker-laravel-blog로 이동
 
 먼저 php 버전이 8.16이 설치되면서 의존성 문제가 나오므로 composer를 먼저 업데이트 해주자
 
 > php 이미지를 php-fpm 으로 되어 있어서 최신 버전을 받게 되어 있는데, 아무래도 버전을 정해주는게 좋을 것 같다. 이것도 테스트를 해봐야할 듯 하다. 
 
+최초 상태에서 접속을 시도하면 
+```
+Warning: require(/var/www/html/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /var/www/html/public/index.php on line 34
+```
+에러 발생. 그래서 아래의 compose update 를 해야한다. 
 
 
 # 처음 도전 이대로만 하면 된
@@ -172,10 +147,52 @@ docker-compose run --rm npm install -D tailwindcss postcss autoprefixer
 ```
 하면  tailwindcss는 설치가 되고 설치할 때 했던 것들은 이미 되어있으므로 할필요없음
 
-src 디렉토리를 권한 33을 주고
+
+소유권 조정
+```
+The stream or file "/var/www/html/storage/logs/laravel.log" could not be opened in append mode: Failed to open stream: Permission denied The exception occurred while attempting to log: The stream or file "/var/www/html/storage/logs/
+```
+사이트를 새로고침하면 위의 에러가 발생
+
+어쨋든 src(laravelBlog)의 storage 디렉토리의 권한을 바꿔준다. 
+```
+cd src
+sudo chown 33:33 -R ./storage/
+```
+
+[자세한 내용은 여기를 참고](#storage-소유권-변경)  
 
 
-docker-compose up 으로 된다
+키가 없다고 하는 경우에 generate key를 해줘야 하는데, 컨테이너 artisan이 잘 안된다.  
+TODO: artisan 컨테이너 실행 안 되는 것 해결해야함
+docker run으로 실행이 되어야 하는데 현재는 실행이 안되고 있다.   
+`artisan no configuration file provided: not found` 이런식으로 에러 발생한다. 참고
+
+임시로 또는 직접 컨테이너에 들어가서 실행할 수는 있다.  
+```
+docker exec -it php bash
+```
+
+이후 
+```
+php artisan key:generate
+
+   INFO  Application key set successfully.  
+```
+
+디비 에러 발생 시
+SQLSTATE[42S02]: Base table or view not found: 1146 Table 'my_db.posts' doesn't exist 
+
+도커 php 컨테이너에서 이어서.. 실행
+```
+php artisan migrate
+```
+
+모든 dB가 다 만들어지면 DONE 되었다는 메세지를 볼 수가 있다. 
+
+> docker compose up 인 상태에서 실행.  
+페이지는 새로고침을 해보자 . 이렇게 하면 잘 될 것이다.
+
 
 storage에 저장된 자료가 잘 안 나올시에는 
 ```
@@ -209,7 +226,42 @@ phpmyadmin                    latest    6f7edac389f2   2 weeks ago      510MB
 node                          16.13     304de6a23023   4 months ago     905MB
 ```
 
-여태껏 삽질을 한것이였어! ㅠ
+
+### storage 소유권 변경 
+~~그 다음에는 src 디렉토리를 권한을 docker가 사용할 수 있게 해준다~~   
+src 디렉토리 자체를 권한 조정할 필요는 없다.
+   
+일단 도커 컨테이너 nginx(웹서버) 에서 해당 디렉토리를 사용할 수 있게 권한을 줘야한다   
+이게 우분투에서는 www-data user, group으로 되어 있다.
+현재 도커 이미지가 Debian/Ubuntu 계열 이미지 이므로   
+
+centos는 apache라고 알고 있는데, 해당 uid로 연결을 해주는 것 
+
+```
+$ sudo chown -R $USER:33 src
+```
+
+| user : group | Debian/Ubuntu (uid:gid) | Alpine (uid:gid) |
+| --- | --- | --- |
+| www-data : www-data | 33 : 33 | 82 : 82 |
+| xfs : xfs | - | 33 : 33 |
+
+> 약간의 트릭으로 host 컴에서 원활히 수정할 수 있게 userid는 본인 $USER로 하고  
+나머지는 그룹은 웹서버 권한으로 주기  
+Rocky 에서는 (centos계열)에서는 33번이 tape 이므로 그냥 그러려니 하자
+
+혹시 이렇게 까지 했는데도 코드를 수정하다가 수정이 안된다고 할 시에는 권한을 보자  
+만약 그룹에 rw- r-- r--  644 이라면 그룹에도 쓰기 권한이 없어서 안되므로 바꿔주자
+```
+sudo chmod 644 특정파일
+```
+
+`ls -l`을 해보면 rw- rw- r-- 로 바뀌고 저장도 잘 된다
+
+<br/>
+
+src 디렉토리의 권한을 다 바꿀 필요없고, storage만 바꿔준다. 단, 소유:그룹 모두 바꿔준다.
+
 
 
 
