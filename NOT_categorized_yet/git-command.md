@@ -92,3 +92,31 @@ nothing to commit, working tree clean
   devel
 * mqtt-status-fix
 ```
+
+
+git stash
+
+local에서 커밋 없이 임시로 저장할 때 사용  
+
+간단히 `git stash` 해주면 저장이 되고   
+다른 브랜치로 checkout 해서 계속 작업하면 된다.   
+
+> 커밋을 안 해주면 다른 브랜치로 넘어갈 수 없기 때문에 그러하다.
+
+이후 다시 stash를 한 브랜치로 돌아와서  
+`git stash list` 를 해주면 저장되어 있는 목록이 나온다.   
+
+예를 들어  
+```
+stash@{0}: WIP on my_branch: 1b8b700 here-last-commit-message
+```
+
+이제 위의 임시 저장되어 있는 부분을 불러올려면 apply 명령을 사용해서 컬리브라켓 중괄호의 n 번째를 입력해주면 된다.   
+
+```
+git stash apply stash@{0}
+```
+
+> stash는 로컬에 staging 영역을 저장을 안 시켜도 (add), commit 전 이어도 가능하다.   
+
+

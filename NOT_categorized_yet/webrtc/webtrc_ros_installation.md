@@ -69,10 +69,16 @@ sudo apt install libgtk-3-dev
 
 그 외에 의존성 패키지 - 거의 설치가 되어 있음
 ```
-sudo apt install libjpeg-turbo8 libjpeg-turbo8-dev python2 gir1.2-gmodule-2.0 libglib2.0-dev pulseaudio libasound2-dev libpulse-dev ninja-build stow
+sudo apt install libjpeg-turbo8 libjpeg-turbo8-dev python python2 gir1.2-gmodule-2.0 libglib2.0-dev pulseaudio libasound2-dev libpulse-dev ninja-build stow
 ```
 
-> python2 가 사용이 된다고 함.
+> 참고로 webrtc에서 python을 이용하는데 python이 설치가 안 되어 있으면  
+`/usr/bin/env: 'python' : No such file or directory` 라는 에러가 발생하므로  
+
+> 위에서 python2 가 설치를 하는데에도 python 이 있는 이유, 뭐가 호환성 때문에 그런 듯 하다.  
+여튼 설치를 할 경우에 python 대신에  python-is-python2 가 설치가 된다.  
+'python-is-python2' instead of 'python'
+
 
 
 ## 중요한 3rd party 프로그램 설치
@@ -174,13 +180,20 @@ git clone https://github.com/RobotWebTools/webrtc_ros
 빌드를 async_web_server_cpp, webrtc, webrtc_ros 순서로 빌드를 해본다.
 ```
 catkin build async_web_server_cpp
+. devel/setup.bash
 catkin build webrtc
+. devel/setup.bash
 catkin build webrtc_ros
+. devel/setup.bash
 ```
 
 > catkin build 으로 한꺼번에 할 수도 있겠으나, 차례차례 했더니 문제 없이 빌드가 완료 되었다.  
 물론 webrtc 빌드에 약 25분 소요됨, 다른 패키지는 그렇게 오래 걸리지 않았다.   
-오히려 한번에 `catkin build` 로 전체 패키지를 빌드하는 것 보다 한번에 성공했다.
+(다른 컴에서는 43초 걸림)  --;;   
+오히려 한번에 `catkin build` 로 전체 패키지를 빌드하는 것 보다 한번에 성공했다.  
+빌드 fail 때문에 한번에도 될 듯 하지만, 그냥 하나씩 빌드 함;  
+
+모든 빌드가 끝나면 .bashrc 파일에 webrct_ws setup.bash를 넣어 source 해주는 코드를 넣어준다. 
 
 
 ## 빌드 에러 발생 시
