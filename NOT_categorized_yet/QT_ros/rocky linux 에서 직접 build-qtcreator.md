@@ -24,6 +24,13 @@ sudo dnf install mesa-libGL-devel ninja-build utf8proc-devel
 ```
 로 설치 가능했음, (다른 enablerepo 할 필요없었음)
 
+단, 파이썬 몇개의 라이브러리는 필요  
+```
+python3 -m pip install pyyaml requests py7zr tqdm-loggable
+```
+이 정도면 py 실행이 되어 다운로드가 된다. 
+
+
 ## 이제 깃클론   
 클론
 ```
