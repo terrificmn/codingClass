@@ -58,14 +58,3 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm
 ```
-
-
-
-
-## yarn 설치하기 (global)
-```
-npm install --location=global yarn
-```
-
-또는 `npm install -g yarn`
-> 단, -g, --global 은 deprecated 되었다고 하나, 사용은 가능하다
