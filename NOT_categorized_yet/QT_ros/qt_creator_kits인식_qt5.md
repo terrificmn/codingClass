@@ -33,6 +33,8 @@ Qt  Versions 탭으로 가서 Add 버튼으로 지정을 해준다
 그리고 Kits 탭으로 돌아가면 Desktop을 선택해주고   
 Qtd version을 Qt 5.12.2 를 선택해준다  
 
+> fedora 40 기준으로는 qt 5.15.14 설치 됨
+ 
 /usr/lib64/qt5/bin/qmake  경로에도 있음
 
 

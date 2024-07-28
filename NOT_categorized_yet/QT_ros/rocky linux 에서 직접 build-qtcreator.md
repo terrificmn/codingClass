@@ -32,8 +32,14 @@ python3 -m pip install pyyaml requests py7zr tqdm-loggable
 
 
 ## 이제 깃클론   
+추후 편의를 위해 qtc-sdk 가 생기므로 하나로 모으는게 좋을 듯 하다. 깃허브 클론할 디렉토리를 넣어준다.
+```
+mkdir ~/qtcsdk
+```
+
 클론
 ```
+cd ~/qtcsdk
 git clone https://github.com/ros-industrial/ros_qtc_plugin.git -b devel
 ```
 
@@ -48,7 +54,7 @@ Date:   Sat Jun 10 23:25:13 2023 +0200
 
 생성된 ros_qtc_plugin 이동 후 setup.py를 실행하면  
 ```
-cd ~/ros_qtc_plugin
+cd ros_qtc_plugin
 ./setup.py
 ```
 
@@ -94,7 +100,7 @@ CPack: - package: /home/sgtocta/ros_qtc_plugin/build/ROSProjectManager-9.1-Linux
 
 ```
 cd /tmp
-mv qtc_sdk/ ~/
+mv qtc_sdk/ ~/qtcsdk/
 ```
 
 qtcreator는 qtc_sdk/Tools/Qtcreator/bin 에 있음

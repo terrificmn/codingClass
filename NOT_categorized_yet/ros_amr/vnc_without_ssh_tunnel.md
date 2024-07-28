@@ -44,3 +44,37 @@ ssh tunnel을 사용 안하면 보안에는 허점이 생기는 것은 알겠는
 
 그래서 편하게 ssh tunnel 이 없이도 vnc를 사용할 수 있는 방법이 있다는 것을 알게되었다.  
 
+
+### 외부 접근 시 사용 안되는 듯 함
+외부에서 포트포워딩을 해서 접근하는 경우에는 -localhost no 옵션으로 하게 되면   
+외부에서 포트 포워딩한 포트로 접근할 경우에 timeout이 걸리면서 실행이 안되는 듯 하다.
+
+에러 메세지
+```  
+vnc unable to connect to socket connection timed out (100)
+```
+
+서버쪽에서 vncserver가 잘 실행되고 있는지 확인
+```
+vncserver -list
+```
+
+5901 포트 등을 잘 열고 있는지 확인
+```
+netstat -tlpn
+```
+
+결과는 이런식이다
+```
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name  
+tcp6       0      0 ::1:5901                :::*                    LISTEN      2555/Xtigervnc      
+tcp        0      0 127.0.0.1:5901          0.0.0.0:*               LISTEN      2555/Xtigervnc   
+```
+
+리스닝을 잘 하고 있다. 클라이언트쪽 접속할려는 쪽에서는 확인할 필요없고 VNCSERVER를 실행한 쪽에서 확인하면 될 듯 하다.
+
+외부에서 접근할 경우에는 ssh터널링을 이용해야 할 듯 하다. SSH 터널링을 한 다음에 하니 잘 접속이 된다.   
+몇 번 테스트를 해봤는데 결과는 같다.    
+다른 ip에서(다른 컴) 해도 증상을 같다.
+
+**결론은 외부에서는 SSH 터널링을 접속하자**  
