@@ -38,9 +38,26 @@ ROS 패키지는 잘 못 찾을 때가 있는 듯 하다.
 이 경우에도 include 패스를 입력하는 부분에 위의 json으로 입력했던 것 처럼 경로를 입력해주면 된다   
 
 
+### intelligence가 작동 안 할 때
+~~ 물론 vscode 설정에서는 패키지 다이렉트의 include 디렉토리 이하 /** 로 포함해서 딱 include/**까지만 해주면 된다 ~~
 
+이전에는 (2024년 7월29일 기준..) /usr/include/** 이하 디렉토리를 다 지정해주는 것이 전혀 문제가 없었는데  
+vscode ROS 확장팩 관련인 듯 한데, 전혀 ros관련 intelligence를 자동완성을 해주지 못하는 현상이 발생  
 
+모든 extension 및 vscode 삭제 후 재설치에도 ros 뿐만 아니라, 특정 header 파일에서 선언한 멤버 변수도   
+못불러오는 현상이 발생  
 
+결과적으로 c_cpp_properties.json 파일, ROS extension을 설치하면 자동으로 생성되는 파일인데,   
+여기에 "/usr/include/" 로 변경하자   (**을 빼준다.)   
 
-> 물론 vscode 설정에서는 패키지 다이렉트의 include 디렉토리 이하 /** 로 포함해서 딱 include/**까지만 해주면 된다
+이렇게 하니 vscode intelligence가 잘 작동한다. 
 
+> vscode 최신버전으로부터 약 3단계 아래 버전으로 적용했을 때도 같은 증상을 보이는 것으로 보아서  
+ros extension의 버그 이거나, 내가 사용하는 /usr/include/ 이하에 뭔가 문제가 발생했을 수도 있겠지만..   
+어쨋든 이렇게 해결하니 잘 작동한다.  
+
+/usr/include/** 일 경우   
+![/usr/include/** 일 경우](./img/include_asterisk.png)
+
+/usr/include 일 경우   
+![/usr/include/ 일 경우](./img/just_include.png)
