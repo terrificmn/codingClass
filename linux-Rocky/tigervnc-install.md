@@ -38,3 +38,18 @@ sudo dnf install epel-release
 ```
 이후 다시 설치 진행
 
+
+## vncserver 설정
+~/.vnc 이하 디렉토리에 xstartup 파일을 만들고   
+이 방법도 결국은 gnome-session 을 사용하는 듯 하다.  
+``` 
+#!/bin/sh
+unset SESSION_MANAGER
+unset DBUS_SESSION_BUS_ADDRESS
+exec /etc/vnc/xstartup &
+vncconfig -iconic &
+dbus-launch --exit-with-session /usr/bin/gnome-session --systemd --session=ubuntu &
+```
+
+TODO: /usr/bin/ 이하에 다른 session이 있는지 확인해보기   
+기존 블로그 post와 비교해보기  
