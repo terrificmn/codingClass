@@ -95,3 +95,26 @@ package.xml
   <exec_depend>std_msgs</exec_depend>
   <exec_depend>geometry_msgs</exec_depend>
 ```
+
+## std_msgs int 사용 시
+sts_msgs 의 int 타입을 사용할 경우에는 `int`라고만 지정해주면 에러가 발생한다.  
+
+```
+`/home/my_user/catkin_ws/src/my_msgs/msg/Error.msg'
+depens on. Did you forget to specify generate_msssages(DEPENDENCIES ...)?
+
+Cannot locate message [int] in package [my_msgs] with paths
+......생략
+```
+
+자세히 들여다보면 int 를 찾을 수 없다고 한다. 
+
+std_msgs 는 int8, int16, int32, int64 이런식으로 되어 있으므로 잘 선택해서 넣어서 msg 디렉토리 이하의   
+msg파일에 잘 넣어줘야 한다. 
+
+예:
+```
+int32 int_number
+```
+
+이렇게 하면 msg 관련 빌드가 잘 된다. 

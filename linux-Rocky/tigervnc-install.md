@@ -51,5 +51,15 @@ vncconfig -iconic &
 dbus-launch --exit-with-session /usr/bin/gnome-session --systemd --session=ubuntu &
 ```
 
-TODO: /usr/bin/ 이하에 다른 session이 있는지 확인해보기   
-기존 블로그 post와 비교해보기  
+중요한 점은 DBUS_SESSION_BUS_ADDRESS 을 unset을 해야하는 것이고   
+dbus-launch 커맨드가 비슷하게 다 작동한다. 차이점을 찾아볼려고 했지만 일단, gnome-session 을
+```
+dbus-launch --exit-with-session gnome-session &
+
+또는
+dbus-launch --exit-with-session gnome-session --session=ubuntu &
+```
+
+> 다같이 작동하는 이유는 /usr/bin/gnome-session 실행 파일이 있기 때문  
+
+
