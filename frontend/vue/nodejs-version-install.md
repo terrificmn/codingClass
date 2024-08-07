@@ -58,3 +58,49 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm
 ```
+
+
+## node 버전 다르게 하기
+
+노드 리스트 확인
+```
+nvm list
+```
+설치된 노드 버전 정보 등이 표시된다. 
+
+
+버전별로 설치하기   
+```
+nvm install 14
+nvm install 17
+```
+각 버전이 설치 된다.
+
+
+사용하려는 버전을 선택해준다. 
+```
+nvm use 14
+nvm use 17
+```
+
+> 아마도 default로 선택된 
+예를 들어 `default -> 17 (-> v17.9.1)` 되어 있는 노드 버전을 디폴트로 사용하는 것 같고,   
+특정 터미널에서 `nvm use` 등을 사용하면 해당 터미널에서는 해당 버전을 사용   
+단 터미널을 다시 열면 디폴트 노드로 변경되는 듯 하다
+
+
+
+원하는 버전을 선택해서 사용할 수가 있다.
+
+
+javascript node 프로젝트 안에 (프로젝트의 상단 root)  
+.nvmrc 파일을 만들고 단순히 
+`v14.21.3` 이런식으로 버전만 적어준다.  
+
+이후 nvm use 만 사용하면 해당 .nvmrc 파일에서 지정된 파일을 골라서 node를 선택해준다.
+
+이후 npm install 원하는라이브러리
+
+특히 라이브러리 등이 호환이 안될 경우에는 node 버전과 관련이 있음
+
+
