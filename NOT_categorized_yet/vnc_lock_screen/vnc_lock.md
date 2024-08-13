@@ -55,6 +55,14 @@ SESSION  UID USER       SEAT  TTY
 ```
 loginctl unlock-session 3
 ```
+> 암호 필요 없음. 
+
+
+또는 검색 안하고 unlock-sessions 이용해서(복수형) 한번에 해결
+```
+loginctl unlock-sessions
+```
+> 단, 암호가 있어야 함. 암호 입력하면 바로 락이 풀림
 
 이제 바로 vnc 화면에서 락이 걸려있는 상태에서 자동으로 화면이 풀린다.
 
