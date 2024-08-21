@@ -56,16 +56,14 @@ cd ~/Qt/QtIFW-4.8.0/bin
 일단 해당 디렉토리에서 installerTest 라는 실행파일이 생긴다.   
 > 물론 installerTest 는 실행파일 installer프로그램 이름이다. 아무거나 상관 없음
 
-이제 installerTest 파일만 있으면 되는 셈인데,   
-이를 다른 컴퓨터에 복사한 후에 실행을 하게 되면  
 
+## 다른 컴에서 설치 시
+이제 installerTest 파일만 있으면 되는 셈인데, 이를 다른 컴퓨터에 복사한 후에 실행을 하게 되면   
 어디에 설치할 지 묻는 화면부터 해서 next next로 설치를 할 수가 있다. 
-
 
 일단 첫 번째 도전은 실패.   libgc 버전이 달라서 실패한 듯 한데... 
 
 TODO: 좀 더 연구해보자
-
 
 ```
 ./appvnc_connector: libc.so.6: version `GLIBC_2.34' not found (required by /lib/x86_64-linux-gnu/libGLdispatch.so.0)
@@ -74,3 +72,9 @@ TODO: 좀 더 연구해보자
 ./appvnc_connector: libc.so.6: version `GLIBC_2.33' not found (required by /lib/x86_64-linux-gnu/libk5crypto.so.3)
 ...생략
 ```
+
+
+일단 우분투 22.04 에서는 qt installer가 작동을 한다.   
+
+하지만 fedora 40에서는 아예 시작도 안됨,, `Segmentation fault (core dumped)`   
+
