@@ -1,3 +1,6 @@
+## ros2 service srv
+
+[service example github](https://github.com/ros2/examples/tree/humble/rclcpp/services)
 
 
 서비스 목록 보기
@@ -37,6 +40,5 @@ Vector3  angular
 
 > ros 에서는 geometry_msgs/Twist 이런식으로 되어있었는데  
 ROS2에서는 중간에 msg가 들어가게 됨
-
 
 
