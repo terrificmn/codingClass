@@ -28,3 +28,29 @@ get_parameter로 파라미터 값을 받아서 특정 변수로 넘겨줄 수 �
 
 만약 런치파일을 실행하지 않는다면 declare_parameter로 선언한 값이 그대로 적용된다
 
+
+## 예제 참고
+MinimalParam
+
+cpp_parameters 패키지 참고
+
+런치파일로 만들기
+```py
+from launch import LaunchDescription
+from launch_ros.actions import Node
+
+def generate_launch_description():
+    return LaunchDescription([
+        Node(
+            package="cpp_parameters",
+            executable="minimal_param_node",
+            name="custom_minimal_param_node",
+            output="screen",
+            emulate_tty=True,
+            parameters=[
+                {"my_parameter": "earth"}
+            ]
+        )
+    ])
+
+```

@@ -120,4 +120,32 @@ package.xml 에는
 
 pubsub_customs_msg 패키지, tutorial_interfaces 패키지를 직접 보고 확인
 
+## 메세지를 같은 패키지에서 
+같은 패키지에서 메세지를 생성하고 그 메세지를 runtime 에서 사용하려고 하면  
+CMakeLists에서 cmake 코드를 추가 생성해야 한다.
 
+
+```
+set(msg_files
+  "msg/AddressBook.msg"
+)
+rosidl_generate_interfaces(${PROJECT_NAME}
+  ${msg_files}
+)
+
+ament_export_dependencies(rosidl_default_runtime)
+```
+
+```
+
+##같은 프로젝트에서 msg type을 만들면서 사용하려고 하면 아래 코드 필요, 아래 target_link까지
+rosidl_get_typesupport_target(cpp_typesupport_target
+  ${PROJECT_NAME} rosidl_typesupport_cpp
+)
+## AddressBook.msg 코드를 만들면서 target link 해준다.
+target_link_libraries(publish_address_book 
+  "${cpp_typesupport_target}"
+)
+```
+
+> 아예 msg 관련 패키지를 따로 빼서 다른 패키지로 만든다면 위의 Cmake 코드는 필요없다.
