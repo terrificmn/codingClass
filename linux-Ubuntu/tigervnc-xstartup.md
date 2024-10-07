@@ -1,5 +1,11 @@
 # xstartup 없을 경우
-직접 만들어 준다.
+
+사실 /etc/vnc/xstartup이 없어도 실행이 잘 되어야 하는 듯 하다.   
+ubuntu 20.04 에서는 .vnc/이하의 xstartup 만으로도 잘 실행이 되었다.  
+> /etc/vnc/xstartup 실제로는 이 파일은 없었고, /usr/bin/gnome-session 파일은 있다.  
+
+
+### 직접 만들어 주는 방법은 참고만...
 ```
 mkdir -p /etc/vnc
 ```

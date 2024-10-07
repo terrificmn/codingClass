@@ -63,3 +63,14 @@ dbus-launch --exit-with-session gnome-session --session=ubuntu &
 > 다같이 작동하는 이유는 /usr/bin/gnome-session 실행 파일이 있기 때문  
 
 
+이것도 잘 작동함. 
+```
+#!/bin/sh
+unset SESSION_MANAGER
+unset DBUS_SESSION_BUS_ADDRESS
+[ -x /etc/vnc/xstartup ] && exec /etc/vnc/xstartup
+[ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
+exec vncconfig -iconic &
+dbus-launch --exit-with-session /usr/bin/gnome-session --systemd --session=ubuntu &
+```
+
