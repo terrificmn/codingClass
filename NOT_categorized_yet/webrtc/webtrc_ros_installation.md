@@ -69,15 +69,19 @@ sudo apt install libgtk-3-dev
 
 그 외에 의존성 패키지 - 거의 설치가 되어 있음
 ```
-sudo apt install libjpeg-turbo8 libjpeg-turbo8-dev python python2 gir1.2-gmodule-2.0 libglib2.0-dev pulseaudio libasound2-dev libpulse-dev ninja-build stow
-```
+sudo apt install libjpeg-turbo8 libjpeg-turbo8-dev python-is-python3 gir1.2-gmodule-2.0 libglib2.0-dev pulseaudio libasound2-dev libpulse-dev ninja-build stow
+``` 
 
 > 참고로 webrtc에서 python을 이용하는데 python이 설치가 안 되어 있으면  
 `/usr/bin/env: 'python' : No such file or directory` 라는 에러가 발생하므로  
 
 > 위에서 python2 가 설치를 하는데에도 python 이 있는 이유, 뭐가 호환성 때문에 그런 듯 하다.  
 여튼 설치를 할 경우에 python 대신에  python-is-python2 가 설치가 된다.  
-'python-is-python2' instead of 'python'
+'python-is-python2' instead of 'python'   
+TODO:   
+최초 설치할 때에는 python2 관련 패키지를 설치했지만 python 필요없는 듯 하고    
+python-is-python2 도 python-is-python3 로 설치해서 해보자
+
 
 
 
