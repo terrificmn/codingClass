@@ -100,7 +100,7 @@ CPack: - package: /home/sgtocta/ros_qtc_plugin/build/ROSProjectManager-9.1-Linux
 
 ```
 cd /tmp
-mv qtc_sdk/ ~/qtcsdk/
+mv qtc-sdk/ ~/qtcsdk/
 ```
 
 qtcreator는 qtc_sdk/Tools/Qtcreator/bin 에 있음

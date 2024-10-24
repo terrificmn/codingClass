@@ -12,7 +12,7 @@
 먼저 의존성 설치가 필요
 Rocky linux 기준 
 ```
-sudo dnf install wayland-devel ninja-build pip
+sudo dnf install wayland-devel ninja-build pip g++
 ```
 
 우분투는 확인해보지 않았으나, libwayland-dev 일 수도 있음.확인 : 우분투에서는 
@@ -50,6 +50,10 @@ ModuleNotFoundError: No module named 'mesonbuild'
 그래서 root 가 사용할 수 있게 설치를 하거나, 시스템 폴더에 설치를 해준다.(모든 유저 사용가능-sudo 사용시)   
 그래서 '/usr/local/bin'에 설치가 되는 듯 하다..  
 
+> 일반 유저로 meson을 설치하게 되면 ~/.local/bin 이하에 meson이 설치가 되어서   
+심링크 또는 $PATH 등에 넣어서 사용할 수 있겠지만, 마지막에 /usr/ 이하 경로에 설치install 명령을 할 때 실패하게 되어서   
+그냥 맘편하게 사용하려면 sudo로 설치해주자.
+
 
 [나머지 옵션 의존성 패키지도 있으나 필요할 시 깃허브확인-wl-clipboard](https://github.com/bugaevc/wl-clipboard)
 
@@ -63,7 +67,7 @@ cd wl-clipboard
 
 빌드
 ```
-meson build
+meson setup build
 cd build
 ninja
 ```
@@ -72,6 +76,7 @@ ninja
 ```
 sudo ninja install
 ```
+또는 `sudo meson install` 
 
 /usr/local/bin 등으로 설치가 된다. 
 

@@ -82,7 +82,7 @@ alias 기능을 사용해서 단축키를 지정할 때 항상 실수로 거꾸�
 예를 들어서 st.alias, status.alias 이런식으로 만든 적이 많다;;;
 
 이럴 때 이런 관련 내용을 지워줄 수가 있다. 
-git config --global --unset st.alias 
+git config --global --unset alias.status
 
 > 참고로 단축키 지정의 올바른 명령어는 alias.st status  이다  
 
