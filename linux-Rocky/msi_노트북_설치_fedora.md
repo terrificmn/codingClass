@@ -17,6 +17,8 @@ geforce RTX 2050
 ```
 sudo dnf upgrade
 ```
+중요 dnf upgrade 로 패키지들을 최신화 해준다. 커널도 업데이트 될 듯  
+
 
 그래픽 카드 어떤 것을 사용할 수 있는지 확인. 터미널에 입력
 ```
@@ -32,6 +34,12 @@ sudo dnf install kernel-devel kernel-headers gcc make dkms acpid libglvnd-glx li
 
 
 ### rpm fusion Repositories 설치 및 등록
+일단 없이 한번 해보자. 포맷 후 다시 설치를 할 기회가 있었는데 설치는 잘 되었지만   
+드라이버 인식되는 것은 실패   
+
+아마도 이유는 1. dnf grade를 생략하고 함.   
+어쨋든 아래 repo 를 등록안하고 다시 시도.  
+akmod-nvidia 등이 설치된다. 아마도 그 전에 repo가 등록된적이 있었거나, 한 듯 하다.  
 ```
 sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
 sudo dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
@@ -67,3 +75,7 @@ sudo dnf install kernel-devel kernel-headers gcc make dkms acpid libglvnd-glx li
 하지만, 실패 
 
 그래서 위에 방법으로 설치하면 된다. 
+
+### 실패했을 경우
+부팅화면 grub 화면에서 이전 커널을 버전을 선택해서 부팅 한 후   
+다시 설치를 시도하자
