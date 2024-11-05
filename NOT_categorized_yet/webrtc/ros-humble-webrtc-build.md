@@ -29,7 +29,7 @@ sudo apt install ros-humble-async-web-server-cpp
 original GT-RAIL 의 asycn 패키지에서 ros2 버전(원 리포에도 있기는 함)   
 소스 코드가 변경이 필요할 경우에는 클론 후 빌드  
 ```
-git clone https://github.com/fkie/async_web_server_cpp.git
+git clone https://github.com/fkie/async_web_server_cpp.git -b ros2-develop
 ```
 
 
@@ -59,6 +59,12 @@ See //BUILD.gn:57:9: which caused the file to be included.
 
 
 ## webrtc 빌드
+[webrtc-ros2브랜치](https://github.com/RobotWebTools/webrtc_ros/tree/develop-ros2)
+
+```
+git clone -b develop-ros2 https://github.com/RobotWebTools/webrtc_ros.git
+```
+
 참고로 ros2 관련 webrtc_ros가 완벽하게 업데이트가 되어 있지가 않아서  
 특히 webrtc 를 depot_tools 등이 cmake 에서 받아서 할 경우에 버전이 (커밋)이 최신인 듯하다.   
 그래서 webrtc_ros 패키쪽에서 사용해야할 내용이 많이 변경이 되어 있다.   
@@ -125,4 +131,20 @@ Please take one of the following actions to install Ninja:
 파이썬이 없는 경우, python, python2 를 설치하지 말고  python-is-python3 해주면 된다   
 또한 ninja 는 cmake로 빌드를 하면서 따로 받아서 사용하는 듯 하다.  
 아니면 apt로  ninja-build 설치
+
+
+### webrtc_ros 의 web 및 src 의 cpp파일 수정   
+web은 webrtc_web_removed_js_html_version.tar.xz 파일 참고   
+depth topic 및 필요 없는 태그 h1 태그 등이 삭제된 버전임   
+
+src는 webrtc_ros_server.cpp 의 파라미터 port 를 불러오는 부분을 하드코딩으로 원하는 포트로 바꿔 줄 것   
+> launch 파일에 port 를 지정하게 되어 있는데, 파라미터를 제대로 못 불러오는 듯 하다. 디버깅이 필요하나 귀찮으므로 포트를 고정 ㅋ
+
+webrtc_client.cpp 의 iceClient->wait_for_service() 부분이 있는데 10초 되어 있는데  
+10초 동안 blocking이 되므로 브라우저에서 이미지가 바로 안 나오므로 시간을 줄여준다. 
+```cpp
+if (iceClient->wait_for_service(10s)) {
+  ///
+}
+```
 
