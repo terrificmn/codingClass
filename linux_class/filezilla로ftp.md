@@ -70,3 +70,13 @@ $sudo openssl req -x509 -nodes -keyout /etc/vsftpd/vsftpd.key -out /etc/vsftpd/v
 [Explicit FTPS vs Implicit FTPS](https://www.ftptoday.com/blog/explicit-ftps-vs-implicit-ftps-what-you-need-to-know)
 
 
+## ftp error 발생
+`FTP error: 530 Maximum number of tries exceeded. Please contact the site manager.`  
+
+많은 연결 시도 또는 비밀번호 틀렸을 시에 계속 시도 했을 경우에   
+ftp 서버 설정에 따라서 block 이 될 수 있다.  
+만약 ip가 차단되었다면 해당 서버쪽에서 해제를 해줘야 한다.   
+외부에서 접속할 수 있는 경우라면 gateway 주소가 block 되는 경우도 있는 것 같다. 
+
+> synology 사용 중에 발생. 설정에서 변경해준다.   
+보통 vsftpd 에서도 있는지는 모르겠다.  
