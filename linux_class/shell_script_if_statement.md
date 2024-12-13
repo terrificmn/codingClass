@@ -91,6 +91,24 @@ then
 방식으로 사용해준다 
 
 
+# boolean 비교 
+변수에 바로 bool 값을 넣어줄 수가 있다, 대신 비교는 문자열로 해준다.
+`==` 또는 `=` 으로 비교할 수가 있는데  
+
+```shell
+value=true
+
+if [ "$value" == "true" ]; then
+    echo "It's true."
+fi
+
+```
+
+> 여기에서 = POSIX-complaint 방식.   
+$value 만 써도 되지만 "$value" 로 변수를 " 으로 묶는 것은  
+변수가 비어 있거나 스페이스 등을 방지하기 위해서 좋다고 한다.   
+
+
 ## 숫자 비교
 -eq 등의 옵션은 숫자일 때만 되는 것 같다  
 ```sh
