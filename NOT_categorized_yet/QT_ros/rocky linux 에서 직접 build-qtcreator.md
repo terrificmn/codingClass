@@ -18,11 +18,12 @@ sudo dnf install python3-pip
 python3 -m pip install pyyaml requests py7zr
 ```
 
-Fedora 에서는 
+Fedora 40 기준, 
 ```
-sudo dnf install mesa-libGL-devel ninja-build utf8proc-devel
+sudo dnf install mesa-libGL-devel ninja-build utf8proc-devel vulkan-loader-devel libxkbcommon-devel
 ```
-로 설치 가능했음, (다른 enablerepo 할 필요없었음)
+> 거의 처음 인스톨 후 다른 것들이 설치가 안되어 있는 경우  
+로 설치 가능했음, (다른 enablerepo 할 필요없었음)  
 
 단, 파이썬 몇개의 라이브러리는 필요  
 ```
@@ -111,6 +112,30 @@ qtcreator는 qtc_sdk/Tools/Qtcreator/bin 에 있음
 ```
 sudo ln -s ~/qtc_sdk/Tools/QtCreator/bin/qtcreator /usr/bin/
 ```
+
+## qt6  not found
+```
+CMake Error at /usr/share/cmake/Modules/CMakeFindDependencyMacro.cmake:76 (find_package):
+  Found package configuration file:
+
+    /tmp/qtc-sdk/6.8.0/gcc_64/lib/cmake/Qt6/Qt6Config.cmake
+
+  but it set Qt6_FOUND to FALSE so package "Qt6" is considered to be NOT
+  FOUND.  Reason given by package:
+```
+
+빌드할 경우에 qt6를 못찾는 경우  
+`/tmp/qtc-sdk/6.8.0/gcc_64/lib/cmake/Qt6/Qt6Config.cmake`  경로를 찾아서   
+파일을 열어보면 vi 등으로 연 다음에 검색
+
+```
+if(Qt6_FIND_REQUIRED_${module})
+            set(Qt6_FOUND False)
+```
+로 되어 있는데 *False* 로 바꿔준 후에 다시 cmake 를 진행하면 잘 찾아진다  
+
+
+
 
 ## Ros plugin 등록
 Qt creator를 실행을 해서  Help -> About Plugins -> Install Plugin 을 해서 zip파일 통째로 선택해주면 된다 import를 해준다  
