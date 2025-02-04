@@ -18,17 +18,26 @@ UEFI 에서는 각 물리적 디스크에서 따로 파티션을 잡아서 하�
 
 
 ## 페도라
-파티션 1, /boot/efi  100M (FAT 32_bit version)
-파티션 2, /boot 1000MB
+파티션 1, /boot/efi  100M (FAT 32_bit version)   
+파티션 2, /boot 1000MB  
+
+> 권장은 /boot 는 1GB, /boot/efi 는 200Mb ~ 600Mb 라고 한다.   
+기존 파티션 확인하려면 `lsblk`, 또는 `df` 등으로 확인
 
 
-
-윈도우를 설치한 후 같은 디스크에 파티션을 나눠서 페도라를 설치하려고 하면, windows에서 만든 EFI system 을 사용할 수가 없다.  
+페도라를 설치할 경우에, 같은 디스크에 이미 윈도우를 설치된 경우에 windows에서 만든 EFI system 을 사용할 수가 없다.  
 > 일단 내 기억으로 그렇다;;;
 
-우분투 와는 다르게 /boot/efi 를 mount 지점으로 갖는 파티션 EFI system 으로 만들어야지 페도라를 설치 할 수가 있다. 
+우분투 와는 다르게 /boot/efi 를 mount 지점으로 갖는 파티션 따로 만들어 줘야지 설치가 가능.  EFI system 으로 만든다.   
 
-이렇게 해서 멀티 부팅 설치를 진행하면 된다.
+이렇게 해서 멀티 부팅 설치를 진행하면 된다.  
+
+결국은 같은 디스크에 EFI system이 여러개 있을 수 있는 것 같다.    
+
+같은 디스크에 멀티로 설치를 할 때, 리눅스에 만든 EFI, 윈도우에서 만든 EFI 가 존재할 수가 있는데  
+windows에서는 어떤 파티션을 사용하는지 모르겠다. 일단 윈도우쪽에서는 둘 다 잡히나, 사용 가능 용량이 100% 나온다.(아예 리눅스쪽 용량이 무시되는 듯..?)   
+리눅스에서 보면 리눅스에 사용하는 /boot/efi 는 (예 33%)나 사용한 상태라고 나오는 차이가 있다. 그리고 윈도우쪽의 EFI 는 마운트 되지 않는다.  
+
 
 
 ### 다른 디스크에 설치할 경우
@@ -52,8 +61,11 @@ fedora를 먼저 설치해서 EFI system 을 만든 경우에
 
 우분투를 설치하는 과정에서 Device for boot loader installation 를 선택해서 파티션을 선택하는데..  
 UEFI 기반에서는 디스크의 파티션으로 지정을 해준다. 윈도우의 EFI system로 되어 있는 파티션을 골라서 지정해준다.   
-예: /dev/sda1 Windows Boot Manager
+예: /dev/sda1 Windows Boot Manager   
 
 > /dev/sda ATA SAMSUNG SSD (500.0 GB) 이런 식으로 되어 있는 장치 자체를 선택하면 안됨. (legacy 기반일 경우에 선택한다)  
+
+또는 우분투 단독으로 설치할 경우에도 따로 파티션을 만들지 않고 Device for boot loader installation 부분만 선택하면  
+`/boot/efi` 로 파티션을 자동으로 만들어 준다. 약 500MB
 
 
