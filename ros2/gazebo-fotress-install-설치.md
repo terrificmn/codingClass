@@ -2,7 +2,7 @@
 ros2 와 사용할 때에는 GZ fortress 를 추천
 
 
-[Gazebo Fortress 설치 페이지](https://gazebosim.org/docs/fortress/install_ubuntu/)]
+[Gazebo Fortress 설치 페이지](https://gazebosim.org/docs/fortress/install_ubuntu/)
 
 
 실행은 `ign gazebo` 으로 실행한다.  
@@ -25,22 +25,34 @@ mkdir -p ~/ros_gz_ws/src
 ```
 
 
-https://github.com/gazebosim/ros_gz/   
- 여기에서 humble 브랜치로 설치
+https://github.com/gazebosim/ros_gz/    여기에서 humble 브랜치로 설치
+
+```
+git clone -b humble https://github.com/gazebosim/ros_gz.git
+```
+
+> ros2 humble 일 경우에는 humble 브랜치 사용, 
+> ros2 브랜치는 rolling 버전  , humble 과 호환이 안됨
 
 `GZ_VERSION=fortress` 로 지정해서 사용   
+> .bashrc 파일에 `export GZ_VERSION=fortress` 추가해서 저장해주기  
+`source ~/.bashrc` 도 해주기
 
 rosdep install  시에는 humble 로 버전 명시   
+클론 후에 의존성 패키지 설치   
+```
+cd ~/ros_gz_ws
+rosdep install --from-paths src --ignore-src --rosdistro humble
+```
 
-> ros2 브랜치는 rolling 버전
+마지막으로 `colcon build`   
 
-colcon build 후에  
-example로 ros2 sim 실행해 볼 수 있음
 
+## 예제 가제보 실행해보기
+example로 ros2 sim 실행해 볼 수 있음  
 ```
 ros2 launch ros_gz_sim gz_sim.launch.py gz_args:="shapes.sdf"
 ```
-
 
 자세한 예시는 
 
