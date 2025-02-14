@@ -88,3 +88,22 @@ turtlebot3과 원격PC에서 서로 topic을 주고 받을 수 있게 되는 것
 같은 네트워크 망에서는 커뮤니케이션 충돌이 발생할 수 있다고 한다  
 
 [The ROS_DOMAIN_ID 관련 페이지](https://docs.ros.org/en/foxy/Concepts/About-Domain-ID.html)
+
+
+## localhost 사용
+환경변수 `ROS_LOCALHOST_ONLY` 를 설정해주면 된다.
+
+```
+export ROS_LOCALHOST_ONLY=1
+```
+
+bashrc 파일에 저장하려면 파일을 열어서 위의 내용을 복사 또는 리다이렉트로 바로 복사
+```
+echo "export ROS_LOCALHOST_ONLY=1" >> ~/.bashrc
+```
+
+**>>** 두 개를 사용해야함. 한 개는 파일을 통채로 덮어씌우므로 주의
+
+
+
+
