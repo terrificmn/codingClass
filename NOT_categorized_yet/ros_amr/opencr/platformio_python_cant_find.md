@@ -59,6 +59,7 @@ sudo apt install python3.8-venv
 
 이제 vscode를 열고 platformio를 선택해주면 platformio 코어를 잘 설치해준다   
 
+> ros2 에서는 `python3-venv` 만 해줘도 된다.
 
 ## 이를 해결 하기 위해 (실패)
 ```
