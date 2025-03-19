@@ -8,6 +8,8 @@
 
 ~~다음에 다시 발급 받는다면 아래 명령어로 다시 도전 해보자..~~
 
+갱신하려면 renew-ssl.md 파일을 참고하자
+
 재발급
 ```
 docker-compose run --rm certbot renew
