@@ -26,3 +26,10 @@ odom topic에 들어가는 frmae_id, child_id? 가 잘 맞아야 한다.
 
 관련 lua 파일에는  odom_frame, provide_odom_frame true 등이 있다.
 
+
+## robot_description관련 
+gazebo 에서 joint_state_publisher 를 사용하는 경우에는   
+프레임이 base_link 상태에서는 괜찮지만,  
+cartographer 등에서 map frame 등이 나오는 상황에서는 계속 끊기는 상황이 생김  
+아예 odom_frame 을 cartographer 에서 퍼블리쉬 하게 하면 그런 현상은 사라진다.  
+

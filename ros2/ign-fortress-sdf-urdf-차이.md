@@ -77,3 +77,7 @@ sdf 예
 ```
 
 이상하게도 urdf 에서는 revolute가 적용이 안됨. 
+
+
+## urdf sensor 태그는 지원하지 않음
+변환된 urdf 에서는 sensor 태그는 지워준다.

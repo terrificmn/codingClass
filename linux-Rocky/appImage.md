@@ -1,5 +1,10 @@
 # AppImage Tool
+Fedora 에서는 linuxdeploy-x86_64.AppImage 등의 패키지는 사용이 불가 하다.  
+fedora 버전이 너무 높기 때문에 그러하다..
 
+대신 AppImage Tool을 사용하면 메뉴얼로 만들어 줄 수는 있는데..  이것도 쉽지는 않은 듯 하다.   
+> 계속 테스트 중.. 아무래도 최신 버전 보다는 ubuntu 20 정도 기준으로 하는 게 나을 듯 하다.  
+> 따로 우분투를 안 깔았다면 도커를 사용하는게 정신 건강에 나을 지도 모르겠지만 일단 테스트 중...
 
 https://github.com/AppImage/AppImageKit
 
@@ -72,8 +77,15 @@ libyaml-cpp.so.0.7 => /lib64/libyaml-cpp.so.0.7 (0x00007f1f5bdaf000)
 libQt6QmlModels.so.6 => /home/myuser/qtc_sdk/6.4.0/gcc_64/lib/libQt6QmlModels.so.6 (0x00007f1f5bce6000)
 ```
 ldd 를 통해 나온 결과를 awk 로 넘겨줘서 사용할 수 있게 하고    
-$2 는 패턴의 2번째를 의미 "=>" 스트링이 있다면 $3 인 3번째의 내용을 출력하라는 내용. 이제 cp 명령어와 결합이 되면  마지막 경로로 copy가 된다   
+$2 는 패턴의 2번째를 의미 "=>" 스트링이 있다면 $3 인 3번째의 내용을 출력하라는 내용. 이제 cp 명령어와 결합이 되면  마지막 경로로 copy가 된다    
+> 심볼링 링크의 so 파일들을 복사하게 된다.  
 
+
+심볼릭 링크 확인. 참고만 하자.. 위의 명령어 사용법과 같다.  
+대신 **실제 파일들을** 복사하면 **안 되는 듯** 하다. shared object file 을 찾지 못한다.  
+```
+ls -li $(ldd `pwd`/my_app | awk '$2 == "=>" { print $3 }')
+```
 
 appimage 파일에서 압축을 풀어준다. 
 `./your-app.AppImage --appimage-extract`
@@ -88,9 +100,6 @@ appimage 파일에서 압축을 풀어준다.
 ```
 
 해당 디렉토리를 찾지는 못한다.;;
-
-
-
 
 
 
@@ -194,7 +203,50 @@ export LD_LIBRARY_PATH=/home/myuser/qtc-sdk/6.6.0/gcc_64/lib:$LD_LIBRARY_PATH
 추가해주면 잘 실행이 되지만, 실제 qt가 없는 곳에 배포를 하면 당연히 안 될 듯 하다..(아마도..)
 
 
+dlopen(): error loading libfuse.so.2
 
+AppImages require FUSE to run. 
+일 경우에 
+```
+sudo apt install libfuse2
+```
+
+fuse: failed to exec fusermount: No such file or directory
+
+```
+sudo apt install fuse
+```
+
+LD_LIBRARY 환경 변수를 설정하지 않으면 usr/lib 에 있는 파일을 사용하지를 못한다.
+```
+/tmp/.mount_vnc_cowDAUWU/usr/bin/appvnc_connector: error while loading shared libraries: libQt6Quick.so.6: cannot open shared object file: No such file or directory
+```
+
+```
+#export LD_LIBRARY_PATH="$APPDIR/usr/lib:$LD_LIBRARY_PATH"
+```
+이런식으로 넣어줘야 함. 스크립트 파일에 넣어주기 (AppRun파일)
+
+단 이렇게 해주면 qt 관련 so 파일은 찾지만 새로운 에러 발생함
+
+++.so.6: version `GLIBCXX_3.4.32' not found (required by /tmp/.mount_vnc_coBidr43/usr/lib/libyaml-cpp.so.0.7)
+
+
+새로운 에러 일단, libstdc++ 버전이 달라서 그러는 듯 하다. 
+```
+/tmp/.mount_vnc_coNEReOF/usr/bin/appvnc_connector: /lib/x86_64-linux-gnu/libstdc++.so.6: version `GLIBCXX_3.4.32' not found (required by /tmp/.mount_vnc_coNEReOF/usr/bin/appvnc_connector)
+/tmp/.mount_vnc_coNEReOF/usr/bin/appvnc_connector: /lib/x86_64-linux-gnu/libc.so.6: version `GLIBC_ABI_DT_RELR' not found (required by /tmp/.mount_vnc_coNEReOF/usr/lib/libyaml-cpp.so.0.7)
+/tmp/.mount_vnc_coNEReOF/usr/bin/appvnc_connector: /lib/x86_64-linux-gnu/libstdc++.so.6: version `GLIBCXX_3.4.32' not found (required by /tmp/.mount_vnc_coNEReOF/usr/lib/libyaml-cpp.so.0.7)
+/tmp/.mount_vnc_coNEReOF/usr/bin/appvnc_connector: /lib/x86_64-linux-gnu/libc.so.6: version `GLIBC_ABI_DT_RELR' not found (required by /tmp/.mount_vnc_coNEReOF/usr/lib/libglib-2.0.so.0)
+/tmp/.mount_vnc_coNEReOF/usr/bin/appvnc_connector: /lib/x86_64-linux-gnu/libc.so.6: version `GLIBC_2.38' not found (required by /tmp/.mount_vnc_coNEReOF/usr/lib/libglib-2.0.so.0)
+
+```
+
+아래를 명령어를 ubuntu22 에서 해보면
+```
+strings /usr/lib/x86_64-linux-gnu/libstdc++.so.6 | grep GLIBCXX
+```
+GLIBCXX_3.4.30  .. 아마도 Fedora 버전이 너무 높은 듯 하다.   
 
 
 ### qt plugin
