@@ -281,4 +281,7 @@ qt plugin은 /usr/bin/qmake 에서 찾는 듯 하다.;;;
 
 
 
+linuxdeployqt 로 만든 후에 execv error: Permission denied 가 발생하는 경우에는  
+AppRun 스크립트 파일의 실행 권한이 없을 경우일 수 있다. 
+
 
