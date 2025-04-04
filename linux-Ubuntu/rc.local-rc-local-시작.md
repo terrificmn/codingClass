@@ -82,8 +82,14 @@ sudo systemctl enable rc-local
 Created symlink /etc/systemd/system/multi-user.target.wants/rc-local.service → /etc/systemd/system/rc-local.service.
 ```
 
-
 이제 재부팅을 하면 roscore가 실행된 것을 알 수 가 있다.
+
+
+우분투 22 같은 경우에는 /etc 이하가 아닌 /lib 이하에 이미 만들어져 있다. 
+`/lib/systemd/system/rc-local.service`  
+이미 example 로 만들어져 있고, /etc/rc.local 경로까지 되어 있으므로  
+/etc/rc.local 만들고, 위의 /lib/이하의 경로에서 수정하면 된다.
+
 
 
 ## rc.local 스크립트 파일 작성 예시
