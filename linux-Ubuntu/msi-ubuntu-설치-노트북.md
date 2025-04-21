@@ -60,4 +60,18 @@ sudo apt autoremove
 sudo apt install xserver-xorg-video-nouveau
 ```
 
+## 공식 사이트에서 다운 받아서 사용하는 경우
+먼저 다운 받은 파일을 실행 할 수 있게 권한 바꿔 준다.   
+
+예
+```
+sudo ./NVIDIA-Linux-x86_64-570-.124.04.run
+```
+
+설치 했음에도 잘 안 되는 경우에는 위에서 purge로 다 삭제한 후에  
+다시 설치를 시도한다.  
+*nouveau로 부팅이 된 경우* nvidia 인스톨러가 따로 rebuild를 한다고 나올 때 yes를 눌러서   
+다시 빌드가 될 수 있게 해주자.  
+
+
 
