@@ -90,6 +90,15 @@ Created symlink /etc/systemd/system/multi-user.target.wants/rc-local.service →
 이미 example 로 만들어져 있고, /etc/rc.local 경로까지 되어 있으므로  
 /etc/rc.local 만들고, 위의 /lib/이하의 경로에서 수정하면 된다.
 
+> 아마도 /etc/systemd 이하에서도 가능은 한 듯 하다.
+```
+Removed /etc/systemd/system/multi-user.target.wants/rc-local.service.
+Created symlink /etc/systemd/system/multi-user.target.wants/rc-local.service → /lib/systemd/system/rc-local.service.
+```
+
+rc.local, rc-local.service 둘 다 실행 가능하게 퍼미션 올려준다. (+x)  
+이후 stop service / restart
+
 
 
 ## rc.local 스크립트 파일 작성 예시
