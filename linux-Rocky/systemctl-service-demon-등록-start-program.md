@@ -41,6 +41,9 @@ ExecRestart=/path/to/shell_script restart
 
 쉡스크립트 파라미터 다룬 부분의 문법을 확인하자..;; 기억안남 %1 인가? 했던거 같다 ㅋㅋㅋ
 
+ExecStart 방식을 이용해서 커스텀으로 가능한 것은 아니고, ExecReload 등이 더 있는 듯 하지만, 일단 있는 것만 가능함   
+> 처음 rc.local 프로그램이 시작되면 무조건 start 파라미터로 실행하게 되어 있다.
+
 
 
 ## 그 밖에 

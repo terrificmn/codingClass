@@ -74,5 +74,26 @@ X11 을 사용하게 하면 된다.
 > tigervnc는 wayland를 지원하지 않는다.
 
 
+## trouble shooting
+vncserver 는 정상 작동하는데 클라이언트에서 접속이 안 될 경우  
 
+```
+vnc unable connect to socket: Connection timed out (110)  
+```
+
+firewall 이 작동할 경우에 사용할 수 있게 허용을 해줘야 한다.
+
+ufw 확인하기
+```
+sudo ufw status
+```
+
+주롷 사용하는 포트 추가하기
+```
+sudo ufw allow 5902
+```
+결과
+```
+5902 (V6)   ALLOW  Anywhere(V6)
+```
 

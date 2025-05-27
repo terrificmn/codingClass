@@ -32,7 +32,46 @@ python3 -m pip install pyyaml requests py7zr tqdm-loggable
 이 정도면 py 실행이 되어 다운로드가 된다. 
 
 
-## 이제 깃클론   
+### 잠깐! Fedora 42
+기존 설치한 Qt 6.7.0 버전이 잘 동작을 안함   
+이상 증상 :
+```Qt policy QTP0001 is not set: ':/qt/qml/' is the default resource prefix for QML modules
+```
+물론 6.7 부터는 내 패키지에서 qt/qml/ qml 파일을 넣어서 사용할 수가 있으나,   
+기본 설정을 안사용해도 무방하다. 그래서 별 문제가 발생을 안 했으나,   위의 워닝 부터 시작해서   
+```
+multiple definition of QtPrivate::IsFloatType_v<_Float16>
+```
+에러 발생.. 이것은 기존에 설치되어 있는 qt 버전에서 (이후 페도라 42로 업글)하면서 이상해진것 일 수도 있다.
+
+*암튼* 그래서 Fedora dnf 로 받아서 사용할 수 있으니 dnf로 받아서 사용하자!
+
+> 참고로 위의 dependenceis 는 딱히 설치할 필요는 없는 듯 함.. 필요시 설치
+
+qt6 및 quick (Full QML/Quick Setup)
+```
+sudo dnf install qt6-qtbase-devel qt6-qtdeclarative-devel qt6-qtquickcontrols2-devel
+```
+
+qt-creator IDE
+```
+sudo dnf install qt-creator
+```
+
+qt6 는 `/usr/lib64/cmake/Qt6`
+
+qtcreator 설치는 `/usr/bin/qtcreator`
+
+CMakeLists.txt 에서는 
+```
+find_package(Qt6 REQUIRED COMPONENTS Core Quick Widgets)
+```
+이 정도로 사용할 수 있다.
+
+___  
+___  
+## ONLY 참고 
+## 이제 깃클론 (흠.. 이제 참고만 하자)
 추후 편의를 위해 qtc-sdk 가 생기므로 하나로 모으는게 좋을 듯 하다. 깃허브 클론할 디렉토리를 넣어준다.
 ```
 mkdir ~/qtcsdk
