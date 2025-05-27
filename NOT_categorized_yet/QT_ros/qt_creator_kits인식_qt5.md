@@ -14,9 +14,13 @@ qtcreator_ros (snap으로 설치한 것도 지움)
 
 dnf로 설치 qt5 및 디버거 설치
 ```
-sudo dnf install qt5-*-devel qwt-qt5-devel
+sudo dnf install qt5-*-devel
 sudo dnf install gdb
 ```
+
+ qwt-qt5-devel 는 Qwt (QT Widget)  
+qt-5-devel 자체는 widget를 사용하기 위한 프로그램들..  
+ 
 
 >  qt5 관련 패키지를 설치를 해야지 qmake 파일등을 설정할 수 있는 듯 하다
 
