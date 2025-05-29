@@ -211,6 +211,13 @@ AppImages require FUSE to run.
 sudo apt install libfuse2
 ```
 
+페도라 경우 
+```
+sudo dnf install fuse fuse-libs
+```
+그래도 안 될 경우 지웠다가 다시 설치해본다.  
+
+
 fuse: failed to exec fusermount: No such file or directory
 
 ```

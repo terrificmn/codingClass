@@ -16,7 +16,7 @@ ubuntu 22.04 버전, 커널 6.8.0-47-generic
 
 먼저 /etc 이하에 vnc 디렉토리 및 파일을 만들어 준다.
 ```
-mkdir -p /etc/vnc
+sudo mkdir -p /etc/vnc
 sudo vi /etc/vnc/xstartup
 ```
 
@@ -63,6 +63,11 @@ touch xstartup
 [ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
 ```
 
+역시 실행 권한을 준다.
+```
+sudo chmod + ~/.vnc/xstartup 
+```
+
 > 나머지 uvncconfig -iconic 은 실제 xstartup 에서 이미 실행하게 되는 듯 하다.
 
 ~~하지만 우분투 22.04 같은 경우에는 wayland 를 사용해서 X11을 사용안해서~~  
@@ -73,6 +78,11 @@ X11 을 사용하게 하면 된다.
 
 > tigervnc는 wayland를 지원하지 않는다.
 
+### permission 에러 발생 시
+```
+Can't exec "/home/myuser/.vnc/xstartup": Permission denied at /usr/share/perl5/TigerVNC/Wrapper.pm line 1237.
+```
+위에 처럼 실행 권한을 설정해준다.
 
 ## trouble shooting
 vncserver 는 정상 작동하는데 클라이언트에서 접속이 안 될 경우  
