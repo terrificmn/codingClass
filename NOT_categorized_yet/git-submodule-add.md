@@ -32,4 +32,21 @@ cd ~/my_pkg
 git submodule update --init --recursive
 ```
 
+## 필요시 추가한 sub module 커밋하기  
+sub module 이 새로운 커밋이나 checkout 를 하려고 하면 수동으로 변경 후에 다시하면 커밋을 해주면 된다  
+
+예  
+```
+cd lib/opentts
+git checkout new-branch
+```
+이후 다시 내 로컬의 프로젝트로 이동 후에   
+```
+cd ~/my_pkg
+git commit
+```
+
+> 보통 opensource 를 sub-module 로 추가하면 내가 직접 변경하기는 어렵기 때문에   
+해당 프로젝트의 변경이 있다면 변경을 하고 사용을 하면 된다  
+
 
