@@ -73,3 +73,38 @@ sudo rm -i reelrbtx_SMACC_viewer.list reelrbtx_SMACC_viewer.list.save
 `sudo apt update`
 
 잘 된다 
+
+
+## ros2 관련 패키지가 이상해진 경우
+예를 들어
+
+```
+427 packages can be upgraded. Run 'apt list --upgradable' to see them.
+W: An error occurred during the signature verification. The repository is not updated and the previous index files will be used. GPG error: http://packages.ros.org/ros2/ubuntu jammy InRelease: The following signatures were invalid: EXPKEYSIG F42ED6FBAB17C654 Open Robotics <info@osrfoundation.org>
+W: Failed to fetch http://packages.ros.org/ros2/ubuntu/dists/jammy/InRelease  The following signatures were invalid: EXPKEYSIG F42ED6FBAB17C654 Open Robotics <info@osrfoundation.org>
+W: Some index files failed to download. They have been ignored, or old ones used instead.
+```
+
+이동 후에 
+```
+cd /etc/apt/sources.list.d/
+```
+ros2-latest.list 파일을 삭제해준다.(심링크 파일)   
+필요하다면 `/usr/share/ros-apt-source/ros2.sources` 여기도 삭제 
+
+이후 다시 등록 해준다.
+```
+sudo apt update && sudo apt install curl -y
+
+export ROS_APT_SOURCE_VERSION=$(curl -s https://api.github.com/repos/ros-infrastructure/ros-apt-source/releases/latest | grep -F "tag_name" | awk -F\" '{print $4}')
+
+curl -L -o /tmp/ros2-apt-source.deb "https://github.com/ros-infrastructure/ros-apt-source/releases/download/${ROS_APT_SOURCE_VERSION}/ros2-apt-source_${ROS_APT_SOURCE_VERSION}.$(. /etc/os-release && echo $VERSION_CODENAME)_all.deb" # If using Ubuntu derivates use $UBUNTU_CODENAME
+
+sudo dpkg -i /tmp/ros2-apt-source.deb
+```
+
+> [공식 document 참고](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html)  
+
+이후 다시 `sudo apt update` 를 해주면 됨
+
+
