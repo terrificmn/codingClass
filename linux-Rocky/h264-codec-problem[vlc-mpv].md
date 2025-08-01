@@ -71,3 +71,25 @@ libpostproc-free, libswresample-free, libswscale-free
 input/Codes 설정에서 Hardware-accelerated decoding 을 Disable 시켜서 테스트  
 
 
+## speed 변경 하기
+기본 명령어는   
+```
+ffmpeg -i input.mp4 -vf "setpts=0.5*PTS" -an output.mp4
+```
+속도 자체는 0.5 숫자만 변경 해주면 된다. 이 명령어만 사용하게 되면 화질이 저하 된다.  
+> 속도는 예를 들면 0.5 는 2배속, 0.25 는 4배속, 0.1 은 10배속  
+
+실제로는 아래 명령어를 사용하는 것이 좋다.  
+
+```
+ffmpeg -i my_file.mp4 -vf "setpts=0.1*PTS" -c:v libx264 -crf 18 -preset slow -an output.mp4
+```
+
+이렇게 하면 속도 및 화질도 유지 된다.  
+
+옵션 중에 crf 는   
+-crf 18: Constant Rate Factor (lower = higher quality, 18 is visually lossless)   
+
+preset은  
+-preset slow: Better compression efficiency (slower encoding, better quality)   
+
