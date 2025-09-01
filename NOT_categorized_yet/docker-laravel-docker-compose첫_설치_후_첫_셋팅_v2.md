@@ -209,7 +209,7 @@ docker compose run --rm artisan migrate
 
 storage에 저장된 자료가 잘 안 나올시에는 
 ```
-docker-compose run --rm artisan storage:link
+docker compose run --rm artisan storage:link
 ```
 The [/var/www/html/public/storage] link has been connected to [/var/www/html/storage/app/public].
 The links have been created.
@@ -275,7 +275,58 @@ sudo chmod 644 특정파일
 
 src 디렉토리의 권한을 다 바꿀 필요없고, storage만 바꿔준다. 단, 소유:그룹 모두 바꿔준다.
 
+## 백업 restore
+먼저 카피할 경로들   
+src/public/images  
+> Post 등의 대표 이미지로 사용됨  
+> storage 이하의 images 와는 다른 디렉토리임  
 
+scr/public/storage 는 심링크로 연결된다.  
+src/storage/app/public/ 이하 경로에 복사를 해줘야 하는데  
+
+> src/storage/app/public/footage/portfolio_clips/* (영상들)  
+src/storage/app/images/tmp 일단 복사 안해도 될듯 하다
+
+```
+app
+│   └── public
+│       ├── footage
+│       │   └── portfolio_clips
+│       └── images
+│           ├── note_images
+│           │   ├── 60db012c-1624965420
+│                 ...
+│           ├── portfolio_images
+│           │   ├── 611068c6-1628465350
+│                 ...
+│           └── post_images
+│               ├── 60aae365-1621812069
+│                 ...
+```
+
+storage에 저장된 자료가 잘 안 나올시에는 
+```
+docker compose run --rm artisan storage:link
+```
+> 단, 소유권이 www-data 로 바뀐다 
+
+## sql 데이터 백업 phpmysql
+dump한 sql 파일이 있다면 import를 통해서 불러올 수 있다. restore  
+
+웹페이지로 접속을 한다. ip주소를 치고 포트번호를 입력, 
+예를 들어 171.10.15.100:8080  
+> 포트번호 compose 파일 확인  
+
+phpmyadmin 페이지에서 mysql 로 접속을 해준다. id와 password를 넣어서 로그인 후   
+artisan migrate 명령으로 DB 및 table이 만들어 졌는데
+
+백업을 restore를 하려면 table이 없어야 한다   
+drop table을 해준다. 너무 많으므로 laravelblog를 데이터베이스를 선택 후에  
+Structure 탭을 선택한 후에 테이블들을 체크박스로 선택을 해준다음에 (check all)    
+with selected: 선택 창을 고른 후에 drop을 해준다
+
+그리고 나서 import 메뉴를 통해서 백업파일.sql 파일을 선택해서 백업을 진행한다   
+기본 디폴트 설정으로 import 해준다.    
 
 ## 이하 라라벨 9 및 다른 트러블 슈팅은 아래 참고
 docker-laravel-docker-compose첫_설치_후_첫_셋팅_v1.md
