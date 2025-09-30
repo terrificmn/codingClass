@@ -1,8 +1,7 @@
 ## 로그인은 할 수 없는 상태로 만들기
 ```
-$sudo usermod /sbin/nologin ftpuser
+$sudo usermod -s /sbin/nologin ftpuser
 ```
-혹시 안되면 -s 옵션을 붙인다. (인자)   
 
 아무튼 이렇게 되면 유저는 그대로 남아있지만 로그인은 할 수 없는 상태가 된다     
 (로그인화면도 안나옴)

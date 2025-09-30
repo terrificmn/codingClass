@@ -328,5 +328,82 @@ with selected: 선택 창을 고른 후에 drop을 해준다
 그리고 나서 import 메뉴를 통해서 백업파일.sql 파일을 선택해서 백업을 진행한다   
 기본 디폴트 설정으로 import 해준다.    
 
+## 서버에서 적용시에 ssl https 로 최초 인증서 받기
+.env 파일에서 `CONF_STATUS=prod` 를 dev로 변경을 해준다.  
+그리고 다시 `docker compose up` 를 실행
+
+docker compose up을 함과 동시에 certbot 디렉토리가 생성이 됨   
+ls를 해보면 certbot이 생겼을 것 임 (.gitignore 에 추가되어 있음)  
+
+이제 인증서 발급 실행 하는데 도커 컨테이너로 실행을 한다
+```
+docker compose run --rm certbot certonly --webroot --webroot-path /var/www/certbot/ -d example.com
+```
+> example.com 부분에 자신의 도메인을 쓴다
+
+그러면 
+```
+Enter email address (used for urgent renewal and security notices)   
+ (Enter 'c' to cancel): 
+```
+적어준다
+
+그 다음에 Please read the Terms of Service 에 동의를 해준다
+Y 를 눌러준다
+
+그 다음은
+email address 를 the Electronic Frontier Foundation에 쉐어해줘서 
+EFF news, campaigns 등을 메일로 보내준다는 것   
+이거는 optional이니깐 N 까지 해주면 
+
+```
+Successfully received certificate.
+Certificate is saved at: /etc/letsencrypt/live/qspblog.com/fullchain.pem
+Key is saved at:         /etc/letsencrypt/live/qspblog.com/privkey.pem
+This certificate expires on 2022-09-04.
+These files will be updated when the certificate renews.
+```
+
+certificates 이렇게 생성이 되었다.
+
+이제 웹 브라우저에 https: 붙이게 되면 웹서버를 찾지 못하므로  
+다시 .env 파일에서 `CONF_STATUS=dev` 를 prod로 변경을 해준다.  
+```
+`CONF_STATUS=prod`
+```
+
+그리고 nginx_conf/default_prod.conf 의 파일을 열어준다
+```
+vi nginx_conf/default_prod.conf
+```
+
+> 아래 내용은 처음 깃 허브에서 클론하고 적용할 때 처음만 바꿔주면 되고 server에서 commit는 최대한 자제하자  
+> default_dev.conf 는 변경할 필요 없음  
+
+여기에서 server_name 등은 바꿔줘야 한다 (내 도메인으로 이름으로 )  
+
+주석으로 바꿔야 한다고 표시된 부분을 모두 바꿔준다.   
+먼저 첫 번째 server {} 블럭 내용에서 server_name을 바꾼다 (내 도메인 네임으로)  
+그리고 두 번째 server {} 블럭의 server_name 변경,   
+ssl_certificate, ssl_certificate_key 경로 중 example.org 경로도 변경 (도메인 이름)  
+ 
+`예: server_name qspblog.com`   
+```
+server_name qspblog.com; ## your server name
+
+ssl_certificate /etc/letsencrypt/live/qspblog.com/fullchain.pem;  
+ssl_certificate_key /etc/letsencrypt/live/qspblog.com/privkey.pem; 
+```
+저장을 한 후에 다시
+
+`docker compose up` 을 해준다  
+> 이때 certbot 디렉토리안에 conf/live/renewal/ 에 보면 conf 파일이 내 도메인 이름으로 변경되어 있다.
+
+
+
+웹 브라우저에 http://도메인이름.com 으로 하면 자동으로 https://도메인이름.com 으로 넘어가고   
+
+주소창 옆에 connection secure 아이콘으로 바뀐다 
+
 ## 이하 라라벨 9 및 다른 트러블 슈팅은 아래 참고
 docker-laravel-docker-compose첫_설치_후_첫_셋팅_v1.md
