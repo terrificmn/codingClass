@@ -19,6 +19,13 @@ mysql에 들어갈 수가 있다
 mysql -u db유저아이디 -p
 ```
 
+mariadb 가 최신일 경우이거나, *mysql*이 없는 경우에는  
+*mysql* 명령어 대신에 *mariadb* 로 사용
+```
+mariadb -u유저아이디 -p
+```
+> -u 이후 붙여도 되고 띄어도 된다
+
 이제 비번을 물어보는데 로그인을 해준다 
 
 ```
@@ -38,6 +45,11 @@ MariaDB [mydatabase]>
 
 ```
 SELECT * FROM `users` 
+```
+
+테이블 보기
+```
+show tables
 ```
 
 id 이름 변경
