@@ -1,3 +1,10 @@
+## 이하 내용은 참고만 하고 
+appimage 관련 툴은  
+linuxdeploy-x86_64.AppImage, linuxdeploy-plugin-qt-x86_64.AppImage 을 사용하고   
+자세한 내용은  
+complete-appimage-example-Nov25-2025.tar.xz  파일을 참고 (ftp)
+
+
 # AppImage Tool
 Fedora 에서는 linuxdeploy-x86_64.AppImage 등의 패키지는 사용이 불가 하다.  
 fedora 버전이 너무 높기 때문에 그러하다..

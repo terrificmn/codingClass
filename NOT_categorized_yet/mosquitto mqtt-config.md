@@ -1,11 +1,17 @@
 # mosquitto mqtt
+apt 로 설치  
+``` 
+sudo apt install mosquitto
+```
 
-apt 로 설치 
+`sudo systemctl start mosquitto` 으로 실행  
+> 원할시 enable 도 실행
 
-TODO: 정리하기
-TODO: 실제로 안해봄;; 일단 외부에서 접속할 수 없을 경우에는 
+이렇게 하면 mqtt client 에서 사용할 경우에  
+localhost 로 접근하면 크게 문제 없이 사용할 수가 있다. (기본 설정)
 
-
+## 외부에서 접속할 시
+일단 외부에서 접속할 수 없을 경우에는  
 anonymous 와 ip 및 port를 확인해본다.  
 보통 방화벽은 아예 설정 안하면 열려 있어서 크게 문제가 없는 듯 하다.  
 
@@ -85,6 +91,6 @@ password_file /etc/mosquitto/passwd
 mosquitto -c /path/to/your/mosquitto.conf
 ```
 
-sudo systemctl restart mosquitto
+`sudo systemctl restart mosquitto`
 
 
