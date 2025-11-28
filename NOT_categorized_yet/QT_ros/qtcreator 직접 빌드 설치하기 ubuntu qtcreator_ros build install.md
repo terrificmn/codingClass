@@ -29,6 +29,10 @@ ModuleNotFoundError: No module named 'tqdm_loggable'
 python3 -m pip install tqdm-loggable
 ```
 
+의존성이 더 늘어남. 
+```
+sudo apt install libxcb-cursor-dev libxkbcommon-dev
+```
 
 > Rocky Linux 또는 Fedora 에서는  
 rocky linux 에서 직접 build.md 파일 확인하기
@@ -36,6 +40,13 @@ rocky linux 에서 직접 build.md 파일 확인하기
 깃클론
 ```
 git clone https://github.com/ros-industrial/ros_qtc_plugin.git -b devel
+```
+
+*중요* 일단 devel 브랜치도 게속 업데이트 되어 내용 및 버전이 바뀌니 특정 커밋으로 잘라내기 . 6.6 버전쯤  
+> 꼭 최신 업데이트가 필요하지 않아서...
+```
+cd ~/ros_qtc_plugin/
+git reset --hard b266e3a09e41b8285ece98e4456b99c0c24c967d
 ```
 
 setup.py 실행
@@ -47,11 +58,6 @@ cd ros_qtc_plugin
 그러면 qt base 포함, qt creator등 패키지등을 다운을 받는다.  
 >참고로 다운로드 시간이 꽤 걸리는 듯 하다...   
 
-의존성이 더 늘어남. 
-```
-sudo apt install libxcb-cursor-dev libxkbcommon-dev
-```
-
 컴파일을 함 (ros_qtc_plugin 의 root에서 실행).  
 6.6버전 일 경우
 ```
@@ -59,8 +65,49 @@ cmake -B build -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="/tmp/qtc_
 cmake --build build --target package
 ```
 
+트러블 슈팅, 각각 QtCreatorConfig.cmake 또는 Qt6Config.cmake 등으로 못 찾는다는 에러 발생 시   
+> 참고로 docker 환경에서 에러가 발생함 (아마도 일반 환경에서는 발생하지 않을 듯 하다..)
 
-예전 버전, 5.15
+```
+  Could not find a package configuration file provided by "QtCreator" with
+  any of the following names:
+
+    QtCreatorConfig.cmake
+    qtcreator-config.cmake
+
+  Could not find a package configuration file provided by "Qt6" (requested
+  version 6.2.0) with any of the following names:
+
+    Qt6Config.cmake
+    qt6-config.cmake
+```
+
+먼저 find 를 이용해서 위치를 파악 
+```
+find / -name QtCreatorConfig.cmake > result
+find / -name Qt6Config.cmake >> result
+```
+이후
+`cat result` 로 확인
+```
+/tmp/qtc-sdk/Tools/QtCreator/lib/cmake/QtCreator/QtCreatorConfig.cmake
+/tmp/qtc-sdk/Qt/6.10.0/gcc_64/lib/cmake/Qt6/Qt6Config.cmake
+/tmp/qtc-sdk/6.6.0/gcc_64/lib/cmake/Qt6/Qt6Config.cmake
+```
+> 대충 이렇게 나왔다면, Qt/6.10.0 은 처음 최신 버전으로 받아져서 다른 버전이 같이 받아진 듯 하다. 
+
+여기에서 cmake 파일이 확인 되었으므로 cmake prefix 를 지정해주면 된다. 
+예시는 `export CMAKE_PREFIX_PATH="/path/to/QtCreator/installation:$CMAKE_PREFIX_PATH"`
+
+```
+export CMAKE_PREFIX_PATH="/tmp/qtc-sdk/Tools/QtCreator/lib/cmake/QtCreator:$CMAKE_PREFIX_PATH"
+export CMAKE_PREFIX_PATH="/tmp/qtc-sdk/6.6.0/gcc_64/lib/cmake/Qt6:$CMAKE_PREFIX_PATH"
+```
+
+이후 다시 빌드를 진행하면 빌드가 된다. 
+
+
+예전 버전, 5.15~~
 ```
 cmake -B build -GNinja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PREFIX_PATH="/tmp/qtc_sdk/Tools/QtCreator;/tmp/qtc_sdk/5.15.0/gcc_64"
 cmake --build build --target package
@@ -81,13 +128,19 @@ Qt creator를 실행을 해서  Help -> About Plugins -> Install Plugin 을 해�
 ?? 하지만 Qtcreator가 없는데 ??  
 /tmp에서 만들어진 /tmp/qtc_sdk 를 통째로 복사해서 사용하면 됨
 ```
-mkdir -p ~/Qt
-cd /tmp/qtc_sdk; mv ./* ~/Qt
+mkdir -p ~/QtSDK
+cd /tmp/qtc_sdk; mv ./* ~/QtSDK/
 ```
 단,  실행파일이 심볼릭 링크가 없으므로 직접 접근해서 실행을 해야함
 ```
 cd ~/Qt/Tool/QtCreator/bin
 ./qtcreator
+```
+
+만약 이후 qtcreator 를 복사한 후에 다시 한번 export 해준다. qtcreator 실행 시 특정 프로젝트 빌드 수행 시 qt6 를 못찾을 경우  
+> 아마도 docker 환경에서만 그럴 듯 하다.;;
+```
+export CMAKE_PREFIX_PATH="~/QtSDK/6.6.0/gcc_64/lib/cmake/Qt6:$CMAKE_PREFIX_PATH"
 ```
 
 PATH 환경변수에 위의 경로를 등록해주거나, 심볼릭 링크를 만들어준다 
