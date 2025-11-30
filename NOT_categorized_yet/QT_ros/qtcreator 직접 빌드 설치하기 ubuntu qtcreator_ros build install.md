@@ -66,7 +66,9 @@ cmake --build build --target package
 ```
 
 트러블 슈팅, 각각 QtCreatorConfig.cmake 또는 Qt6Config.cmake 등으로 못 찾는다는 에러 발생 시   
-> 참고로 docker 환경에서 에러가 발생함 (아마도 일반 환경에서는 발생하지 않을 듯 하다..)
+> 참고로 docker 환경에서 에러가 발생함 (아마도 일반 환경에서는 발생하지 않을 듯 하다..)  
+!일단 docker 에서도 설정이 꼬였던 것 같다.. 일단 다시 새로운 docker 환경에서는 발생하지 않음  
+
 
 ```
   Could not find a package configuration file provided by "QtCreator" with
@@ -128,19 +130,18 @@ Qt creator를 실행을 해서  Help -> About Plugins -> Install Plugin 을 해�
 ?? 하지만 Qtcreator가 없는데 ??  
 /tmp에서 만들어진 /tmp/qtc_sdk 를 통째로 복사해서 사용하면 됨
 ```
-mkdir -p ~/QtSDK
-cd /tmp/qtc_sdk; mv ./* ~/QtSDK/
+mv /tmp/qtc-sdk/ ~/
 ```
 단,  실행파일이 심볼릭 링크가 없으므로 직접 접근해서 실행을 해야함
 ```
-cd ~/Qt/Tool/QtCreator/bin
+cd ~/qtc-sdk/Tool/QtCreator/bin
 ./qtcreator
 ```
 
 만약 이후 qtcreator 를 복사한 후에 다시 한번 export 해준다. qtcreator 실행 시 특정 프로젝트 빌드 수행 시 qt6 를 못찾을 경우  
 > 아마도 docker 환경에서만 그럴 듯 하다.;;
 ```
-export CMAKE_PREFIX_PATH="~/QtSDK/6.6.0/gcc_64/lib/cmake/Qt6:$CMAKE_PREFIX_PATH"
+export CMAKE_PREFIX_PATH="~/qtc-sdk/6.6.0/gcc_64/lib/cmake/Qt6:$CMAKE_PREFIX_PATH"
 ```
 
 PATH 환경변수에 위의 경로를 등록해주거나, 심볼릭 링크를 만들어준다 

@@ -1,4 +1,13 @@
 # AppImage qt 만들기
+아마도 appimagetool-x86_64.AppImage 를 사용해서 만든 것 같으나,  
+적용 방법을 정리하는데 실패한 듯 하다.  
+
+linuxdeploy 를 이용해서 AppImage 만드는데 성공했으므로  
+[!appimage-linuxdeploy-완성버전.md](appimage-linuxdeploy-완성버전.md) 파일을 참고하자
+
+
+## 이하는 참고
+
 appimage 가 성공적으로 빌드가 되더라도  실행을 하게 되면  
 QtQuick 등 이.. load가 안되었다며 에러가 발생  
 "QtQuick.controls" 가 못찾는 에러 발생  

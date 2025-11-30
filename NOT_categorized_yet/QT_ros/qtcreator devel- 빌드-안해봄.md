@@ -1,14 +1,19 @@
 # ubuntu에서 qtcreator_ros 버전이 안되는 경우
-결국 되기는 하나 자잘한 버그(?) 등이 있어서 ROS plugin은 따로 빌드를 해보기로 했다.  
-다만 현재 최신 버전(?)으로 작동을 해서 Qt 6.3 대로 된다  
+최신 https://github.com/ros-industrial/ros_qtc_plugin.git devel 브랜치에서는 README 가 업데이트가 되었고  
 
-[여기 참고를 한다-qtcreator-ros(developers)](https://ros-qtc-plugin.readthedocs.io/en/latest/_source/Improve-ROS-Qt-Creator-Plugin-Developers-ONLY.html)
+빌드 말고 apt 설치법도 있으니 먼저 적용해서 테스트 해보자. 
+TODO: 아직 못 해봄.  
 
-- 먼저 apt install로 설치한 qtcreator 삭제  
-- snap으로 설치한 qtcreator-ros 삭제
+[!qtcreator 직접 빌드 설치하기 ubuntu qtcreator_ros build install.md](qtcreator 직접 빌드 설치하기 ubuntu qtcreator_ros build install.md) 그냥 빌드 할려고 하면 파일을 참고하자  
 
-snap으로 설치하는 버전과 비슷 한 것 같은데 그래서 snap으로 설치하는 방법도 소개한다  
-아무래도 처음에 뭔가 꼬이지 않았으면 잘 실행이 될 것 같은데 뭔가 잘못된거 같다.  
+
+> setup.py 에서 install.py 등으로 변경되는 등.. 
+
+
+
+
+
+
 
 어쨋든   
 우분투 기준, dependencies
