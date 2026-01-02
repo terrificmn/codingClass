@@ -61,7 +61,6 @@ NetworkManager.service 재시작
 sudo systemctl restart NetworkManager
 ```
 
-
 wpa_cli 를 사용하는 대신에 *iwctl* 를 사용할 수 있다.  
 
 ```
@@ -162,6 +161,9 @@ unmanaged-devices=interface-name:wlan0
 `iw dev` 의 Interface  
 물론 컴퓨터 마다 다르므로 원하는 커맨드로 확인  
 
+> MediaTek pic-e 를 사용하는 경우에는 오히려 USB가 먼저 잡히는 경우가 생길 수 도 있어서  
+꼭 pci-e 라고 해서 먼저 잡히는 것은 아니다. 
+
 > 사실 Fedora 쪽에서는 Intel 것만 사용하면 되지만 **우분투 경우**를 참고하자   
 우분투에서는 재부팅 후 usb 장치가 잘 작동 안하는 경우가 있다. 내부 pci-e 는 잘 작동해서   
 내부 pci-e 로 wifi 가 연결이 되고 이후 usb 장치를 settings 에서 클릭을 해도  
@@ -233,9 +235,15 @@ SUBSYSTEM=="net", ACTION=="add", ATTR{address}=="30:de:90:f9:76:2d", NAME="wlan1
 ```
 > 현재는 wlan0 는 pci-e slot 에 연결되어 있는 것으로 되어 있다.  
 Mac addres도 확인하자  
+또한 인텔 wifi는 usb 보다 빨리 잡혀서 wlan0 이 되나, MediaTek 같은 경우에는 오히려 USB가 먼저 잡히는 경우가 생김  
+그래서 USB를 아예 wlanUSB 처럼 특정 문자열로 바꾸는 것도 좋다   
+NAME="wlanUSB"  
 
 udevadm 을 적용해준다.  
-`sudo udevadm control --reload`
+```
+sudo udevadm control --reload
+sudo udevadm trigger
+```
 
 (재부팅) 확인 시 
 
