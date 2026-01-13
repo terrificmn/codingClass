@@ -187,9 +187,7 @@ local_enable=YES
 write_enable=YES
 local_umask=022
 dirmessage_enable=YES
-xferlog_enable=YES
 connect_from_port_20=YES
-xferlog_std_format=YES
 listen=NO
 listen_ipv6=YES
 pam_service_name=vsftpd
@@ -213,6 +211,11 @@ ssl_ciphers=HIGH
 allow_anon_ssl=NO
 force_local_data_ssl=YES
 force_local_logins_ssl=YES
+# logs
+xferlog_enable=YES
+xferlog_std_format=YES
+vsftpd_log_file=/var/log/vsftpd.log
+dual_log_enable=YES
 ```
 
 - rsa_cert_file, rsa_private_key_file 경로를 각각 잘 넣어준다   
@@ -223,6 +226,16 @@ force_local_logins_ssl=YES
 vsftpd가 조금 불편한게 파라미터의 글자가 조금 틀리거나, 또는 파일 경로가 안맞는 경우  
 무시하고 기본값으로 실행되는 것이 없는 듯 하다. 그냥 vsftpd가 실행이 안 되게 된다.
 
+*# logs* 이하를 적용할 시에 /var/log/vsftpd.log 지정하면 로그가 좀 더 자세하게 기록된다. 
+```
+Tue Jan  6 22:34:51 2026 [pid 6272] [myuser] OK DOWNLOAD: Client "174.113.211.48", "/mqtt-issue-question", 810 bytes, 52.56Kbyte/sec
+Tue Jan  6 22:35:07 2026 [pid 6069] [myuser] OK DELETE: Client "174.112.211.48", "/mqtt-issue-question"
+Tue Jan  6 22:35:51 2026 [pid 6267] [myuser] DEBUG: Client "174.112.211.48", "Control connection terminated without SSL shutdown."
+Tue Jan  6 22:35:53 2026 [pid 6069] [myuser] OK DELETE: Client "174.112.211.48", "/rc.local-files-Dec22-2025.tar.xz"
+Tue Jan  6 22:35:59 2026 [pid 6069] [myuser] OK DELETE: Client "174.112.211.48", "/rc.local-files-Nov28-2025.tar.xz"
+Tue Jan  6 22:36:31 2026 [pid 6312] CONNECT: Client "174.112.211.48"
+Tue Jan  6 22:36:31 2026 [pid 6311] [myuser] OK LOGIN: Client "174.112.211.48"
+```
 
 ### 방화벽 허용
 없다면 설치 `sudo apt install ufw`
