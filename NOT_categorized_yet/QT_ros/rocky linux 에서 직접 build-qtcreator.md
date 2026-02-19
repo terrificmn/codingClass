@@ -68,6 +68,14 @@ find_package(Qt6 REQUIRED COMPONENTS Core Quick Widgets)
 ```
 이 정도로 사용할 수 있다.
 
+## fedora 43 Development Tools  
+sudo dnf group install development-tools  
+그룹인스톨 사용 실패시에   
+`sudo dnf group install "Development Tools"` 이게 안될 경우 사용한다   
+
+`sudo dnf install gcc-c++ make cmake`
+
+
 ___  
 ___  
 ## ONLY 참고 

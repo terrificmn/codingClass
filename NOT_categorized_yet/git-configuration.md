@@ -31,6 +31,10 @@ $git 명령어 --help
 또는 
   $git config --global core.editor "code"
 
+vim 또는 vi를 등록하는 경우  
+git config --global core.editor "vim"
+
+
 **참고: 
 예를 들어, "code --wait"은 vscode 의미하고, "atom --wait"는 아톰 에디터임
 
