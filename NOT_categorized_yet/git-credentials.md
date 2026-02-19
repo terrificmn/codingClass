@@ -32,3 +32,6 @@ empty 스트링으로 만들어서 사용하게 한다.
         url = https://my-github-id:ghp_Ely-token@github.com/github-id/package.git
         fetch = +refs/heads/*:
 ```
+
+url 만 넣어주면 token을 물어보게 된다. 
+
