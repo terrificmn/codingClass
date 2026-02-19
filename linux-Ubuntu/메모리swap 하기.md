@@ -27,13 +27,17 @@ Filename				Type		Size		Used		Priority
 /dev/zram0                              partition	8388604		0		100
 ```
 이미 파티션으로 추가를 한 것이라 type이 partition이 나오고,  
-파티션이 아니라면 file 이라고 나온다. 
+파티션이 아니라면 file 이라고 나온다.  
+
+이미 파티션이 있다면 필요한 용량 만큼만 더 추가로 만들어주면 된다.  예를 partition 이 8G 있고, 추가로 8G가 더 필요하면  
+아래 8G 를 더 추가해서 만들어 주면 됨  
 
 
 # Allocate 1GB (or more if you wish) in /swapfile
 ```
 sudo fallocate -l 1G /swapfile
 ```
+> 원하는 용량 만큼 8G or 16G
 
 # Make it secure
 ```
@@ -62,6 +66,13 @@ sudo swapon -s
 > 또는 `free -h` 해보면 swap 메모리가 파티션에 추가되어 있던 것 까지 합쳐서 용량이 확보 되어 있다.   
 system monitor 프로그램이나, htop 등에서도 확인 가능
 
+예, 추가된 내용은 Type 이 file 로 표시됨  
+```
+$ sudo swapon -s
+Filename				Type		Size		Used		Priority
+/dev/zram0                              partition	8388604		0		100
+/swapfile                               file		8388604		0		-2
+```
 
 # Configure fstab to use swap when instance restart
 ```
