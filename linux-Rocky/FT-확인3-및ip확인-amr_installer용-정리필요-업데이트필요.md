@@ -432,6 +432,8 @@ Address=192.168.11.115/24
 Broadcast=192.168.11.255
 Gateway=192.168.11.1
 DNS=8.8.8.8
+IPv6AcceptRA=no
+IgnoreCarrierLoss=yes
 
 [Route]
 # Lower number = Higher priority
@@ -456,6 +458,7 @@ DNS=1.1.1.1
 DNS=8.8.8.8
 ```
 
+> eno1 로 할경우도 있고, enp3s0 으로 할 경우도 있다, device interface를 확인해야할 듯 하다.  
 > 일단 Gateway는 지정 안하고 사용 , windows와 사용이 잘 된다. 
 
 
@@ -464,15 +467,23 @@ sudo systemctl enable systemd-networkd
 sudo systemctl restart systemd-networkd
 ```
 
-
 일단 재부팅을 해도 크게 문제가 없다.  
 
+lo 확실히 보장하기,   
+*00-lo.network* 파일을 만들어 준다. (/etc/systemd/network/이하)  
 
-권장은 
-[General]
-EnableNetworkConfiguration=false
+```
+[Match]
+Name=lo
 
-라고 하는데, 일단 사용하지 않음, iwd가 true 해서 사용하고 있기 때문
+[Route]
+Destination=224.0.0.0/4
+Scope=link
+```
+
+> Destiantion은 저렇게 정의된 주소  
+
+
 
 ip addr 
 ```
@@ -482,4 +493,31 @@ ip addr
        valid_lft 42306sec preferred_lft 42306sec
     inet6 fe80::21f:5ff:fe66:a8e0/64 scope link 
        valid_lft forever preferred_lft forever
+```
+
+
+iwd 설정 중에  /etc/iwd/main.conf  
+*EnableNetworkConfiguration=false*
+
+false 로 사용하자  
+
+> 일단 iwd 에서 true 로 지정해서 사용할 수 있지만,  크게 문제는 안되지만,  
+간혹 systemd-networkd 와 충돌이 날 경우가 있다, 이럴 경우에 ssh 로 외부에서 접속이 안되는 현상이 발생하는 듯 하다. (관련이 있어 보인다. )   
+접속은 안되지만, 통신 자체에 문제는 없는 듯 하다.wifi  
+ 
+어차피, ip를 고정으로 사용하는 경우이므로 온전하게 systemd-networkd 에 ip 관련해서 맞겨 버리고,   
+**wifi 관련해서 iwd 에서 사용할 수 있게 해주자**  
+
+```
+[General]
+## let systemd-networkd handle the IP, iwd for only Wi-Fi
+EnableNetworkConfiguration=false
+RoamThreshold=-62
+RoamThreshold5G=-64
+
+[Network]
+NameResolvingService=systemd
+
+[Blacklist]
+phy=phy1
 ```
