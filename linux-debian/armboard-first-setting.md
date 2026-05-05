@@ -18,6 +18,16 @@ systemctl enable ssh.service
 systemctl start ssh.service
 ```
 
+## power setting & lock screen
+plasma desktop 를 사용하는 경우에는 system setting 을 찾아서  
+모니터 관련은 Power Management > Energy Saving 에서 설정해주면 된다.  
+    - Screen Energy Saving 에서 시간 설정 정도 해주면 되고,  
+
+별개로 screen lock 이 걸리는 시간 설정은  
+Workspace Behavior > Screen Locking 에서  
+Lock screen automatically 에서 시간 설정을 해주면 된다.  
+> Lock screen 설정 찾는데 오래 걸려서 기록해둠
+
 ## vnc
 vnc는 ubuntu 22 만큼 까다롭지 않고 그냥 설치만 해주면 잘 작동한다  
 

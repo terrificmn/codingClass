@@ -378,3 +378,34 @@ set ssl:ca-file "/home/myuser/.lftp/my-certificate.crt"
 ```
 Fatal error: Certificate verification: certificate common name doesn't match requested host name ‘43.23.21.33’ 
 ```
+
+
+## 갑자기 잘 실행되고 있던 vsftpd가 종료됨;
+```
+● vsftpd.service - vsftpd FTP server
+   Loaded: loaded (/lib/systemd/system/vsftpd.service; enabled; vendor preset: e
+   Active: failed (Result: exit-code) since Sat 2026-02-28 13:47:03 KST; 17min a
+  Process: 852 ExecStartPre=/bin/mkdir -p /var/run/vsftpd/empty (code=exited, st
+  Process: 863 ExecStart=/usr/sbin/vsftpd /etc/vsftpd.conf (code=exited, status=
+ Main PID: 863 (code=exited, status=2)
+```
+
+journalctl log 확인하기  
+`sudo journalctl -xe | grep vsftpd`  
+
+```
+Feb 28 13:46:59 myuser systemd-tmpfiles[389]: [/usr/lib/tmpfiles.d/vsftpd.conf:1] Line references path below legacy directory /var/run/, updating /var/run/vsftpd/empty → /run/vsftpd/empty; please update the tmpfiles.d/ drop-in file accordingly.
+Feb 28 13:47:03 myuser systemd[1]: vsftpd.service: Failed with result 'exit-code'.
+```
+
+일단, 
+
+없다면 
+`sudo mkdir -p /var/run/vsftpd/empty`
+
+이미 만들어져 있었으나, drwxr-xr-x 2 root root 40 Feb 28 13:46 empty  
+755 였음, 555로 바꿔준다.
+
+`sudo chmod 555 /var/run/vsftpd/empty`
+
+그리고 vsftpd 를 restart 해준다. 
