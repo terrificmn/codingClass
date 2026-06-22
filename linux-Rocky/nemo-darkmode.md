@@ -1,4 +1,5 @@
 ## nemo 설치
+fedora 42 에서 적용
 ```
 sudo dnf install nemo
 ```

@@ -13,15 +13,37 @@ sudo dnf install make gcc bc \
   kernel-headers-$(uname -r)
 ```
 
+> 일단 페도라 워크스테이션 44 에서는 uname -r 즉, 7.0.12-201.fc44.x86_64 에 해당하는 kernel-headers 버전이 없다.  
+일단 다른것은 다 설치해주고, (devel 은 있음)  header만 빼고 진행한다. 다행히 진행이 가능함  
+(참고) fedora 42에서는 kernel-headers- 도 버전에 맞게 설치가 가능했음.  
+
 클론
 ```
 git clone https://github.com/morrownr/rtl8852cu-20240510.git
 cd rtl8852cu-20240510
 ```
 
+`sudo ./install-driver.sh` 하게 되면 컴파일 시작   
+컴파일이 완료되면 option 설정 화면까지 나왔다면 성공  
 
-컴파일이 완료되면 option 설정화면까지 나왔다면 성공  
+여기에서 바로 설정해주자. 아래는 참고만 하자.  추후 변경도 가능  
+처음에 options 8852cu rtw_switch_usb_mode=0 요렇게 설정이 되어 있는데 
+이후 아래 처럼 변경해주고 저장.
+```
+options 8852cu rtw_switch_usb_mode=0 rtw_power_mgnt=0 rtw_ips_mode=0 rtw_drvextra_ips_mode=0 rtw_runtime_pm_enable=0
+```
+재부팅을 해준다.
 
+이제 와이파이를 연결하면 잘 연결이 된다.  
+조금 반응이 느린듯 하지만, 인터넷은 잘 된다.  
+~~페도라 42 에서는 wpa 를 중지하고(안되서) iwd로 사용했는데, 흠.. 이번에는 iwd 없이도 잘 됐다.~~  
+
+이번에도 처음에만 잘 되고, 재부팅을 하면 연결을 하지 못한다.  
+iwd 로 설치하고, backend 설정해주고  
+
+wpa_supplicant 를 stop, disable & mask 까지 해주자.  
+
+## 트러블 슈팅 (참고)
 Wifi가인식이 되지만 계속 flickering 현상이 있다. 꺼졌다가 켜졌다가..  
 결국 원인은 옵션  
 
