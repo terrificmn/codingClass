@@ -18,12 +18,11 @@ Exiting... (Errors when loading file)
 ```
 sudo dnf install openh264 mozilla-openh264
 ```
+> 기본적으로 설치가 되어 있는 openh264 mozilla-openh264 되어 있을 경우가 있는데  
+이렇게 해도 잘 안될 경우가 있음  
 
-## openh264 mozilla-openh264 경우로 해결이 안 되는 경우
 이걸로 안될 경우에는 다시 지우고 rpmfusion repo로 해본다
-```
-sudo dnf remove openh264 mozilla-openh264
-```
+`sudo dnf remove openh264 mozilla-openh264` 설치가 되어 있었다면 지울 필요는 없는 듯 하다.  
 
 ## libavcode-freeworld 설치 (추천)
 웬만한 **h264 영상은 잘 재생** 해주는 듯 하다  
@@ -46,7 +45,7 @@ sudo dnf install \
 
 > $(rpm -E %fedora) 40 버전의 rpm fusion   
 (워크스테이션 42기준) Fedora 41, 42 버전도 있다고 하지만 (의존성이 해결되지 않아서) 잘 되지 않는다.  
-다행히 40 버전 리포 등록으로도 코덱 설치가 잘 된다.  
+다행히 40 버전 리포 등록으로도 코덱 설치가 잘 된다. Fedora 44 버전도 잘 된다.  
 
 
 이후 **libavcode-freeworld** 설치
@@ -70,6 +69,17 @@ libpostproc-free, libswresample-free, libswscale-free
 > Optional  
 input/Codes 설정에서 Hardware-accelerated decoding 을 Disable 시켜서 테스트  
 
+## 페도라 ffmpeg-free swap 하기
+> 참고 libavcodec-freeworld 설치로 크게 문제가 없어서 일단,  
+딱히 필요 하지는 않아서 아직 안 해봄  
+
+fedora 의 ffmpeg-free 버전을 아예 libavcodec-freeworld 교체하기  
+RPM Fusion version 으로 변경하는 방법  
+```
+sudo dnf swap ffmpeg-free ffmpeg --allowerasing
+```
+
+이렇게 하면 ffmpeg-free 및 libavcodec-free 을 제거하고 ffmpeg 로 대체하게 된다.  
 
 ## speed 변경 하기
 기본 명령어는   
