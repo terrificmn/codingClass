@@ -1,52 +1,31 @@
 qtcreator-ros를 빌드를 설치하기 위한 dependencies 이지만..
 
 ## dependencies 설치
+빌드 할 경우에 설치, 어차피 개발 도구들을 다 필요하니깐 설치해주는 것도 나쁘지 않을 듯 하다.  
+
+Fedora 40 이후, ~~Rocky Linux 9.0 이상에서 설치할 경우~~
 ```
 sudo dnf install mesa-libGL-devel ninja-build yaml-cpp-devel utf8proc-devel 
-```
-
-Rocky Linux 9.0 이상에서 설치할 경우
-
-```
-sudo dnf install mesa-libGL-devel yaml-cpp-devel
-sudo dnf --enablerepo=crb install ninja-build
-sudo dnf --enablerepo=crb install utf8proc-devel
 sudo dnf install libxkbcommon-devel
 sudo dnf install cmake g++
 sudo dnf install vulkan-loader-devel
 sudo dnf install python3-pip
-python3 -m pip install pyyaml requests py7zr
-```
-
-Fedora 40 기준, 
-```
-sudo dnf install mesa-libGL-devel ninja-build utf8proc-devel vulkan-loader-devel libxkbcommon-devel
-```
-> 거의 처음 인스톨 후 다른 것들이 설치가 안되어 있는 경우  
-로 설치 가능했음, (다른 enablerepo 할 필요없었음)  
-
-단, 파이썬 몇개의 라이브러리는 필요  
-```
 python3 -m pip install pyyaml requests py7zr tqdm-loggable
 ```
-이 정도면 py 실행이 되어 다운로드가 된다. 
+
+> 거의 처음 인스톨 후 다른 것들이 설치가 안되어 있는 경우  
+이 정도면 py 실행이 되어 다운로드가 된다.  
+
+## 빌드 또는 dnf 사용
+3가지 방법 중 선택하기  
+
+1. dnf 로 쉽게 패키지 설치하기   
+2. 이미 빌드 되어 있는 패키지 복사해서 사용  
+3. 빌드를 하려면 특정 커밋으로 돌아가서 이후에 사용   
 
 
-### 잠깐! Fedora 42
-기존 설치한 Qt 6.7.0 버전이 잘 동작을 안함   
-이상 증상 :
-```Qt policy QTP0001 is not set: ':/qt/qml/' is the default resource prefix for QML modules
-```
-물론 6.7 부터는 내 패키지에서 qt/qml/ qml 파일을 넣어서 사용할 수가 있으나,   
-기본 설정을 안사용해도 무방하다. 그래서 별 문제가 발생을 안 했으나,   위의 워닝 부터 시작해서   
-```
-multiple definition of QtPrivate::IsFloatType_v<_Float16>
-```
-에러 발생.. 이것은 기존에 설치되어 있는 qt 버전에서 (이후 페도라 42로 업글)하면서 이상해진것 일 수도 있다.
-
-*암튼* 그래서 Fedora dnf 로 받아서 사용할 수 있으니 dnf로 받아서 사용하자!
-
-> 참고로 위의 dependenceis 는 딱히 설치할 필요는 없는 듯 함.. 필요시 설치
+### 1. dnf 설치
+Fedora dnf 로 받아서 사용할 수 있으니 dnf로 받아서 사용하자!
 
 qt6 및 quick (Full QML/Quick Setup)
 ```
@@ -67,6 +46,48 @@ CMakeLists.txt 에서는
 find_package(Qt6 REQUIRED COMPONENTS Core Quick Widgets)
 ```
 이 정도로 사용할 수 있다.
+
+## 2. 기본 파일 사용하기
+/third_parties/qtc-sdk 를 복사해서 사용   
+> 디펜던시 프로그램들이 필요할 수도 있다. 테스트 필요
+
+아니면 ros_qtc_plugin 도 복사해서 사용, 페도라에서는 딱히 ros를 사용하지 않으므로 ros_qtc_plugin 까지는 필요 없을 듯   
+
+
+
+## 3. buld 
+깃클론
+```
+git clone https://github.com/ros-industrial/ros_qtc_plugin.git -b devel
+```
+
+*중요* 일단 devel 브랜치도 게속 업데이트 되어 내용 및 버전이 바뀌니 특정 커밋으로 잘라내기 . 6.6 버전쯤  
+> 꼭 최신 업데이트가 필요하지 않아서...
+```
+cd ~/ros_qtc_plugin/
+git reset --hard b266e3a09e41b8285ece98e4456b99c0c24c967d
+```
+
+setup.py 실행
+```
+cd ros_qtc_plugin
+./setup.py
+```
+
+그러면 qt base 포함, qt creator등 패키지등을 다운을 받는다.  
+>참고로 다운로드 시간이 꽤 걸리는 듯 하다...   
+
+컴파일을 함 (ros_qtc_plugin 의 root에서 실행).  
+6.6버전 일 경우
+```
+cmake -B build -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="/tmp/qtc_sdk/Tools/QtCreator;/tmp/qtc_sdk/6.6.0/gcc_64"
+cmake --build build --target package
+```
+
+> 만약 qtc_sdk 위치가 다르다면 패스만 변경해서 다시 빌드를 해준다.   
+어차피 ros 플러그인으로 사용할 때만 빌드해주면 된다.  꼭 필요하지는 않다.   
+예) `-DCMAKE_PREFIX_PATH="/home/myuser/my-path/qtc-sdk/Tools/QtCreator;/home/myuser/my-path/qtc-sdk/6.6.0/gcc_64`  
+
 
 ## fedora 43 Development Tools  
 sudo dnf group install development-tools  
