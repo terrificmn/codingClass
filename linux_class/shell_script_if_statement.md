@@ -153,3 +153,23 @@ else
     exit
 fi
 ```
+
+
+## directoy 확인 및 file 확인
+*-d, -f* 각 옵션으로 확인이 가능하다.  
+
+directory 는 -d
+
+```
+if [ -d "path-directory" ]; then
+    echo "found"
+fi
+```
+
+file은 -f
+```
+if [ -f "path/my_file" ]; then
+    echo "found"
+fi
+```
+
