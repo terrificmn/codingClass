@@ -9,7 +9,12 @@ sudo dnf install vsftpd
 vsftpd.conf 파일 설정
 `/etc/vsftpd/vsftpd.conf`
 
+> 우분투 /etc/vsftpd.conf
+
 ```
+listen=YES
+listen_ipv6=NO
+
 # Disable anonymous users
 anonymous_enable=NO
 
@@ -68,6 +73,10 @@ sudo firewall-cmd --reload
 
 systemctl stop vsftpd.service 
 ```
+
+> 우분투 같은 경우에는 ufw 확인해본다  
+`sudo status ufw` 했을 경우 inactive 면 쉽게 테스트 할 수 있다. 
+
 
 
 
