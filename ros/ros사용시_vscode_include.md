@@ -37,6 +37,20 @@ ROS 패키지는 잘 못 찾을 때가 있는 듯 하다.
 또는 `#include 헤더파일.hpp` 부분에 에러표시인 지렁이가 표시되면 그곳을 클릭하면 ? 아이콘을 눌러서 진행할 수도 있는데   
 이 경우에도 include 패스를 입력하는 부분에 위의 json으로 입력했던 것 처럼 경로를 입력해주면 된다   
 
+## ros2 docker container 일 경우
+vscode 
+```json
+{
+  ### .... 생략
+  "includePath": [
+                "${workspaceFolder}/**",
+                "/usr/local/include",
+                "/opt/ros/jazzy/include/**"
+            ],
+}
+```
+요거 2개 정도면, 일단 ros2 는 잘 찾아준다.
+
 
 ### intelligence가 작동 안 할 때
 ~~ 물론 vscode 설정에서는 패키지 다이렉트의 include 디렉토리 이하 /** 로 포함해서 딱 include/**까지만 해주면 된다 ~~
