@@ -17,6 +17,33 @@
 sudo apt install ibus-hangul im-config zenity
 ```
 
+## debian 11 에러
+위의 인스톨이 실패할 경우가 있다.  
+
+```
+Err:1 http://security.debian.org bullseye-security/main arm64 libjavascriptcoregtk-4.0-18 arm64 2.50.6-1~deb11u1
+  404  Not Found [IP: 151.101.2.132 80]
+E: Failed to fetch http://security.debian.org/pool/updates/main/w/webkit2gtk/libjavascriptcoregtk-4.0-18_2.50.6-1%7edeb11u1_arm64.deb  404  Not Found [IP: 151.101.2.132 80]
+E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
+```
+
+apt list 를 변경 `sudo vi /etc/apt/sources.list`  
+
+기존것을 주석처리하고 아래 내용을 추가
+```
+## deb http://security.debian.org/ bullseye/updates main
+deb http://security.debian.org/debian-security bullseye-security main contrib non-free
+```
+
+이후 
+```
+sudo apt clean
+sudo apt update
+sudo apt install libwebkit2gtk-4.0-37 libjavascriptcoregtk-4.0-18
+```
+이렇게 해주면 다시 설치가 잘 된다.  
+
+## 실행
 처음 실행은 im-config를 해준다
 ```
 im-config

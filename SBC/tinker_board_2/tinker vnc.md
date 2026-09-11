@@ -7,6 +7,10 @@ OS 버전은
 단, ubuntu-desktop,  ubuntu-gnome-desktop 은 설치하지 않는다.  
 대신  lxde 설치하는데 아마 설치가 되어 있다고 나올 것임. 
 
+```
+sudo apt install lxde task-lxde-desktop
+```
+
 > 기본으로 사용하고 있는게 lxde 데스크탑
 
 설치는 비슷하다,
@@ -26,6 +30,7 @@ dbus-launch --exit-with-session &
 lxde를 실행할 수 있게 해준다. 기존의 xstartup으로 실행을 하면 클라이언트에서 접속했을 경우 검은 화면만 보이게 된다   
 
 또는 아래의 명령으로도 서버를 시작할 수 있다.  
+> vncserver 시작이 안 될 경우
 
 ```
 vncserver -xstartup /usr/bin/startlxde :1 -localhost -geometry 1024x768 -depth 24
