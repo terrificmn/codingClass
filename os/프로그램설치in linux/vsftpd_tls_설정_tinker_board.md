@@ -55,7 +55,8 @@ local_root=/home/$USER
 결국 chroot_local_user와 같이 사용해야함.  
 
 - local_root 는 홈 유저의 디렉토리를 다 사용하거나, 아니면 특정 디렉토리를 만들어 고정  
-- chroot_local_user 와 같이 사용하면 해당 유저 디렉토리를 ftp상에서 /로 고정할 수가 있다.  
+- chroot_local_user 와 같이 사용하면 해당 유저 디렉토리를 ftp상에서 /로 고정할 수가 있다.   
+- local_root 와 user_sub_token 은 같이 사용해야함 (500 OOPS: cannot change directory:/home/$USER) $USER 문자열 그대로 입력이 되는 듯 하다.    
 - allow_writeable_chroot가 없다면 접속 시 에러가 난다.(chroot_local_user와 세트)   
 즉 ftp유저의 디렉토리를 고정 시키려면 위의 설정 처럼 해주면 되고 local_root 만 따로 잘 지정하면 된다.  
 
