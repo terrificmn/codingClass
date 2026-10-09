@@ -14,3 +14,12 @@ mosquitto 등에서는 시간 로그를 활성화 했다면은 특정 시간대�
 `journalctl --since "1 hour ago" --until "30 minutes ago"`
 
 
+## journalctl 시작 시간
+dmesg logs 를 모두 복사해서 journal 에서 사용할 수 있게 하는데,  
+
+`sudo dmesg` 로 로그를 보려고 할 때 너무 많은 에러 로그 때문에 시작 부분 또는 문제 발생 전의 로그를 
+못 볼 경우가 있는데 이때에는 journalctl -k -b 의 옵션을 사용해서 사용하면 된다. 
+
+```
+journalctl -k -b 0
+```
